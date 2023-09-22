@@ -10,5 +10,6 @@ We derived the CARTEx signature from in-house experiments involving functional C
 
 (add table of experiment IDs and descriptions)
 
+Note, we do not include the raw or processed data for these experiments, as the file sizes are far too large. However, our scripts for preparing and exploring the datasets are shared in this repository. Publicly-available experiments can be downloaded from the Gene Expression Omnibus (GEO).
 
 
