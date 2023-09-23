@@ -8,9 +8,17 @@ Preprint: coming soon...
 
 Publication: coming soon...
 
-## Datasets
+## Experiments
 
 We derived the CARTEx signature from in-house experiments comparing highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. We then applied the CARTEx signature to both in-house and publicly available experiments.
+
+General procedure:
+
+1. Prepare datasets and filter cells based on
+2. Calculate signatures
+3. Visualize dataset and organize based on metadata
+
+### Datasets
 
 | Identifier | Experiment | Study |
 |:----------:|------------|-------|

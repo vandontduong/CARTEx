@@ -1,9 +1,22 @@
 
 
 
+## Navigating Sherlock
+
+[Sherlock](https://www.sherlock.stanford.edu/docs/#welcome-to-sherlock) is a high-performance computing (HPC) cluster at Stanford University. It offers interactive compute environment and storage for researchers.
+
+RStudio Server Settings
+
+R version: R/4.2.0
+
+Additional modules: biology physics geos/3.6.2 hdf5/1.12.2
+
 ## Housekeeping
 
-# Saving /construction/data/ files
+
+
+
+### Saving /construction/data/ files
 https://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf
 
 ### Installing reference data
