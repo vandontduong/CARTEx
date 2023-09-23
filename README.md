@@ -4,7 +4,9 @@
 
 This is the github repository for the CARTEx signature project. Pre-processing and analyses were performed using [Seurat](https://satijalab.org/seurat/) and custom pipelines written in [R](https://www.r-project.org/).
 
+Preprint: coming soon...
 
+Publication: coming soon...
 
 ## Datasets
 
