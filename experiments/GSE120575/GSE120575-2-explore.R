@@ -119,7 +119,6 @@ generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_umap_sig_anergy',
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_umap_sig_stemness', sep = ''))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_umap_sig_senescence', sep = ''))
 
-
 ####################################################################################################
 ############################################ More plots ###########################################
 ####################################################################################################

@@ -7,6 +7,9 @@ setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experime
 
 library(Seurat)
 library(ggpubr)
+library(ggplotify)
+library(stringr)
+library(dplyr)
 
 
 ####################################################################################################
@@ -160,6 +163,12 @@ scores <- expr %*% as.matrix(weights)
 CART.combined.CD8pos@meta.data$CARTEx_630 <- Z(scores)
 CART.combined.CD8pos@meta.data$CARTEx_630i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_630)
 
+CART.combined.CD8pos@meta.data$CARTEx_630_repcount <- rowSums(expr > 0)
+CART.combined.CD8pos@meta.data$CARTEx_630_reppercent <- CART.combined.CD8pos@meta.data$CARTEx_630_repcount / 630
+
+scatterplot_CARTEx_630_representation <- FeatureScatter(CART.combined.CD8pos, feature1 = 'CARTEx_630', feature2 = 'CARTEx_630_reppercent', shuffle = TRUE, seed = 123)
+generate_figs(scatterplot_CARTEx_630_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_630_representation', sep = ''))
+
 # CARTEx with weights // 200 genes
 cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
 common <- intersect(rownames(cartex_200_weights), rownames(CART.combined.CD8pos))
@@ -168,6 +177,12 @@ weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
 scores <- expr %*% as.matrix(weights)
 CART.combined.CD8pos@meta.data$CARTEx_200 <- Z(scores)
 CART.combined.CD8pos@meta.data$CARTEx_200i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_200)
+
+CART.combined.CD8pos@meta.data$CARTEx_200_repcount <- rowSums(expr > 0)
+CART.combined.CD8pos@meta.data$CARTEx_200_reppercent <- CART.combined.CD8pos@meta.data$CARTEx_200_repcount / 200
+
+scatterplot_CARTEx_200_representation <- FeatureScatter(CART.combined.CD8pos, feature1 = 'CARTEx_200', feature2 = 'CARTEx_200_reppercent', shuffle = TRUE, seed = 123)
+generate_figs(scatterplot_CARTEx_200_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_200_representation', sep = ''))
 
 # CARTEx with weights // 84 genes
 cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
@@ -178,6 +193,11 @@ scores <- expr %*% as.matrix(weights)
 CART.combined.CD8pos@meta.data$CARTEx_84 <- Z(scores)
 CART.combined.CD8pos@meta.data$CARTEx_84i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_84)
 
+CART.combined.CD8pos@meta.data$CARTEx_84_repcount <- rowSums(expr > 0)
+CART.combined.CD8pos@meta.data$CARTEx_84_reppercent <- CART.combined.CD8pos@meta.data$CARTEx_84_repcount / 84
+
+scatterplot_CARTEx_84_representation <- FeatureScatter(CART.combined.CD8pos, feature1 = 'CARTEx_84', feature2 = 'CARTEx_84_reppercent', shuffle = TRUE, seed = 123)
+generate_figs(scatterplot_CARTEx_84_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_84_representation', sep = ''))
 
 ####################################################################################################
 ########################################### Module scoring #########################################
@@ -233,7 +253,6 @@ CART.combined.CD8pos@meta.data$Signature4 <- NULL
 saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
 
 head(CART.combined.CD8pos)
-
 
 
 
