@@ -143,6 +143,8 @@ pbmcref_CD8T <- subset(x = pbmcref, idents = c("CD8 TEM", "CD8 TCM", "CD8 Naive"
 vlnplot_CARTEx_84_celltype_l2 <- VlnPlot(pbmcref_CD8T, features = c("CARTEx_84"), group.by = 'celltype.l2', y.max = 4, pt.size = 0) + theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
 generate_figs(vlnplot_CARTEx_84_celltype_l2, paste('./plots/', experiment, '_vlnplot_CARTEx_84_celltype_l2', sep = ''))
 
+vlnplot_states_celltype_l2 <- VlnPlot(pbmcref_CD8T, features = c("Activation", "Anergy", "Stemness", "Senescence"), group.by = 'celltype.l2', y.max = 4, pt.size = 0, ncol = 2) + theme(legend.position = 'none') # + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_states_celltype_l2, paste('./plots/', experiment, '_vlnplot_states_celltype_l2', sep = ''))
 
 
 
