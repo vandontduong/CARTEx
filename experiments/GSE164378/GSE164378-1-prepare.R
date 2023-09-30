@@ -130,6 +130,13 @@ pbmcref <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 # how many cells match (TRUE) / mismatch (FALSE)?
 summary(pbmcref@meta.data$Phase == pbmcref@meta.data$Phase_ref)
 
+####################################################################################################
+######################################## Filter on CD8 T cells ######################################
+####################################################################################################
+
+Idents(pbmcref) <- "celltype.l2"
+
+pbmcref_CD8T <- subset(x = pbmcref, idents = c("CD8 TEM", "CD8 TCM", "CD8 Naive", "CD8 Proliferating"))
 
 ####################################################################################################
 ########################################### CARTEx scoring #########################################
@@ -137,47 +144,47 @@ summary(pbmcref@meta.data$Phase == pbmcref@meta.data$Phase_ref)
 
 # CARTEx with weights // 630 genes
 cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(pbmcref))
-expr <- t(as.matrix(GetAssayData(pbmcref))[match(common, rownames(as.matrix(GetAssayData(pbmcref)))),])
+common <- intersect(rownames(cartex_630_weights), rownames(pbmcref_CD8T))
+expr <- t(as.matrix(GetAssayData(pbmcref_CD8T))[match(common, rownames(as.matrix(GetAssayData(pbmcref_CD8T)))),])
 weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
 scores <- expr %*% as.matrix(weights)
-pbmcref@meta.data$CARTEx_630 <- Z(scores)
-pbmcref@meta.data$CARTEx_630i <- integerize(pbmcref@meta.data$CARTEx_630)
+pbmcref_CD8T@meta.data$CARTEx_630 <- Z(scores)
+pbmcref_CD8T@meta.data$CARTEx_630i <- integerize(pbmcref_CD8T@meta.data$CARTEx_630)
 
-pbmcref@meta.data$CARTEx_630_repcount <- rowSums(expr > 0)
-pbmcref@meta.data$CARTEx_630_reppercent <- pbmcref@meta.data$CARTEx_630_repcount / 630
+pbmcref_CD8T@meta.data$CARTEx_630_repcount <- rowSums(expr > 0)
+pbmcref_CD8T@meta.data$CARTEx_630_reppercent <- pbmcref_CD8T@meta.data$CARTEx_630_repcount / 630
 
-scatterplot_CARTEx_630_representation <- FeatureScatter(pbmcref, feature1 = 'CARTEx_630', feature2 = 'CARTEx_630_reppercent', shuffle = TRUE, seed = 123)
+scatterplot_CARTEx_630_representation <- FeatureScatter(pbmcref_CD8T, feature1 = 'CARTEx_630', feature2 = 'CARTEx_630_reppercent', shuffle = TRUE, seed = 123)
 generate_figs(scatterplot_CARTEx_630_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_630_representation', sep = ''))
 
 # CARTEx with weights // 200 genes
 cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(pbmcref))
-expr <- t(as.matrix(GetAssayData(pbmcref))[match(common, rownames(as.matrix(GetAssayData(pbmcref)))),])
+common <- intersect(rownames(cartex_200_weights), rownames(pbmcref_CD8T))
+expr <- t(as.matrix(GetAssayData(pbmcref_CD8T))[match(common, rownames(as.matrix(GetAssayData(pbmcref_CD8T)))),])
 weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
 scores <- expr %*% as.matrix(weights)
-pbmcref@meta.data$CARTEx_200 <- Z(scores)
-pbmcref@meta.data$CARTEx_200i <- integerize(pbmcref@meta.data$CARTEx_200)
+pbmcref_CD8T@meta.data$CARTEx_200 <- Z(scores)
+pbmcref_CD8T@meta.data$CARTEx_200i <- integerize(pbmcref_CD8T@meta.data$CARTEx_200)
 
-pbmcref@meta.data$CARTEx_200_repcount <- rowSums(expr > 0)
-pbmcref@meta.data$CARTEx_200_reppercent <- pbmcref@meta.data$CARTEx_200_repcount / 200
+pbmcref_CD8T@meta.data$CARTEx_200_repcount <- rowSums(expr > 0)
+pbmcref_CD8T@meta.data$CARTEx_200_reppercent <- pbmcref_CD8T@meta.data$CARTEx_200_repcount / 200
 
-scatterplot_CARTEx_200_representation <- FeatureScatter(pbmcref, feature1 = 'CARTEx_200', feature2 = 'CARTEx_200_reppercent', shuffle = TRUE, seed = 123)
+scatterplot_CARTEx_200_representation <- FeatureScatter(pbmcref_CD8T, feature1 = 'CARTEx_200', feature2 = 'CARTEx_200_reppercent', shuffle = TRUE, seed = 123)
 generate_figs(scatterplot_CARTEx_200_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_200_representation', sep = ''))
 
 # CARTEx with weights // 84 genes
 cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(pbmcref))
-expr <- t(as.matrix(GetAssayData(pbmcref))[match(common, rownames(as.matrix(GetAssayData(pbmcref)))),])
+common <- intersect(rownames(cartex_84_weights), rownames(pbmcref_CD8T))
+expr <- t(as.matrix(GetAssayData(pbmcref_CD8T))[match(common, rownames(as.matrix(GetAssayData(pbmcref_CD8T)))),])
 weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
 scores <- expr %*% as.matrix(weights)
-pbmcref@meta.data$CARTEx_84 <- Z(scores)
-pbmcref@meta.data$CARTEx_84i <- integerize(pbmcref@meta.data$CARTEx_84)
+pbmcref_CD8T@meta.data$CARTEx_84 <- Z(scores)
+pbmcref_CD8T@meta.data$CARTEx_84i <- integerize(pbmcref_CD8T@meta.data$CARTEx_84)
 
-pbmcref@meta.data$CARTEx_84_repcount <- rowSums(expr > 0)
-pbmcref@meta.data$CARTEx_84_reppercent <- pbmcref@meta.data$CARTEx_84_repcount / 84
+pbmcref_CD8T@meta.data$CARTEx_84_repcount <- rowSums(expr > 0)
+pbmcref_CD8T@meta.data$CARTEx_84_reppercent <- pbmcref_CD8T@meta.data$CARTEx_84_repcount / 84
 
-scatterplot_CARTEx_84_representation <- FeatureScatter(pbmcref, feature1 = 'CARTEx_84', feature2 = 'CARTEx_84_reppercent', shuffle = TRUE, seed = 123)
+scatterplot_CARTEx_84_representation <- FeatureScatter(pbmcref_CD8T, feature1 = 'CARTEx_84', feature2 = 'CARTEx_84_reppercent', shuffle = TRUE, seed = 123)
 generate_figs(scatterplot_CARTEx_84_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_84_representation', sep = ''))
 
 ####################################################################################################
@@ -189,23 +196,23 @@ anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.cs
 stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
 senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
 
-pbmcref <- AddModuleScore(pbmcref, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+pbmcref_CD8T <- AddModuleScore(pbmcref_CD8T, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
 
 # z score normalization
-pbmcref@meta.data$Activation <- scale(pbmcref@meta.data$State1)
-pbmcref@meta.data$Anergy <- scale(pbmcref@meta.data$State2)
-pbmcref@meta.data$Stemness <- scale(pbmcref@meta.data$State3)
-pbmcref@meta.data$Senescence <- scale(pbmcref@meta.data$State4)
+pbmcref_CD8T@meta.data$Activation <- scale(pbmcref_CD8T@meta.data$State1)
+pbmcref_CD8T@meta.data$Anergy <- scale(pbmcref_CD8T@meta.data$State2)
+pbmcref_CD8T@meta.data$Stemness <- scale(pbmcref_CD8T@meta.data$State3)
+pbmcref_CD8T@meta.data$Senescence <- scale(pbmcref_CD8T@meta.data$State4)
 
-pbmcref@meta.data$Activationi <- integerize(pbmcref@meta.data$Activation)
-pbmcref@meta.data$Anergyi <- integerize(pbmcref@meta.data$Anergy)
-pbmcref@meta.data$Stemnessi <- integerize(pbmcref@meta.data$Stemness)
-pbmcref@meta.data$Senescencei <- integerize(pbmcref@meta.data$Senescence)
+pbmcref_CD8T@meta.data$Activationi <- integerize(pbmcref_CD8T@meta.data$Activation)
+pbmcref_CD8T@meta.data$Anergyi <- integerize(pbmcref_CD8T@meta.data$Anergy)
+pbmcref_CD8T@meta.data$Stemnessi <- integerize(pbmcref_CD8T@meta.data$Stemness)
+pbmcref_CD8T@meta.data$Senescencei <- integerize(pbmcref_CD8T@meta.data$Senescence)
 
-pbmcref@meta.data$State1 <- NULL
-pbmcref@meta.data$State2 <- NULL
-pbmcref@meta.data$State3 <- NULL
-pbmcref@meta.data$State4 <- NULL
+pbmcref_CD8T@meta.data$State1 <- NULL
+pbmcref_CD8T@meta.data$State2 <- NULL
+pbmcref_CD8T@meta.data$State3 <- NULL
+pbmcref_CD8T@meta.data$State4 <- NULL
 
 # examine other signatures
 NK_like = rownames(read.csv("../../signatures/NK-like-dysfunction.csv", row.names=1, header = TRUE))
@@ -213,22 +220,38 @@ Wherry_Tex = rownames(read.csv("../../signatures/Wherry_2007_Immunity_LCMV_Tex_h
 BBD_Tex = rownames(read.csv("../../signatures/Selli_2023_Blood_TBBDex.csv", row.names = 1, header = TRUE))
 PD1_Tex = rownames(read.csv("../../signatures/Cai_2020_Pathology_PD1_Tex.csv", row.names = 1, header = TRUE))
 
-pbmcref <- AddModuleScore(pbmcref, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+pbmcref_CD8T <- AddModuleScore(pbmcref_CD8T, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
 
-pbmcref@meta.data$NKlike_Tex <- scale(pbmcref@meta.data$Signature1)
-pbmcref@meta.data$LCMV_Tex <- scale(pbmcref@meta.data$Signature2)
-pbmcref@meta.data$BBD_Tex <- scale(pbmcref@meta.data$Signature3)
-pbmcref@meta.data$PD1_Tex <- scale(pbmcref@meta.data$Signature4)
+pbmcref_CD8T@meta.data$NKlike_Tex <- scale(pbmcref_CD8T@meta.data$Signature1)
+pbmcref_CD8T@meta.data$LCMV_Tex <- scale(pbmcref_CD8T@meta.data$Signature2)
+pbmcref_CD8T@meta.data$BBD_Tex <- scale(pbmcref_CD8T@meta.data$Signature3)
+pbmcref_CD8T@meta.data$PD1_Tex <- scale(pbmcref_CD8T@meta.data$Signature4)
 
-pbmcref@meta.data$NKlike_Texi <- integerize(pbmcref@meta.data$NKlike_Tex)
-pbmcref@meta.data$LCMV_Texi <- integerize(pbmcref@meta.data$LCMV_Tex)
-pbmcref@meta.data$BBD_Texi <- integerize(pbmcref@meta.data$BBD_Tex)
-pbmcref@meta.data$PD1_Texi <- integerize(pbmcref@meta.data$PD1_Tex)
+pbmcref_CD8T@meta.data$NKlike_Texi <- integerize(pbmcref_CD8T@meta.data$NKlike_Tex)
+pbmcref_CD8T@meta.data$LCMV_Texi <- integerize(pbmcref_CD8T@meta.data$LCMV_Tex)
+pbmcref_CD8T@meta.data$BBD_Texi <- integerize(pbmcref_CD8T@meta.data$BBD_Tex)
+pbmcref_CD8T@meta.data$PD1_Texi <- integerize(pbmcref_CD8T@meta.data$PD1_Tex)
 
-pbmcref@meta.data$Signature1 <- NULL
-pbmcref@meta.data$Signature2 <- NULL
-pbmcref@meta.data$Signature3 <- NULL
-pbmcref@meta.data$Signature4 <- NULL
+pbmcref_CD8T@meta.data$Signature1 <- NULL
+pbmcref_CD8T@meta.data$Signature2 <- NULL
+pbmcref_CD8T@meta.data$Signature3 <- NULL
+pbmcref_CD8T@meta.data$Signature4 <- NULL
+
+# TransferIdent() is depreciated
+
+data.to.transfer <- c("CARTEx_630", "CARTEx_630i", "CARTEx_630_repcount", "CARTEx_630_reppercent",
+                      "CARTEx_200", "CARTEx_200i", "CARTEx_200_repcount", "CARTEx_200_reppercent",
+                      "CARTEx_84", "CARTEx_84i", "CARTEx_84_repcount", "CARTEx_84_reppercent",
+                      "Activation", "Anergy", "Stemness", "Senescence",
+                      "Activationi", "Anergyi", "Stemnessi", "Senescencei",
+                      "NKlike_Tex", "LCMV_Tex", "BBD_Tex", "PD1_Tex",
+                      "NKlike_Texi", "LCMV_Texi", "BBD_Texi", "PD1_Texi")
+
+for (metadatum in data.to.transfer) {
+  pbmcref <- AddMetaData(object = pbmcref, metadata = pbmcref_CD8T[[metadatum]], col.name = metadatum)
+}
+
+rm(pbmcref_CD8T)
 
 Idents(pbmcref) <- "celltype.l2"
 saveRDS(pbmcref, file = paste('./data/', experiment, '_scored.rds', sep = ''))

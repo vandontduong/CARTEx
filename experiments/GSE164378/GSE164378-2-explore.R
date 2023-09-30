@@ -38,7 +38,7 @@ generate_figs = function(figure_object, file_name, dimensions){
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
-pbmcref <- readRDS(paste('./data/', experiment, 'scored.rds', sep = ''))
+pbmcref <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 pbmcref <- SetIdent(pbmcref, value = "celltype.l2")
 
 head(pbmcref)
@@ -128,6 +128,20 @@ generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_umap_sig_anergy',
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_umap_sig_stemness', sep = ''))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_umap_sig_senescence', sep = ''))
 
+
+
+
+
+
+
+
+
+# Violin plots
+
+pbmcref_CD8T <- subset(x = pbmcref, idents = c("CD8 TEM", "CD8 TCM", "CD8 Naive", "CD8 Proliferating"))
+
+vlnplot_CARTEx_84_celltype_l2 <- VlnPlot(pbmcref_CD8T, features = c("CARTEx_84"), group.by = 'celltype.l2', y.max = 4, pt.size = 0) + theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_CARTEx_84_celltype_l2, paste('./plots/', experiment, '_vlnplot_CARTEx_84_celltype_l2', sep = ''))
 
 
 
