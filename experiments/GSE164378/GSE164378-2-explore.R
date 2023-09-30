@@ -146,6 +146,8 @@ generate_figs(vlnplot_CARTEx_84_celltype_l2, paste('./plots/', experiment, '_vln
 vlnplot_states_celltype_l2 <- VlnPlot(pbmcref_CD8T, features = c("Activation", "Anergy", "Stemness", "Senescence"), group.by = 'celltype.l2', y.max = 4, pt.size = 0, ncol = 2) + theme(legend.position = 'none') # + geom_boxplot(width=0.2, color="black", alpha=0)
 generate_figs(vlnplot_states_celltype_l2, paste('./plots/', experiment, '_vlnplot_states_celltype_l2', sep = ''))
 
+vlnplot_markers_celltype_l2 <- VlnPlot(pbmcref_CD8T, features = c("CD4", "CD8A", "CD8B", "PDCD1"), group.by = 'celltype.l2', pt.size = 0, ncol = 2) + theme(legend.position = 'none') # + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_markers_celltype_l2, paste('./plots/', experiment, '_vlnplot_markers_celltype_l2', sep = ''))
 
 
 
