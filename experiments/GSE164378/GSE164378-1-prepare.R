@@ -49,7 +49,7 @@ pbmcref.metadata <- read.table(file="./data/GSE164378_sc.meta.data_3P.csv", sep 
 pbmcref <- AddMetaData(pbmcref, metadata = list(pbmcref.metadata$nCount_RNA, pbmcref.metadata$nFeature_RNA, pbmcref.metadata$orig.ident, pbmcref.metadata$lane, pbmcref.metadata$donor, pbmcref.metadata$time, pbmcref.metadata$celltype.l1, pbmcref.metadata$celltype.l2, pbmcref.metadata$celltype.l3, pbmcref.metadata$Phase, pbmcref.metadata$Batch), 
                        col.name = c("nCount_RNA", "nFeature_RNA", "orig.ident", "lane", "donor", "time", "celltype.l1", "celltype.l2", "celltype.l3", "Phase_ref", "Batch"))
 
-pbmcref[["percent.MT"]] <- PercentageFeatureSet(pbmcref, pattern = "^MT-")
+pbmcref[["percent.mt"]] <- PercentageFeatureSet(pbmcref, pattern = "^MT-")
 
 # Extract only the un-vaccinated (time 0) cells and doublets
 pbmcref$donor_time <- paste(pbmcref$donor,"_",pbmcref$time,sep = "")
@@ -60,14 +60,15 @@ Idents(pbmcref) <- "celltype.l2"
 pbmcref <- subset(pbmcref, idents = "Doublet", invert=T)
 
 # Quality filter
-pbmcref <- subset(pbmcref, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.MT < 10)
+pbmcref <- subset(pbmcref, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
+pbmcref <- NormalizeData(pbmcref)
 
 # extract genes
 all.genes <- rownames(pbmcref)
 write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
 
 # Examine features
-vlnplot_quality <- VlnPlot(object = pbmcref, features = c('nFeature_RNA','nCount_RNA', "percent.MT"), group.by = 'orig.ident', ncol=3)
+vlnplot_quality <- VlnPlot(object = pbmcref, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
 generate_figs(vlnplot_quality, paste('./plots/', experiment, '_vlnplot_quality', sep = ''))
 
 # Variable features and initial UMAP analysis

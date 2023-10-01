@@ -54,11 +54,20 @@ generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_umap_seurat_
 umap_celltype_l1 <- DimPlot(pbmcref, reduction = "umap", group.by = "celltype.l1", shuffle = TRUE, seed = 123)
 generate_figs(umap_celltype_l1, paste('./plots/', experiment, '_umap_celltype_l1', sep = ''))
 
+umap_celltype_l1_labeled <- DimPlot(pbmcref, reduction = "umap", group.by = "celltype.l1", repel = TRUE, shuffle = TRUE, seed = 123, label = TRUE) + NoLegend()
+generate_figs(umap_celltype_l1_labeled, paste('./plots/', experiment, '_umap_celltype_l1_labeled', sep = ''))
+
 umap_celltype_l2 <- DimPlot(pbmcref, reduction = "umap", group.by = "celltype.l2", shuffle = TRUE, seed = 123)
 generate_figs(umap_celltype_l2, paste('./plots/', experiment, '_umap_celltype_l2', sep = ''))
 
+umap_celltype_l2_labeled <- DimPlot(pbmcref, reduction = "umap", group.by = "celltype.l2", repel = TRUE, shuffle = TRUE, seed = 123, label = TRUE) + NoLegend()
+generate_figs(umap_celltype_l2_labeled, paste('./plots/', experiment, '_umap_celltype_l2_labeled', sep = ''))
+
 umap_celltype_l3 <- DimPlot(pbmcref, reduction = "umap", group.by = "celltype.l3", shuffle = TRUE, seed = 123)
 generate_figs(umap_celltype_l3, paste('./plots/', experiment, '_umap_celltype_l3', sep = ''))
+
+umap_celltype_l3_labeled <- DimPlot(pbmcref, reduction = "umap", group.by = "celltype.l3", repel = TRUE, shuffle = TRUE, seed = 123, label = TRUE) + NoLegend()
+generate_figs(umap_celltype_l3_labeled, paste('./plots/', experiment, '_umap_celltype_l3_labeled', sep = ''))
 
 umap_donor <- DimPlot(pbmcref, reduction = "umap", group.by = "donor", shuffle = TRUE, seed = 123)
 generate_figs(umap_donor, paste('./plots/', experiment, '_umap_donor', sep = ''))
