@@ -72,6 +72,16 @@ generate_figs(umap_celltype_l3_labeled, paste('./plots/', experiment, '_umap_cel
 umap_donor <- DimPlot(pbmcref, reduction = "umap", group.by = "donor", shuffle = TRUE, seed = 123)
 generate_figs(umap_donor, paste('./plots/', experiment, '_umap_donor', sep = ''))
 
+umap_markers <- FeaturePlot(pbmcref, reduction = "umap", features = c("CD4", "CD8A", "CD8B", "PDCD1"), ncol = 2) + NoLegend()
+generate_figs(umap_markers, paste('./plots/', experiment, '_umap_markers', sep = ''))
+
+
+# ANALYZE CELL TYPE ANNOTATION
+md <- pbmcref@meta.data %>% as.data.table
+md[, .N, by = c("celltype.l1", "celltype.l2", "celltype.l3")]
+
+
+
 # ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
 md <- pbmcref@meta.data %>% as.data.table
 md[, .N, by = c("Phase", "Phase_ref")]
