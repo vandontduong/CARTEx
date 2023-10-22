@@ -13,6 +13,7 @@ library(dplyr)
 library(SingleR) # BiocManager::install("beachmat", force = TRUE)
 library(beachmat)
 # library(celldex)
+library(data.table)
 
 ####################################################################################################
 ############################################# Functions ############################################
@@ -127,8 +128,11 @@ expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 # https://bioconductor.org/books/release/SingleRBook/introduction.html
 # https://github.com/dviraran/SingleR/issues/150
 # https://support.bioconductor.org/p/9136971/
+# https://rdrr.io/github/LTLA/celldex/man/MonacoImmuneData.html
+# https://rdrr.io/github/LTLA/celldex/man/DatabaseImmuneCellExpressionData.html
 
-azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
+# azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
+azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
 azimuth.obj <- subset(azimuth.obj, idents = c("CD4 T", "CD8 T", "other T"))
 
@@ -147,7 +151,7 @@ umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azim
 generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
 
 
-monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.main)
+monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
 table(monaco.predictions$labels)
 
 expt.obj[["monaco"]] <- monaco.predictions$labels
@@ -156,7 +160,7 @@ umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monac
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
 
 
-dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.main)
+dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
 table(dice.predictions$labels)
 
 expt.obj[["dice"]] <- dice.predictions$labels
@@ -164,9 +168,50 @@ expt.obj[["dice"]] <- dice.predictions$labels
 umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
 
+# BAR CHART of CELL TYPE?
+
+
+md <- expt.obj@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+# label CD8s based on having 
+# azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
+# monaco: Naive CD8 T cells; Effector memory CD8 T cells; Central memory CD8 T cells; Terminal effector CD8 T cells
+# dice: T cells, CD8+, naive; T cells, CD8+, naive, stimulated"
+
+# CD8 T cell detected in any reference
+expt.obj$CD8Tref_1 <- with(expt.obj, ifelse((expt.obj@meta.data$azimuth == "CD8 Naive") | (expt.obj@meta.data$azimuth == "CD8 TEM") | (expt.obj@meta.data$azimuth == "CD8 Proliferating") | 
+                                             (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
+                                             (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
+                                           'CD8 T cell', 'Other'))
+
+dplyr::count(expt.obj@meta.data, CD8Tref_1, sort = TRUE)
+
+umap_predicted_CD8Tref_1 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_predicted_CD8Tref_1', sep = ''))
+
+
+# CD8 T cell detected in at least 2 references
+expt.obj$CD8Tref_2 <- with(expt.obj, ifelse(expt.obj@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
+                                            expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
+                                            expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
+                                          'CD8 T cell', 'Other'))
+
+dplyr::count(expt.obj@meta.data, CD8Tref_2, sort = TRUE)
+
+umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_2", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+
+expt.obj <- SetIdent(expt.obj, value = 'CD8Tref_1')
+expt.obj <- subset(expt.obj, idents = 'CD8 T cell')
+
+saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8.rds', sep = ''))
+
 
 
 
