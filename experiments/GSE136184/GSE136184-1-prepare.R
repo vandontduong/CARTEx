@@ -10,6 +10,9 @@ library(ggpubr)
 library(ggplotify)
 library(stringr)
 library(dplyr)
+library(SingleR)
+library(scuttle)
+library(data.table)
 
 ####################################################################################################
 ############################################# Functions ############################################
@@ -34,21 +37,20 @@ integerize = function(score){
   return (score_mod)
 }
 
-
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
-CART.combined.CD8pos <- readRDS(paste('./data/GSE136184_seu_obj2.Rds', sep = ''))
-CART.combined.CD8pos[["percent.MT"]] <- PercentageFeatureSet(CART.combined.CD8pos, pattern = "^MT-")
+expt.obj <- readRDS(paste('./data/GSE136184_seu_obj2.Rds', sep = ''))
+expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
 #- Add meta.data
-CART.combined.CD8pos@meta.data$Sex <- plyr::mapvalues(x = CART.combined.CD8pos@meta.data$Code,
+expt.obj@meta.data$Sex <- plyr::mapvalues(x = expt.obj@meta.data$Code,
                                                           from = c('sc_d1', 'sc_d2', 'sc_d3', 'sc_d4', 'sc_d5', 'sc_d6', 'sc_d7', 'sc_d8', 'sc_d9', 'sc_d10', 'sc_d11', 'sc_d12', 'sc_d13', 'sc_d14', 'sc_d15', 'sc_d16', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'),
                                                           to = c('M', 'F', 'M', 'F', 'F', 'M', 'F', 'M', 'F', 'F', 'M', 'M', 'F', 'M', 'M', 'F', 'F', 'M', 'M', 'F', 'F', 'M', 'F', 'M'))
-CART.combined.CD8pos@meta.data$Sex <- factor(CART.combined.CD8pos@meta.data$Sex, levels = c('M', 'F'))
+expt.obj@meta.data$Sex <- factor(expt.obj@meta.data$Sex, levels = c('M', 'F'))
 
-CART.combined.CD8pos@meta.data <- mutate(CART.combined.CD8pos@meta.data, Age = case_when(
+expt.obj@meta.data <- mutate(expt.obj@meta.data, Age = case_when(
   Code == 'sc_d1' ~ 0,
   Code == 'sc_d2' ~ 0,
   Code == 'sc_d3' ~ 26,
@@ -84,15 +86,15 @@ CART.combined.CD8pos@meta.data <- mutate(CART.combined.CD8pos@meta.data, Age = c
   Code == 'L8' & visit == 2 ~ 77
   ))
 
-CART.combined.CD8pos@meta.data <- mutate(CART.combined.CD8pos@meta.data, AgeGroup = case_when(
+expt.obj@meta.data <- mutate(expt.obj@meta.data, AgeGroup = case_when(
   Age <= 30 ~ 'Young',
   Age <= 69 ~ 'Middle',
   Age > 69 ~ 'Old'
   ))
   
-CART.combined.CD8pos@meta.data$AgeGroup <- factor(CART.combined.CD8pos@meta.data$AgeGroup, levels = c('Young', 'Middle', 'Old'))
+expt.obj@meta.data$AgeGroup <- factor(expt.obj@meta.data$AgeGroup, levels = c('Young', 'Middle', 'Old'))
 
-CART.combined.CD8pos@meta.data <- mutate(CART.combined.CD8pos@meta.data, AgeGroup2 = case_when(
+expt.obj@meta.data <- mutate(expt.obj@meta.data, AgeGroup2 = case_when(
   Age == 0 ~ 'Newborn',
   Age < 30 ~ 'Under 30',
   Age < 50 ~ 'Under 50',
@@ -100,41 +102,41 @@ CART.combined.CD8pos@meta.data <- mutate(CART.combined.CD8pos@meta.data, AgeGrou
   Age >= 70 ~ 'Elderly'
   ))
 
-CART.combined.CD8pos@meta.data$AgeGroup2 <- factor(CART.combined.CD8pos@meta.data$AgeGroup2, levels = c('Newborn', 'Under 30', 'Under 50', 'Under 70', 'Elderly'))
+expt.obj@meta.data$AgeGroup2 <- factor(expt.obj@meta.data$AgeGroup2, levels = c('Newborn', 'Under 30', 'Under 50', 'Under 70', 'Elderly'))
 
-CART.combined.CD8pos@meta.data$Cohort <- plyr::mapvalues(x = CART.combined.CD8pos@meta.data$Code,
+expt.obj@meta.data$Cohort <- plyr::mapvalues(x = expt.obj@meta.data$Code,
                                                       from = c('sc_d1', 'sc_d2', 'sc_d3', 'sc_d4', 'sc_d5', 'sc_d6', 'sc_d7', 'sc_d8', 'sc_d9', 'sc_d10', 'sc_d11', 'sc_d12', 'sc_d13', 'sc_d14', 'sc_d15', 'sc_d16', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'),
                                                       to = c('Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal'))
-CART.combined.CD8pos@meta.data$Cohort <- factor(CART.combined.CD8pos@meta.data$Cohort, levels = c('Cross-sectional', 'Longitudinal'))
+expt.obj@meta.data$Cohort <- factor(expt.obj@meta.data$Cohort, levels = c('Cross-sectional', 'Longitudinal'))
 
 # Quality filter
-CART.combined.CD8pos <- subset(CART.combined.CD8pos, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.MT < 10)
+expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
 
 # extract genes
-all.genes <- rownames(CART.combined.CD8pos)
+all.genes <- rownames(expt.obj)
 write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
 
 # Examine features
-vlnplot_quality <- VlnPlot(object = CART.combined.CD8pos, features = c('nFeature_RNA','nCount_RNA', "percent.MT"), group.by = 'orig.ident', ncol=3)
+vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
 generate_figs(vlnplot_quality, paste('./plots/', experiment, '_vlnplot_quality', sep = ''))
 
 # Variable features and initial UMAP analysis
-CART.combined.CD8pos <- FindVariableFeatures(CART.combined.CD8pos, selection.method = "vst", nfeatures = 2000)
-top10_CART <- head(VariableFeatures(CART.combined.CD8pos), 10)
-varplt <- VariableFeaturePlot(CART.combined.CD8pos)
+expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
+top10_CART <- head(VariableFeatures(expt.obj), 10)
+varplt <- VariableFeaturePlot(expt.obj)
 varplt_labeled <- LabelPoints(plot = varplt, points = top10_CART, repel = TRUE)
 generate_figs(varplt_labeled, paste('./plots/', experiment, '_varplt_labeled', sep = ''))
 
-CART.combined.CD8pos <- ScaleData(CART.combined.CD8pos, features = all.genes)
-CART.combined.CD8pos <- RunPCA(CART.combined.CD8pos, features = VariableFeatures(object = CART.combined.CD8pos), npcs = 40)
+expt.obj <- ScaleData(expt.obj, features = all.genes)
+expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 40)
 
-CART.combined.CD8pos <- FindNeighbors(CART.combined.CD8pos, dims = 1:10)
-CART.combined.CD8pos <- FindClusters(CART.combined.CD8pos, resolution = 0.5)
-CART.combined.CD8pos <- RunUMAP(CART.combined.CD8pos, dims = 1:10)
+expt.obj <- FindNeighbors(expt.obj, dims = 1:10)
+expt.obj <- FindClusters(expt.obj, resolution = 0.5)
+expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
-saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
 
-CART.combined.CD8pos <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
 
 ####################################################################################################
@@ -150,26 +152,146 @@ exp.mat <- read.table(file = "../cellannotate/nestorawa_forcellcycle_expressionM
 s.genes <- cc.genes$s.genes
 g2m.genes <- cc.genes$g2m.genes
 
-CART.combined.CD8pos <- CellCycleScoring(CART.combined.CD8pos, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+expt.obj <- CellCycleScoring(expt.obj, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 
 # view cell cycle scores and phase assignments
-head(CART.combined.CD8pos[[]])
+head(expt.obj[[]])
 
 # Visualize the distribution of cell cycle markers across
-ridgeplt <- RidgePlot(CART.combined.CD8pos, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), ncol = 2)
+ridgeplt <- RidgePlot(expt.obj, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), ncol = 2)
 generate_figs(ridgeplt, paste('./plots/', experiment, '_ridgeplt', sep = ''))
 
-CART.combined.CD8pos <- RunPCA(CART.combined.CD8pos, features = c(s.genes, g2m.genes))
-# DimPlot(CART.combined.CD8pos)
+expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
+# DimPlot(expt.obj)
 
 # regress cell cycle
-CART.combined.CD8pos <- ScaleData(CART.combined.CD8pos, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(CART.combined.CD8pos))
+expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(expt.obj))
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
-CART.combined.CD8pos <- RunPCA(CART.combined.CD8pos, features = VariableFeatures(CART.combined.CD8pos), nfeatures.print = 10)
+expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
 
-saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '_CD8pos_cellcycle.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8pos_cellcycle.rds', sep = ''))
 
-CART.combined.CD8pos <- readRDS(paste('./data/', experiment, '_CD8pos_cellcycle.rds', sep = ''))
+expt.obj <- readRDS(paste('./data/', experiment, '_CD8pos_cellcycle.rds', sep = ''))
+
+
+####################################################################################################
+######################################## Cell type annotation ######################################
+####################################################################################################
+
+# https://bioconductor.org/books/release/SingleRBook/introduction.html
+# https://github.com/dviraran/SingleR/issues/150
+# https://support.bioconductor.org/p/9136971/
+# https://rdrr.io/github/LTLA/celldex/man/MonacoImmuneData.html
+# https://rdrr.io/github/LTLA/celldex/man/DatabaseImmuneCellExpressionData.html
+
+set.seed(123)
+test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
+
+# azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
+azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
+azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
+azimuth.obj <- subset(azimuth.obj, idents = c("CD4 T", "CD8 T", "other T"))
+# downsample
+azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l2")
+azimuth.obj <- subset(azimuth.obj, downsample = 100)
+azimuth_assay <- LayerData(azimuth.obj)
+
+# https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
+monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'CD4+ T cells', 'T cells')
+monaco.obj <- monaco.obj[, monaco.index]
+unique(monaco.obj$label.main)
+
+dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
+dice.obj <- dice.obj[, dice.index]
+# downsample
+dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
+unique(dice.obj$label.main)
+
+azimuth.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = azimuth_assay, labels = azimuth.obj$celltype.l2)
+table(azimuth.predictions$labels)
+saveRDS(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.rds'))
+write.csv(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.csv'))
+azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_predictions.rds', sep = ''))
+
+expt.obj[["azimuth"]] <- azimuth.predictions$labels
+
+umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
+
+
+monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
+table(monaco.predictions$labels)
+saveRDS(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.rds'))
+write.csv(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.csv'))
+monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
+
+expt.obj[["monaco"]] <- monaco.predictions$labels
+
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
+
+
+dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
+table(dice.predictions$labels)
+saveRDS(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.rds'))
+write.csv(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.csv'))
+dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
+
+expt.obj[["dice"]] <- dice.predictions$labels
+
+umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
+
+# BAR CHART of CELL TYPE?
+
+
+md <- expt.obj@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+# label CD8s based on having 
+# azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
+# monaco: Naive CD8 T cells; Effector memory CD8 T cells; Central memory CD8 T cells; Terminal effector CD8 T cells
+# dice: T cells, CD8+, naive; T cells, CD8+, naive, stimulated"
+
+# CD8 T cell detected in any reference
+expt.obj$CD8Tref_1 <- with(expt.obj, ifelse((expt.obj@meta.data$azimuth == "CD8 Naive") | (expt.obj@meta.data$azimuth == "CD8 TEM") | (expt.obj@meta.data$azimuth == "CD8 Proliferating") | 
+                                              (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
+                                              (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
+                                            'CD8 T cell', 'Other'))
+
+dplyr::count(expt.obj@meta.data, CD8Tref_1, sort = TRUE)
+
+umap_predicted_CD8Tref_1 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_predicted_CD8Tref_1', sep = ''))
+
+
+# CD8 T cell detected in at least 2 references
+expt.obj$CD8Tref_2 <- with(expt.obj, ifelse(expt.obj@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
+                                              expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
+                                              expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
+                                            'CD8 T cell', 'Other'))
+
+dplyr::count(expt.obj@meta.data, CD8Tref_2, sort = TRUE)
+
+umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_2", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
+
+
+saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
+
+expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+
+# expt.obj <- SetIdent(expt.obj, value = 'CD8Tref_1')
+# expt.obj <- subset(expt.obj, idents = 'CD8 T cell')
+
+# saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8.rds', sep = ''))
+
+
+
+
+
 
 
 ####################################################################################################
@@ -178,30 +300,30 @@ CART.combined.CD8pos <- readRDS(paste('./data/', experiment, '_CD8pos_cellcycle.
 
 # CARTEx with weights // 630 genes
 cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(CART.combined.CD8pos))
-expr <- t(as.matrix(GetAssayData(CART.combined.CD8pos))[match(common, rownames(as.matrix(GetAssayData(CART.combined.CD8pos)))),])
+common <- intersect(rownames(cartex_630_weights), rownames(expt.obj))
+expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
 weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
 scores <- expr %*% as.matrix(weights)
-CART.combined.CD8pos@meta.data$CARTEx_630 <- Z(scores)
-CART.combined.CD8pos@meta.data$CARTEx_630i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_630)
+expt.obj@meta.data$CARTEx_630 <- Z(scores)
+expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
 
 # CARTEx with weights // 200 genes
 cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(CART.combined.CD8pos))
-expr <- t(as.matrix(GetAssayData(CART.combined.CD8pos))[match(common, rownames(as.matrix(GetAssayData(CART.combined.CD8pos)))),])
+common <- intersect(rownames(cartex_200_weights), rownames(expt.obj))
+expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
 weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
 scores <- expr %*% as.matrix(weights)
-CART.combined.CD8pos@meta.data$CARTEx_200 <- Z(scores)
-CART.combined.CD8pos@meta.data$CARTEx_200i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_200)
+expt.obj@meta.data$CARTEx_200 <- Z(scores)
+expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
 
 # CARTEx with weights // 84 genes
 cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(CART.combined.CD8pos))
-expr <- t(as.matrix(GetAssayData(CART.combined.CD8pos))[match(common, rownames(as.matrix(GetAssayData(CART.combined.CD8pos)))),])
+common <- intersect(rownames(cartex_84_weights), rownames(expt.obj))
+expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
 weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
 scores <- expr %*% as.matrix(weights)
-CART.combined.CD8pos@meta.data$CARTEx_84 <- Z(scores)
-CART.combined.CD8pos@meta.data$CARTEx_84i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_84)
+expt.obj@meta.data$CARTEx_84 <- Z(scores)
+expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
 
 
 ####################################################################################################
@@ -213,27 +335,27 @@ anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.cs
 stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
 senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
 
-CART.combined.CD8pos <- AddModuleScore(CART.combined.CD8pos, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+expt.obj <- AddModuleScore(expt.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
 
 # z score normalization
-CART.combined.CD8pos@meta.data$Activation <- scale(CART.combined.CD8pos@meta.data$State1)
-CART.combined.CD8pos@meta.data$Anergy <- scale(CART.combined.CD8pos@meta.data$State2)
-CART.combined.CD8pos@meta.data$Stemness <- scale(CART.combined.CD8pos@meta.data$State3)
-CART.combined.CD8pos@meta.data$Senescence <- scale(CART.combined.CD8pos@meta.data$State4)
+expt.obj@meta.data$Activation <- scale(expt.obj@meta.data$State1)
+expt.obj@meta.data$Anergy <- scale(expt.obj@meta.data$State2)
+expt.obj@meta.data$Stemness <- scale(expt.obj@meta.data$State3)
+expt.obj@meta.data$Senescence <- scale(expt.obj@meta.data$State4)
 
-CART.combined.CD8pos@meta.data$Activationi <- integerize(CART.combined.CD8pos@meta.data$Activation)
-CART.combined.CD8pos@meta.data$Anergyi <- integerize(CART.combined.CD8pos@meta.data$Anergy)
-CART.combined.CD8pos@meta.data$Stemnessi <- integerize(CART.combined.CD8pos@meta.data$Stemness)
-CART.combined.CD8pos@meta.data$Senescencei <- integerize(CART.combined.CD8pos@meta.data$Senescence)
+expt.obj@meta.data$Activationi <- integerize(expt.obj@meta.data$Activation)
+expt.obj@meta.data$Anergyi <- integerize(expt.obj@meta.data$Anergy)
+expt.obj@meta.data$Stemnessi <- integerize(expt.obj@meta.data$Stemness)
+expt.obj@meta.data$Senescencei <- integerize(expt.obj@meta.data$Senescence)
 
-CART.combined.CD8pos@meta.data$State1 <- NULL
-CART.combined.CD8pos@meta.data$State2 <- NULL
-CART.combined.CD8pos@meta.data$State3 <- NULL
-CART.combined.CD8pos@meta.data$State4 <- NULL
+expt.obj@meta.data$State1 <- NULL
+expt.obj@meta.data$State2 <- NULL
+expt.obj@meta.data$State3 <- NULL
+expt.obj@meta.data$State4 <- NULL
 
-saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
 
-head(CART.combined.CD8pos)
+head(expt.obj)
 
 
 
