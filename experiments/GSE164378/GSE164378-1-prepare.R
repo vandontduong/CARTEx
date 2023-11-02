@@ -1,6 +1,8 @@
 # prepare seurat object
 # Vandon Duong
 
+set.seed(123)
+
 experiment = 'GSE164378'
 
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
@@ -10,6 +12,9 @@ library(ggpubr)
 library(ggplotify)
 library(stringr)
 library(dplyr)
+library(SingleR)
+library(scuttle)
+library(data.table)
 
 ####################################################################################################
 ############################################# Functions ############################################
@@ -131,6 +136,136 @@ pbmcref <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 # how many cells match (TRUE) / mismatch (FALSE)?
 summary(pbmcref@meta.data$Phase == pbmcref@meta.data$Phase_ref)
 
+
+####################################################################################################
+######################################## Cell type annotation ######################################
+####################################################################################################
+
+# https://bioconductor.org/books/release/SingleRBook/introduction.html
+# https://github.com/dviraran/SingleR/issues/150
+# https://support.bioconductor.org/p/9136971/
+# https://rdrr.io/github/LTLA/celldex/man/MonacoImmuneData.html
+# https://rdrr.io/github/LTLA/celldex/man/DatabaseImmuneCellExpressionData.html
+
+test_assay <- LayerData(pbmcref) # LayerData() is the updated function; GetAssayData() was depreciated
+
+# https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
+monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.obj.md <- monaco.obj@colData %>% as.data.table
+monaco.obj.md[, .N, by = c("label.main", "label.fine")]
+unique(monaco.obj$label.main)
+
+dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.obj.md <- dice.obj@colData %>% as.data.table
+dice.obj.md[, .N, by = c("label.main", "label.fine")]
+# downsample
+dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
+unique(dice.obj$label.main)
+
+
+monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
+table(monaco.predictions$labels)
+saveRDS(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
+write.csv(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.csv', sep = ''))
+monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
+
+pbmcref[["monaco"]] <- monaco.predictions$labels
+
+# umap_predicted_monaco <- DimPlot(pbmcref, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_monaco <- DimPlot(pbmcref, reduction = "umap", group.by = "monaco")
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
+
+
+dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
+table(dice.predictions$labels)
+saveRDS(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
+write.csv(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.csv', sep = ''))
+dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
+
+pbmcref[["dice"]] <- dice.predictions$labels
+
+# umap_predicted_dice <- DimPlot(pbmcref, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_dice <- DimPlot(pbmcref, reduction = "umap", group.by = "dice")
+generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
+
+
+featureplot_Tcell_markers <- FeaturePlot(pbmcref, features = c("CD4", "CD8A", "CD8B", "PDCD1"))
+generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_featureplot_Tcell_markers', sep = ''))
+
+
+pbmcref[["azimuth"]] <- pbmcref@meta.data$celltype.l2
+
+# BAR CHARTS of CELL TYPES
+md <- pbmcref@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+md_temp <- md[, .N, by = c('monaco', 'AgeGroup2')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_barplot_monaco_age_group', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'AgeGroup2')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_barplot_dice_age_group', sep = ''))
+
+md_temp <- md[, .N, by = c('Phase', 'azimuth')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_phase_azimuth <- ggplot(md_temp, aes(x = azimuth, y = N, fill = Phase)) + geom_col(position = "fill")
+generate_figs(barplot_phase_azimuth, paste('./plots/', experiment, '_barplot_phase_azimuth', sep = ''))
+
+
+
+
+# label CD8s based on having 
+# azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
+# monaco: Naive CD8 T cells; Effector memory CD8 T cells; Central memory CD8 T cells; Terminal effector CD8 T cells
+# dice: T cells, CD8+, naive; T cells, CD8+, naive, stimulated"
+
+# CD8 T cell detected in any reference
+pbmcref$CD8Tref_1 <- with(pbmcref, ifelse((pbmcref@meta.data$azimuth == "CD8 Naive") | (pbmcref@meta.data$azimuth == "CD8 TEM") | (pbmcref@meta.data$azimuth == "CD8 Proliferating") | 
+                                              (pbmcref@meta.data$monaco == "Naive CD8 T cells") | (pbmcref@meta.data$monaco == "Effector CD8 T cells") | (pbmcref@meta.data$monaco == "Central Memory CD8 T cells") | (pbmcref@meta.data$monaco == "Terminal effector CD8 T cells") |
+                                              (pbmcref@meta.data$dice == "T cells, CD8+, naive") | (pbmcref@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
+                                            'CD8 T cell', 'Other'))
+
+dplyr::count(pbmcref@meta.data, CD8Tref_1, sort = TRUE)
+
+umap_predicted_CD8Tref_1 <- DimPlot(pbmcref, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_predicted_CD8Tref_1', sep = ''))
+
+
+# CD8 T cell detected in at least 2 references
+pbmcref$CD8Tref_2 <- with(pbmcref, ifelse(pbmcref@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
+                                              pbmcref@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
+                                              pbmcref@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
+                                            'CD8 T cell', 'Other'))
+
+dplyr::count(pbmcref@meta.data, CD8Tref_2, sort = TRUE)
+
+umap_predicted_CD8Tref_2 <- DimPlot(pbmcref, reduction = "umap", group.by = "CD8Tref_2", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
+
+
+
+# pseudo-bulk reference
+# https://bioconductor.org/books/release/SingleRBook/sc-mode.html#pseudo-bulk-aggregation
+
+
+
+saveRDS(pbmcref, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
+
+pbmcref <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+
+
+
+
+
+
+
+
+
+
+
 ####################################################################################################
 ######################################## Filter on CD8 T cells ######################################
 ####################################################################################################
@@ -138,6 +273,7 @@ summary(pbmcref@meta.data$Phase == pbmcref@meta.data$Phase_ref)
 Idents(pbmcref) <- "celltype.l2"
 
 pbmcref_CD8T <- subset(x = pbmcref, idents = c("CD8 TEM", "CD8 TCM", "CD8 Naive", "CD8 Proliferating"))
+
 
 ####################################################################################################
 ########################################### CARTEx scoring #########################################
