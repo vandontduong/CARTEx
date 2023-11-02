@@ -246,7 +246,7 @@ monaco.obj <- monaco.obj[, monaco.index]
 unique(monaco.obj$label.main)
 
 dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
-dice.obj.md <- monaco.obj@colData %>% as.data.table
+dice.obj.md <- dice.obj@colData %>% as.data.table
 dice.obj.md[, .N, by = c("label.main", "label.fine")]
 # dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
 dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
@@ -263,7 +263,8 @@ azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_prediction
 
 expt.obj[["azimuth"]] <- azimuth.predictions$labels
 
-umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth")
 generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
 
 
@@ -275,7 +276,8 @@ monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.
 
 expt.obj[["monaco"]] <- monaco.predictions$labels
 
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco")
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
 
 
@@ -287,7 +289,8 @@ dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds'
 
 expt.obj[["dice"]] <- dice.predictions$labels
 
-umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice")
 generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
 
 
@@ -298,7 +301,6 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_feature
 # BAR CHARTS of CELL TYPES
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
-
 
 for (cell_ref in c("azimuth", "monaco", "dice")){
   for (age_group in unique(md$AgeGroup2)) {
@@ -330,6 +332,11 @@ md_temp <- md[, .N, by = c('dice', 'AgeGroup2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_dice_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = dice)) + geom_col(position = "fill")
 generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_barplot_dice_age_group', sep = ''))
+
+md_temp <- md[, .N, by = c('Phase', 'AgeGroup2')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_phase_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = Phase)) + geom_col(position = "fill")
+generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_barplot_phase_age_group', sep = ''))
 
 
 
@@ -373,8 +380,11 @@ expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 # saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8.rds', sep = ''))
 
 
+expt.obj <- SetIdent(expt.obj, value = 'Cohort')
+expt.list <- SplitObject(expt.obj, split.by = "Cohort")
 
-
+saveRDS(expt.list$`Cross-sectional`, file = paste('./data/', experiment, '_annotated_cross.rds', sep = ''))
+saveRDS(expt.list$`Longitudinal`, file = paste('./data/', experiment, '_annotated_long.rds', sep = ''))
 
 
 
@@ -437,10 +447,59 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
-saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
+
+expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
+
+# UMAP of scores
+umap_CARTEx_630i <- DimPlot(expt.obj, group.by = "CARTEx_630i", shuffle = TRUE, seed = 123)
+generate_figs(umap_CARTEx_630i, paste('./plots/', experiment, '_umap_CARTEx_630i', sep = ''))
+
+umap_CARTEx_200i <- DimPlot(expt.obj, group.by = "CARTEx_200i", shuffle = TRUE, seed = 123)
+generate_figs(umap_CARTEx_200i, paste('./plots/', experiment, '_umap_CARTEx_200i', sep = ''))
+
+umap_CARTEx_84i <- DimPlot(expt.obj, group.by = "CARTEx_84i", shuffle = TRUE, seed = 123)
+generate_figs(umap_CARTEx_84i, paste('./plots/', experiment, '_umap_CARTEx_84i', sep = ''))
+
+umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_umap_sig_activationi', sep = ''))
+
+umap_sig_anergyi <- DimPlot(expt.obj, group.by = "Anergyi", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_anergyi, paste('./plots/', experiment, '_umap_sig_anergyi', sep = ''))
+
+umap_sig_stemnessi <- DimPlot(expt.obj, group.by = "Stemnessi", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_stemnessi, paste('./plots/', experiment, '_umap_sig_stemnessi', sep = ''))
+
+umap_sig_senescencei <- DimPlot(expt.obj, group.by = "Senescencei", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_senescencei, paste('./plots/', experiment, '_umap_sig_senescencei', sep = ''))
+
+# better way to generate UMAPs for scored cells
+
+fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
+umap_CARTEx_84 <- FeaturePlot(expt.obj, features = c("CARTEx_84"), order = TRUE) + fix.sc
+umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE) + fix.sc
+umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
+umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
+umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
+
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_umap_CARTEx_84', sep = ''))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_umap_sig_activation', sep = ''))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_umap_sig_anergy', sep = ''))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_umap_sig_stemness', sep = ''))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_umap_sig_senescence', sep = ''))
+
+
+
+
+expt.obj <- SetIdent(expt.obj, value = "monaco")
+levels(expt.obj) <- c('Naive CD8 T cells', 'Effector memory CD8 T cells', 'Central memory CD8 T cells', 'Terminal effector CD8 T cells')
+
+vlnplot_CARTEx_84_monaco <- VlnPlot(expt.obj, features = c("CARTEx_84"), group.by = 'monaco', pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_CARTEx_84_monaco, paste('./plots/', experiment, '_vlnplot_CARTEx_84_monaco', sep = ''))
 
 
 
