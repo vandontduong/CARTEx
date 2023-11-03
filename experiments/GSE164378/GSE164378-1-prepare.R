@@ -94,6 +94,8 @@ saveRDS(pbmcref, file = paste('./data/', experiment, '.rds', sep = ''))
 
 pbmcref <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
+umap_seurat_clusters <- DimPlot(pbmcref, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_umap_seurat_clusters', sep = ''))
 
 
 ####################################################################################################
@@ -171,8 +173,8 @@ monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.
 
 pbmcref[["monaco"]] <- monaco.predictions$labels
 
-# umap_predicted_monaco <- DimPlot(pbmcref, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(pbmcref, reduction = "umap", group.by = "monaco")
+umap_predicted_monaco <- DimPlot(pbmcref, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_monaco <- DimPlot(pbmcref, reduction = "umap", group.by = "monaco")
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
 
 
@@ -184,8 +186,8 @@ dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds'
 
 pbmcref[["dice"]] <- dice.predictions$labels
 
-# umap_predicted_dice <- DimPlot(pbmcref, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_dice <- DimPlot(pbmcref, reduction = "umap", group.by = "dice")
+umap_predicted_dice <- DimPlot(pbmcref, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_dice <- DimPlot(pbmcref, reduction = "umap", group.by = "dice")
 generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
 
 
@@ -199,15 +201,20 @@ pbmcref[["azimuth"]] <- pbmcref@meta.data$celltype.l2
 md <- pbmcref@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-md_temp <- md[, .N, by = c('monaco', 'AgeGroup2')]
+md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_barplot_monaco_age_group', sep = ''))
+barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_barplot_azimuth_seurat_clusters', sep = ''))
 
-md_temp <- md[, .N, by = c('dice', 'AgeGroup2')]
+md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_barplot_dice_age_group', sep = ''))
+barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_barplot_monaco_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_barplot_dice_seurat_clusters', sep = ''))
 
 md_temp <- md[, .N, by = c('Phase', 'azimuth')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
