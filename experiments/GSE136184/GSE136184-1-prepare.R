@@ -136,6 +136,11 @@ expt.obj <- FindNeighbors(expt.obj, dims = 1:10)
 expt.obj <- FindClusters(expt.obj, resolution = 0.5)
 expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
+saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
+
+expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+
+
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
 generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_umap_seurat_clusters', sep = ''))
 
@@ -157,10 +162,6 @@ generate_figs(umap_code, paste('./plots/', experiment, '_umap_code', sep = ''))
 umap_cohort <- DimPlot(expt.obj, reduction = "umap", group.by = "Cohort", shuffle = TRUE, seed = 123)
 generate_figs(umap_cohort, paste('./plots/', experiment, '_umap_cohort', sep = ''))
 
-
-saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
-
-expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
 
 ####################################################################################################
@@ -317,6 +318,21 @@ for (cell_ref in c("azimuth", "monaco", "dice")){
     generate_figs(barplot_temp, paste('./plots/', experiment, '_barplot_', cell_ref, '_', age_group, sep = ''))
   }
 }
+
+md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_barplot_azimuth_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_barplot_monaco_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_barplot_dice_seurat_clusters', sep = ''))
 
 md_temp <- md[, .N, by = c('azimuth', 'AgeGroup2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
