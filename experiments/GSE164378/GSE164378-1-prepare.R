@@ -265,23 +265,6 @@ pbmcref <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 
 
-
-
-
-
-
-
-
-
-####################################################################################################
-######################################## Filter on CD8 T cells ######################################
-####################################################################################################
-
-Idents(pbmcref) <- "celltype.l2"
-
-pbmcref_CD8T <- subset(x = pbmcref, idents = c("CD8 TEM", "CD8 TCM", "CD8 Naive", "CD8 Proliferating"))
-
-
 ####################################################################################################
 ########################################### CARTEx scoring #########################################
 ####################################################################################################
@@ -401,6 +384,184 @@ Idents(pbmcref) <- "celltype.l2"
 saveRDS(pbmcref, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(pbmcref)
+
+
+####################################################################################################
+######################################## Filter on CD8 T cells ######################################
+####################################################################################################
+
+pbmcref <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+Idents(pbmcref) <- "celltype.l2"
+pbmcref.CD8pos <- subset(x = pbmcref, idents = c("CD8 TEM", "CD8 TCM", "CD8 Naive", "CD8 Proliferating"))
+
+
+test_assay <- LayerData(pbmcref.CD8pos) # LayerData() is the updated function; GetAssayData() was depreciated
+
+# https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
+monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.obj.md <- monaco.obj@colData %>% as.data.table
+monaco.obj.md[, .N, by = c("label.main", "label.fine")]
+# monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'CD4+ T cells', 'T cells')
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
+monaco.obj <- monaco.obj[, monaco.index]
+unique(monaco.obj$label.main)
+
+dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.obj.md <- dice.obj@colData %>% as.data.table
+dice.obj.md[, .N, by = c("label.main", "label.fine")]
+# dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
+dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
+dice.obj <- dice.obj[, dice.index]
+# downsample
+dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
+unique(dice.obj$label.main)
+
+monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
+table(monaco.predictions$labels)
+saveRDS(monaco.predictions, file=paste('./data/', experiment, '_CD8pos_monaco_predictions.rds', sep = ''))
+write.csv(monaco.predictions, file=paste('./data/', experiment, '_CD8pos_monaco_predictions.csv', sep = ''))
+monaco.predictions <- readRDS(paste('./data/', experiment, '_CD8pos_monaco_predictions.rds', sep = ''))
+
+pbmcref.CD8pos[["monaco"]] <- monaco.predictions$labels
+
+umap_predicted_monaco <- DimPlot(pbmcref.CD8pos, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_monaco <- DimPlot(pbmcref.CD8pos, reduction = "umap", group.by = "monaco")
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_CD8pos_umap_predicted_monaco', sep = ''))
+
+
+dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
+table(dice.predictions$labels)
+saveRDS(dice.predictions, file=paste('./data/', experiment, '_CD8pos_dice_predictions.rds', sep = ''))
+write.csv(dice.predictions, file=paste('./data/', experiment, '_CD8pos_dice_predictions.csv', sep = ''))
+dice.predictions <- readRDS(paste('./data/', experiment, '_CD8pos_dice_predictions.rds', sep = ''))
+
+pbmcref.CD8pos[["dice"]] <- dice.predictions$labels
+
+umap_predicted_dice <- DimPlot(pbmcref.CD8pos, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_dice <- DimPlot(pbmcref.CD8pos, reduction = "umap", group.by = "dice")
+generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_CD8pos_umap_predicted_dice', sep = ''))
+
+
+featureplot_Tcell_markers <- FeaturePlot(pbmcref.CD8pos, features = c("CD4", "CD8A", "CD8B", "PDCD1"))
+generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_CD8pos_featureplot_Tcell_markers', sep = ''))
+
+
+pbmcref.CD8pos[["azimuth"]] <- pbmcref.CD8pos@meta.data$celltype.l2
+
+
+saveRDS(pbmcref.CD8pos, file = paste('./data/', experiment, '_CD8pos_annotated.rds', sep = ''))
+
+pbmcref.CD8pos <- readRDS(paste('./data/', experiment, '_CD8pos_annotated.rds', sep = ''))
+
+
+
+# BAR CHARTS of CELL TYPES
+md <- pbmcref.CD8pos@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_CD8pos_barplot_azimuth_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_CD8pos_barplot_monaco_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_CD8pos_barplot_dice_seurat_clusters', sep = ''))
+
+
+
+####################################################################################################
+######################################## Filter on all T cells ######################################
+####################################################################################################
+
+pbmcref <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+Idents(pbmcref) <- "celltype.l1"
+pbmcref.allT <- subset(x = pbmcref, idents = c("CD4 T", "CD8 T", "other T"))
+
+
+test_assay <- LayerData(pbmcref.allT) # LayerData() is the updated function; GetAssayData() was depreciated
+
+# https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
+monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.obj.md <- monaco.obj@colData %>% as.data.table
+monaco.obj.md[, .N, by = c("label.main", "label.fine")]
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'CD4+ T cells', 'T cells')
+monaco.obj <- monaco.obj[, monaco.index]
+unique(monaco.obj$label.main)
+
+dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.obj.md <- dice.obj@colData %>% as.data.table
+dice.obj.md[, .N, by = c("label.main", "label.fine")]
+dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
+dice.obj <- dice.obj[, dice.index]
+# downsample
+dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
+unique(dice.obj$label.main)
+
+monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
+table(monaco.predictions$labels)
+saveRDS(monaco.predictions, file=paste('./data/', experiment, '_allT_monaco_predictions.rds', sep = ''))
+write.csv(monaco.predictions, file=paste('./data/', experiment, '_allT_monaco_predictions.csv', sep = ''))
+monaco.predictions <- readRDS(paste('./data/', experiment, '_allT_monaco_predictions.rds', sep = ''))
+
+pbmcref.allT[["monaco"]] <- monaco.predictions$labels
+
+umap_predicted_monaco <- DimPlot(pbmcref.allT, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_monaco <- DimPlot(pbmcref.allT, reduction = "umap", group.by = "monaco")
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_allT_umap_predicted_monaco', sep = ''))
+
+
+dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
+table(dice.predictions$labels)
+saveRDS(dice.predictions, file=paste('./data/', experiment, '_allT_dice_predictions.rds', sep = ''))
+write.csv(dice.predictions, file=paste('./data/', experiment, '_allT_dice_predictions.csv', sep = ''))
+dice.predictions <- readRDS(paste('./data/', experiment, '_allT_dice_predictions.rds', sep = ''))
+
+pbmcref.allT[["dice"]] <- dice.predictions$labels
+
+umap_predicted_dice <- DimPlot(pbmcref.allT, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_dice <- DimPlot(pbmcref.allT, reduction = "umap", group.by = "dice")
+generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_allT_umap_predicted_dice', sep = ''))
+
+
+featureplot_Tcell_markers <- FeaturePlot(pbmcref.allT, features = c("CD4", "CD8A", "CD8B", "PDCD1"))
+generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_allT_featureplot_Tcell_markers', sep = ''))
+
+
+pbmcref.allT[["azimuth"]] <- pbmcref.allT@meta.data$celltype.l2
+
+
+saveRDS(pbmcref.allT, file = paste('./data/', experiment, '_allT_annotated.rds', sep = ''))
+
+pbmcref.allT <- readRDS(paste('./data/', experiment, '_allT_annotated.rds', sep = ''))
+
+
+
+# BAR CHARTS of CELL TYPES
+md <- pbmcref.allT@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_allT_barplot_azimuth_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_allT_barplot_monaco_seurat_clusters', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_allT_barplot_dice_seurat_clusters', sep = ''))
+
 
 
 
