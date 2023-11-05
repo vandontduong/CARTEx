@@ -1,6 +1,8 @@
 # prepare seurat object
 # Vandon Duong
 
+set.seed(123)
+
 experiment = 'GSE136874'
 
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
@@ -117,6 +119,20 @@ expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), fea
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
 
+# ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
+md <- expt.obj@meta.data %>% as.data.table
+md[, .N, by = c("orig.ident", "Phase")]
+phase_data <- md[, .N, by = c("Phase")]
+setorder(phase_data, cols = "Phase")
+phase_data$percent <- round(100*phase_data$N / sum(phase_data$N), digits = 1)
+phase_data$label <- paste(phase_data$Phase, " (", phase_data$percent,"%)", sep = "")
+phase_data$cols <- hcl.colors(n = nrow(phase_data), palette = "Temps")
+barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(stat="identity", fill = phase_data$cols)
+generate_figs(barplot_phase, paste('./plots/', experiment, '_barplot_phase', sep = ''))
+umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols)
+generate_figs(umap_phase, paste('./plots/', experiment, '_umap_phase', sep = ''))
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
@@ -131,48 +147,108 @@ expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 # https://rdrr.io/github/LTLA/celldex/man/MonacoImmuneData.html
 # https://rdrr.io/github/LTLA/celldex/man/DatabaseImmuneCellExpressionData.html
 
+test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
+
 # azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
 azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
+azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
+azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
 azimuth.obj <- subset(azimuth.obj, idents = c("CD4 T", "CD8 T", "other T"))
-
-monaco.obj <- MonacoImmuneData(ensembl=F)
-dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
-
-test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
+# azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T"))
+# downsample
+azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l2")
+azimuth.obj <- subset(azimuth.obj, downsample = 100)
 azimuth_assay <- LayerData(azimuth.obj)
+
+# https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
+monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.obj.md <- monaco.obj@colData %>% as.data.table
+monaco.obj.md[, .N, by = c("label.main", "label.fine")]
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'CD4+ T cells', 'T cells')
+# monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
+monaco.obj <- monaco.obj[, monaco.index]
+unique(monaco.obj$label.main)
+
+dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.obj.md <- dice.obj@colData %>% as.data.table
+dice.obj.md[, .N, by = c("label.main", "label.fine")]
+dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
+# dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
+dice.obj <- dice.obj[, dice.index]
+# downsample
+dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
+unique(dice.obj$label.main)
 
 azimuth.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = azimuth_assay, labels = azimuth.obj$celltype.l2)
 table(azimuth.predictions$labels)
+saveRDS(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.rds', sep = ''))
+write.csv(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.csv', sep = ''))
+azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_predictions.rds', sep = ''))
 
 expt.obj[["azimuth"]] <- azimuth.predictions$labels
 
-umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth")
 generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
 
 
 monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
 table(monaco.predictions$labels)
+saveRDS(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
+write.csv(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.csv', sep = ''))
+monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
 
 expt.obj[["monaco"]] <- monaco.predictions$labels
 
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco")
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
 
 
 dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
 table(dice.predictions$labels)
+saveRDS(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
+write.csv(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.csv', sep = ''))
+dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
 
 expt.obj[["dice"]] <- dice.predictions$labels
 
-umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+# umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice")
 generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
 
-# BAR CHART of CELL TYPE?
+
+featureplot_Tcell_markers <- FeaturePlot(expt.obj, features = c("CD4", "CD8A", "CD8B", "PDCD1"))
+generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_featureplot_Tcell_markers', sep = ''))
 
 
+# BAR CHARTS of CELL TYPES
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
+
+md_temp <- md[, .N, by = c('azimuth', 'orig.ident')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_CAR, paste('./plots/', experiment, '_barplot_azimuth_CAR', sep = ''))
+
+md_temp <- md[, .N, by = c('monaco', 'orig.ident')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_CAR, paste('./plots/', experiment, '_barplot_monaco_CAR', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'orig.ident')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_CAR, paste('./plots/', experiment, '_barplot_dice_CAR', sep = ''))
+
+md_temp <- md[, .N, by = c('Phase', 'orig.ident')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_phase_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = Phase)) + geom_col(position = "fill")
+generate_figs(barplot_phase_CAR, paste('./plots/', experiment, '_barplot_phase_CAR', sep = ''))
+
+
+
 
 # label CD8s based on having 
 # azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
@@ -181,9 +257,9 @@ md[, .N, by = c("azimuth", "monaco", "dice")]
 
 # CD8 T cell detected in any reference
 expt.obj$CD8Tref_1 <- with(expt.obj, ifelse((expt.obj@meta.data$azimuth == "CD8 Naive") | (expt.obj@meta.data$azimuth == "CD8 TEM") | (expt.obj@meta.data$azimuth == "CD8 Proliferating") | 
-                                             (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
-                                             (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
-                                           'CD8 T cell', 'Other'))
+                                              (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
+                                              (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
+                                            'CD8 T cell', 'Other'))
 
 dplyr::count(expt.obj@meta.data, CD8Tref_1, sort = TRUE)
 
@@ -193,9 +269,9 @@ generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_pre
 
 # CD8 T cell detected in at least 2 references
 expt.obj$CD8Tref_2 <- with(expt.obj, ifelse(expt.obj@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
-                                            expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
-                                            expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
-                                          'CD8 T cell', 'Other'))
+                                              expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
+                                              expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
+                                            'CD8 T cell', 'Other'))
 
 dplyr::count(expt.obj@meta.data, CD8Tref_2, sort = TRUE)
 
@@ -207,10 +283,10 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
-expt.obj <- SetIdent(expt.obj, value = 'CD8Tref_1')
-expt.obj <- subset(expt.obj, idents = 'CD8 T cell')
+# expt.obj <- SetIdent(expt.obj, value = 'CD8Tref_1')
+# expt.obj <- subset(expt.obj, idents = 'CD8 T cell')
 
-saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8.rds', sep = ''))
+# saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8.rds', sep = ''))
 
 
 

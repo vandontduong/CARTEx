@@ -43,14 +43,19 @@ generate_figs = function(figure_object, file_name, dimensions){
 
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_annotated_cross.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds") # T cell reference ?
-ref.obj <- SetIdent(ref.obj, value = "celltype.l1")
-ref.obj <- subset(ref.obj, idents = c("CD4 T", "CD8 T", "other T"))
+ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_allT_annotated.rds")
+# ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds") # T cell reference ?
+# ref.obj <- SetIdent(ref.obj, value = "celltype.l1")
+# ref.obj <- subset(ref.obj, idents = c("CD4 T", "CD8 T", "other T"))
 
 # add experiment identifier
 expt.obj@meta.data[['identifier']] <- experiment
 aging.obj@meta.data[['identifier']] <- "GSE136184"
 ref.obj@meta.data[['identifier']] <- "GSE164378"
+
+expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$orig.ident
+aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+ref.obj@meta.data[['identifier2']] <- ref.obj@meta.data$monaco
 
 integration.list <- c(experiment = expt.obj, aging = aging.obj, reference = ref.obj)
 
@@ -82,15 +87,35 @@ integration.obj <- FindClusters(integration.obj, resolution = 0.5)
 
 head(integration.obj)
 
-saveRDS(expt.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
+saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
-integrated_umap_identifier <- DimPlot(expt.obj, reduction = "umap", group.by = "identifier", shuffle = TRUE, seed = 123)
-generate_figs(integrated_umap_identifier, paste('./plots/integrated_', experiment, '_identifier', sep = ''))
+integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123)
+generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
 
-integrated_umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(integrated_umap_seurat_clusters, paste('./plots/integrated_', experiment, '_umap_seurat_clusters', sep = ''))
+integrated_umap_seurat_clusters <- DimPlot(integration.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(integrated_umap_seurat_clusters, paste('./plots/', experiment, '_integrated_umap_seurat_clusters', sep = ''))
+
+integrated_umap_azimuth <- DimPlot(integration.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123)
+generate_figs(integrated_umap_azimuth, paste('./plots/', experiment, '_integrated_umap_azimuth', sep = ''))
+
+integrated_umap_monaco <- DimPlot(integration.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
+generate_figs(integrated_umap_monaco, paste('./plots/', experiment, '_integrated_umap_monaco', sep = ''))
+
+integrated_umap_dice <- DimPlot(integration.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123)
+generate_figs(integrated_umap_dice, paste('./plots/', experiment, '_integrated_umap_dice', sep = ''))
+
+
+
+
+
+
+
+
+
+
+
 
 
 
