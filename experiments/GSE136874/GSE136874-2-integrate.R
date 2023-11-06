@@ -34,6 +34,13 @@ generate_figs = function(figure_object, file_name, dimensions){
   return (paste("generating figure for ", file_name))
 }
 
+integerize = function(score){
+  score_mod = round(score)
+  score_mod[score_mod < -4] <- -5
+  score_mod[score_mod > 4] <- 5
+  return (score_mod)
+}
+
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
@@ -132,12 +139,138 @@ md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
 generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_dice_seurat_clusters', sep = ''))
 
+####################################################################################################
+####################################### Examine query datasets #####################################
+####################################################################################################
+
+integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+
+query.list <- SplitObject(integration.obj, split.by = "split.ident")
+query.obj <- query.list$Query
+rm(aging.obj, expt.obj, ref.obj, integration.obj)
+
+md <- query.obj@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+# Filter for CD8A +  cells, removing CD4+
+CD4_expression <- GetAssayData(object = query.obj, assay = "RNA", slot = "data")["CD4",]
+CD8A_expression <- GetAssayData(object = query.obj, assay = "RNA", slot = "data")["CD8A",]
+CD8B_expression <- GetAssayData(object = query.obj, assay = "RNA", slot = "data")["CD8B",]
+pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0))
+neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
+query.obj <- subset(query.obj, cells=pos_ids)
+
+# CD8 T cell detected in any reference
+query.obj$CD8Tref_1 <- with(query.obj, ifelse((query.obj@meta.data$azimuth == "CD8 Naive") | (query.obj@meta.data$azimuth == "CD8 TEM") | (query.obj@meta.data$azimuth == "CD8 Proliferating") | 
+                                              (query.obj@meta.data$monaco == "Naive CD8 T cells") | (query.obj@meta.data$monaco == "Effector CD8 T cells") | (query.obj@meta.data$monaco == "Central Memory CD8 T cells") | (query.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
+                                              (query.obj@meta.data$dice == "T cells, CD8+, naive") | (query.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
+                                            'CD8 T cell', 'Other'))
+
+dplyr::count(query.obj@meta.data, CD8Tref_1, sort = TRUE)
+
+umap_predicted_CD8Tref_1 <- DimPlot(query.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
+generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_query_umap_predicted_CD8Tref_1', sep = ''))
+
+query.obj <- SetIdent(query.obj, value = "CD8Tref_1")
+query.obj <- subset(query.obj, idents = c("CD8 T cell"))
+
+head(query.obj)
 
 
+####################################################################################################
+########################################### CARTEx scoring #########################################
+####################################################################################################
+
+# CARTEx with weights // 630 genes
+cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_630_weights), rownames(query.obj))
+expr <- t(as.matrix(GetAssayData(query.obj))[match(common, rownames(as.matrix(GetAssayData(query.obj)))),])
+weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
+scores <- expr %*% as.matrix(weights)
+query.obj@meta.data$CARTEx_630 <- Z(scores)
+query.obj@meta.data$CARTEx_630i <- integerize(query.obj@meta.data$CARTEx_630)
+
+# CARTEx with weights // 200 genes
+cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_200_weights), rownames(query.obj))
+expr <- t(as.matrix(GetAssayData(query.obj))[match(common, rownames(as.matrix(GetAssayData(query.obj)))),])
+weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
+scores <- expr %*% as.matrix(weights)
+query.obj@meta.data$CARTEx_200 <- Z(scores)
+query.obj@meta.data$CARTEx_200i <- integerize(query.obj@meta.data$CARTEx_200)
+
+# CARTEx with weights // 84 genes
+cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_84_weights), rownames(query.obj))
+expr <- t(as.matrix(GetAssayData(query.obj))[match(common, rownames(as.matrix(GetAssayData(query.obj)))),])
+weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
+scores <- expr %*% as.matrix(weights)
+query.obj@meta.data$CARTEx_84 <- Z(scores)
+query.obj@meta.data$CARTEx_84i <- integerize(query.obj@meta.data$CARTEx_84)
 
 
+####################################################################################################
+########################################### Module scoring #########################################
+####################################################################################################
 
+activation_sig <- rownames(read.csv("../../signatures/panther-activation.csv", header = TRUE, row.names = 1))
+anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.csv", header = TRUE, row.names = 1))
+stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
+senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
 
+query.obj <- AddModuleScore(query.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+
+# z score normalization
+query.obj@meta.data$Activation <- scale(query.obj@meta.data$State1)
+query.obj@meta.data$Anergy <- scale(query.obj@meta.data$State2)
+query.obj@meta.data$Stemness <- scale(query.obj@meta.data$State3)
+query.obj@meta.data$Senescence <- scale(query.obj@meta.data$State4)
+
+query.obj@meta.data$Activationi <- integerize(query.obj@meta.data$Activation)
+query.obj@meta.data$Anergyi <- integerize(query.obj@meta.data$Anergy)
+query.obj@meta.data$Stemnessi <- integerize(query.obj@meta.data$Stemness)
+query.obj@meta.data$Senescencei <- integerize(query.obj@meta.data$Senescence)
+
+query.obj@meta.data$State1 <- NULL
+query.obj@meta.data$State2 <- NULL
+query.obj@meta.data$State3 <- NULL
+query.obj@meta.data$State4 <- NULL
+
+saveRDS(query.obj, file = paste('./data/', experiment, '_query_scored.rds', sep = ''))
+
+query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
+
+head(query.obj)
+
+# CARTEx violin plot
+query.obj <- SetIdent(query.obj, value = "identifier2")
+split.ident.order = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
+Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
+
+query.obj$identifier2 <- factor(query.obj$identifier2, levels = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 5)
+generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
+
+# BAR CHARTS of CELL TYPES
+md <- query.obj@meta.data %>% as.data.table
+md[, .N, by = c("azimuth", "monaco", "dice")]
+
+md_temp <- md[, .N, by = c('azimuth', 'identifier2')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_identifier2, paste('./plots/', experiment, '_query_barplot_azimuth_identifier2', sep = ''))
+
+md_temp <- md[, .N, by = c('monaco', 'identifier2')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_identifier2, paste('./plots/', experiment, '_query_barplot_monaco_identifier2', sep = ''))
+
+md_temp <- md[, .N, by = c('dice', 'identifier2')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_identifier2, paste('./plots/', experiment, '_query_barplot_dice_identifier2', sep = ''))
 
 
 
