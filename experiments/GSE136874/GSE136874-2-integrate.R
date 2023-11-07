@@ -120,6 +120,10 @@ generate_figs(integrated_umap_monaco, paste('./plots/', experiment, '_integrated
 integrated_umap_dice <- DimPlot(integration.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_dice, paste('./plots/', experiment, '_integrated_umap_dice', sep = ''))
 
+featureplot_Tcell_markers <- FeaturePlot(integration.obj, features = c("CD4", "CD8A", "CD8B", "PDCD1"), raster = FALSE)
+generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_integrated_featureplot_Tcell_markers', sep = ''))
+
+
 # BAR CHARTS of CELL TYPES
 md <- integration.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
@@ -250,7 +254,9 @@ Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 query.obj$identifier2 <- factor(query.obj$identifier2, levels = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
 vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 3.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','GD2')), label = "p.signif", label.y = 4.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','Newborn')), label = "p.signif", label.y = 5.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 # BAR CHARTS of CELL TYPES
@@ -271,6 +277,68 @@ md_temp <- md[, .N, by = c('dice', 'identifier2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_dice_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = dice)) + geom_col(position = "fill")
 generate_figs(barplot_dice_identifier2, paste('./plots/', experiment, '_query_barplot_dice_identifier2', sep = ''))
+
+
+
+vlnplot_CARTEx_84_azimuth <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'azimuth', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_CARTEx_84_azimuth, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_azimuth', sep = ''))
+
+vlnplot_CARTEx_84_monaco <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'monaco', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_CARTEx_84_monaco, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_monaco', sep = ''))
+
+vlnplot_CARTEx_84_dice <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'dice', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_CARTEx_84_dice, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_dice', sep = ''))
+
+
+####################################################################################################
+####################################### CARTEx representation ######################################
+####################################################################################################
+
+cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
+all.genes <- rownames(query.obj)
+
+# Calculate the percentage of all counts that belong to a given set of features
+# i.e. compute the percentage of transcripts that map to CARTEx genes
+
+query.obj@meta.data$CARTEx_630_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_630_weights))) / length(rownames(cartex_630_weights))
+query.obj@meta.data$CARTEx_200_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_200_weights))) / length(rownames(cartex_200_weights))
+query.obj@meta.data$CARTEx_84_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_84_weights))) / length(rownames(cartex_84_weights))
+
+QCscatter_CARTEx_630_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
+QCscatter_CARTEx_200_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
+QCscatter_CARTEx_84_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
+
+generate_figs(QCscatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_query_QCscatter_CARTEx_630_countsproportion', sep = ''))
+generate_figs(QCscatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_query_QCscatter_CARTEx_200_countsproportion', sep = ''))
+generate_figs(QCscatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_query_QCscatter_CARTEx_84_countsproportion', sep = ''))
+
+# do it for signatures as well
+
+query.obj@meta.data$Activation_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, activation_sig), assay = 'RNA') * length(intersect(all.genes, activation_sig)) / length(activation_sig)
+query.obj@meta.data$Anergy_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, anergy_sig), assay = 'RNA') * length(intersect(all.genes, anergy_sig)) / length(anergy_sig)
+query.obj@meta.data$Senescence_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, senescence_sig), assay = 'RNA') * length(intersect(all.genes, senescence_sig)) / length(senescence_sig)
+query.obj@meta.data$Stemness_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, stemness_sig), assay = 'RNA') * length(intersect(all.genes, stemness_sig)) / length(stemness_sig)
+
+
+QCscatter_Activation_countsproportion <- FeatureScatter(query.obj, feature1 = "Activation", feature2 = "Activation_countsproportion")
+QCscatter_Anergy_countsproportion <- FeatureScatter(query.obj, feature1 = "Anergy", feature2 = "Anergy_countsproportion")
+QCscatter_Senescence_countsproportion <- FeatureScatter(query.obj, feature1 = "Senescence", feature2 = "Senescence_countsproportion")
+QCscatter_Stemness_countsproportion <- FeatureScatter(query.obj, feature1 = "Stemness", feature2 = "Stemness_countsproportion")
+
+
+generate_figs(QCscatter_Activation_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Activation_countsproportion', sep = ''))
+generate_figs(QCscatter_Anergy_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Anergy_countsproportion', sep = ''))
+generate_figs(QCscatter_Senescence_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Senescence_countsproportion', sep = ''))
+generate_figs(QCscatter_Stemness_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Stemness_countsproportion', sep = ''))
+
+
+
+
 
 
 
