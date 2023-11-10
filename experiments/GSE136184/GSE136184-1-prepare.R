@@ -46,6 +46,14 @@ integerize = function(score){
 expt.obj <- readRDS(paste('./data/GSE136184_seu_obj2.Rds', sep = ''))
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
+# Filter for CD8A +  cells, removing CD4+
+CD4_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD4",]
+CD8A_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8A",]
+CD8B_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8B",]
+pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0))
+neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
+expt.obj <- subset(expt.obj,cells=pos_ids)
+
 #- Add meta.data
 expt.obj@meta.data$Sex <- plyr::mapvalues(x = expt.obj@meta.data$Code,
                                                           from = c('sc_d1', 'sc_d2', 'sc_d3', 'sc_d4', 'sc_d5', 'sc_d6', 'sc_d7', 'sc_d8', 'sc_d9', 'sc_d10', 'sc_d11', 'sc_d12', 'sc_d13', 'sc_d14', 'sc_d15', 'sc_d16', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'),
@@ -230,8 +238,7 @@ azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
-# azimuth.obj <- subset(azimuth.obj, idents = c("CD4 T", "CD8 T", "other T"))
-azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T"))
+azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T", "other T"))
 # downsample
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l2")
 azimuth.obj <- subset(azimuth.obj, downsample = 100)
@@ -241,15 +248,13 @@ azimuth_assay <- LayerData(azimuth.obj)
 monaco.obj <- MonacoImmuneData(ensembl=F)
 monaco.obj.md <- monaco.obj@colData %>% as.data.table
 monaco.obj.md[, .N, by = c("label.main", "label.fine")]
-# monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'CD4+ T cells', 'T cells')
-monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'T cells')
 monaco.obj <- monaco.obj[, monaco.index]
 unique(monaco.obj$label.main)
 
 dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
 dice.obj.md <- dice.obj@colData %>% as.data.table
 dice.obj.md[, .N, by = c("label.main", "label.fine")]
-# dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
 dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
 dice.obj <- dice.obj[, dice.index]
 # downsample
@@ -386,6 +391,28 @@ umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD
 generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
 
 
+# QC: Examine CARTEx representation at single-cell resolution
+
+cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
+all.genes <- rownames(expt.obj)
+
+# Calculate the percentage of all counts that belong to a given set of features
+# i.e. compute the percentage of transcripts that map to CARTEx genes
+
+CARTEx_630_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_630_weights))) / length(rownames(cartex_630_weights))
+expt.obj@meta.data$CARTEx_630_countsproportion <- CARTEx_630_cp[1:length(Cells(expt.obj))]
+CARTEx_200_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_200_weights))) / length(rownames(cartex_200_weights))
+expt.obj@meta.data$CARTEx_200_countsproportion <- CARTEx_200_cp[1:length(Cells(expt.obj))]
+CARTEx_84_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_84_weights))) / length(rownames(cartex_84_weights))
+expt.obj@meta.data$CARTEx_84_countsproportion <- CARTEx_84_cp[1:length(Cells(expt.obj))]
+
+
+
+
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -506,6 +533,18 @@ generate_figs(umap_sig_activation, paste('./plots/', experiment, '_umap_sig_acti
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_umap_sig_anergy', sep = ''))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_umap_sig_stemness', sep = ''))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_umap_sig_senescence', sep = ''))
+
+
+
+# quality control 
+
+scatter_CARTEx_630_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
+scatter_CARTEx_200_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
+scatter_CARTEx_84_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
+
+generate_figs(scatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_630_countsproportion', sep = ''))
+generate_figs(scatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_200_countsproportion', sep = ''))
+generate_figs(scatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_84_countsproportion', sep = ''))
 
 
 
