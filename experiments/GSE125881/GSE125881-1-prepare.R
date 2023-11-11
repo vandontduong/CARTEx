@@ -194,7 +194,7 @@ azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
-azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T", "other T"))
+azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T"))
 # downsample
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l2")
 azimuth.obj <- subset(azimuth.obj, downsample = 100)
@@ -204,7 +204,7 @@ azimuth_assay <- LayerData(azimuth.obj)
 monaco.obj <- MonacoImmuneData(ensembl=F)
 monaco.obj.md <- monaco.obj@colData %>% as.data.table
 monaco.obj.md[, .N, by = c("label.main", "label.fine")]
-monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'T cells')
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
 monaco.obj <- monaco.obj[, monaco.index]
 unique(monaco.obj$label.main)
 

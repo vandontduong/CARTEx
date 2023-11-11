@@ -50,7 +50,7 @@ integerize = function(score){
 
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_annotated_cross.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_allT_annotated.rds")
+ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_annotated.rds")
 # ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds") # T cell reference ?
 # ref.obj <- SetIdent(ref.obj, value = "celltype.l1")
 # ref.obj <- subset(ref.obj, idents = c("CD4 T", "CD8 T", "other T"))
@@ -155,28 +155,6 @@ rm(aging.obj, expt.obj, ref.obj, integration.obj)
 
 md <- query.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
-
-# Filter for CD8A +  cells, removing CD4+
-CD4_expression <- GetAssayData(object = query.obj, assay = "RNA", slot = "data")["CD4",]
-CD8A_expression <- GetAssayData(object = query.obj, assay = "RNA", slot = "data")["CD8A",]
-CD8B_expression <- GetAssayData(object = query.obj, assay = "RNA", slot = "data")["CD8B",]
-pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0))
-neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
-query.obj <- subset(query.obj, cells=pos_ids)
-
-# CD8 T cell detected in any reference
-query.obj$CD8Tref_1 <- with(query.obj, ifelse((query.obj@meta.data$azimuth == "CD8 Naive") | (query.obj@meta.data$azimuth == "CD8 TEM") | (query.obj@meta.data$azimuth == "CD8 Proliferating") | 
-                                              (query.obj@meta.data$monaco == "Naive CD8 T cells") | (query.obj@meta.data$monaco == "Effector CD8 T cells") | (query.obj@meta.data$monaco == "Central Memory CD8 T cells") | (query.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
-                                              (query.obj@meta.data$dice == "T cells, CD8+, naive") | (query.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(query.obj@meta.data, CD8Tref_1, sort = TRUE)
-
-umap_predicted_CD8Tref_1 <- DimPlot(query.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_query_umap_predicted_CD8Tref_1', sep = ''))
-
-query.obj <- SetIdent(query.obj, value = "CD8Tref_1")
-query.obj <- subset(query.obj, idents = c("CD8 T cell"))
 
 head(query.obj)
 
@@ -297,45 +275,15 @@ generate_figs(vlnplot_CARTEx_84_dice, paste('./plots/', experiment, '_query_vlnp
 ####################################### CARTEx representation ######################################
 ####################################################################################################
 
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-all.genes <- rownames(query.obj)
+query.obj <- SetIdent(query.obj, value = "identifier")
 
-# Calculate the percentage of all counts that belong to a given set of features
-# i.e. compute the percentage of transcripts that map to CARTEx genes
+scatter_CARTEx_630_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
+scatter_CARTEx_200_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
+scatter_CARTEx_84_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
 
-query.obj@meta.data$CARTEx_630_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_630_weights))) / length(rownames(cartex_630_weights))
-query.obj@meta.data$CARTEx_200_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_200_weights))) / length(rownames(cartex_200_weights))
-query.obj@meta.data$CARTEx_84_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_84_weights))) / length(rownames(cartex_84_weights))
-
-QCscatter_CARTEx_630_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
-QCscatter_CARTEx_200_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
-QCscatter_CARTEx_84_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
-
-generate_figs(QCscatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_query_QCscatter_CARTEx_630_countsproportion', sep = ''))
-generate_figs(QCscatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_query_QCscatter_CARTEx_200_countsproportion', sep = ''))
-generate_figs(QCscatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_query_QCscatter_CARTEx_84_countsproportion', sep = ''))
-
-# do it for signatures as well
-
-query.obj@meta.data$Activation_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, activation_sig), assay = 'RNA') * length(intersect(all.genes, activation_sig)) / length(activation_sig)
-query.obj@meta.data$Anergy_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, anergy_sig), assay = 'RNA') * length(intersect(all.genes, anergy_sig)) / length(anergy_sig)
-query.obj@meta.data$Senescence_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, senescence_sig), assay = 'RNA') * length(intersect(all.genes, senescence_sig)) / length(senescence_sig)
-query.obj@meta.data$Stemness_countsproportion <- PercentageFeatureSet(query.obj, features = intersect(all.genes, stemness_sig), assay = 'RNA') * length(intersect(all.genes, stemness_sig)) / length(stemness_sig)
-
-
-QCscatter_Activation_countsproportion <- FeatureScatter(query.obj, feature1 = "Activation", feature2 = "Activation_countsproportion")
-QCscatter_Anergy_countsproportion <- FeatureScatter(query.obj, feature1 = "Anergy", feature2 = "Anergy_countsproportion")
-QCscatter_Senescence_countsproportion <- FeatureScatter(query.obj, feature1 = "Senescence", feature2 = "Senescence_countsproportion")
-QCscatter_Stemness_countsproportion <- FeatureScatter(query.obj, feature1 = "Stemness", feature2 = "Stemness_countsproportion")
-
-
-generate_figs(QCscatter_Activation_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Activation_countsproportion', sep = ''))
-generate_figs(QCscatter_Anergy_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Anergy_countsproportion', sep = ''))
-generate_figs(QCscatter_Senescence_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Senescence_countsproportion', sep = ''))
-generate_figs(QCscatter_Stemness_countsproportion, paste('./plots/', experiment, '_query_QCscatter_Stemness_countsproportion', sep = ''))
-
+generate_figs(scatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_630_countsproportion', sep = ''))
+generate_figs(scatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_200_countsproportion', sep = ''))
+generate_figs(scatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_84_countsproportion', sep = ''))
 
 
 
