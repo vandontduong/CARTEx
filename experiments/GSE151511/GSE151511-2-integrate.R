@@ -3,7 +3,7 @@
 
 set.seed(123)
 
-experiment = 'GSE136874'
+experiment = 'GSE151511'
 
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
 
@@ -45,6 +45,7 @@ integerize = function(score){
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
+
 # https://satijalab.org/seurat/articles/integration_introduction.html
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
@@ -60,9 +61,17 @@ expt.obj@meta.data[['identifier']] <- experiment
 aging.obj@meta.data[['identifier']] <- "GSE136184"
 ref.obj@meta.data[['identifier']] <- "GSE164378"
 
-expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$orig.ident
+expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$Responder
 aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
 ref.obj@meta.data[['identifier2']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier2_CRS']] <- expt.obj@meta.data$CRS
+aging.obj@meta.data[['identifier2_CRS']] <- aging.obj@meta.data$AgeGroup2
+ref.obj@meta.data[['identifier2_CRS']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier2_ICANS']] <- expt.obj@meta.data$ICANS
+aging.obj@meta.data[['identifier2_ICANS']] <- aging.obj@meta.data$AgeGroup2
+ref.obj@meta.data[['identifier2_ICANS']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"
@@ -227,16 +236,37 @@ unique(query.obj$identifier2)
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
+split.ident.order = c("Responder", "Non-responder", "NE", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
-query.obj$identifier2 <- factor(query.obj$identifier2, levels = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
 vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 3.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','GD2')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','Newborn')), label = "p.signif", label.y = 5.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','Non-responder')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','Newborn')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Newborn')), label = "p.signif", label.y = 4.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
+
+
+unique(query.obj$identifier2_CRS)
+query.obj$identifier2_CRS <- factor(query.obj$identifier2_CRS, levels = c("1", "2", "3", "4", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+vlnplot_CARTEx_84_CRS <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2_CRS', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('1','4')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('1','Newborn')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('4','Newborn')), label = "p.signif", label.y = 4.5)
+generate_figs(vlnplot_CARTEx_84_CRS, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_CRS', sep = ''))
+
+unique(query.obj$identifier2_ICANS)
+query.obj$identifier2_ICANS <- factor(query.obj$identifier2_ICANS, levels = c("0", "1", "2", "3", "4", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+vlnplot_CARTEx_84_ICANS <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2_ICANS', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('0','4')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('0','Newborn')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('4','Newborn')), label = "p.signif", label.y = 4.5)
+generate_figs(vlnplot_CARTEx_84_ICANS, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_ICANS', sep = ''))
+
+
 
 # BAR CHARTS of CELL TYPES
 md <- query.obj@meta.data %>% as.data.table
@@ -272,23 +302,37 @@ vlnplot_CARTEx_84_dice <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by
 generate_figs(vlnplot_CARTEx_84_dice, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_dice', sep = ''))
 
 
-####################################################################################################
-####################################### CARTEx representation ######################################
-####################################################################################################
+# other metadata
 
-query.obj <- SetIdent(query.obj, value = "identifier")
+md_temp <- md[, .N, by = c('azimuth', 'identifier2_CRS')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_identifier2_CRS <- ggplot(md_temp, aes(x = identifier2_CRS, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_identifier2_CRS, paste('./plots/', experiment, '_query_barplot_azimuth_identifier2_CRS', sep = ''))
 
-scatter_CARTEx_630_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
-scatter_CARTEx_200_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
-scatter_CARTEx_84_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
+md_temp <- md[, .N, by = c('monaco', 'identifier2_CRS')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_identifier2_CRS <- ggplot(md_temp, aes(x = identifier2_CRS, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_identifier2_CRS, paste('./plots/', experiment, '_query_barplot_monaco_identifier2_CRS', sep = ''))
 
-generate_figs(scatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_630_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_200_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_84_countsproportion', sep = ''))
+md_temp <- md[, .N, by = c('dice', 'identifier2_CRS')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_identifier2_CRS <- ggplot(md_temp, aes(x = identifier2_CRS, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_identifier2_CRS, paste('./plots/', experiment, '_query_barplot_dice_identifier2_CRS', sep = ''))
 
+md_temp <- md[, .N, by = c('azimuth', 'identifier2_ICANS')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_azimuth_identifier2_ICANS <- ggplot(md_temp, aes(x = identifier2_ICANS, y = N, fill = azimuth)) + geom_col(position = "fill")
+generate_figs(barplot_azimuth_identifier2_ICANS, paste('./plots/', experiment, '_query_barplot_azimuth_identifier2_ICANS', sep = ''))
 
+md_temp <- md[, .N, by = c('monaco', 'identifier2_ICANS')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_monaco_identifier2_ICANS <- ggplot(md_temp, aes(x = identifier2_ICANS, y = N, fill = monaco)) + geom_col(position = "fill")
+generate_figs(barplot_monaco_identifier2_ICANS, paste('./plots/', experiment, '_query_barplot_monaco_identifier2_ICANS', sep = ''))
 
-
+md_temp <- md[, .N, by = c('dice', 'identifier2_ICANS')]
+md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
+barplot_dice_identifier2_ICANS <- ggplot(md_temp, aes(x = identifier2_ICANS, y = N, fill = dice)) + geom_col(position = "fill")
+generate_figs(barplot_dice_identifier2_ICANS, paste('./plots/', experiment, '_query_barplot_dice_identifier2_ICANS', sep = ''))
 
 
 

@@ -154,8 +154,7 @@ azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
-azimuth.obj <- subset(azimuth.obj, idents = c("CD4 T", "CD8 T", "other T"))
-# azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T"))
+azimuth.obj <- subset(azimuth.obj, idents = c("CD8 T"))
 # downsample
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l2")
 azimuth.obj <- subset(azimuth.obj, downsample = 100)
@@ -165,16 +164,14 @@ azimuth_assay <- LayerData(azimuth.obj)
 monaco.obj <- MonacoImmuneData(ensembl=F)
 monaco.obj.md <- monaco.obj@colData %>% as.data.table
 monaco.obj.md[, .N, by = c("label.main", "label.fine")]
-monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells', 'CD4+ T cells', 'T cells')
-# monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
+monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
 monaco.obj <- monaco.obj[, monaco.index]
 unique(monaco.obj$label.main)
 
 dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
 dice.obj.md <- dice.obj@colData %>% as.data.table
 dice.obj.md[, .N, by = c("label.main", "label.fine")]
-dice.index <- dice.obj$label.main %in% c('T cells, CD4+', 'T cells, CD8+')
-# dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
+dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
 dice.obj <- dice.obj[, dice.index]
 # downsample
 dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)

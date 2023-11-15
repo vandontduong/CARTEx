@@ -3,7 +3,7 @@
 
 set.seed(123)
 
-experiment = 'GSE136874'
+experiment = 'GSE120575'
 
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
 
@@ -45,6 +45,7 @@ integerize = function(score){
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
+
 # https://satijalab.org/seurat/articles/integration_introduction.html
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
@@ -60,7 +61,7 @@ expt.obj@meta.data[['identifier']] <- experiment
 aging.obj@meta.data[['identifier']] <- "GSE136184"
 ref.obj@meta.data[['identifier']] <- "GSE164378"
 
-expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$orig.ident
+expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$characteristics_response
 aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
 ref.obj@meta.data[['identifier2']] <- ref.obj@meta.data$monaco
 
@@ -223,19 +224,19 @@ saveRDS(query.obj, file = paste('./data/', experiment, '_query_scored.rds', sep 
 query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
 head(query.obj)
-unique(query.obj$identifier2)
+
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
+split.ident.order = c("Responder", "Non-responder", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
-query.obj$identifier2 <- factor(query.obj$identifier2, levels = c("CD19", "GD2", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
 vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 3.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','GD2')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','Newborn')), label = "p.signif", label.y = 5.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','Non-responder')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','Newborn')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Newborn')), label = "p.signif", label.y = 4.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 # BAR CHARTS of CELL TYPES
@@ -270,26 +271,6 @@ generate_figs(vlnplot_CARTEx_84_monaco, paste('./plots/', experiment, '_query_vl
 vlnplot_CARTEx_84_dice <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'dice', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
 generate_figs(vlnplot_CARTEx_84_dice, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_dice', sep = ''))
-
-
-####################################################################################################
-####################################### CARTEx representation ######################################
-####################################################################################################
-
-query.obj <- SetIdent(query.obj, value = "identifier")
-
-scatter_CARTEx_630_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
-scatter_CARTEx_200_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
-scatter_CARTEx_84_countsproportion <- FeatureScatter(query.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
-
-generate_figs(scatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_630_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_200_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_query_scatter_CARTEx_84_countsproportion', sep = ''))
-
-
-
-
-
 
 
 
