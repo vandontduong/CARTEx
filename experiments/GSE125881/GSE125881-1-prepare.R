@@ -358,41 +358,6 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 
-
-
-####################################################################################################
-########################################### CARTEx scoring #########################################
-####################################################################################################
-
-# CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_630 <- Z(scores)
-expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
-
-# CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_200 <- Z(scores)
-expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
-
-# CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_84 <- Z(scores)
-expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
-
-
-
 ####################################################################################################
 ########################################### Module scoring #########################################
 ####################################################################################################
