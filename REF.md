@@ -11,6 +11,14 @@ R version: R/4.2.0
 
 Additional modules: biology physics geos/3.6.2 hdf5/1.12.2
 
+`sh_quota -f HOME` to examine account storage
+
+`du -hs $(ls -A)` to examine directory storage
+
+`~/.rstudio/ctx/ctx-8787/environmentTmp` 
+
+`squeue -u vandon` to examine job lists
+
 ## Housekeeping
 
 
