@@ -49,12 +49,9 @@ integerize = function(score){
 # https://satijalab.org/seurat/articles/integration_introduction.html
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
-aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_annotated_cross.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_annotated.rds")
-# ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds") # T cell reference ?
-# ref.obj <- SetIdent(ref.obj, value = "celltype.l1")
-# ref.obj <- subset(ref.obj, idents = c("CD4 T", "CD8 T", "other T"))
+expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
+aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
+ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_scored.rds")
 
 # add experiment identifier
 expt.obj@meta.data[['identifier']] <- experiment
@@ -86,7 +83,7 @@ integration.list <- lapply(X = integration.list, FUN = function(x) {
 })
 
 # integration.list <- PrepSCTIntegration(object.list = integration.list, anchor.features = integration.features)
-integration.anchors <- FindIntegrationAnchors(object.list = integration.list, anchor.features = integration.features, reduction = "rpca", reference = c(3)) # k.anchor = 100, k.filter = NA, dims = 1:10
+integration.anchors <- FindIntegrationAnchors(object.list = integration.list, anchor.features = integration.features, reduction = "rpca", reference = c(3), k.anchor = 20) # k.anchor = 100, k.filter = NA, dims = 1:10
 integration.obj <- IntegrateData(anchorset = integration.anchors)
 DefaultAssay(integration.obj) <- "integrated"
 
@@ -99,12 +96,37 @@ integration.obj <- FindClusters(integration.obj, resolution = 0.5)
 
 head(integration.obj)
 
+integration.obj$identifier <- factor(integration.obj$identifier, levels = c(experiment, "GSE136184", "GSE164378"))
+unique(integration.obj$identifier)
+
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
+
+
+# https://github.com/satijalab/seurat/issues/1396
+plot_umap_highlight = function(atlas, identity){
+  plot.list <- list()
+  for (i in unique(x = atlas[[deparse(substitute(identity))]])) {
+    plot.list[[i]] <- DimPlot(
+      object = atlas, cells.highlight = WhichCells(object = atlas, expression = eval(identity) == i)
+    ) + NoLegend() + ggtitle(i)
+  }
+  combined_plots <- CombinePlots(plots = plot.list, ncol = 3)
+  return(combined_plots)
+}
+
+# WhichCells(object = integration.obj, expression = identifier == experiment)
+# WhichCells(object = integration.obj, expression = as.name(eval(temp_ident)) == experiment)
+# eval(temp_ident)
+# WhichCells(object = integration.obj, expression = assign(eval(temp_ident), as.name(temp_ident)) == experiment)
+
+# integrated_umap_identifier_highlight <- DimPlot(integration.obj, reduction = "umap", cells.highlight = WhichCells(object = integration.obj, expression = identifier == experiment), shuffle = TRUE, seed = 123, raster = FALSE)
+integrated_umap_identifier_highlight <- plot_umap_highlight(integration.obj, identifier)
+generate_figs(integrated_umap_identifier_highlight, paste('./plots/', experiment, '_integrated_umap_identifier_highlight', sep = ''), c(12, 5))
 
 integrated_umap_identifier_expts <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier", split.by = "split.ident", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier_expts, paste('./plots/', experiment, '_integrated_umap_identifier_expts', sep = ''), c(12, 5))
