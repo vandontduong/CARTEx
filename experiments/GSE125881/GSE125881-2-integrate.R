@@ -106,23 +106,25 @@ integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep =
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
 
-
+# library(rlang)
 # https://github.com/satijalab/seurat/issues/1396
 plot_umap_highlight = function(atlas, identity){
   plot.list <- list()
   for (i in unique(x = atlas[[deparse(substitute(identity))]])) {
+    print(i)
     plot.list[[i]] <- DimPlot(
-      object = atlas, cells.highlight = WhichCells(object = atlas, expression = eval(identity) == i)
+      object = atlas, cells.highlight = Cells(integration.obj[, integration.obj[[deparse(substitute(identity))]] == i])
     ) + NoLegend() + ggtitle(i)
   }
   combined_plots <- CombinePlots(plots = plot.list, ncol = 3)
   return(combined_plots)
 }
 
+# two ways to capture cells which match
 # WhichCells(object = integration.obj, expression = identifier == experiment)
-# WhichCells(object = integration.obj, expression = as.name(eval(temp_ident)) == experiment)
-# eval(temp_ident)
-# WhichCells(object = integration.obj, expression = assign(eval(temp_ident), as.name(temp_ident)) == experiment)
+# Cells(integration.obj[, integration.obj[['identifier']] == experiment])
+
+# for (i in unique(x = integration.obj[[deparse(substitute(identifier))]])) {print(i)}
 
 # integrated_umap_identifier_highlight <- DimPlot(integration.obj, reduction = "umap", cells.highlight = WhichCells(object = integration.obj, expression = identifier == experiment), shuffle = TRUE, seed = 123, raster = FALSE)
 integrated_umap_identifier_highlight <- plot_umap_highlight(integration.obj, identifier)
