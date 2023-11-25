@@ -12,6 +12,7 @@ library(ggpubr)
 library(ggplotify)
 library(data.table)
 library(EnhancedVolcano)
+library(patchwork)
 
 ####################################################################################################
 ############################################# Functions ############################################
@@ -40,6 +41,29 @@ integerize = function(score){
   score_mod[score_mod > 4] <- 5
   return (score_mod)
 }
+
+# https://github.com/satijalab/seurat/issues/1396
+# https://stackoverflow.com/questions/27676404/list-all-factor-levels-of-a-data-frame
+# https://github.com/satijalab/seurat/issues/7379
+# https://github.com/satijalab/seurat/issues/2697
+# https://satijalab.org/seurat/reference/nnplot
+# https://bioinformatics.stackexchange.com/questions/18902/dimplot-how-to-highlight-cells-with-identity-colors
+plot_umap_highlight = function(atlas, identity){
+  plot.list <- list()
+  for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
+    plot.list[[i]] <- DimPlot(
+      object = atlas, reduction = 'umap', raster = FALSE, cols.highlight = c('blue'), pt.size = 0.01, sizes.highlight = 0.01, cells.highlight = Cells(integration.obj[, integration.obj[[deparse(substitute(identity))]] == i])
+    ) + NoLegend() + ggtitle(i)
+  }
+  # combined_plots <- CombinePlots(plots = plot.list, ncol = 3)
+  combined_plots <- Reduce(`+`, plot_list) + patchwork::plot_layout( ncol = 3 )
+  return(combined_plots)
+}
+
+# two ways to capture cells which match
+# WhichCells(object = integration.obj, expression = identifier == experiment)
+# Cells(integration.obj[, integration.obj[['identifier']] == experiment])
+
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
@@ -105,24 +129,6 @@ integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep =
 
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
-
-# library(rlang)
-# library(stringr)
-# https://github.com/satijalab/seurat/issues/1396
-plot_umap_highlight = function(atlas, identity){
-  plot.list <- list()
-  for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
-    plot.list[[i]] <- DimPlot(
-      object = atlas, cells.highlight = Cells(integration.obj[, integration.obj[[deparse(substitute(identity))]] == i])
-    ) + NoLegend() + ggtitle(i)
-  }
-  combined_plots <- CombinePlots(plots = plot.list, ncol = 3)
-  return(combined_plots)
-}
-
-# two ways to capture cells which match
-# WhichCells(object = integration.obj, expression = identifier == experiment)
-# Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
 integrated_umap_identifier_highlight <- plot_umap_highlight(integration.obj, identifier)
 generate_figs(integrated_umap_identifier_highlight, paste('./plots/', experiment, '_integrated_umap_identifier_highlight', sep = ''), c(12, 5))
