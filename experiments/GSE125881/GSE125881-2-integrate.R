@@ -107,11 +107,11 @@ integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
 
 # library(rlang)
+# library(stringr)
 # https://github.com/satijalab/seurat/issues/1396
 plot_umap_highlight = function(atlas, identity){
   plot.list <- list()
-  for (i in unique(x = atlas[[deparse(substitute(identity))]])) {
-    print(i)
+  for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
     plot.list[[i]] <- DimPlot(
       object = atlas, cells.highlight = Cells(integration.obj[, integration.obj[[deparse(substitute(identity))]] == i])
     ) + NoLegend() + ggtitle(i)
@@ -124,9 +124,6 @@ plot_umap_highlight = function(atlas, identity){
 # WhichCells(object = integration.obj, expression = identifier == experiment)
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
-# for (i in unique(x = integration.obj[[deparse(substitute(identifier))]])) {print(i)}
-
-# integrated_umap_identifier_highlight <- DimPlot(integration.obj, reduction = "umap", cells.highlight = WhichCells(object = integration.obj, expression = identifier == experiment), shuffle = TRUE, seed = 123, raster = FALSE)
 integrated_umap_identifier_highlight <- plot_umap_highlight(integration.obj, identifier)
 generate_figs(integrated_umap_identifier_highlight, paste('./plots/', experiment, '_integrated_umap_identifier_highlight', sep = ''), c(12, 5))
 
