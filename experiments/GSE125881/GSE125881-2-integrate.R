@@ -44,23 +44,21 @@ integerize = function(score){
 
 # https://github.com/satijalab/seurat/issues/1396
 # https://stackoverflow.com/questions/27676404/list-all-factor-levels-of-a-data-frame
-# https://github.com/satijalab/seurat/issues/7379
-# https://github.com/satijalab/seurat/issues/2697
-# https://satijalab.org/seurat/reference/nnplot
 # https://bioinformatics.stackexchange.com/questions/18902/dimplot-how-to-highlight-cells-with-identity-colors
-plot_umap_highlight = function(atlas, identity){
+DimPlotHighlightIdents = function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
   plot.list <- list()
   for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
     plot.list[[i]] <- DimPlot(
-      object = atlas, reduction = 'umap', raster = FALSE, cols.highlight = c('blue'), pt.size = 0.01, sizes.highlight = 0.01, cells.highlight = Cells(integration.obj[, integration.obj[[deparse(substitute(identity))]] == i])
+      object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
+      cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
     ) + NoLegend() + ggtitle(i)
   }
-  # combined_plots <- CombinePlots(plots = plot.list, ncol = 3)
-  combined_plots <- Reduce(`+`, plot_list) + patchwork::plot_layout( ncol = 3 )
+  # combined_plots <- CombinePlots(plots = plot.list, ncol = ncols)
+  combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
   return(combined_plots)
 }
 
-# two ways to capture cells which match
+# two ways to capture cells which match; the latter works within defined function
 # WhichCells(object = integration.obj, expression = identifier == experiment)
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
@@ -130,7 +128,7 @@ integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep =
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
 
-integrated_umap_identifier_highlight <- plot_umap_highlight(integration.obj, identifier)
+integrated_umap_identifier_highlight <- DimPlotHighlightIdents(integration.obj, identifier, 'umap', 'blue', 0.1, 3)
 generate_figs(integrated_umap_identifier_highlight, paste('./plots/', experiment, '_integrated_umap_identifier_highlight', sep = ''), c(12, 5))
 
 integrated_umap_identifier_expts <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier", split.by = "split.ident", shuffle = TRUE, seed = 123, raster = FALSE)
@@ -138,6 +136,9 @@ generate_figs(integrated_umap_identifier_expts, paste('./plots/', experiment, '_
 
 integrated_umap_seurat_clusters <- DimPlot(integration.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_seurat_clusters, paste('./plots/', experiment, '_integrated_umap_seurat_clusters', sep = ''))
+
+integrated_umap_seurat_clusters_highlight <- DimPlotHighlightIdents(integration.obj, seurat_clusters, 'umap', 'blue', 0.1, 5)
+generate_figs(integrated_umap_seurat_clusters_highlight, paste('./plots/', experiment, '_integrated_umap_seurat_clusters_highlight', sep = ''), c(22, 20))
 
 integrated_umap_azimuth <- DimPlot(integration.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_azimuth, paste('./plots/', experiment, '_integrated_umap_azimuth', sep = ''))

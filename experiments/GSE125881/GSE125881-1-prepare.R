@@ -15,6 +15,7 @@ library(dplyr)
 library(SingleR)
 library(scuttle)
 library(data.table)
+library(patchwork)
 
 ####################################################################################################
 ############################################# Functions ############################################
@@ -38,6 +39,26 @@ integerize = function(score){
   score_mod[score_mod > 4] <- 5
   return (score_mod)
 }
+
+# https://github.com/satijalab/seurat/issues/1396
+# https://stackoverflow.com/questions/27676404/list-all-factor-levels-of-a-data-frame
+# https://bioinformatics.stackexchange.com/questions/18902/dimplot-how-to-highlight-cells-with-identity-colors
+DimPlotHighlightIdents = function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
+  plot.list <- list()
+  for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
+    plot.list[[i]] <- DimPlot(
+      object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
+      cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
+    ) + NoLegend() + ggtitle(i)
+  }
+  # combined_plots <- CombinePlots(plots = plot.list, ncol = ncols)
+  combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
+  return(combined_plots)
+}
+
+# two ways to capture cells which match; the latter works within defined function
+# WhichCells(object = integration.obj, expression = identifier == experiment)
+# Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
 
 ####################################################################################################
@@ -241,6 +262,9 @@ expt.obj[["monaco"]] <- monaco.predictions$labels
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco")
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
+
+umap_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_monaco_highlight, paste('./plots/', experiment, '_umap_monaco_highlight', sep = ''), c(10, 10))
 
 
 dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
