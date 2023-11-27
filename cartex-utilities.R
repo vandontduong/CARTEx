@@ -70,8 +70,25 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # WhichCells(object = integration.obj, expression = identifier == experiment)
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
+#####
+# read tcsv files, e.g. for GSE120575 pre-processing
 
-
+read.tcsv <- function(file, header=TRUE, sep=",", ...) {
+  n <- max(count.fields(file, sep=sep), na.rm=TRUE)
+  x <- readLines(file)
+  
+  .splitvar <- function(x, sep, n) {
+    var <- unlist(strsplit(x, split=sep))
+    length(var) <- n
+    return(var)
+  }
+  
+  x <- do.call(cbind, lapply(x, .splitvar, sep=sep, n=n))
+  x <- apply(x, 1, paste, collapse=sep) 
+  ## empty strings are converted to NA
+  out <- read.csv(text=x, sep=sep, header=header, na.strings = "", ...)
+  return(out)
+}
 
 
 
