@@ -45,7 +45,12 @@ Note, we do not include the raw or processed data for these experiments, as the 
 [More notes](REF.md)
 
 
+### Utilities
 
+We built custom functions and archived these within [`cartex-utilities.R`](cartex-utilities.R). Some of the key functions included:
+- `generate_figs()` to save figures in jpeg and pdf formats
+- `integerize()` to round scores to nearest integer
+- `DimPlotHighlightIdents()` to customize Seurat's [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
 
 ## Literature
 
