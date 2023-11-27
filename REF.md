@@ -21,8 +21,8 @@ Additional modules: biology physics geos/3.6.2 hdf5/1.12.2
 
 ## Housekeeping
 
-
-
+### Organizing R code
+https://www.r-bloggers.com/2018/09/r-code-best-practices/
 
 ### Saving /construction/data/ files
 https://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf
