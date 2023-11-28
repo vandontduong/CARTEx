@@ -27,9 +27,14 @@ Z=function(s){
   return (z)
 }
 
-generate_figs = function(figure_object, file_name){
-  ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-  ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
+generate_figs = function(figure_object, file_name, dimensions){
+  if(missing(dimensions)){
+    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
+    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
+  } else {
+    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
+    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
+  }
   return (paste("generating figure for ", file_name))
 }
 
@@ -83,21 +88,39 @@ expt.obj <- subset(expt.obj,cells=pos_ids)
 
 #- Add meta.data
 expt.obj@meta.data$SampleID <- sapply(rownames(expt.obj@meta.data), function(x) str_split(x, '[.]')[[1]][2])
+expt.obj@meta.data$SampleID <- factor(expt.obj@meta.data$SampleID, levels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'))
+
 expt.obj@meta.data$Patient <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                           from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
                                                           to = c('CLL-1', 'CLL-1', 'CLL-1', 'CLL-1', 'NHL-9', 'NHL-9', 'NHL-9', 'CLL-2', 'CLL-2', 'CLL-2', 'CLL-2', 'NHL-10', 'NHL-10', 'NHL-10', 'NHL-10', 'NHL-9'))
 expt.obj@meta.data$Patient <- factor(expt.obj@meta.data$Patient, levels = c('CLL-1', 'CLL-2', 'NHL-9', 'NHL-10'))
+
 expt.obj@meta.data$TimePoint <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                             from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
                                                             to = c('IP', 'd21', 'd38', 'd112', 'd12', 'd29', 'd102', 'IP', 'd12', 'd29', 'd83', 'IP', 'd12', 'd28', 'd89', 'IP'))
 expt.obj@meta.data$TimePoint <- factor(expt.obj@meta.data$TimePoint, levels = c('IP', 'd12', 'd21', 'd28', 'd29', 'd38', 'd83', 'd89', 'd102', 'd112'))
+
 expt.obj@meta.data$Group <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                         from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
                                                         to = c('IP', 'ExpansionPeak', 'Contraction', 'Late', 'ExpansionPeak', 'Contraction', 'Late', 'IP', 'ExpansionPeak', 'Contraction', 'Late', 'IP', 'ExpansionPeak', 'Contraction', 'Late', 'IP'))
 expt.obj@meta.data$Group <- factor(expt.obj@meta.data$Group, levels = c('IP', 'ExpansionPeak', 'Contraction', 'Late'))
+
 expt.obj@meta.data$Disease <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                           from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
                                                           to = c('CLL', 'CLL', 'CLL', 'CLL', 'NHL', 'NHL', 'NHL', 'CLL', 'CLL', 'CLL', 'CLL', 'NHL', 'NHL', 'NHL', 'NHL', 'NHL'))
+expt.obj@meta.data$Disease <- factor(expt.obj@meta.data$Disease, levels = c('CLL', 'NHL'))
+
+# check levels() for metadata
+# check anything NULL: unique(expt.obj@meta.data[['identity']])
+for (i in colnames(expt.obj@meta.data)){
+  j = levels(expt.obj@meta.data[[i]])
+  if (is.null(j) == TRUE){
+    print(paste(i, 'levels() is NULL'))
+  } else {
+    print(paste(i, 'levels() is not NULL'))
+    print(j)
+  }
+  cat("\n")}
 
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
@@ -108,14 +131,14 @@ write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
 
 # Examine features
 vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
-generate_figs(vlnplot_quality, paste('./plots/', experiment, '_vlnplot_quality', sep = ''))
+generate_figs(vlnplot_quality, paste('./plots/', experiment, '_prepare_vlnplot_quality', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
 top10_CART <- head(VariableFeatures(expt.obj), 10)
 varplt <- VariableFeaturePlot(expt.obj)
 varplt_labeled <- LabelPoints(plot = varplt, points = top10_CART, repel = TRUE)
-generate_figs(varplt_labeled, paste('./plots/', experiment, '_varplt_labeled', sep = ''))
+generate_figs(varplt_labeled, paste('./plots/', experiment, '_prepare_varplt_labeled', sep = ''))
 
 expt.obj <- ScaleData(expt.obj, features = all.genes)
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 40)
@@ -130,22 +153,37 @@ expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
 head(expt.obj)
 
+# Generate UMAPs for metadata
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_umap_seurat_clusters', sep = ''))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''))
+
+umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
+generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "Patient", shuffle = TRUE, seed = 123)
-generate_figs(umap_patient, paste('./plots/', experiment, '_umap_patient', sep = ''))
+generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''))
+
+umap_patient_highlight <- DimPlotHighlightIdents(expt.obj, Patient, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_umap_patient_highlight', sep = ''), c(22, 20))
 
 umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123)
-generate_figs(umap_timepoint, paste('./plots/', experiment, '_umap_timepoint', sep = ''))
+generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''))
+
+umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'umap', 'blue', 0.1, 5)
+generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(20, 8))
 
 umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle = TRUE, seed = 123)
-generate_figs(umap_group, paste('./plots/', experiment, '_umap_group', sep = ''))
+generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''))
+
+umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(22, 20))
 
 umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123)
-generate_figs(umap_disease, paste('./plots/', experiment, '_umap_disease', sep = ''))
+generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''))
 
+umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
 
 
 
@@ -169,7 +207,7 @@ head(expt.obj[[]])
 
 # Visualize the distribution of cell cycle markers across
 ridgeplt <- RidgePlot(expt.obj, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), ncol = 2)
-generate_figs(ridgeplt, paste('./plots/', experiment, '_ridgeplt', sep = ''))
+generate_figs(ridgeplt, paste('./plots/', experiment, '_prepare_ridgeplt', sep = ''))
 
 expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
 # DimPlot(expt.obj)
@@ -178,6 +216,8 @@ expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
 expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(expt.obj))
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
+
+expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S', 'G2M'))
 
 # ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
 md <- expt.obj@meta.data %>% as.data.table
@@ -188,9 +228,13 @@ phase_data$percent <- round(100*phase_data$N / sum(phase_data$N), digits = 1)
 phase_data$label <- paste(phase_data$Phase, " (", phase_data$percent,"%)", sep = "")
 phase_data$cols <- hcl.colors(n = nrow(phase_data), palette = "Temps")
 barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(stat="identity", fill = phase_data$cols)
-generate_figs(barplot_phase, paste('./plots/', experiment, '_barplot_phase', sep = ''))
-umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols)
-generate_figs(umap_phase, paste('./plots/', experiment, '_umap_phase', sep = ''))
+generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
+
+umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
+generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''))
+
+umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
+generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
@@ -242,46 +286,58 @@ azimuth.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = azi
 table(azimuth.predictions$labels)
 saveRDS(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.rds', sep = ''))
 write.csv(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.csv', sep = ''))
-azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_predictions.rds', sep = ''))
+# azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_predictions.rds', sep = ''))
 
 expt.obj[["azimuth"]] <- azimuth.predictions$labels
+unique(expt.obj[["azimuth"]])
+expt.obj@meta.data$azimuth <- factor(expt.obj@meta.data$azimuth, levels = c('CD8 Naive', 'CD8 Proliferating'))
 
 # umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth")
+umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123)
 generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
+
+umap_predicted_azimuth_highlight <- DimPlotHighlightIdents(expt.obj, azimuth, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_predicted_azimuth_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_azimuth_highlight', sep = ''), c(12, 8))
 
 
 monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
 table(monaco.predictions$labels)
 saveRDS(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
 write.csv(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.csv', sep = ''))
-monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
+# monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
 
 expt.obj[["monaco"]] <- monaco.predictions$labels
+unique(expt.obj[["monaco"]])
+expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco")
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_umap_predicted_monaco', sep = ''))
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''))
 
-umap_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_monaco_highlight, paste('./plots/', experiment, '_umap_monaco_highlight', sep = ''), c(10, 10))
+umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
 
 
 dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
 table(dice.predictions$labels)
 saveRDS(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
 write.csv(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.csv', sep = ''))
-dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
+# dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
 
 expt.obj[["dice"]] <- dice.predictions$labels
+unique(expt.obj[["dice"]])
+expt.obj@meta.data$dice <- factor(expt.obj@meta.data$dice, levels = c('T cells, CD8+, naive', 'T cells, CD8+, naive, stimulated'))
 
 # umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice")
+umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123)
 generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
 
+umap_predicted_dice_highlight <- DimPlotHighlightIdents(expt.obj, dice, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_predicted_dice_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_dice_highlight', sep = ''), c(12, 8))
 
-featureplot_Tcell_markers <- FeaturePlot(expt.obj, features = c("CD4", "CD8A", "CD8B", "PDCD1"))
-generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_featureplot_Tcell_markers', sep = ''))
+
+featureplot_Tcell_markers <- FeaturePlot(expt.obj, features = c("CD8A", "CD8B", "PDCD1"))
+generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_prepare_featureplot_Tcell_markers', sep = ''))
 
 
 # BAR CHARTS of CELL TYPES
@@ -403,6 +459,11 @@ expt.obj@meta.data$Activationi <- integerize(expt.obj@meta.data$Activation)
 expt.obj@meta.data$Anergyi <- integerize(expt.obj@meta.data$Anergy)
 expt.obj@meta.data$Stemnessi <- integerize(expt.obj@meta.data$Stemness)
 expt.obj@meta.data$Senescencei <- integerize(expt.obj@meta.data$Senescence)
+
+expt.obj@meta.data$Activationi <- factor(expt.obj@meta.data$Activationi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Anergyi <- factor(expt.obj@meta.data$Anergyi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Stemnessi <- factor(expt.obj@meta.data$Stemnessi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Senescencei <- factor(expt.obj@meta.data$Senescencei, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
 
 expt.obj@meta.data$State1 <- NULL
 expt.obj@meta.data$State2 <- NULL

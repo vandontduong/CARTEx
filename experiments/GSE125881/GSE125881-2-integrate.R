@@ -13,6 +13,7 @@ library(ggplotify)
 library(data.table)
 library(EnhancedVolcano)
 library(patchwork)
+# https://samuel-marsh.github.io/scCustomize/articles/Gene_Expression_Plotting.html
 
 ####################################################################################################
 ############################################# Functions ############################################
@@ -148,6 +149,13 @@ generate_figs(integrated_umap_monaco, paste('./plots/', experiment, '_integrated
 
 integrated_umap_dice <- DimPlot(integration.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_dice, paste('./plots/', experiment, '_integrated_umap_dice', sep = ''))
+
+unique(integration.obj$dice)
+integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
+integrated_umap_dice_highlight <- DimPlotHighlightIdents(integration.obj, dice, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_dice_highlight, paste('./plots/', experiment, '_integrated_umap_dice_highlight', sep = ''), c(10, 6))
+
+
 
 featureplot_Tcell_markers <- FeaturePlot(integration.obj, features = c("CD4", "CD8A", "CD8B", "PDCD1"), raster = FALSE)
 generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_integrated_featureplot_Tcell_markers', sep = ''))
