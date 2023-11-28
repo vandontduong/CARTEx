@@ -45,6 +45,23 @@ integerize <- function(score){
 }
 
 #####
+# Check metadata levels() and return "NULL" if levels() does not exist
+# need to update levels() for anything that results in "not NULL"
+
+check_levels <- function(atlas){
+  for (i in colnames(atlas@meta.data)){
+    j = levels(atlas@meta.data[[i]])
+    if (is.null(j) == TRUE){
+      print(paste(i, 'levels() is NULL'))
+    } else {
+      print(paste(i, 'levels() is not NULL'))
+      print(j)
+    }
+    cat("\n")}
+}
+
+
+#####
 # DimPlot() customized to highlight cells by identity group
 
 DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
