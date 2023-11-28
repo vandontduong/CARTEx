@@ -2,9 +2,8 @@
 # Vandon Duong
 
 set.seed(123)
-
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE136184'
-
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
 
 library(Seurat)
@@ -15,29 +14,7 @@ library(dplyr)
 library(SingleR)
 library(scuttle)
 library(data.table)
-
-####################################################################################################
-############################################# Functions ############################################
-####################################################################################################
-
-Z=function(s){
-  s=as.numeric(s)
-  z=(s - mean(s))/sd(s)
-  return (z)
-}
-
-generate_figs = function(figure_object, file_name){
-  ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-  ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  return (paste("generating figure for ", file_name))
-}
-
-integerize = function(score){
-  score_mod = round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
-  return (score_mod)
-}
+library(patchwork)
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
@@ -435,6 +412,8 @@ saveRDS(expt.list$`Longitudinal`, file = paste('./data/', experiment, '_annotate
 ########################################### CARTEx scoring #########################################
 ####################################################################################################
 
+expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+
 # CARTEx with weights // 630 genes
 cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
 common <- intersect(rownames(cartex_630_weights), rownames(expt.obj))
@@ -495,6 +474,14 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
+
+expt.obj <- SetIdent(expt.obj, value = 'Cohort')
+expt.list <- SplitObject(expt.obj, split.by = "Cohort")
+
+saveRDS(expt.list$`Cross-sectional`, file = paste('./data/', experiment, '_scored_cross.rds', sep = ''))
+saveRDS(expt.list$`Longitudinal`, file = paste('./data/', experiment, '_scored_long.rds', sep = ''))
+
+
 
 
 # UMAP of scores

@@ -2,9 +2,8 @@
 # Vandon Duong
 
 set.seed(123)
-
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'infusionproduct'
-
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
 
 library(Seurat)
@@ -14,48 +13,7 @@ library(data.table)
 library(EnhancedVolcano)
 library(SingleR)
 library(scuttle)
-
-
-####################################################################################################
-############################################# Functions ############################################
-####################################################################################################
-
-Z=function(s){
-  s=as.numeric(s)
-  z=(s - mean(s))/sd(s)
-  return (z)
-}
-
-generate_figs = function(figure_object, file_name, dimensions){
-  if(missing(dimensions)){
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  } else {
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
-  }
-  return (paste("generating figure for ", file_name))
-}
-
-integerize = function(score){
-  score_mod = round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
-  return (score_mod)
-}
-
-DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
-  plot.list <- list()
-  for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
-    plot.list[[i]] <- DimPlot(
-      object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
-      cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
-    ) + NoLegend() + ggtitle(i)
-  }
-  # combined_plots <- CombinePlots(plots = plot.list, ncol = ncols)
-  combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
-  return(combined_plots)
-}
+library(patchwork)
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
