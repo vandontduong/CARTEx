@@ -1,6 +1,15 @@
 # CARTEx
 
-## About
+- [About](#about)
+- [Experiments](#experiments)
+  - [Datasets](#datasets)
+  - [Utilities](#utilities)
+- [Literature](#literature)
+  - [Reviews](#reviews)
+  - [Signatures](#signatures)
+- 
+
+## About <a name = "about"></a>
 
 This is the github repository for the CARTEx signature project. Pre-processing and analyses were performed using [Seurat](https://satijalab.org/seurat/) and custom pipelines written in [R](https://www.r-project.org/). The purpose of this research was to develop a robust signature and procedure for quantifying T cell exhaustion states. 
 
@@ -10,7 +19,7 @@ Preprint: coming soon...
 
 Publication: coming soon...
 
-## Experiments
+## Experiments <a name = "experiments"></a>
 
 We derived the CARTEx signature from in-house experiments comparing highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. We then applied the CARTEx signature to both in-house and publicly available experiments.
 
@@ -20,7 +29,7 @@ General procedure:
 2. Calculate signatures
 3. Visualize dataset and organize based on metadata
 
-### Datasets
+### Datasets <a name = "datasets"></a>
 
 | Identifier | Experiment | Study |
 |:----------:|------------|-------|
@@ -45,22 +54,22 @@ Note, we do not include the raw or processed data for these experiments, as the 
 [More notes](REF.md)
 
 
-### Utilities
+### Utilities <a name = "utilities"></a>
 
 We built custom functions and archived these within [`cartex-utilities.R`](cartex-utilities.R). Some of the key functions included:
 - `generate_figs()` to save figures in jpeg and pdf formats
 - `integerize()` to round scores to nearest integer
 - `DimPlotHighlightIdents()` to customize Seurat's [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
 
-## Literature
+## Literature <a name = "literature"></a>
 
-### Reviews
+### Reviews <a name = "reviews"></a>
 
 [Pauken and Wherry 2015 Trends in Immunology](https://pubmed.ncbi.nlm.nih.gov/25797516/) discusses the involvement of T cell exhaustion in infection and cancer.
 
 [Collier et al. 2021 Nature Immunology](https://pubmed.ncbi.nlm.nih.gov/34140679/) discusses the involvement of T cell exhaustion in autoimmune diseases.
 
-### Signatures
+### Signatures <a name = "signatures"></a>
 
 [Wherry et al. 2007](https://pubmed.ncbi.nlm.nih.gov/17950003/) describes CD8 T cell exhaustion based on chronic infection by lymphocytic choriomeningitis virus (LCMV).
 
