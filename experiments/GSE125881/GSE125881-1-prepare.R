@@ -159,6 +159,8 @@ for (i in unique(expt.markers$cluster)){
 }
 
 # https://www.nature.com/articles/s12276-023-01105-x
+
+# cluster 0 - DUSP2 is a T cell checkpoint # https://www.nature.com/articles/s41590-019-0577-9
 # cluster 4 - GZMB, IL17RB indicates TC1, TC17?
 # cluster 5 - NKG7 indicates NK-like
 
