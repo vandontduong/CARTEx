@@ -7,7 +7,6 @@
 - [Literature](#literature)
   - [Reviews](#reviews)
   - [Signatures](#signatures)
-- 
 
 ## About <a name = "about"></a>
 
@@ -25,9 +24,21 @@ We derived the CARTEx signature from in-house experiments comparing highly funct
 
 General procedure:
 
-1. Prepare datasets and filter cells based on
-2. Calculate signatures
-3. Visualize dataset and organize based on metadata
+1. Prepare datasets
+  - Extract CD8+ T cells (e.g. `CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0`)
+  - Filter, normalize, scale, perform dimensional reduction, cluster cells
+    - Modified pre-processing pipeline from [Seurat tutorial](https://satijalab.org/seurat/articles/pbmc3k_tutorial))
+    - Filtered cell quality (e.g. `subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)`)
+  - Cell cycle analysis modified pipeline from [Seurat tutorial](https://satijalab.org/seurat/articles/cell_cycle_vignette.html)
+  - Cell type annotation using reference-based [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
+  - Calculate cell state scores using [`AddModuleScore()`](https://www.rdocumentation.org/packages/Seurat/versions/4.3.0/topics/AddModuleScore)
+2. Integrate datasets
+  - Reciprocal PCA integration modified pipeline from [this Seurat tutorial](https://satijalab.org/seurat/articles/integration_rpca.html)
+  - Increased strength of alignment (e.g. `k.anchor = 20`)
+  - Calculate exhaustion signatures
+3. Pseudo-bulk datasets
+  - Aggregate using [`AggregateExpression`](https://satijalab.org/seurat/reference/aggregateexpression)
+3. Calculate exhaustion signatures
 
 ### Datasets <a name = "datasets"></a>
 
