@@ -4,6 +4,7 @@
 - [Experiments](#experiments)
   - [Datasets](#datasets)
   - [Utilities](#utilities)
+  - [Analyses](#analyses)
 - [Literature](#literature)
   - [Reviews](#reviews)
   - [Signatures](#signatures)
@@ -31,7 +32,7 @@ General procedure:
     - Filtered cell quality (e.g. `subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)`)
   - Cell cycle analysis using modified pipeline from [Seurat cell cycle tutorial](https://satijalab.org/seurat/articles/cell_cycle_vignette.html)
   - Cell type annotation using reference-based [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
-  - Calculate cell state scores using [`AddModuleScore()`](https://www.rdocumentation.org/packages/Seurat/versions/4.3.0/topics/AddModuleScore)
+  - Calculate cell state scores using Seurat [`AddModuleScore()`](https://www.rdocumentation.org/packages/Seurat/versions/4.3.0/topics/AddModuleScore)
 2. Integrate datasets
   - Reciprocal PCA integration using modified pipeline from [Seurat fast integration tutorial](https://satijalab.org/seurat/articles/integration_rpca.html)
     - Increased strength of alignment (e.g. `k.anchor = 20`)
@@ -69,8 +70,12 @@ Note, we do not include the raw or processed data for these experiments, as the 
 
 We built custom functions and archived these within [`cartex-utilities.R`](cartex-utilities.R). Some of the key functions included:
 - `generate_figs()` to save figures in jpeg and pdf formats
-- `integerize()` to round scores to nearest integer
-- `DimPlotHighlightIdents()` to customize Seurat's [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
+- `integerize()` to round single-cell scores to nearest integer
+- `DimPlotHighlightIdents()` to customize Seurat [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
+
+### Analyses <a name = "analyses"></a>
+
+We share example summarized analyses resulting from our custom pipelines.
 
 ## Literature <a name = "literature"></a>
 
