@@ -62,15 +62,7 @@ expt.obj@meta.data$Disease <- factor(expt.obj@meta.data$Disease, levels = c('CLL
 
 # check levels() for metadata
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
-for (i in colnames(expt.obj@meta.data)){
-  j = levels(expt.obj@meta.data[[i]])
-  if (is.null(j) == TRUE){
-    print(paste(i, 'levels() is NULL'))
-  } else {
-    print(paste(i, 'levels() is not NULL'))
-    print(j)
-  }
-  cat("\n")}
+check_levels(expt.obj)
 
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
@@ -135,6 +127,40 @@ generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
 
+####################################################################################################
+###################################### Seurat cluster analysis #####################################
+####################################################################################################
+
+# identify markers for each Seurat cluster
+# https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
+
+expt.markers <- FindAllMarkers(expt.obj, only.pos = TRUE)
+saveRDS(expt.markers, paste(file='./data/', experiment, '_seurat_markers.rds', sep = ''))
+write.csv(expt.markers, paste(file='./data/', experiment, '_seurat_markers.csv', sep = ''))
+# expt.markers <- readRDS(paste('./data/', experiment, '_seurat_markers.rds', sep = ''))
+
+expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
+
+# visualize; downsampling is necessary for DoHeatmap()
+# https://github.com/satijalab/seurat/issues/2724
+expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
+heatmap_markers <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
+generate_figs(heatmap_markers, paste('./plots/', experiment, '_prepare_heatmap_markers', sep = ''), c(25, 20))
+
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  print(expt.markers.top10[expt.markers.top10$cluster == i,])
+}
+
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  print(expt.markers.top10[expt.markers.top10$cluster == i,]$gene)
+  cat("\n")
+}
+
+# https://www.nature.com/articles/s12276-023-01105-x
+# cluster 4 - GZMB, IL17RB indicates TC1, TC17?
+# cluster 5 - NKG7 indicates NK-like
 
 
 ####################################################################################################
@@ -420,7 +446,7 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
-# UMAP of scores
+# UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
 generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''))
 
@@ -453,7 +479,6 @@ umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order =
 umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
-
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''))
 generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''))
