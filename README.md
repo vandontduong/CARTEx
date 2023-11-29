@@ -75,7 +75,7 @@ We built custom functions and archived these within [`cartex-utilities.R`](carte
 
 ### Analyses <a name = "analyses"></a>
 
-We share example summarized analyses resulting from our custom pipelines.
+We share some summarized analyses resulting from our custom pipelines. These figures were reorganized using [`summarized-analyses.R`](summarized-analyses.R).
 
 ## Literature <a name = "literature"></a>
 
