@@ -107,19 +107,19 @@ umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "Patient", shuf
 generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''))
 
 umap_patient_highlight <- DimPlotHighlightIdents(expt.obj, Patient, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_umap_patient_highlight', sep = ''), c(22, 20))
+generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_umap_patient_highlight', sep = ''), c(14, 14))
 
 umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123)
 generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''))
 
 umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'umap', 'blue', 0.1, 5)
-generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(20, 8))
+generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(25, 14))
 
 umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle = TRUE, seed = 123)
 generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''))
 
 umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(22, 20))
+generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(14, 14))
 
 umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123)
 generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''))
