@@ -83,6 +83,9 @@ We share some summarized analyses resulting from our custom pipelines. These fig
 
 <img alt="GSE125881 UMAP group highlight" src="miscellaneous/plots/GSE125881_prepare_umap_group_highlight.jpeg" width="500" />
 
+<img alt="GSE125881 UMAP phase" src="miscellaneous/plots/GSE125881_prepare_umap_phase.jpeg" width="300" />
+
+<img alt="GSE125881 UMAP phase highlight" src="miscellaneous/plots/GSE125881_prepare_umap_phase_highlight.jpeg" width="700" />
 
 
 # Literature <a name = "literature"></a>
