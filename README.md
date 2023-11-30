@@ -26,7 +26,7 @@ We derived the CARTEx signature from in-house experiments comparing highly funct
 General procedure:
 
 1. Prepared datasets
-  - Extracted CD8+ T cells (e.g. `CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0`)
+  - `expt.obj`: Extracted CD8+ T cells (e.g. `CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0`)
   - Filtered, normalized, scaled, performed dimensional reduction, cluster cells
     - Modified pre-processing pipeline from [Seurat guided clustering tutorial](https://satijalab.org/seurat/articles/pbmc3k_tutorial)
     - Filtered cell quality (e.g. `subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)`)
@@ -34,11 +34,12 @@ General procedure:
   - Annotated cell type using reference-based [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
   - Calculated cell state scores using Seurat [`AddModuleScore()`](https://www.rdocumentation.org/packages/Seurat/versions/4.3.0/topics/AddModuleScore)
 2. Integrated datasets
-  - Extracted disparate aging T cell samples from [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) for cross-experiment comparisons
+  - `aging.obj`: Extracted disparate aging CD8+ T cell samples from [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) for cross-experiment comparisons
     - Identified naive T cells from newborns and young adults and terminally exhausted T cells from elderly adults
-  - Integrated with reciprocal PCA using modified pipeline from [Seurat fast integration tutorial](https://satijalab.org/seurat/articles/integration_rpca.html)
+  - `ref.obj`: Extracted CD8+ T cells in PMBCs from [GSE164378](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164378) for reference mapping
+  - Integrated with reference-based reciprocal PCA using modified pipeline from [Seurat fast integration tutorial](https://satijalab.org/seurat/articles/integration_rpca.html) and [Seurat reference mapping tutorial](https://satijalab.org/seurat/articles/integration_mapping.html)
     - Increased strength of alignment (e.g. `k.anchor = 20`)
-  - Calculated exhaustion signatures
+  - Calculated exhaustion signatures on query datasets, which consists of `expt.obj` and `aging.obj`, but not `ref.obj`
 3. Pseudo-bulk datasets
   - Aggregated cells using [`AggregateExpression`](https://satijalab.org/seurat/reference/aggregateexpression) from [Seurat pseudo-bulk analysis tutorial](https://satijalab.org/seurat/articles/essential_commands.html#pseudobulk-analysis)
 4. Calculated exhaustion signatures
