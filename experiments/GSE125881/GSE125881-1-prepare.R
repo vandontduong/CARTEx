@@ -144,19 +144,25 @@ expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
 # visualize; downsampling is necessary for DoHeatmap()
 # https://github.com/satijalab/seurat/issues/2724
 expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
-heatmap_markers <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
-generate_figs(heatmap_markers, paste('./plots/', experiment, '_prepare_heatmap_markers', sep = ''), c(25, 20))
+cluster_markers_heatmap <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
+generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
 
 for (i in unique(expt.markers$cluster)){
   print(paste("Cluster:", i))
   print(expt.markers.top10[expt.markers.top10$cluster == i,])
 }
 
+# extract markers
+cluster_markers <- data.frame()
 for (i in unique(expt.markers$cluster)){
   print(paste("Cluster:", i))
-  print(expt.markers.top10[expt.markers.top10$cluster == i,]$gene)
+  putative_markers = expt.markers.top10[expt.markers.top10$cluster == i,]$gene
+  print(paste(unlist(putative_markers), collapse=', '))
+  cluster_markers <- rbind(cluster_markers, cbind(i, paste(unlist(putative_markers), collapse=', ')))
   cat("\n")
 }
+colnames(cluster_markers) <- c('Cluster', 'Markers')
+write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
 
 # https://www.nature.com/articles/s12276-023-01105-x
 
