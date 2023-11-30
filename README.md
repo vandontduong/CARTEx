@@ -62,6 +62,7 @@ General procedure for scRNAseq analyses:
 | scRNAseq | [GSE164378](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164378) | Azimuth reference atlas comprised of human peripheral blood mononuclear cells (PBMCs) | [Hao et al. 2021 Cell](https://pubmed.ncbi.nlm.nih.gov/34062119/) |
 | scRNAseq | [GSE107011](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE107011) | Monaco refererence atlas | [Monaco et al. 2019 Cell Reports](https://pubmed.ncbi.nlm.nih.gov/30726743/) |
 | scRNAseq | [Zenodo 3993994](https://zenodo.org/record/3993994) | T cells from patients with Parkinson's disease | [Wang et al. 2021 Cell Discovery](https://www.nature.com/articles/s41421-021-00280-3) |
+| scRNAseq | [GSE196606](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE196606) | T cells from NBEAL2-deficient patients with thrombocytopenia | [Delage et al. 2023 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/37349339/) |
 
 Note, we do not include the raw or processed data for these experiments, as the file sizes are far too large. However, our scripts for preparing and exploring the datasets are shared in this repository. Publicly-available experiments can be downloaded from the Gene Expression Omnibus (GEO).
 
