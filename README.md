@@ -11,7 +11,7 @@ This is the github repository for the CAR T cell exhaustion (CARTEx) signature p
   - [Reviews](#reviews)
   - [Signatures](#signatures)
 
-## About <a name = "about"></a>
+# About <a name = "about"></a>
 
 Historically, T cell exhaustion was described based on a few canonical markers. Recent advances in single-cell sequencing has enabled high-resolution of transcriptomics and deeper insights underpinning cellular behavior, but many groups still identified "exhausted" T cells based on simple correlations with canonical markers (e.g. "PDCD1 is highly expressed in this cluster of cells, so these may be exhausted"). Using a robust model of CAR T cell exhaustion, we created a transcriptional signature to quantify T cell exhaustion. This signature was derived from differentially expressed genes between highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. The HA CAR spontaneously aggregates and causes tonic signaling, which has been validated as a robust model of exhaustion in numerous studies ([Long et al. 2015 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/25939063/), [Lynn et al. 2019 Nature](https://pubmed.ncbi.nlm.nih.gov/31802004/), [Gennert et al. 2021 PNAS](https://pubmed.ncbi.nlm.nih.gov/34285077/), [Weber et al. 2021 Science](https://pubmed.ncbi.nlm.nih.gov/33795428/)).
 
@@ -19,7 +19,7 @@ Preprint: coming soon...
 
 Publication: coming soon...
 
-## Experiments <a name = "experiments"></a>
+# Experiments <a name = "experiments"></a>
 
 We derived the CARTEx signature from in-house experiments comparing highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. We then applied the CARTEx signature to both in-house and publicly available experiments.
 
@@ -41,7 +41,7 @@ General procedure:
   - Aggregate cells using [`AggregateExpression`](https://satijalab.org/seurat/reference/aggregateexpression) from [Seurat pseudo-bulk analysis tutorial](https://satijalab.org/seurat/articles/essential_commands.html#pseudobulk-analysis)
 4. Calculate exhaustion signatures
 
-### Datasets <a name = "datasets"></a>
+## Datasets <a name = "datasets"></a>
 
 | Identifier | Experiment | Study |
 |:----------:|------------|-------|
@@ -66,26 +66,34 @@ Note, we do not include the raw or processed data for these experiments, as the 
 [More notes](REF.md)
 
 
-### Utilities <a name = "utilities"></a>
+## Utilities <a name = "utilities"></a>
 
 We built custom functions and archived these within [`cartex-utilities.R`](cartex-utilities.R). Some of the key functions included:
 - `generate_figs()` to save figures in jpeg and pdf formats
 - `integerize()` to round single-cell scores to nearest integer
 - `DimPlotHighlightIdents()` to customize Seurat [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
 
-### Analyses <a name = "analyses"></a>
+## Analyses <a name = "analyses"></a>
 
 We share some summarized analyses resulting from our custom pipelines. These figures were reorganized using [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
 
-## Literature <a name = "literature"></a>
+### GSE125881
 
-### Reviews <a name = "reviews"></a>
+<img alt="GSE125881 UMAP group" src="miscellaneous/plots/GSE125881_prepare_umap_group.jpeg" width="300" />
+
+<img alt="GSE125881 UMAP group highlight" src="miscellaneous/plots/GSE125881_prepare_umap_group_highlight.jpeg" width="500" />
+
+
+
+# Literature <a name = "literature"></a>
+
+## Reviews <a name = "reviews"></a>
 
 [Pauken and Wherry 2015 Trends in Immunology](https://pubmed.ncbi.nlm.nih.gov/25797516/) discusses the involvement of T cell exhaustion in infection and cancer.
 
 [Collier et al. 2021 Nature Immunology](https://pubmed.ncbi.nlm.nih.gov/34140679/) discusses the involvement of T cell exhaustion in autoimmune diseases.
 
-### Signatures <a name = "signatures"></a>
+## Signatures <a name = "signatures"></a>
 
 [Wherry et al. 2007](https://pubmed.ncbi.nlm.nih.gov/17950003/) describes CD8 T cell exhaustion based on chronic infection by lymphocytic choriomeningitis virus (LCMV).
 
