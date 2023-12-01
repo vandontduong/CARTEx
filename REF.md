@@ -1,5 +1,9 @@
 
+## CD8+ subtype notes
 
+[Lückel et al. 2020](https://pubmed.ncbi.nlm.nih.gov/32697883/)
+
+[St Paul and Ohashi 2020](https://pubmed.ncbi.nlm.nih.gov/32624246/)
 
 ## Navigating Sherlock
 
