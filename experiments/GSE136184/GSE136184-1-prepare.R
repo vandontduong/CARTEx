@@ -371,37 +371,37 @@ for (cell_ref in c("azimuth", "monaco", "dice")){
 md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_barplot_azimuth_seurat_clusters', sep = ''))
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_azimuth_seurat_clusters', sep = ''))
 
 md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_barplot_monaco_seurat_clusters', sep = ''))
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_monaco_seurat_clusters', sep = ''))
 
 md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_barplot_dice_seurat_clusters', sep = ''))
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''))
 
 md_temp <- md[, .N, by = c('azimuth', 'AgeGroup2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_azimuth_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_age_group, paste('./plots/', experiment, '_barplot_azimuth_age_group', sep = ''))
+generate_figs(barplot_azimuth_age_group, paste('./plots/', experiment, '_prepare_barplot_azimuth_age_group', sep = ''))
 
 md_temp <- md[, .N, by = c('monaco', 'AgeGroup2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_monaco_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_barplot_monaco_age_group', sep = ''))
+generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_prepare_barplot_monaco_age_group', sep = ''))
 
 md_temp <- md[, .N, by = c('dice', 'AgeGroup2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_dice_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_barplot_dice_age_group', sep = ''))
+generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_prepare_barplot_dice_age_group', sep = ''))
 
 md_temp <- md[, .N, by = c('Phase', 'AgeGroup2')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_phase_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = Phase)) + geom_col(position = "fill")
-generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_barplot_phase_age_group', sep = ''))
+generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_prepare_barplot_phase_age_group', sep = ''))
 
 
 
