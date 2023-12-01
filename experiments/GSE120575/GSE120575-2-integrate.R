@@ -86,7 +86,7 @@ integration.list <- lapply(X = integration.list, FUN = function(x) {
 })
 
 # integration.list <- PrepSCTIntegration(object.list = integration.list, anchor.features = integration.features)
-integration.anchors <- FindIntegrationAnchors(object.list = integration.list, anchor.features = integration.features, reduction = "rpca", reference = c(3)) # k.anchor = 100, k.filter = NA, dims = 1:10
+integration.anchors <- FindIntegrationAnchors(object.list = integration.list, anchor.features = integration.features, reduction = "rpca", reference = c(3), k.anchor = 20) # k.anchor = 100, k.filter = NA, dims = 1:10
 integration.obj <- IntegrateData(anchorset = integration.anchors)
 DefaultAssay(integration.obj) <- "integrated"
 
@@ -202,6 +202,7 @@ stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMOR
 senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
 
 query.obj <- AddModuleScore(query.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+
 
 # z score normalization
 query.obj@meta.data$Activation <- scale(query.obj@meta.data$State1)
