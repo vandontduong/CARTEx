@@ -8,6 +8,25 @@
 # https://samuel-marsh.github.io/scCustomize/articles/Gene_Expression_Plotting.html
 
 ####################################################################################################
+######################################### Library and paths ########################################
+####################################################################################################
+
+library(Seurat)
+library(ggpubr)
+library(ggplotify)
+library(stringr)
+library(dplyr)
+library(SingleR)
+library(scuttle)
+library(data.table)
+library(patchwork)
+library(EnhancedVolcano)
+
+PATH_CELLANNOTATE <- "/oak/stanford/groups/cmackall/vandon/CARTEx/cellannotate/"
+# paste(PATH_CELLANNOTATE, <FILE>, sep = '')
+
+
+####################################################################################################
 ######################################### General functions ########################################
 ####################################################################################################
 
