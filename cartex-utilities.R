@@ -118,6 +118,29 @@ BarPlotStackSplit <- function(atlas, x_identity, y_identity){
 }
 
 #####
+# PercentageFeatureSet() customized to compute percentage of feature set detected, i.e. expression level is non-zero, rather than what percentage it is of all transcripts
+# Examine CARTEx representation at single-cell resolution
+
+PercentageFeatureSetDetected <- function(atlas, feature_set){
+  all.genes <- rownames(atlas)
+  exp.mat <- atlas[["RNA"]]$counts
+  exp.mat <- exp.mat[which(all.genes %in% feature_set),]
+  PFSD <- diff(exp.mat@p) / length(feature_set) * 100
+  return(PFSD)
+}
+
+# Notes
+# equivalent
+# intersect(all.genes, rownames(cartex_630_weights))
+# rownames(cartex_630_weights)[rownames(cartex_630_weights) %in% all.genes]
+
+# Regular PFS generates multiple duplicate vectors appended to each other, so need to subset
+# expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+# expt.obj@meta.data$PFSD_CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
+
+
+
+#####
 # read tcsv files, e.g. for GSE120575 pre-processing
 
 read.tcsv <- function(file, header=TRUE, sep=",", ...) {
