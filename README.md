@@ -78,8 +78,8 @@ We built custom functions and archived these within [`cartex-utilities.R`](carte
 - `generate_figs()` to save figures in jpeg and pdf formats
 - `integerize()` to round single-cell scores to nearest integer
 - `DimPlotHighlightIdents()` to customize Seurat [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
-- `BarPlotStackSplit()`
-- `PercentageFeatureSetDetected()`
+- `BarPlotStackSplit()` to visualize data stratification by two identity groups
+- `PercentageFeatureSetDetected()` to customize Seurat [`PercentageFeatureSet()`](https://satijalab.org/seurat/reference/percentagefeatureset) for computing the detectable genes from a given feature set
 
 ## Analyses <a name = "analyses"></a>
 
