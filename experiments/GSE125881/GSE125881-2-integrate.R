@@ -23,7 +23,8 @@ library(patchwork)
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
-aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
+# aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
+aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_aging_extract.rds")
 ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_scored.rds")
 
 # add experiment identifier
@@ -32,8 +33,13 @@ aging.obj@meta.data[['identifier']] <- "GSE136184"
 ref.obj@meta.data[['identifier']] <- "GSE164378"
 
 expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$Group
-aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+# aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier2']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier3']] <- expt.obj@meta.data$TimePoint
+aging.obj@meta.data[['identifier3']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier3']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"
@@ -71,6 +77,13 @@ head(integration.obj)
 
 integration.obj$identifier <- factor(integration.obj$identifier, levels = c(experiment, "GSE136184", "GSE164378"))
 unique(integration.obj$identifier)
+
+integration.obj$identifier2 <- factor(integration.obj$identifier2, levels = c(names(table(expt.obj$identifier2)), names(table(aging.obj$identifier2)), names(table(ref.obj$identifier2))))
+table(integration.obj$identifier2)
+
+integration.obj$identifier3 <- factor(integration.obj$identifier3, levels = c(names(table(expt.obj$identifier3)), names(table(aging.obj$identifier3)), names(table(ref.obj$identifier3))))
+table(integration.obj$identifier3)
+
 
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
@@ -214,7 +227,7 @@ head(query.obj)
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("IP", "ExpansionPeak", "Contraction", "Late", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
+split.ident.order = c("IP", "ExpansionPeak", "Contraction", "Late", "Young_Naive", "Elderly_Terminal")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
 query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
@@ -222,29 +235,33 @@ vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'i
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Newborn')), label = "p.signif", label.y = 5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Newborn')), label = "p.signif", label.y = 5.5) + 
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Newborn')), label = "p.signif", label.y = 3.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young_Naive')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young_Naive')), label = "p.signif", label.y = 5.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young_Naive')), label = "p.signif", label.y = 3.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
+
+
+query.obj$identifier3 <- factor(query.obj$identifier3, levels = c("IP", "d12", "d21", "d28", "d29", "d38", "d83", "d89", "d102", "d112", "Young_Naive", "Elderly_Terminal"))
+vlnplot_CARTEx_84_identifier3 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier3', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
+generate_figs(vlnplot_CARTEx_84_identifier3, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_identifier3', sep = ''))
+
+
+
+
 
 # BAR CHARTS of CELL TYPES
 md <- query.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-md_temp <- md[, .N, by = c('azimuth', 'identifier2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_identifier2, paste('./plots/', experiment, '_query_barplot_azimuth_identifier2', sep = ''))
+barplot_azimuth_identifier2 <- BarPlotStackSplit(query.obj, 'azimuth', 'identifier2')
+generate_figs(barplot_azimuth_identifier2, paste('./plots/', experiment, '_query_barplot_azimuth_identifier2', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'identifier2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_identifier2, paste('./plots/', experiment, '_query_barplot_monaco_identifier2', sep = ''))
+barplot_monaco_identifier2 <- BarPlotStackSplit(query.obj, 'monaco', 'identifier2')
+generate_figs(barplot_monaco_identifier2, paste('./plots/', experiment, '_query_barplot_monaco_identifier2', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'identifier2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_identifier2 <- ggplot(md_temp, aes(x = identifier2, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_identifier2, paste('./plots/', experiment, '_query_barplot_dice_identifier2', sep = ''))
+barplot_dice_identifier2 <- BarPlotStackSplit(query.obj, 'dice', 'identifier2')
+generate_figs(barplot_dice_identifier2, paste('./plots/', experiment, '_query_barplot_dice_identifier2', sep = ''), c(8,4))
 
 
 
