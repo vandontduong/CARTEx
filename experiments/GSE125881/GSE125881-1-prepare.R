@@ -18,6 +18,10 @@ class(expt.obj@assays$RNA$counts)
 
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
+# extract genes
+all.genes <- rownames(expt.obj)
+write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
+
 # Calculate the percentage of all counts that belong to a given set of features
 # i.e. compute the percentage of transcripts that map to CARTEx genes
 # also compute the percentage of CARTEx genes detected
@@ -75,13 +79,11 @@ check_levels(expt.obj)
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
 
-# extract genes
-all.genes <- rownames(expt.obj)
-write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
+# Examine features after quality control
+vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
 
-# Examine features
-vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
-generate_figs(vlnplot_quality, paste('./plots/', experiment, '_prepare_vlnplot_quality', sep = ''))
+vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'orig.ident', ncol=3)
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
