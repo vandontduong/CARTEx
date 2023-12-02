@@ -81,6 +81,24 @@ We built custom functions and archived these within [`cartex-utilities.R`](carte
 - `BarPlotStackSplit()` to visualize data stratification by two identity groups
 - `PercentageFeatureSetDetected()` to customize Seurat [`PercentageFeatureSet()`](https://satijalab.org/seurat/reference/percentagefeatureset) for computing the detectable genes from a given feature set
 
+We installed and used several packages from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/web/packages/ggpubr/index.html) and [Bioconductor](https://bioconductor.org/), sourced in [`cartex-utilities.R`](cartex-utilities.R), including:
+- [`Seurat`](https://cran.r-project.org/web/packages/Seurat/index.html): toolkit for single-cell RNA sequencing analysis
+- [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html): toolkit for reference-based single-cell RNA sequencing annotation
+- [`scuttle`](https://bioconductor.org/packages/release/bioc/html/scuttle.html): toolkit for single-cell RNA sequencing analysis
+- [`ggpubr`](https://cran.r-project.org/web/packages/ggpubr/index.html): `ggplot2`-based custom visualization
+- [`ggplotify`](https://cran.r-project.org/web/packages/ggplotify/index.html): render figures compatible with `grid` and `ggplot2` systems
+- [`patchwork`](https://cran.r-project.org/web/packages/patchwork/index.html): `ggplot2`-based composition of multiple plots
+- [`stringr`](https://cran.r-project.org/web/packages/stringr/index.html): toolkit for string operations
+- [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html): toolkit for dataframe operations
+- [`data.table`](https://cran.r-project.org/web/packages/data.table/index.html): extension of `data.frame`
+- [`EnhancedVolcano`](https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html): toolkit for differential expression analysis visualization
+
+We established path variables to enable ease of general use, in which files can be called through `paste(<PATH_NAME>, <FILE>, sep = '')`:
+- `PATH_CARTEX`: absolute path to where the project directory resides
+- `PATH_CELLANNOTATE`: relative path to [`cellannotate`](cellannotate)
+- `PATH_SIGNATURES`: relative path to [`signatures`](signatures)
+- `PATH_WEIGHTS`: relative path to [`weights`](weights)
+
 ## Analyses <a name = "analyses"></a>
 
 We share some summarized analyses resulting from our custom pipelines. Select figures from [`experiments`](experiments) were reorganized and archived to [`miscellaneous`](miscellaneous) using bash script [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
