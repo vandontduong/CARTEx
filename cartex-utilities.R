@@ -22,10 +22,16 @@ library(data.table)
 library(patchwork)
 library(EnhancedVolcano)
 
-# paste(<PATH_NAME>, <FILE>, sep = '')
-PATH_CELLANNOTATE <- "/oak/stanford/groups/cmackall/vandon/CARTEx/cellannotate/"
-PATH_SIGNATURES <- "/oak/stanford/groups/cmackall/vandon/CARTEx/signatures/"
-PATH_WEIGHTS <- "/oak/stanford/groups/cmackall/vandon/CARTEx/weights/"
+# absolute path to where the project directory resides
+PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
+
+# relative paths
+PATH_CELLANNOTATE <- paste(PATH_CARTEX, 'cellannotate/', sep = '')
+PATH_SIGNATURES <- paste(PATH_CARTEX, 'signatures/', sep = '')
+PATH_WEIGHTS <- paste(PATH_CARTEX, 'weights/', sep = '')
+
+# file calling
+# paste(<PATH_NAME>, <FILE_NAME>, sep = '')
 
 ####################################################################################################
 ######################################### General functions ########################################
