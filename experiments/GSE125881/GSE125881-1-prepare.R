@@ -177,7 +177,7 @@ write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_marker
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
 # Read in the expression matrix The first row is a header row, the first column is rownames
-exp.mat <- read.table(file = "../cellannotate/nestorawa_forcellcycle_expressionMatrix.txt", header = TRUE, as.is = TRUE, row.names = 1)
+exp.mat <- read.table(file = paste(PATH_CELLANNOTATE, "nestorawa_forcellcycle_expressionMatrix.txt", sep = ''), header = TRUE, as.is = TRUE, row.names = 1)
 
 # A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
 # segregate this list into markers of G2/M phase and markers of S phase
@@ -239,7 +239,7 @@ expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
 
 # azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
-azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
+azimuth.obj <- readRDS(paste(PATH_CELLANNOTATE, "AzimuthPBMC.rds", sep = ''))
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
