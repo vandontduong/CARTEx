@@ -78,6 +78,8 @@ We built custom functions and archived these within [`cartex-utilities.R`](carte
 - `generate_figs()` to save figures in jpeg and pdf formats
 - `integerize()` to round single-cell scores to nearest integer
 - `DimPlotHighlightIdents()` to customize Seurat [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
+- `BarPlotStackSplit()`
+- `PercentageFeatureSetDetected()`
 
 ## Analyses <a name = "analyses"></a>
 
