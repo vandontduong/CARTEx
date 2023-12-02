@@ -93,6 +93,12 @@ We installed and used several packages from the [Comprehensive R Archive Network
 - [`data.table`](https://cran.r-project.org/web/packages/data.table/index.html): extension of `data.frame`
 - [`EnhancedVolcano`](https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html): toolkit for differential expression analysis visualization
 
+We established path variables to enable ease of general use, in which files can be called through `paste(<PATH_NAME>, <FILE>, sep = '')`:
+- `PATH_CARTEX`: absolute path to where the project directory resides
+- `PATH_CELLANNOTATE`: relative path to [`cellannotate`](cellannotate)
+- `PATH_SIGNATURES`: relative path to [`signatures`](signatures)
+- `PATH_WEIGHTS`: relative path to [`weights`](weights)
+
 ## Analyses <a name = "analyses"></a>
 
 We share some summarized analyses resulting from our custom pipelines. Select figures from [`experiments`](experiments) were reorganized and archived to [`miscellaneous`](miscellaneous) using bash script [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
