@@ -6,16 +6,6 @@ source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE125881'
 setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
 
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(stringr)
-library(dplyr)
-library(SingleR)
-library(scuttle)
-library(data.table)
-library(patchwork)
-
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
@@ -328,40 +318,26 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_prepare
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_barplot_azimuth_seurat_clusters', sep = ''))
+barplot_azimuth_seurat_clusters <- BarPlotStackSplit(expt.obj, 'azimuth', 'seurat_clusters')
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_barplot_monaco_seurat_clusters', sep = ''))
+barplot_monaco_seurat_clusters <- BarPlotStackSplit(expt.obj, 'monaco', 'seurat_clusters')
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_monaco_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_barplot_dice_seurat_clusters', sep = ''))
+barplot_dice_seurat_clusters <- BarPlotStackSplit(expt.obj, 'dice', 'seurat_clusters')
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('azimuth', 'Group')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_group <- ggplot(md_temp, aes(x = Group, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_group, paste('./plots/', experiment, '_barplot_azimuth_group', sep = ''))
+barplot_azimuth_group <- BarPlotStackSplit(expt.obj, 'azimuth', 'Group')
+generate_figs(barplot_azimuth_group, paste('./plots/', experiment, '_prepare_barplot_azimuth_group', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'Group')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_group <- ggplot(md_temp, aes(x = Group, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_group, paste('./plots/', experiment, '_barplot_monaco_group', sep = ''))
+barplot_monaco_group <- BarPlotStackSplit(expt.obj, 'monaco', 'Group')
+generate_figs(barplot_monaco_group, paste('./plots/', experiment, '_prepare_barplot_monaco_group', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'Group')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_group <- ggplot(md_temp, aes(x = Group, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_group, paste('./plots/', experiment, '_barplot_dice_group', sep = ''))
+barplot_dice_group <- BarPlotStackSplit(expt.obj, 'dice', 'Group')
+generate_figs(barplot_dice_group, paste('./plots/', experiment, '_prepare_barplot_dice_group', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('Phase', 'Group')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_phase_group <- ggplot(md_temp, aes(x = Group, y = N, fill = Phase)) + geom_col(position = "fill")
-generate_figs(barplot_phase_group, paste('./plots/', experiment, '_barplot_phase_group', sep = ''))
+barplot_phase_group <- BarPlotStackSplit(expt.obj, 'Phase', 'Group')
+generate_figs(barplot_phase_group, paste('./plots/', experiment, '_prepare_barplot_phase_group', sep = ''), c(8,4))
 
 
 
