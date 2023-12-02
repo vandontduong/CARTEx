@@ -88,6 +88,16 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
 #####
+# Bar plot stacked and split according to two different identity groups
+
+BarPlotSplit <- function(atlas, x_identity, y_identity){
+  md <- as.data.table(atlas@meta.data)[, .N, by = c(x_identity, y_identity)]
+  md$percent <- round(100*md$N / sum(md$N), digits = 1)
+  barplot <- ggplot(md, aes_string(x = y_identity, y = 'N', fill = x_identity)) + geom_col(position = "fill")
+  return(barplot)
+}
+
+#####
 # read tcsv files, e.g. for GSE120575 pre-processing
 
 read.tcsv <- function(file, header=TRUE, sep=",", ...) {
