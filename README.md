@@ -96,6 +96,7 @@ We installed and used several packages from the [Comprehensive R Archive Network
 We established path variables to enable ease of general use, in which files can be called through `paste(<PATH_NAME>, <FILE_NAME>, sep = '')`:
 - `PATH_CARTEX`: absolute path to where the project directory resides
 - `PATH_CELLANNOTATE`: relative path to [`cellannotate`](cellannotate)
+- `PATH_EXPERIMENTS`: relative path to [`experiments`](experiments)
 - `PATH_SIGNATURES`: relative path to [`signatures`](signatures)
 - `PATH_WEIGHTS`: relative path to [`weights`](weights)
 
