@@ -18,6 +18,8 @@ class(expt.obj@assays$RNA$counts)
 
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
+expt.obj[['identifier']] <- experiment
+
 # extract genes
 all.genes <- rownames(expt.obj)
 write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
@@ -39,6 +41,8 @@ expt.obj@meta.data$PFSD.CARTEx_200 <- PercentageFeatureSetDetected(expt.obj, row
 expt.obj@meta.data$percent.CARTEx_84 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
 expt.obj@meta.data$PFSD.CARTEx_84 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_84_weights)) 
 
+# capture counts before CD8+ T cell filter
+qc_review <- dim(expt.obj) # [genes, cells]
 
 # Filter for CD8A +  cells, removing CD4+
 CD4_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD4",]
@@ -76,14 +80,29 @@ expt.obj@meta.data$Disease <- factor(expt.obj@meta.data$Disease, levels = c('CLL
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
 check_levels(expt.obj)
 
+# Examine features before quality control
+vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'orig.ident', ncol=3)
+
+# capture counts before quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
 
 # Examine features after quality control
-vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
+vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
 generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
 
 vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'orig.ident', ncol=3)
+
+# capture counts after quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+rownames(qc_review) <- c("All", "preQC", "preQC")
+colnames(qc_review) <- c("genes", "cells")
+write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
