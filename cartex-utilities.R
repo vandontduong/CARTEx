@@ -27,6 +27,7 @@ PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
 
 # relative paths
 PATH_CELLANNOTATE <- paste(PATH_CARTEX, 'cellannotate/', sep = '')
+PATH_EXPERIMENTS <- paste(PATH_CARTEX, 'experiments/', sep = '')
 PATH_SIGNATURES <- paste(PATH_CARTEX, 'signatures/', sep = '')
 PATH_WEIGHTS <- paste(PATH_CARTEX, 'weights/', sep = '')
 

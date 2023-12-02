@@ -4,7 +4,7 @@
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE125881'
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
