@@ -87,6 +87,33 @@ check_levels <- function(atlas){
     cat("\n")}
 }
 
+#####
+# VlnPlot() customized to show cutoff thresholds for quality control filters
+# use on original dataset before QC filtering
+
+ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncols){
+  plot.list <- list()
+  counter = 0
+  for (i in metrics){
+    counter = counter + 1
+    vlnplt <- VlnPlot(object = atlas, features = metrics[counter], group.by = identity) + NoLegend() + ggtitle(i) + scale_y_continuous(limits = c(0, NA))
+    if (is.na(low_cutoff[counter]) == FALSE & is.na(high_cutoff[counter]) == FALSE){
+      plot.list[[i]] <- vlnplt & geom_hline(yintercept = low_cutoff[counter], linetype='dashed', color=c('red')) & geom_hline(yintercept = high_cutoff[counter], linetype='dashed', color=c('red'))
+    }
+    if (is.na(low_cutoff[counter]) == FALSE & is.na(high_cutoff[counter]) == TRUE){
+      plot.list[[i]] <- vlnplt & geom_hline(yintercept = low_cutoff[counter], linetype='dashed', color=c('red'))
+    }
+    if (is.na(low_cutoff[counter]) == TRUE & is.na(high_cutoff[counter]) == FALSE){
+      plot.list[[i]] <- vlnplt & geom_hline(yintercept = high_cutoff[counter], linetype='dashed', color=c('red'))
+    }
+    if (is.na(low_cutoff[counter]) == TRUE & is.na(high_cutoff[counter]) == TRUE){
+      plot.list[[i]] <- vlnplt
+    }
+  }
+  # combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
+  combined_plots <- wrap_plots(plot.list, ncol = ncols)
+  return(combined_plots)
+}
 
 #####
 # DimPlot() customized to highlight cells by identity group

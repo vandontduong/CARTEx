@@ -20,6 +20,10 @@ expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
 expt.obj[['identifier']] <- experiment
 
+vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+
+
 # extract genes
 all.genes <- rownames(expt.obj)
 write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
