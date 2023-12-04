@@ -4,7 +4,7 @@
 set.seed(123)
 experiment = 'GSE136184'
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 library(Seurat)
 library(ggpubr)
@@ -21,6 +21,59 @@ expt.obj <- readRDS(paste('./data/', experiment, '_annotated_cross.rds', sep = '
 # expt.obj <- SetIdent(expt.obj, value = "AgeGroup")
 head(expt.obj)
 
+
+# CARTEx with weights // 630 genes
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_630_weights), rownames(expt.obj))
+expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
+weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
+scores <- expr %*% as.matrix(weights)
+expt.obj@meta.data$CARTEx_630 <- Z(scores)
+expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
+
+# CARTEx with weights // 200 genes
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_200_weights), rownames(expt.obj))
+expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
+weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
+scores <- expr %*% as.matrix(weights)
+expt.obj@meta.data$CARTEx_200 <- Z(scores)
+expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
+
+# CARTEx with weights // 84 genes
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_84_weights), rownames(expt.obj))
+expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
+weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
+scores <- expr %*% as.matrix(weights)
+expt.obj@meta.data$CARTEx_84 <- Z(scores)
+expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
+
+
+activation_sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
+anergy_sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
+stemness_sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), row.names = 1, header = TRUE))
+senescence_sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), row.names = 1, header = TRUE))
+
+expt.obj <- AddModuleScore(expt.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+
+# z score normalization
+expt.obj@meta.data$Activation <- scale(expt.obj@meta.data$State1)
+expt.obj@meta.data$Anergy <- scale(expt.obj@meta.data$State2)
+expt.obj@meta.data$Stemness <- scale(expt.obj@meta.data$State3)
+expt.obj@meta.data$Senescence <- scale(expt.obj@meta.data$State4)
+
+expt.obj@meta.data$Activationi <- integerize(expt.obj@meta.data$Activation)
+expt.obj@meta.data$Anergyi <- integerize(expt.obj@meta.data$Anergy)
+expt.obj@meta.data$Stemnessi <- integerize(expt.obj@meta.data$Stemness)
+expt.obj@meta.data$Senescencei <- integerize(expt.obj@meta.data$Senescence)
+
+expt.obj@meta.data$State1 <- NULL
+expt.obj@meta.data$State2 <- NULL
+expt.obj@meta.data$State3 <- NULL
+expt.obj@meta.data$State4 <- NULL
+
+
 cellIDs_newborn <- Cells(expt.obj[, expt.obj[['AgeGroup2']] == 'Newborn'])
 cellIDs_under30 <- Cells(expt.obj[, expt.obj[['AgeGroup2']] == 'Under 30'])
 cellIDs_elderly <- Cells(expt.obj[, expt.obj[['AgeGroup2']] == 'Elderly'])
@@ -31,8 +84,29 @@ cellIDs_terminalCD8T <- Cells(expt.obj[, expt.obj[['monaco']] == 'Terminal effec
 expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% intersect(union(cellIDs_newborn, cellIDs_under30), cellIDs_naiveCD8T))]
 expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% intersect(cellIDs_elderly, cellIDs_terminalCD8T))]
 
-expt.obj.young_naive@meta.data$extract.ident <- "Young_Naive"
-expt.obj.elderly_terminal@meta.data$extract.ident <- "Elderly_Terminal"
+expt.obj.young_naive@meta.data$extract.ident <- "Young, naive CD8 T cells"
+expt.obj.elderly_terminal@meta.data$extract.ident <- "Elderly, terminal effector CD8 T cells"
+
+ridgeplt_CARTEx_84 <- RidgePlot(expt.obj, features = c("CARTEx_84"), group.by = "AgeGroup2") + xlim(c(NA, 4))
+generate_figs(ridgeplt_CARTEx_84, paste('./plots/', experiment, '_extract_ridgeplt_CARTEx_84', sep = ''), c(8,4))
+
+dim(expt.obj.young_naive)
+sum(expt.obj.young_naive$CARTEx_84 < -1)
+dim(expt.obj.elderly_terminal)
+sum(expt.obj.elderly_terminal$CARTEx_84 > 1)
+
+SelectSortCells <- function(atlas, module, direction, counts){
+  md <- atlas@meta.data
+  if (direction == 'high'){cells <- rownames(md[order(-md[module]), ][1:counts,])}
+  if (direction == 'low'){cells <- rownames(md[order(md[module]), ][1:counts,])}
+  return(cells)
+}
+
+cellIDs_YN_low <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'low', 2000)
+cellIDs_ET_high <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'high', 2000)
+
+expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% cellIDs_YN_low)]
+expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% cellIDs_ET_high)]
 
 rm(expt.obj)
 

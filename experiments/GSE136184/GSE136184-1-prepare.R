@@ -4,17 +4,7 @@
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE136184'
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
-
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(stringr)
-library(dplyr)
-library(SingleR)
-library(scuttle)
-library(data.table)
-library(patchwork)
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
@@ -23,12 +13,40 @@ library(patchwork)
 expt.obj <- readRDS(paste('./data/GSE136184_seu_obj2.Rds', sep = ''))
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
+expt.obj[['identifier']] <- experiment
+
+vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+
+
+# extract genes
+all.genes <- rownames(expt.obj)
+write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
+
+# Calculate the percentage of all counts that belong to a given set of features
+# i.e. compute the percentage of transcripts that map to CARTEx genes
+# also compute the percentage of CARTEx genes detected
+
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_200 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_200 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_200_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_84 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_84 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_84_weights)) 
+
+# capture counts before CD8+ T cell filter
+qc_review <- dim(expt.obj) # [genes, cells]
+
 # Filter for CD8A +  cells, removing CD4+
-CD4_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD4",]
 CD8A_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8A",]
 CD8B_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8B",]
-pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0))
-neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
+pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0))
 expt.obj <- subset(expt.obj,cells=pos_ids)
 
 #- Add meta.data
@@ -74,9 +92,9 @@ expt.obj@meta.data <- mutate(expt.obj@meta.data, Age = case_when(
   ))
 
 expt.obj@meta.data <- mutate(expt.obj@meta.data, AgeGroup = case_when(
-  Age <= 30 ~ 'Young',
-  Age <= 69 ~ 'Middle',
-  Age > 69 ~ 'Old'
+  Age < 30 ~ 'Young',
+  Age < 70 ~ 'Middle',
+  Age >= 69 ~ 'Old'
   ))
   
 expt.obj@meta.data$AgeGroup <- factor(expt.obj@meta.data$AgeGroup, levels = c('Young', 'Middle', 'Old'))
@@ -100,16 +118,30 @@ expt.obj@meta.data$Cohort <- factor(expt.obj@meta.data$Cohort, levels = c('Cross
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
 check_levels(expt.obj)
 
+# Examine features before quality control
+vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+vlnplot_quality_control_CARTEx_pre <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+#### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+# capture counts before quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
 
-# extract genes
-all.genes <- rownames(expt.obj)
-write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
+# Examine features after quality control
+vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
 
-# Examine features
-vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
-generate_figs(vlnplot_quality, paste('./plots/', experiment, '_prepare_vlnplot_quality', sep = ''))
+vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+
+# capture counts after quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+rownames(qc_review) <- c("All", "preQC", "preQC")
+colnames(qc_review) <- c("genes", "cells")
+write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
@@ -127,32 +159,32 @@ expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_umap_seurat_clusters', sep = ''))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_age_group <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
-generate_figs(umap_age_group, paste('./plots/', experiment, '_umap_age_group', sep = ''))
+generate_figs(umap_age_group, paste('./plots/', experiment, '_prepare_umap_age_group', sep = ''))
 
 umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123)
-generate_figs(umap_age_group_2, paste('./plots/', experiment, '_umap_age_group_2', sep = ''))
+generate_figs(umap_age_group_2, paste('./plots/', experiment, '_prepare_umap_age_group_2', sep = ''))
 
 umap_sex <- DimPlot(expt.obj, reduction = "umap", group.by = "Sex", shuffle = TRUE, seed = 123)
-generate_figs(umap_sex, paste('./plots/', experiment, '_umap_sex', sep = ''))
+generate_figs(umap_sex, paste('./plots/', experiment, '_prepare_umap_sex', sep = ''))
 
 umap_visit <- DimPlot(expt.obj, reduction = "umap", group.by = "visit", shuffle = TRUE, seed = 123)
-generate_figs(umap_visit, paste('./plots/', experiment, '_umap_visit', sep = ''))
+generate_figs(umap_visit, paste('./plots/', experiment, '_prepare_umap_visit', sep = ''))
 
 umap_code <- DimPlot(expt.obj, reduction = "umap", group.by = "Code", shuffle = TRUE, seed = 123)
-generate_figs(umap_code, paste('./plots/', experiment, '_umap_code', sep = ''))
+generate_figs(umap_code, paste('./plots/', experiment, '_prepare_umap_code', sep = ''))
 
 umap_cohort <- DimPlot(expt.obj, reduction = "umap", group.by = "Cohort", shuffle = TRUE, seed = 123)
-generate_figs(umap_cohort, paste('./plots/', experiment, '_umap_cohort', sep = ''))
+generate_figs(umap_cohort, paste('./plots/', experiment, '_prepare_umap_cohort', sep = ''))
 
 
 ####################################################################################################
@@ -201,7 +233,7 @@ write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_marker
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
 # Read in the expression matrix The first row is a header row, the first column is rownames
-exp.mat <- read.table(file = "../cellannotate/nestorawa_forcellcycle_expressionMatrix.txt", header = TRUE, as.is = TRUE, row.names = 1)
+exp.mat <- read.table(file = paste(PATH_CELLANNOTATE, "nestorawa_forcellcycle_expressionMatrix.txt", sep = ''), header = TRUE, as.is = TRUE, row.names = 1)
 
 # A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
 # segregate this list into markers of G2/M phase and markers of S phase
@@ -247,7 +279,7 @@ generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 
 ####################################################################################################
@@ -263,7 +295,7 @@ expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
 
 # azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
-azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
+azimuth.obj <- readRDS(paste(PATH_CELLANNOTATE, "AzimuthPBMC.rds", sep = ''))
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
@@ -368,40 +400,29 @@ for (cell_ref in c("azimuth", "monaco", "dice")){
   }
 }
 
-md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_azimuth_seurat_clusters', sep = ''))
+barplot_azimuth_seurat_clusters <- BarPlotStackSplit(expt.obj, 'azimuth', 'seurat_clusters')
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_monaco_seurat_clusters', sep = ''))
+barplot_monaco_seurat_clusters <- BarPlotStackSplit(expt.obj, 'monaco', 'seurat_clusters')
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_monaco_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''))
+barplot_dice_seurat_clusters <- BarPlotStackSplit(expt.obj, 'dice', 'seurat_clusters')
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('azimuth', 'AgeGroup2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_age_group, paste('./plots/', experiment, '_prepare_barplot_azimuth_age_group', sep = ''))
+barplot_phase_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Phase', 'seurat_clusters')
+generate_figs(barplot_phase_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_phase_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'AgeGroup2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_prepare_barplot_monaco_age_group', sep = ''))
+barplot_azimuth_age_group <- BarPlotStackSplit(expt.obj, 'azimuth', 'AgeGroup2')
+generate_figs(barplot_azimuth_age_group, paste('./plots/', experiment, '_prepare_barplot_azimuth_age_group', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'AgeGroup2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_prepare_barplot_dice_age_group', sep = ''))
+barplot_monaco_age_group <- BarPlotStackSplit(expt.obj, 'monaco', 'AgeGroup2')
+generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_prepare_barplot_monaco_age_group', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('Phase', 'AgeGroup2')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_phase_age_group <- ggplot(md_temp, aes(x = AgeGroup2, y = N, fill = Phase)) + geom_col(position = "fill")
-generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_prepare_barplot_phase_age_group', sep = ''))
+barplot_dice_age_group <- BarPlotStackSplit(expt.obj, 'dice', 'AgeGroup2')
+generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_prepare_barplot_dice_age_group', sep = ''), c(8,4))
+
+barplot_phase_age_group <- BarPlotStackSplit(expt.obj, 'Phase', 'AgeGroup2')
+generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_prepare_barplot_phase_age_group', sep = ''), c(8,4))
 
 
 
@@ -435,31 +456,11 @@ umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD
 generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
 
 
-# QC: Examine CARTEx representation at single-cell resolution
-
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-all.genes <- rownames(expt.obj)
-
-# Calculate the percentage of all counts that belong to a given set of features
-# i.e. compute the percentage of transcripts that map to CARTEx genes
-
-CARTEx_630_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_630_weights))) / length(rownames(cartex_630_weights))
-expt.obj@meta.data$CARTEx_630_countsproportion <- CARTEx_630_cp[1:length(Cells(expt.obj))]
-CARTEx_200_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_200_weights))) / length(rownames(cartex_200_weights))
-expt.obj@meta.data$CARTEx_200_countsproportion <- CARTEx_200_cp[1:length(Cells(expt.obj))]
-CARTEx_84_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_84_weights))) / length(rownames(cartex_84_weights))
-expt.obj@meta.data$CARTEx_84_countsproportion <- CARTEx_84_cp[1:length(Cells(expt.obj))]
-
-
-
-
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- SetIdent(expt.obj, value = 'CD8Tref_1')
 # expt.obj <- subset(expt.obj, idents = 'CD8 T cell')
@@ -479,7 +480,7 @@ saveRDS(expt.list$`Longitudinal`, file = paste('./data/', experiment, '_annotate
 ########################################### CARTEx scoring #########################################
 ####################################################################################################
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # CARTEx with weights // 630 genes
 cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
@@ -538,7 +539,7 @@ expt.obj@meta.data$State4 <- NULL
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
@@ -587,18 +588,6 @@ generate_figs(umap_sig_activation, paste('./plots/', experiment, '_umap_sig_acti
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_umap_sig_anergy', sep = ''))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_umap_sig_stemness', sep = ''))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_umap_sig_senescence', sep = ''))
-
-
-
-# quality control 
-
-scatter_CARTEx_630_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
-scatter_CARTEx_200_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
-scatter_CARTEx_84_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
-
-generate_figs(scatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_630_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_200_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_84_countsproportion', sep = ''))
 
 
 
