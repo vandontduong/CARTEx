@@ -6,13 +6,6 @@ experiment = 'GSE136184'
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(data.table)
-library(EnhancedVolcano)
-library(gtools)
-
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
@@ -20,6 +13,8 @@ library(gtools)
 expt.obj <- readRDS(paste('./data/', experiment, '_annotated_cross.rds', sep = ''))
 # expt.obj <- SetIdent(expt.obj, value = "AgeGroup")
 head(expt.obj)
+
+expt.obj@meta.data$extract.ident <- paste(expt.obj@meta.data$AgeGroup, expt.obj@meta.data$monaco, sep = ", ")
 
 
 # CARTEx with weights // 630 genes
@@ -73,6 +68,9 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
+ridgeplt_CARTEx_84 <- RidgePlot(expt.obj, features = c("CARTEx_84"), group.by = "AgeGroup2") + xlim(c(NA, 4))
+generate_figs(ridgeplt_CARTEx_84, paste('./plots/', experiment, '_extract_ridgeplt_CARTEx_84', sep = ''), c(8,4))
+
 
 cellIDs_newborn <- Cells(expt.obj[, expt.obj[['AgeGroup2']] == 'Newborn'])
 cellIDs_under30 <- Cells(expt.obj[, expt.obj[['AgeGroup2']] == 'Under 30'])
@@ -84,16 +82,9 @@ cellIDs_terminalCD8T <- Cells(expt.obj[, expt.obj[['monaco']] == 'Terminal effec
 expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% intersect(union(cellIDs_newborn, cellIDs_under30), cellIDs_naiveCD8T))]
 expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% intersect(cellIDs_elderly, cellIDs_terminalCD8T))]
 
-expt.obj.young_naive@meta.data$extract.ident <- "Young, naive CD8 T cells"
-expt.obj.elderly_terminal@meta.data$extract.ident <- "Elderly, terminal effector CD8 T cells"
+# expt.obj.young_naive@meta.data$extract.ident <- "Young, naive CD8 T cells"
+# expt.obj.elderly_terminal@meta.data$extract.ident <- "Elderly, terminal effector CD8 T cells"
 
-ridgeplt_CARTEx_84 <- RidgePlot(expt.obj, features = c("CARTEx_84"), group.by = "AgeGroup2") + xlim(c(NA, 4))
-generate_figs(ridgeplt_CARTEx_84, paste('./plots/', experiment, '_extract_ridgeplt_CARTEx_84', sep = ''), c(8,4))
-
-dim(expt.obj.young_naive)
-sum(expt.obj.young_naive$CARTEx_84 < -1)
-dim(expt.obj.elderly_terminal)
-sum(expt.obj.elderly_terminal$CARTEx_84 > 1)
 
 SelectSortCells <- function(atlas, module, direction, counts){
   md <- atlas@meta.data
@@ -102,15 +93,18 @@ SelectSortCells <- function(atlas, module, direction, counts){
   return(cells)
 }
 
-cellIDs_YN_low <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'low', 2000)
-cellIDs_ET_high <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'high', 2000)
+cellIDs_YN_low <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'low', 1500)
+cellIDs_ET_high <- SelectSortCells(expt.obj.elderly_terminal, 'CARTEx_84', 'high', 1500)
 
-expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% cellIDs_YN_low)]
-expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% cellIDs_ET_high)]
+# expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% cellIDs_YN_low)]
+# expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% cellIDs_ET_high)]
 
-rm(expt.obj)
 
-expt.obj <- merge(expt.obj.young_naive, y = expt.obj.elderly_terminal, project = "aging_extract")
+# rm(expt.obj)
+
+# expt.obj <- merge(expt.obj.young_naive, y = expt.obj.elderly_terminal, project = "aging_extract")
+
+expt.obj <- expt.obj[,(colnames(expt.obj) %in% union(cellIDs_YN_low, cellIDs_ET_high))]
 
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
@@ -138,9 +132,15 @@ expt.obj <- FindNeighbors(expt.obj, dims = 1:10)
 expt.obj <- FindClusters(expt.obj, resolution = 0.5)
 expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
+Idents(expt.obj) <- "extract.ident"
+expt.obj <- RenameIdents(expt.obj, `Old, Terminal effector CD8 T cells` = "Old Terminal", `Young, Naive CD8 T cells` = "Young Naive")
+table(Idents(expt.obj))
+expt.obj[['extract.ident']] <- Idents(expt.obj)
+table(expt.obj[['extract.ident']])
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_aging_extract.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_aging_extract.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_aging_extract.rds', sep = ''))
 
 
 
@@ -171,7 +171,7 @@ expt.obj <- subset(expt.obj, idents = c("Newborn"))
 
 
 # Quality filter
-expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.MT < 10)
+expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
 
 # Examine features
 vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.MT"), group.by = 'AgeGroup2', ncol=3)

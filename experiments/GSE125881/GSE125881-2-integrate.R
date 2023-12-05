@@ -4,14 +4,8 @@
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE125881'
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(data.table)
-library(EnhancedVolcano)
-library(patchwork)
 # https://samuel-marsh.github.io/scCustomize/articles/Gene_Expression_Plotting.html
 
 ####################################################################################################
@@ -87,7 +81,7 @@ table(integration.obj$identifier3)
 
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
-integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+# integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
@@ -147,7 +141,7 @@ generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_inte
 ####################################### Examine query datasets #####################################
 ####################################################################################################
 
-integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+# integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 query.list <- SplitObject(integration.obj, split.by = "split.ident")
 query.obj <- query.list$Query
@@ -190,44 +184,16 @@ scores <- expr %*% as.matrix(weights)
 query.obj@meta.data$CARTEx_84 <- Z(scores)
 query.obj@meta.data$CARTEx_84i <- integerize(query.obj@meta.data$CARTEx_84)
 
-
-####################################################################################################
-########################################### Module scoring #########################################
-####################################################################################################
-
-activation_sig <- rownames(read.csv("../../signatures/panther-activation.csv", header = TRUE, row.names = 1))
-anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.csv", header = TRUE, row.names = 1))
-stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
-senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
-
-query.obj <- AddModuleScore(query.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
-
-# z score normalization
-query.obj@meta.data$Activation <- scale(query.obj@meta.data$State1)
-query.obj@meta.data$Anergy <- scale(query.obj@meta.data$State2)
-query.obj@meta.data$Stemness <- scale(query.obj@meta.data$State3)
-query.obj@meta.data$Senescence <- scale(query.obj@meta.data$State4)
-
-query.obj@meta.data$Activationi <- integerize(query.obj@meta.data$Activation)
-query.obj@meta.data$Anergyi <- integerize(query.obj@meta.data$Anergy)
-query.obj@meta.data$Stemnessi <- integerize(query.obj@meta.data$Stemness)
-query.obj@meta.data$Senescencei <- integerize(query.obj@meta.data$Senescence)
-
-query.obj@meta.data$State1 <- NULL
-query.obj@meta.data$State2 <- NULL
-query.obj@meta.data$State3 <- NULL
-query.obj@meta.data$State4 <- NULL
-
 saveRDS(query.obj, file = paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
-query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
+# query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
 head(query.obj)
 
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("IP", "ExpansionPeak", "Contraction", "Late", "Young_Naive", "Elderly_Terminal")
+split.ident.order = c("IP", "ExpansionPeak", "Contraction", "Late", "Young Naive", "Old Terminal")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
 query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
@@ -235,13 +201,13 @@ vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'i
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young_Naive')), label = "p.signif", label.y = 5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young_Naive')), label = "p.signif", label.y = 5.5) + 
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young_Naive')), label = "p.signif", label.y = 3.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young Naive')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 5.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 3.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 
-query.obj$identifier3 <- factor(query.obj$identifier3, levels = c("IP", "d12", "d21", "d28", "d29", "d38", "d83", "d89", "d102", "d112", "Young_Naive", "Elderly_Terminal"))
+query.obj$identifier3 <- factor(query.obj$identifier3, levels = c("IP", "d12", "d21", "d28", "d29", "d38", "d83", "d89", "d102", "d112", "Young Naive", "Old Terminal"))
 vlnplot_CARTEx_84_identifier3 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier3', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
 generate_figs(vlnplot_CARTEx_84_identifier3, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_identifier3', sep = ''))
