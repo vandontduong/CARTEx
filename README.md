@@ -7,6 +7,7 @@ This is the github repository for the CAR T cell exhaustion (CARTEx) signature p
   - [Datasets](#datasets)
   - [Utilities](#utilities)
   - [Analyses](#analyses)
+    - [GSE125881](#gse125881)
 - [Literature](#literature)
   - [Reviews](#reviews)
   - [Signatures](#signatures)
@@ -105,12 +106,13 @@ We established path variables to enable ease of general use, in which files can 
 
 We share some summarized analyses resulting from our custom pipelines. Select figures from [`experiments`](experiments) were reorganized and archived to [`miscellaneous`](miscellaneous) using bash script [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
 
-### GSE125881
+### GSE125881 <a name = "GSE125881"></a>
+
+The [GSE125881](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125881) experiment was the kinetic monitoring of CAR T cells in cancer patients across 16 weeks. 
+
 Working directory: [`GSE125881`](experiments/GSE125881)
 - [`GSE125881-1-prepare.R`](experiments/GSE125881/GSE125881-1-prepare.R)
 - [`GSE125881-2-integrate.R`](experiments/GSE125881/GSE125881-2-integrate.R)
-
-The [GSE125881](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125881) experiment was the kinetic monitoring of CAR T cells in cancer patients across 16 weeks. 
 
 <img alt="GSE125881 UMAP group" src="miscellaneous/plots/GSE125881_prepare_umap_group.jpeg" width="300" />
 
