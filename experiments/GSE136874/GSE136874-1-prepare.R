@@ -2,48 +2,9 @@
 # Vandon Duong
 
 set.seed(123)
-
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE136874'
-
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
-
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(stringr)
-library(dplyr)
-library(SingleR) # BiocManager::install("beachmat", force = TRUE)
-library(beachmat)
-# library(celldex)
-library(data.table)
-
-####################################################################################################
-############################################# Functions ############################################
-####################################################################################################
-
-Z=function(s){
-  s=as.numeric(s)
-  z=(s - mean(s))/sd(s)
-  return (z)
-}
-
-generate_figs = function(figure_object, file_name, dimensions){
-  if(missing(dimensions)){
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  } else {
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
-  }
-  return (paste("generating figure for ", file_name))
-}
-
-integerize = function(score){
-  score_mod = round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
-  return (score_mod)
-}
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
@@ -56,26 +17,83 @@ CART_GD2 <- CreateSeuratObject(counts = CART_GD2.data, project = "GD2", min.cell
 expt.obj <- merge(CART_CD19, y = CART_GD2, add.cell.ids = c("CD19", "GD2"), project = "CART")
 rm(list = c('CART_CD19.data', 'CART_GD2.data', 'CART_CD19', 'CART_GD2'))
 
+expt.obj <- JoinLayers(expt.obj)
+expt.obj <- NormalizeData(expt.obj)
+
+# expt.obj <- SCTransform(expt.obj)
+# expt.obj <- RunPCA(expt.obj, npcs = 30, verbose = F)
+# expt.obj <- IntegrateLayers(expt.obj, method = RPCAIntegration, normalization.method = "SCT")
+
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
-# Quality filter
-expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
-expt.obj <- NormalizeData(expt.obj)
+expt.obj[['identifier']] <- experiment
+
+vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+
 
 # extract genes
 all.genes <- rownames(expt.obj)
 write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
 
-# Examine features
-vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
-generate_figs(vlnplot_quality, paste('./plots/', experiment, '_vlnplot_quality', sep = ''))
+# Calculate the percentage of all counts that belong to a given set of features
+# i.e. compute the percentage of transcripts that map to CARTEx genes
+# also compute the percentage of CARTEx genes detected
+
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_200 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_200 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_200_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_84 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_84 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_84_weights)) 
+
+# capture counts before CD8+ T cell filter
+qc_review <- dim(expt.obj) # [genes, cells]
+
+#- Add meta.data
+expt.obj@meta.data$CAR <- expt.obj@meta.data$orig.ident
+
+# check levels() for metadata
+# check anything NULL: unique(expt.obj@meta.data[['identity']])
+check_levels(expt.obj)
+
+# Examine features before quality control
+vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+vlnplot_quality_control_CARTEx_pre <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+#### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+# capture counts before quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+
+# Quality filter
+expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
+
+# Examine features after quality control
+vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
+
+vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+
+# capture counts after quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+rownames(qc_review) <- c("All", "preQC", "preQC")
+colnames(qc_review) <- c("genes", "cells")
+write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
 top10_CART <- head(VariableFeatures(expt.obj), 10)
 varplt <- VariableFeaturePlot(expt.obj)
 varplt_labeled <- LabelPoints(plot = varplt, points = top10_CART, repel = TRUE)
-generate_figs(varplt_labeled, paste('./plots/', experiment, '_varplt_labeled', sep = ''))
+generate_figs(varplt_labeled, paste('./plots/', experiment, '_prepare_varplt_labeled', sep = ''))
 
 expt.obj <- ScaleData(expt.obj, features = all.genes)
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 40)
@@ -84,9 +102,66 @@ expt.obj <- FindNeighbors(expt.obj, dims = 1:10)
 expt.obj <- FindClusters(expt.obj, resolution = 0.5)
 expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
-saveRDS(expt.obj, paste('./data/', experiment, '.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+
+head(expt.obj)
+
+
+# Generate UMAPs for metadata
+
+umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''))
+
+umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 3)
+generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
+
+umap_CAR <- DimPlot(expt.obj, reduction = "umap", group.by = "CAR", shuffle = TRUE, seed = 123)
+generate_figs(umap_CAR, paste('./plots/', experiment, '_prepare_umap_CAR', sep = ''))
+
+umap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_CAR_highlight, paste('./plots/', experiment, '_prepare_umap_CAR_highlight', sep = ''), c(12, 10))
+
+
+####################################################################################################
+###################################### Seurat cluster analysis #####################################
+####################################################################################################
+
+# identify markers for each Seurat cluster
+# https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
+
+expt.markers <- FindAllMarkers(expt.obj, only.pos = TRUE)
+saveRDS(expt.markers, paste(file='./data/', experiment, '_seurat_markers.rds', sep = ''))
+write.csv(expt.markers, paste(file='./data/', experiment, '_seurat_markers.csv', sep = ''))
+# expt.markers <- readRDS(paste('./data/', experiment, '_seurat_markers.rds', sep = ''))
+
+expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
+
+# visualize; downsampling is necessary for DoHeatmap()
+# https://github.com/satijalab/seurat/issues/2724
+expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
+cluster_markers_heatmap <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
+generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
+
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  print(expt.markers.top10[expt.markers.top10$cluster == i,])
+}
+
+# extract markers
+cluster_markers <- data.frame()
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  putative_markers = expt.markers.top10[expt.markers.top10$cluster == i,]$gene
+  print(paste(unlist(putative_markers), collapse=', '))
+  cluster_markers <- rbind(cluster_markers, cbind(i, paste(unlist(putative_markers), collapse=', ')))
+  cat("\n")
+}
+colnames(cluster_markers) <- c('Cluster', 'Markers')
+write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
+
+# https://www.nature.com/articles/s12276-023-01105-x
 
 
 ####################################################################################################
