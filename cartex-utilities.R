@@ -48,7 +48,10 @@ Z <- function(s){
 }
 
 #####
-# save figures in jpeg and pdf formats
+# function: generate_figs() saves figures in jpeg and pdf formats
+# @ figure_object: an object that visualizes data
+# @ file_name: desired output file name (excluding extension)
+# @ dimensions: specify desired figure size using c(x,y)
 
 generate_figs <- function(figure_object, file_name, dimensions){
   if(missing(dimensions)){
@@ -62,7 +65,8 @@ generate_figs <- function(figure_object, file_name, dimensions){
 }
 
 #####
-# round scores to nearest integer; cut-off at +/-5
+# function: round scores to nearest integer; cut-off at +/-5
+# @ score: vector of floats
 
 integerize <- function(score){
   score_mod <- round(score)
@@ -72,8 +76,9 @@ integerize <- function(score){
 }
 
 #####
-# Check metadata levels() and return "NULL" if levels() does not exist
+# function: check metadata levels() and return "NULL" if levels() does not exist
 # need to update levels() for anything that results in "not NULL"
+# @ atlas: Seurat object with metadata
 
 check_levels <- function(atlas){
   for (i in colnames(atlas@meta.data)){
@@ -88,8 +93,14 @@ check_levels <- function(atlas){
 }
 
 #####
-# VlnPlot() customized to show cutoff thresholds for quality control filters
-# use on original dataset before QC filtering
+# function: VlnPlot() customized to show cutoff thresholds for quality control filters
+# only use on original dataset before QC filtering, otherwise it will not display the non-filtered datapoints
+# @ atlas: Seurat object with features relevant for quality control
+# @ metrics: list of features relevant for quality control
+# @ low_cutoff: vector of lower-bound thresholds for filtering cells, in the order of metrics
+# @ high_cutoff: vector of upper-bound thresholds for filtering cells, in the order of metrics
+# @ identity: string describing the relevant metadata identity group
+# @ ncols: number of columns to split the resulting figure into
 
 ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncols){
   plot.list <- list()
@@ -116,7 +127,13 @@ ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncol
 }
 
 #####
-# DimPlot() customized to highlight cells by identity group
+# function: DimPlot() customized to highlight cells by identity group
+# @ Seurat object
+# @ identity: string describing the relevant metadata identity group
+# @ reduction_map: string describing the relevant dimensionality reduction method
+# @ highlight_color: string describing the color of the highlighted datapoints
+# @ pt_size: string describing the size of the datapoints
+# @ ncols: number of columns to split the resulting figure into
 
 DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
   plot.list <- list()
@@ -142,7 +159,10 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
 #####
-# Bar plot stacked and split according to two different identity groups
+# function: Bar plot stacked and split according to two different identity groups
+# @ atlas: Seurat object
+# @ x_identity: string describing the relevant metadata identity group to stack by
+# @ y_identity: string describing the relevant metadata identity group to split by
 
 BarPlotStackSplit <- function(atlas, x_identity, y_identity){
   md <- as.data.table(atlas@meta.data)[, .N, by = c(x_identity, y_identity)]
