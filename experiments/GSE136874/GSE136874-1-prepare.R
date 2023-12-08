@@ -58,6 +58,8 @@ qc_review <- dim(expt.obj) # [genes, cells]
 
 #- Add meta.data
 expt.obj@meta.data$CAR <- expt.obj@meta.data$orig.ident
+expt.obj@meta.data$CAR <- factor(expt.obj@meta.data$CAR, levels = c('CD19', 'GD2'))
+
 
 # check levels() for metadata
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
@@ -115,13 +117,13 @@ umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat
 generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 3)
-generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
+generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(10, 8))
 
 umap_CAR <- DimPlot(expt.obj, reduction = "umap", group.by = "CAR", shuffle = TRUE, seed = 123)
 generate_figs(umap_CAR, paste('./plots/', experiment, '_prepare_umap_CAR', sep = ''))
 
 umap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_CAR_highlight, paste('./plots/', experiment, '_prepare_umap_CAR_highlight', sep = ''), c(12, 10))
+generate_figs(umap_CAR_highlight, paste('./plots/', experiment, '_prepare_umap_CAR_highlight', sep = ''), c(6,4))
 
 
 ####################################################################################################
@@ -167,11 +169,10 @@ write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_marker
 ####################################################################################################
 ######################################## Cell cycle analysis #######################################
 ####################################################################################################
-
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
 # Read in the expression matrix The first row is a header row, the first column is rownames
-exp.mat <- read.table(file = "../cellannotate/nestorawa_forcellcycle_expressionMatrix.txt", header = TRUE, as.is = TRUE, row.names = 1)
+exp.mat <- read.table(file = paste(PATH_CELLANNOTATE, "nestorawa_forcellcycle_expressionMatrix.txt", sep = ''), header = TRUE, as.is = TRUE, row.names = 1)
 
 # A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
 # segregate this list into markers of G2/M phase and markers of S phase
@@ -185,14 +186,17 @@ head(expt.obj[[]])
 
 # Visualize the distribution of cell cycle markers across
 ridgeplt <- RidgePlot(expt.obj, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), ncol = 2)
-generate_figs(ridgeplt, paste('./plots/', experiment, '_ridgeplt', sep = ''))
+generate_figs(ridgeplt, paste('./plots/', experiment, '_prepare_ridgeplt', sep = ''))
 
 expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
+# DimPlot(expt.obj)
 
 # regress cell cycle
 expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(expt.obj))
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
+
+expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S', 'G2M'))
 
 # ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
 md <- expt.obj@meta.data %>% as.data.table
@@ -203,9 +207,13 @@ phase_data$percent <- round(100*phase_data$N / sum(phase_data$N), digits = 1)
 phase_data$label <- paste(phase_data$Phase, " (", phase_data$percent,"%)", sep = "")
 phase_data$cols <- hcl.colors(n = nrow(phase_data), palette = "Temps")
 barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(stat="identity", fill = phase_data$cols)
-generate_figs(barplot_phase, paste('./plots/', experiment, '_barplot_phase', sep = ''))
-umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols)
-generate_figs(umap_phase, paste('./plots/', experiment, '_umap_phase', sep = ''))
+generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
+
+umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
+generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''))
+
+umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
+generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
@@ -225,7 +233,7 @@ expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
 
 # azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
-azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
+azimuth.obj <- readRDS(paste(PATH_CELLANNOTATE, "AzimuthPBMC.rds", sep = ''))
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
@@ -256,22 +264,29 @@ azimuth.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = azi
 table(azimuth.predictions$labels)
 saveRDS(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.rds', sep = ''))
 write.csv(azimuth.predictions, paste(file='./data/', experiment, '_azimuth_predictions.csv', sep = ''))
-azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_predictions.rds', sep = ''))
+# azimuth.predictions <- readRDS(paste('./data/', experiment, '_azimuth_predictions.rds', sep = ''))
 
 expt.obj[["azimuth"]] <- azimuth.predictions$labels
+unique(expt.obj[["azimuth"]])
+expt.obj@meta.data$azimuth <- factor(expt.obj@meta.data$azimuth, levels = c('CD8 Naive', 'CD8 Proliferating'))
 
 # umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth")
 generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
+
+umap_predicted_azimuth_highlight <- DimPlotHighlightIdents(expt.obj, azimuth, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_predicted_azimuth_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_azimuth_highlight', sep = ''), c(12, 8))
 
 
 monaco.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = monaco.obj, labels = monaco.obj$label.fine)
 table(monaco.predictions$labels)
 saveRDS(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
 write.csv(monaco.predictions, file=paste('./data/', experiment, '_monaco_predictions.csv', sep = ''))
-monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
+# monaco.predictions <- readRDS(paste('./data/', experiment, '_monaco_predictions.rds', sep = ''))
 
 expt.obj[["monaco"]] <- monaco.predictions$labels
+unique(expt.obj[["monaco"]])
+expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco")
@@ -282,13 +297,18 @@ dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.o
 table(dice.predictions$labels)
 saveRDS(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
 write.csv(dice.predictions, file=paste('./data/', experiment, '_dice_predictions.csv', sep = ''))
-dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
+# dice.predictions <- readRDS(paste('./data/', experiment, '_dice_predictions.rds', sep = ''))
 
 expt.obj[["dice"]] <- dice.predictions$labels
+unique(expt.obj[["dice"]])
+expt.obj@meta.data$dice <- factor(expt.obj@meta.data$dice, levels = c('T cells, CD8+, naive', 'T cells, CD8+, naive, stimulated'))
 
 # umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice")
 generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
+
+umap_predicted_dice_highlight <- DimPlotHighlightIdents(expt.obj, dice, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_predicted_dice_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_dice_highlight', sep = ''), c(12, 8))
 
 
 featureplot_Tcell_markers <- FeaturePlot(expt.obj, features = c("CD4", "CD8A", "CD8B", "PDCD1"))
@@ -299,155 +319,33 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_feature
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-md_temp <- md[, .N, by = c('azimuth', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_CAR, paste('./plots/', experiment, '_barplot_azimuth_CAR', sep = ''))
+barplot_azimuth_seurat_clusters <- BarPlotStackSplit(expt.obj, 'azimuth', 'seurat_clusters')
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_CAR, paste('./plots/', experiment, '_barplot_monaco_CAR', sep = ''))
+barplot_monaco_seurat_clusters <- BarPlotStackSplit(expt.obj, 'monaco', 'seurat_clusters')
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_monaco_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_CAR, paste('./plots/', experiment, '_barplot_dice_CAR', sep = ''))
+barplot_dice_seurat_clusters <- BarPlotStackSplit(expt.obj, 'dice', 'seurat_clusters')
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('Phase', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_phase_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = Phase)) + geom_col(position = "fill")
-generate_figs(barplot_phase_CAR, paste('./plots/', experiment, '_barplot_phase_CAR', sep = ''))
+barplot_azimuth_CAR <- BarPlotStackSplit(expt.obj, 'azimuth', 'CAR')
+generate_figs(barplot_azimuth_CAR, paste('./plots/', experiment, '_prepare_barplot_azimuth_CAR', sep = ''), c(8,4))
 
+barplot_monaco_CAR <- BarPlotStackSplit(expt.obj, 'monaco', 'CAR')
+generate_figs(barplot_monaco_CAR, paste('./plots/', experiment, '_prepare_barplot_monaco_CAR', sep = ''), c(8,4))
 
+barplot_dice_CAR <- BarPlotStackSplit(expt.obj, 'dice', 'CAR')
+generate_figs(barplot_dice_CAR, paste('./plots/', experiment, '_prepare_barplot_dice_CAR', sep = ''), c(8,4))
 
-
-# label CD8s based on having 
-# azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
-# monaco: Naive CD8 T cells; Effector memory CD8 T cells; Central memory CD8 T cells; Terminal effector CD8 T cells
-# dice: T cells, CD8+, naive; T cells, CD8+, naive, stimulated"
-
-# CD8 T cell detected in any reference
-expt.obj$CD8Tref_1 <- with(expt.obj, ifelse((expt.obj@meta.data$azimuth == "CD8 Naive") | (expt.obj@meta.data$azimuth == "CD8 TEM") | (expt.obj@meta.data$azimuth == "CD8 Proliferating") | 
-                                              (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
-                                              (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(expt.obj@meta.data, CD8Tref_1, sort = TRUE)
-
-umap_predicted_CD8Tref_1 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_predicted_CD8Tref_1', sep = ''))
-
-
-# CD8 T cell detected in at least 2 references
-expt.obj$CD8Tref_2 <- with(expt.obj, ifelse(expt.obj@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
-                                              expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
-                                              expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(expt.obj@meta.data, CD8Tref_2, sort = TRUE)
-
-umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_2", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
-
-
-# QC: Examine CARTEx representation at single-cell resolution
-
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-all.genes <- rownames(expt.obj)
-
-# Calculate the percentage of all counts that belong to a given set of features
-# i.e. compute the percentage of transcripts that map to CARTEx genes
-
-CARTEx_630_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_630_weights))) / length(rownames(cartex_630_weights))
-expt.obj@meta.data$CARTEx_630_countsproportion <- CARTEx_630_cp[1:length(Cells(expt.obj))]
-CARTEx_200_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_200_weights))) / length(rownames(cartex_200_weights))
-expt.obj@meta.data$CARTEx_200_countsproportion <- CARTEx_200_cp[1:length(Cells(expt.obj))]
-CARTEx_84_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_84_weights))) / length(rownames(cartex_84_weights))
-expt.obj@meta.data$CARTEx_84_countsproportion <- CARTEx_84_cp[1:length(Cells(expt.obj))]
+barplot_phase_CAR <- BarPlotStackSplit(expt.obj, 'Phase', 'CAR')
+generate_figs(barplot_phase_CAR, paste('./plots/', experiment, '_prepare_barplot_phase_CAR', sep = ''), c(8,4))
 
 
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
-
-# expt.obj <- SetIdent(expt.obj, value = 'CD8Tref_1')
-# expt.obj <- subset(expt.obj, idents = 'CD8 T cell')
-
-# saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8.rds', sep = ''))
-
-
-
-
-
-# pseudo-bulk aggregation
-# https://bioconductor.org/books/release/SingleRBook/sc-mode.html#pseudo-bulk-aggregation
-
-set.seed(123)
-
-predictions <- SingleR(test = test_assay, ref = ref_assay, labels = ref.obj$celltype.l2, de.method = "wilcox", aggr.ref = TRUE)
-table(predictions$labels)
-
-expt.obj[["celltype"]] <- predictions$labels
-
-umap_predicted_celltype_SR <- DimPlot(expt.obj, reduction = "umap", group.by = "celltype", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_celltype_SR, paste('./plots/', experiment, '_umap_predicted_celltype_SR', sep = ''))
-
-
-
-
-####################################################################################################
-########################################### CARTEx scoring #########################################
-####################################################################################################
-
-# CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_630 <- Z(scores)
-expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
-
-expt.obj@meta.data$CARTEx_630_repcount <- rowSums(expr > 0)
-expt.obj@meta.data$CARTEx_630_reppercent <- expt.obj@meta.data$CARTEx_630_repcount / 630
-
-scatterplot_CARTEx_630_representation <- FeatureScatter(expt.obj, feature1 = 'CARTEx_630', feature2 = 'CARTEx_630_reppercent', shuffle = TRUE, seed = 123)
-generate_figs(scatterplot_CARTEx_630_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_630_representation', sep = ''))
-
-# CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_200 <- Z(scores)
-expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
-
-expt.obj@meta.data$CARTEx_200_repcount <- rowSums(expr > 0)
-expt.obj@meta.data$CARTEx_200_reppercent <- expt.obj@meta.data$CARTEx_200_repcount / 200
-
-scatterplot_CARTEx_200_representation <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'CARTEx_200_reppercent', shuffle = TRUE, seed = 123)
-generate_figs(scatterplot_CARTEx_200_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_200_representation', sep = ''))
-
-# CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_84 <- Z(scores)
-expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
-
-expt.obj@meta.data$CARTEx_84_repcount <- rowSums(expr > 0)
-expt.obj@meta.data$CARTEx_84_reppercent <- expt.obj@meta.data$CARTEx_84_repcount / 84
-
-scatterplot_CARTEx_84_representation <- FeatureScatter(expt.obj, feature1 = 'CARTEx_84', feature2 = 'CARTEx_84_reppercent', shuffle = TRUE, seed = 123)
-generate_figs(scatterplot_CARTEx_84_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_84_representation', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 
 ####################################################################################################
@@ -502,9 +400,9 @@ expt.obj@meta.data$Signature4 <- NULL
 
 
 
-saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
@@ -545,18 +443,6 @@ generate_figs(umap_sig_activation, paste('./plots/', experiment, '_umap_sig_acti
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_umap_sig_anergy', sep = ''))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_umap_sig_stemness', sep = ''))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_umap_sig_senescence', sep = ''))
-
-
-
-# quality control 
-
-scatter_CARTEx_630_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_630", feature2 = "CARTEx_630_countsproportion")
-scatter_CARTEx_200_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_200", feature2 = "CARTEx_200_countsproportion")
-scatter_CARTEx_84_countsproportion <- FeatureScatter(expt.obj, feature1 = "CARTEx_84", feature2 = "CARTEx_84_countsproportion")
-
-generate_figs(scatter_CARTEx_630_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_630_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_200_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_200_countsproportion', sep = ''))
-generate_figs(scatter_CARTEx_84_countsproportion, paste('./plots/', experiment, '_scatter_CARTEx_84_countsproportion', sep = ''))
 
 
 
