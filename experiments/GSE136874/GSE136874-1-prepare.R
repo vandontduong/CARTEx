@@ -60,7 +60,6 @@ qc_review <- dim(expt.obj) # [genes, cells]
 expt.obj@meta.data$CAR <- expt.obj@meta.data$orig.ident
 expt.obj@meta.data$CAR <- factor(expt.obj@meta.data$CAR, levels = c('CD19', 'GD2'))
 
-
 # check levels() for metadata
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
 check_levels(expt.obj)
@@ -218,7 +217,7 @@ generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 ####################################################################################################
 ######################################## Cell type annotation ######################################

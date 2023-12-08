@@ -15,8 +15,8 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 # aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
-aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_aging_extract.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_scored.rds")
+aging.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE136184/data/GSE136184_aging_extract.rds", sep = ''))
+ref.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE164378/data/GSE164378_CD8pos_scored.rds", sep = ''))
 
 # add experiment identifier
 expt.obj@meta.data[['identifier']] <- experiment
@@ -62,16 +62,34 @@ integration.obj <- FindClusters(integration.obj, resolution = 0.5)
 
 head(integration.obj)
 
+
 integration.obj$identifier <- factor(integration.obj$identifier, levels = c(experiment, "GSE136184", "GSE164378"))
 unique(integration.obj$identifier)
 
 integration.obj$identifier2 <- factor(integration.obj$identifier2, levels = c(names(table(expt.obj$identifier2)), names(table(aging.obj$identifier2)), names(table(ref.obj$identifier2))))
 table(integration.obj$identifier2)
 
+unique(integration.obj$azimuth)
+integration.obj$azimuth <- factor(integration.obj$azimuth, levels = c("CD8 Naive", "CD8 Proliferating", "CD8 TCM", "CD8 TEM"))
+
+unique(integration.obj$monaco)
+integration.obj$monaco <- factor(integration.obj$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+unique(integration.obj$dice)
+integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
+
+unique(integration.obj$split.ident)
+integration.obj$split.ident <- factor(integration.obj$split.ident, levels = c("Query", "Reference"))
+
+# check levels() for metadata
+# check anything NULL: unique(expt.obj@meta.data[['identity']])
+check_levels(expt.obj)
+
 
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 # integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
 
@@ -90,14 +108,18 @@ generate_figs(integrated_umap_seurat_clusters_highlight, paste('./plots/', exper
 integrated_umap_azimuth <- DimPlot(integration.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_azimuth, paste('./plots/', experiment, '_integrated_umap_azimuth', sep = ''))
 
+integrated_umap_azimuth_highlight <- DimPlotHighlightIdents(integration.obj, azimuth, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_azimuth_highlight, paste('./plots/', experiment, '_integrated_umap_azimuth_highlight', sep = ''), c(10, 6))
+
 integrated_umap_monaco <- DimPlot(integration.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_monaco, paste('./plots/', experiment, '_integrated_umap_monaco', sep = ''))
+
+integrated_umap_monaco_highlight <- DimPlotHighlightIdents(integration.obj, monaco, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_monaco_highlight, paste('./plots/', experiment, '_integrated_umap_monaco_highlight', sep = ''), c(10, 6))
 
 integrated_umap_dice <- DimPlot(integration.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_dice, paste('./plots/', experiment, '_integrated_umap_dice', sep = ''))
 
-unique(integration.obj$dice)
-integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
 integrated_umap_dice_highlight <- DimPlotHighlightIdents(integration.obj, dice, 'umap', 'blue', 0.1, 2)
 generate_figs(integrated_umap_dice_highlight, paste('./plots/', experiment, '_integrated_umap_dice_highlight', sep = ''), c(10, 6))
 
@@ -109,20 +131,15 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_integra
 md <- integration.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-md_temp <- md[, .N, by = c('azimuth', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_azimuth_seurat_clusters', sep = ''))
+barplot_azimuth_seurat_clusters <- BarPlotStackSplit(integration.obj, 'azimuth', 'seurat_clusters')
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_monaco_seurat_clusters', sep = ''))
+barplot_monaco_seurat_clusters <- BarPlotStackSplit(integration.obj, 'monaco', 'seurat_clusters')
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_monaco_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'seurat_clusters')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_seurat_clusters <- ggplot(md_temp, aes(x = seurat_clusters, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_dice_seurat_clusters', sep = ''))
+barplot_dice_seurat_clusters <- BarPlotStackSplit(integration.obj, 'dice', 'seurat_clusters')
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_integrated_barplot_dice_seurat_clusters', sep = ''), c(8,4))
+
 
 ####################################################################################################
 ####################################### Examine query datasets #####################################
@@ -145,7 +162,7 @@ head(query.obj)
 ####################################################################################################
 
 # CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 common <- intersect(rownames(cartex_630_weights), rownames(query.obj))
 expr <- t(as.matrix(GetAssayData(query.obj))[match(common, rownames(as.matrix(GetAssayData(query.obj)))),])
 weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
@@ -154,7 +171,7 @@ query.obj@meta.data$CARTEx_630 <- Z(scores)
 query.obj@meta.data$CARTEx_630i <- integerize(query.obj@meta.data$CARTEx_630)
 
 # CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
 common <- intersect(rownames(cartex_200_weights), rownames(query.obj))
 expr <- t(as.matrix(GetAssayData(query.obj))[match(common, rownames(as.matrix(GetAssayData(query.obj)))),])
 weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
@@ -163,7 +180,7 @@ query.obj@meta.data$CARTEx_200 <- Z(scores)
 query.obj@meta.data$CARTEx_200i <- integerize(query.obj@meta.data$CARTEx_200)
 
 # CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
 common <- intersect(rownames(cartex_84_weights), rownames(query.obj))
 expr <- t(as.matrix(GetAssayData(query.obj))[match(common, rownames(as.matrix(GetAssayData(query.obj)))),])
 weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
@@ -189,7 +206,8 @@ vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'i
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 3.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Young Naive','GD2')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','Young Naive')), label = "p.signif", label.y = 5.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','Young Naive')), label = "p.signif", label.y = 5.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2', 'Old Terminal')), label = "p.signif", label.y = 3.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 # BAR CHARTS of CELL TYPES
