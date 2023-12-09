@@ -123,6 +123,24 @@ Working directory: [`GSE125881`](experiments/GSE125881)
 <img alt="GSE125881 UMAP phase highlight" src="miscellaneous/plots/GSE125881_prepare_umap_phase_highlight.jpeg" width="700" />
 
 
+### GSE136874 <a name = "GSE136874"></a>
+
+The [GSE136874](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136874) experiment was comparing highly functional CD19 and exhaustion-prone GD2 CAR T cells on day 10 of cell culture. 
+
+Working directory: [`GSE136874`](experiments/GSE136874)
+- [`GSE136874-1-prepare.R`](experiments/GSE136874/GSE136874-1-prepare.R)
+- [`GSE136874-2-integrate.R`](experiments/GSE136874/GSE136874-2-integrate.R)
+
+<img alt="GSE136874 UMAP CAR" src="miscellaneous/plots/GSE136874_prepare_umap_CAR.jpeg" width="300" />
+
+<img alt="GSE136874 UMAP CAR highlight" src="miscellaneous/plots/GSE136874_prepare_umap_CAR_highlight.jpeg" width="500" />
+
+<img alt="GSE136874 UMAP phase" src="miscellaneous/plots/GSE136874_prepare_umap_phase.jpeg" width="300" />
+
+<img alt="GSE136874 UMAP phase highlight" src="miscellaneous/plots/GSE136874_prepare_umap_phase_highlight.jpeg" width="700" />
+
+
+
 # Literature <a name = "literature"></a>
 
 ## Reviews <a name = "reviews"></a>
