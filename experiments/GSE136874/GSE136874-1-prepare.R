@@ -1,5 +1,10 @@
-# prepare seurat object
-# Vandon Duong
+### Script name: GSE136874-1-prepare.R
+### Description: prepare seurat object for GSE136874
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
