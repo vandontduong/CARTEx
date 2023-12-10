@@ -1,5 +1,10 @@
-# integrate seurat object
-# Vandon Duong
+### Script name: GSE125881-2-integrate.R
+### Description: integrate seurat object for GSE125881
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
@@ -18,8 +23,8 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 # aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
-aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_aging_extract.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_scored.rds")
+aging.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE136184/data/GSE136184_aging_extract.rds", sep = ''))
+ref.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE164378/data/GSE164378_CD8pos_scored.rds", sep = ''))
 
 # add experiment identifier
 expt.obj@meta.data[['identifier']] <- experiment
@@ -78,6 +83,18 @@ table(integration.obj$identifier2)
 integration.obj$identifier3 <- factor(integration.obj$identifier3, levels = c(names(table(expt.obj$identifier3)), names(table(aging.obj$identifier3)), names(table(ref.obj$identifier3))))
 table(integration.obj$identifier3)
 
+unique(integration.obj$azimuth)
+integration.obj$azimuth <- factor(integration.obj$azimuth, levels = c("CD8 Naive", "CD8 Proliferating", "CD8 TCM", "CD8 TEM"))
+
+unique(integration.obj$monaco)
+integration.obj$monaco <- factor(integration.obj$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+unique(integration.obj$dice)
+integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
+
+unique(integration.obj$split.ident)
+integration.obj$split.ident <- factor(integration.obj$split.ident, levels = c("Query", "Reference"))
+
 
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
@@ -101,14 +118,18 @@ generate_figs(integrated_umap_seurat_clusters_highlight, paste('./plots/', exper
 integrated_umap_azimuth <- DimPlot(integration.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_azimuth, paste('./plots/', experiment, '_integrated_umap_azimuth', sep = ''))
 
+integrated_umap_azimuth_highlight <- DimPlotHighlightIdents(integration.obj, azimuth, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_azimuth_highlight, paste('./plots/', experiment, '_integrated_umap_azimuth_highlight', sep = ''), c(10, 6))
+
 integrated_umap_monaco <- DimPlot(integration.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_monaco, paste('./plots/', experiment, '_integrated_umap_monaco', sep = ''))
+
+integrated_umap_monaco_highlight <- DimPlotHighlightIdents(integration.obj, monaco, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_monaco_highlight, paste('./plots/', experiment, '_integrated_umap_monaco_highlight', sep = ''), c(10, 6))
 
 integrated_umap_dice <- DimPlot(integration.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_dice, paste('./plots/', experiment, '_integrated_umap_dice', sep = ''))
 
-unique(integration.obj$dice)
-integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
 integrated_umap_dice_highlight <- DimPlotHighlightIdents(integration.obj, dice, 'umap', 'blue', 0.1, 2)
 generate_figs(integrated_umap_dice_highlight, paste('./plots/', experiment, '_integrated_umap_dice_highlight', sep = ''), c(10, 6))
 
