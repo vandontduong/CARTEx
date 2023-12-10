@@ -1,5 +1,10 @@
-# CARTEx utilities - custom functions
-# Vandon Duong
+### Script name: cartex-utilities.R
+### Description: load libraries, paths, and custom functions
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 # build package
 # http://rcs.bu.edu/examples/r/tutorials/BuildingPackages/r-project-setup.html
