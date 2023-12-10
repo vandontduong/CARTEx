@@ -129,6 +129,10 @@ generate_figs(umap_CAR, paste('./plots/', experiment, '_prepare_umap_CAR', sep =
 umap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_CAR_highlight, paste('./plots/', experiment, '_prepare_umap_CAR_highlight', sep = ''), c(6,4))
 
+barplot_CAR_seurat_clusters <- BarPlotStackSplit(expt.obj, 'CAR', 'seurat_clusters')
+generate_figs(barplot_CAR_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_CAR_seurat_clusters', sep = ''), c(8,4))
+
+
 
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
