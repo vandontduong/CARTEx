@@ -161,6 +161,12 @@ generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
 
+barplot_group_seurat_clusters <- BarPlotStackSplit(expt.obj, 'group', 'seurat_clusters')
+generate_figs(barplot_group_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_group_seurat_clusters', sep = ''), c(8,4))
+
+barplot_timepoint_seurat_clusters <- BarPlotStackSplit(expt.obj, 'TimePoint', 'seurat_clusters')
+generate_figs(barplot_timepoint_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_timepoint_seurat_clusters', sep = ''), c(8,4))
+
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################
