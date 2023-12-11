@@ -1,19 +1,15 @@
-# prepare seurat object
-# Vandon Duong
+### Script name: GSE120575-1-prepare.R
+### Description: prepare seurat object for GSE120575
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE120575'
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
-
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(stringr)
-library(dplyr)
-library(SingleR)
-library(scuttle)
-library(data.table)
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
@@ -88,7 +84,7 @@ expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
 saveRDS(expt.obj, paste('./data/', experiment, '.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
 # Generate UMAPs for metadata
 
@@ -132,6 +128,18 @@ generate_figs(umap_timepoint_response_highlight, paste('./plots/', experiment, '
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################
+
+# examine metadata split by Seurat clusters
+
+barplot_response_seurat_clusters <- BarPlotStackSplit(expt.obj, 'characteristics_response', 'seurat_clusters')
+generate_figs(barplot_response_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_response_seurat_clusters', sep = ''), c(8,4))
+
+barplot_therapy_seurat_clusters <- BarPlotStackSplit(expt.obj, 'characteristics_therapy', 'seurat_clusters')
+generate_figs(barplot_therapy_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_therapy_seurat_clusters', sep = ''), c(8,4))
+
+barplot_timepoint_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Timepoint', 'seurat_clusters')
+generate_figs(barplot_timepoint_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_timepoint_seurat_clusters', sep = ''), c(8,4))
+
 
 # identify markers for each Seurat cluster
 # https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
