@@ -1,5 +1,10 @@
-# prepare seurat object
-# Vandon Duong
+### Script name: GSE125881-1-prepare.R
+### Description: prepare seurat object for GSE125881
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
@@ -48,7 +53,7 @@ expt.obj@meta.data$PFSD.CARTEx_84 <- PercentageFeatureSetDetected(expt.obj, rown
 # capture counts before CD8+ T cell filter
 qc_review <- dim(expt.obj) # [genes, cells]
 
-# Filter for CD8A +  cells, removing CD4+
+# Filter for CD8A + cells, removing CD4+
 CD4_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD4",]
 CD8A_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8A",]
 CD8B_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8B",]
@@ -161,15 +166,24 @@ generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
 
-barplot_group_seurat_clusters <- BarPlotStackSplit(expt.obj, 'group', 'seurat_clusters')
+####################################################################################################
+###################################### Seurat cluster analysis #####################################
+####################################################################################################
+
+# examine metadata split by Seurat clusters
+
+barplot_group_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Group', 'seurat_clusters')
 generate_figs(barplot_group_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_group_seurat_clusters', sep = ''), c(8,4))
 
 barplot_timepoint_seurat_clusters <- BarPlotStackSplit(expt.obj, 'TimePoint', 'seurat_clusters')
 generate_figs(barplot_timepoint_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_timepoint_seurat_clusters', sep = ''), c(8,4))
 
-####################################################################################################
-###################################### Seurat cluster analysis #####################################
-####################################################################################################
+barplot_patient_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Patient', 'seurat_clusters')
+generate_figs(barplot_patient_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_patient_seurat_clusters', sep = ''), c(8,4))
+
+barplot_disease_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Disease', 'seurat_clusters')
+generate_figs(barplot_disease_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_disease_seurat_clusters', sep = ''), c(8,4))
+
 
 # identify markers for each Seurat cluster
 # https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers

@@ -1,5 +1,10 @@
-# prepare seurat object
-# Vandon Duong
+### Script name: GSE136184-1-prepare.R
+### Description: prepare seurat object for GSE136184
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
@@ -174,8 +179,14 @@ generate_figs(umap_age_group, paste('./plots/', experiment, '_prepare_umap_age_g
 umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123)
 generate_figs(umap_age_group_2, paste('./plots/', experiment, '_prepare_umap_age_group_2', sep = ''))
 
+umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap', 'blue', 0.1, 3)
+generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))
+
 umap_sex <- DimPlot(expt.obj, reduction = "umap", group.by = "Sex", shuffle = TRUE, seed = 123)
 generate_figs(umap_sex, paste('./plots/', experiment, '_prepare_umap_sex', sep = ''))
+
+umap_sex_highlight <- DimPlotHighlightIdents(expt.obj, Sex, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_sex_highlight, paste('./plots/', experiment, '_prepare_umap_sex_highlight', sep = ''), c(6, 5))
 
 umap_visit <- DimPlot(expt.obj, reduction = "umap", group.by = "visit", shuffle = TRUE, seed = 123)
 generate_figs(umap_visit, paste('./plots/', experiment, '_prepare_umap_visit', sep = ''))
@@ -186,10 +197,21 @@ generate_figs(umap_code, paste('./plots/', experiment, '_prepare_umap_code', sep
 umap_cohort <- DimPlot(expt.obj, reduction = "umap", group.by = "Cohort", shuffle = TRUE, seed = 123)
 generate_figs(umap_cohort, paste('./plots/', experiment, '_prepare_umap_cohort', sep = ''))
 
+umap_cohort_highlight <- DimPlotHighlightIdents(expt.obj, Cohort, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_prepare_umap_cohort_highlight', sep = ''), c(6, 5))
 
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################
+
+# examine metadata split by Seurat clusters
+
+barplot_age_group_2_seurat_clusters <- BarPlotStackSplit(expt.obj, 'AgeGroup2', 'seurat_clusters')
+generate_figs(barplot_age_group_2_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_age_group_2_seurat_clusters', sep = ''), c(8,4))
+
+barplot_cohort_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Cohort', 'seurat_clusters')
+generate_figs(barplot_cohort_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_cohort_seurat_clusters', sep = ''), c(8,4))
+
 
 # identify markers for each Seurat cluster
 # https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
