@@ -26,7 +26,39 @@ modmetadata <- read.csv("./data/GSE120575-patient-data-formatted-modified.csv", 
 expt.obj <- CreateSeuratObject(counts = Matrix::Matrix(as.matrix(texpress), sparse = T), meta.data = modmetadata, min.cells = 3, min.features = 200)
 class(expt.obj@assays$RNA$counts)
 
+expt.obj <- NormalizeData(expt.obj)
+
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
+
+expt.obj[['identifier']] <- experiment
+
+vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+
+
+# extract genes
+all.genes <- rownames(expt.obj)
+write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
+
+# Calculate the percentage of all counts that belong to a given set of features
+# i.e. compute the percentage of transcripts that map to CARTEx genes
+# also compute the percentage of CARTEx genes detected
+
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_200 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_200 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_200_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_84 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_84 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_84_weights)) 
+
+# capture counts before CD8+ T cell filter
+qc_review <- dim(expt.obj) # [genes, cells]
 
 # assemble metadata
 orig_id <- data.frame()
@@ -57,16 +89,30 @@ pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expressio
 neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
 expt.obj <- subset(expt.obj,cells=pos_ids)
 
+# Examine features before quality control
+vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+vlnplot_quality_control_CARTEx_pre <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+#### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+# capture counts before quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+
 # Quality filter
 expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
 
-# extract genes
-all.genes <- rownames(expt.obj)
-write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
+# Examine features after quality control
+vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
 
-# Examine features
-vlnplot_quality <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'characteristics_response', ncol=3)
-generate_figs(vlnplot_quality, paste('./plots/', experiment, '_prepare_vlnplot_quality', sep = ''))
+vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+
+# capture counts after quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+rownames(qc_review) <- c("All", "preQC", "preQC")
+colnames(qc_review) <- c("genes", "cells")
+write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
@@ -355,56 +401,6 @@ md_temp <- md[, .N, by = c('Phase', 'characteristics_response')]
 md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
 barplot_phase_response <- ggplot(md_temp, aes(x = characteristics_response, y = N, fill = Phase)) + geom_col(position = "fill")
 generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''))
-
-
-
-# label CD8s based on having 
-# azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
-# monaco: Naive CD8 T cells; Effector memory CD8 T cells; Central memory CD8 T cells; Terminal effector CD8 T cells
-# dice: T cells, CD8+, naive; T cells, CD8+, naive, stimulated"
-
-# CD8 T cell detected in any reference
-expt.obj$CD8Tref_1 <- with(expt.obj, ifelse((expt.obj@meta.data$azimuth == "CD8 Naive") | (expt.obj@meta.data$azimuth == "CD8 TEM") | (expt.obj@meta.data$azimuth == "CD8 Proliferating") | 
-                                              (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
-                                              (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(expt.obj@meta.data, CD8Tref_1, sort = TRUE)
-
-umap_predicted_CD8Tref_1 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_predicted_CD8Tref_1', sep = ''))
-
-
-# CD8 T cell detected in at least 2 references
-expt.obj$CD8Tref_2 <- with(expt.obj, ifelse(expt.obj@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
-                                              expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
-                                              expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(expt.obj@meta.data, CD8Tref_2, sort = TRUE)
-
-umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_2", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
-
-
-# QC: Examine CARTEx representation at single-cell resolution
-
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-all.genes <- rownames(expt.obj)
-
-# Calculate the percentage of all counts that belong to a given set of features
-# i.e. compute the percentage of transcripts that map to CARTEx genes
-
-CARTEx_630_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_630_weights))) / length(rownames(cartex_630_weights))
-expt.obj@meta.data$CARTEx_630_countsproportion <- CARTEx_630_cp[1:length(Cells(expt.obj))]
-CARTEx_200_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_200_weights))) / length(rownames(cartex_200_weights))
-expt.obj@meta.data$CARTEx_200_countsproportion <- CARTEx_200_cp[1:length(Cells(expt.obj))]
-CARTEx_84_cp <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA') * length(intersect(all.genes, rownames(cartex_84_weights))) / length(rownames(cartex_84_weights))
-expt.obj@meta.data$CARTEx_84_countsproportion <- CARTEx_84_cp[1:length(Cells(expt.obj))]
-
-
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
