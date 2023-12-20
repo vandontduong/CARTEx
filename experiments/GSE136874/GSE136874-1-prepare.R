@@ -358,6 +358,20 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 
+
+####################################################################################################
+########################################### Entropy scoring ########################################
+####################################################################################################
+
+rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'CAR')
+
+rogue_boxplot_seurat_clusters_CAR <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_seurat_clusters_CAR, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_CAR', sep = ''), c(8,4))
+
+
+
+
+
 ####################################################################################################
 ########################################### Module scoring #########################################
 ####################################################################################################

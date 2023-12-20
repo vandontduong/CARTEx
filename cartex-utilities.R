@@ -26,6 +26,7 @@ library(scuttle)
 library(data.table)
 library(patchwork)
 library(EnhancedVolcano)
+library(ROGUE)
 
 # absolute path to where the project directory resides
 PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
@@ -196,6 +197,18 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 # Regular PFS generates multiple duplicate vectors appended to each other, so need to subset
 # expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
 # expt.obj@meta.data$PFSD_CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
+
+
+#####
+# build entropy model based on ROGUE
+
+EntropyScore <- function(atlas, col_labels, col_samples){
+  expr <- atlas@assays$RNA@layers$data
+  rownames(expr) <- Features(atlas@assays$RNA)
+  meta <- atlas@meta.data
+  results <- rogue(expr, labels = meta[[col_labels]], samples = meta[[col_samples]], platform = "UMI", span = 0.6)
+  return(results)
+}
 
 
 
