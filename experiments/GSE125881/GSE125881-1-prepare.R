@@ -279,7 +279,7 @@ generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 
 ####################################################################################################

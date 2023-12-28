@@ -211,7 +211,14 @@ EntropyScore <- function(atlas, col_labels, col_samples){
   return(results)
 }
 
+#####
+# construct a metadata vector to assign cells according to pseudo-bulk samples
 
+PseudoBulkLabels <- function(atlas, pseudo_samples){
+  num_cells <- length(Cells(atlas))
+  labels <- sample.int(pseudo_samples, num_cells, replace = TRUE)
+  return(labels)
+}
 
 #####
 # read tcsv files, e.g. for GSE120575 pre-processing
