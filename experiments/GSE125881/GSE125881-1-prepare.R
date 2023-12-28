@@ -21,6 +21,8 @@ counts_data <- read.csv(file = "./data/GSE125881_raw.expMatrix.csv", header = TR
 expt.obj <- CreateSeuratObject(counts = Matrix::Matrix(as.matrix(counts_data), sparse = T), project = "Kinetics", min.cells = 3, min.features = 200)
 class(expt.obj@assays$RNA$counts)
 
+expt.obj <- NormalizeData(expt.obj)
+
 expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 
 expt.obj[['identifier']] <- experiment
@@ -439,6 +441,50 @@ generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_pre
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+
+
+
+####################################################################################################
+########################################### Entropy scoring ########################################
+####################################################################################################
+
+# The ROGUE method was developed to robustly measure the purity of cell populations
+
+expt.obj <- UpdateSeuratObject(expt.obj)
+
+expt.obj@assays$RNA@data
+expt.obj@assays$RNA@layers$data
+
+
+EntropyScore <- function(atlas, col_labels, col_samples){
+  tryCatch({
+    print("1")
+    expr <-  atlas@assays$RNA@layers$data
+    rownames(expr) <- Features(atlas@assays$RNA)
+    
+  }, error = function(atlas){
+    print("2")
+    expr <- atlas@assays$RNA@data
+  })
+  # expr <- atlas@assays$RNA@layers$data
+  # rownames(expr) <- Features(atlas@assays$RNA)
+  meta <- atlas@meta.data
+  results <- rogue(expr, labels = meta[[col_labels]], samples = meta[[col_samples]], platform = "UMI", span = 0.6)
+  results <- results[ , colSums(is.na(results))==0] # remove columns with NA
+  return(results)
+}
+
+
+rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Group')
+rogue_boxplot_seurat_clusters_group <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_seurat_clusters_group, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_group', sep = ''), c(8,4))
+
+rogue.res <- EntropyScore(expt.obj, 'monaco', 'Group')
+rogue_boxplot_monaco_group <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_monaco_group, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_group', sep = ''), c(8,4))
+
+
+
 
 
 ####################################################################################################
