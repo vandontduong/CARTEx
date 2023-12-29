@@ -214,7 +214,7 @@ head(query.obj)
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("IP", "ExpansionPeak", "Contraction", "Late", "Young Naive", "Old Terminal")
+split.ident.order = c("IP", "ExpansionPeak", "Contraction", "Late", "YoungNaive", "OldTerminal")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
 query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
@@ -222,13 +222,13 @@ vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'i
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young Naive')), label = "p.signif", label.y = 5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 5.5) + 
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 3.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','YoungNaive')), label = "p.signif", label.y = 5.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','YoungNaive')), label = "p.signif", label.y = 3.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 
-query.obj$identifier3 <- factor(query.obj$identifier3, levels = c("IP", "d12", "d21", "d28", "d29", "d38", "d83", "d89", "d102", "d112", "Young Naive", "Old Terminal"))
+query.obj$identifier3 <- factor(query.obj$identifier3, levels = c("IP", "d12", "d21", "d28", "d29", "d38", "d83", "d89", "d102", "d112", "YoungNaive", "OldTerminal"))
 vlnplot_CARTEx_84_identifier3 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier3', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0)
 generate_figs(vlnplot_CARTEx_84_identifier3, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84_identifier3', sep = ''))

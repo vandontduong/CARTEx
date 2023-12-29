@@ -84,14 +84,14 @@ head(query.obj.agg)
 
 # CARTEx violin plot
 
-query.obj.agg$identifier2 <- factor(query.obj.agg$identifier2, levels = c("IP", "ExpansionPeak", "Contraction", "Late", "Young Naive", "Old Terminal"))
+query.obj.agg$identifier2 <- factor(query.obj.agg$identifier2, levels = c("IP", "ExpansionPeak", "Contraction", "Late", "YoungNaive", "OldTerminal"))
 vlnplot_CARTEx_84 <- VlnPlot(query.obj.agg, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 2) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 4.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young Naive')), label = "p.signif", label.y = 5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 5.5) + 
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 3.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','YoungNaive')), label = "p.signif", label.y = 5.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','YoungNaive')), label = "p.signif", label.y = 3.5)
 # generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_vlnplot_CARTEx_84', sep = ''))
 
 
@@ -115,9 +115,9 @@ md %>% ggplot(aes(identifier2, CARTEx_84)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 1.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young Naive')), label = "p.signif", label.y = 2) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 2.5) + 
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 1)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','YoungNaive')), label = "p.signif", label.y = 2.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','YoungNaive')), label = "p.signif", label.y = 1)
 
 
 
