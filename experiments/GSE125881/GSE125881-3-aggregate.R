@@ -29,10 +29,70 @@ query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = '')
 # num_cells <- length(Cells(expt.obj))
 # labels <- sample.int(pseudo_samples, num_cells, replace = TRUE)
 
-expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 3)
+query.obj@meta.data$pblabels <- PseudoBulkLabels(query.obj, 5)
+md <- query.obj@meta.data %>% as.data.table
+md[, .N, by = c("identifier2", "monaco")]
+md[, .N, by = c("identifier2", "pblabels")]
+md[, .N, by = c("identifier2", "monaco", "pblabels")]
 
-expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('Group', 'pblabels'), return.seurat = TRUE)
+unique(query.obj@meta.data$identifier2)
+query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'pblabels'), return.seurat = TRUE)
+query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco', 'pblabels'), return.seurat = TRUE)
+query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco'), return.seurat = TRUE)
 
 # filter by cell type?
 # use identifier instead of Group when aggregating query data
+
+
+####################################################################################################
+########################################### CARTEx scoring #########################################
+####################################################################################################
+
+# CARTEx with weights // 630 genes
+cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_630_weights), rownames(query.obj.agg))
+expr <- t(as.matrix(GetAssayData(query.obj.agg))[match(common, rownames(as.matrix(GetAssayData(query.obj.agg)))),])
+weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
+scores <- expr %*% as.matrix(weights)
+query.obj.agg@meta.data$CARTEx_630 <- Z(scores)
+query.obj.agg@meta.data$CARTEx_630i <- integerize(query.obj.agg@meta.data$CARTEx_630)
+
+# CARTEx with weights // 200 genes
+cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_200_weights), rownames(query.obj.agg))
+expr <- t(as.matrix(GetAssayData(query.obj.agg))[match(common, rownames(as.matrix(GetAssayData(query.obj.agg)))),])
+weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
+scores <- expr %*% as.matrix(weights)
+query.obj.agg@meta.data$CARTEx_200 <- Z(scores)
+query.obj.agg@meta.data$CARTEx_200i <- integerize(query.obj.agg@meta.data$CARTEx_200)
+
+# CARTEx with weights // 84 genes
+cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
+common <- intersect(rownames(cartex_84_weights), rownames(query.obj.agg))
+expr <- t(as.matrix(GetAssayData(query.obj.agg))[match(common, rownames(as.matrix(GetAssayData(query.obj.agg)))),])
+weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
+scores <- expr %*% as.matrix(weights)
+query.obj.agg@meta.data$CARTEx_84 <- Z(scores)
+query.obj.agg@meta.data$CARTEx_84i <- integerize(query.obj.agg@meta.data$CARTEx_84)
+
+saveRDS(query.obj.agg, file = paste('./data/', experiment, '_query_agg_scored.rds', sep = ''))
+
+# query.obj.agg <- readRDS(paste('./data/', experiment, '_query_agg_scored.rds', sep = ''))
+
+head(query.obj.agg)
+
+
+# CARTEx violin plot
+
+query.obj.agg$identifier2 <- factor(query.obj.agg$identifier2, levels = c("IP", "ExpansionPeak", "Contraction", "Late", "Young Naive", "Old Terminal"))
+vlnplot_CARTEx_84 <- VlnPlot(query.obj.agg, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
+  theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 4.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young Naive')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 5.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 3.5)
+# generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_vlnplot_CARTEx_84', sep = ''))
+
+
 
