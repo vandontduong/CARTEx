@@ -37,8 +37,8 @@ md[, .N, by = c("identifier2", "monaco", "pblabels")]
 
 unique(query.obj@meta.data$identifier2)
 query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'pblabels'), return.seurat = TRUE)
-query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco', 'pblabels'), return.seurat = TRUE)
-query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco'), return.seurat = TRUE)
+# query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco', 'pblabels'), return.seurat = TRUE)
+# query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco'), return.seurat = TRUE)
 
 # filter by cell type?
 # use identifier instead of Group when aggregating query data
@@ -85,7 +85,7 @@ head(query.obj.agg)
 # CARTEx violin plot
 
 query.obj.agg$identifier2 <- factor(query.obj.agg$identifier2, levels = c("IP", "ExpansionPeak", "Contraction", "Late", "Young Naive", "Old Terminal"))
-vlnplot_CARTEx_84 <- VlnPlot(query.obj.agg, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
+vlnplot_CARTEx_84 <- VlnPlot(query.obj.agg, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 2) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 4.5) +
@@ -93,6 +93,33 @@ vlnplot_CARTEx_84 <- VlnPlot(query.obj.agg, features = c("CARTEx_84"), group.by 
   stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 5.5) + 
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 3.5)
 # generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_vlnplot_CARTEx_84', sep = ''))
+
+
+md <- query.obj.agg@meta.data %>% as.data.table
+md[, .N, by = c("identifier2")]
+barplot(max.temp)
+
+# https://ggplot2tutor.com/tutorials/barchart_simple
+# https://stackoverflow.com/questions/65675688/ggplot-filling-color-based-on-condition
+
+glimpse(md)
+
+md_mean_values <- md %>% group_by(identifier2) %>% summarise(avg = mean(CARTEx_84), stdev = sd(CARTEx_84))
+
+md_mean_values %>% 
+  ggplot(aes(identifier2, avg)) +
+  geom_col(aes(fill = identifier2), color = "black", width = 0.85) +
+  geom_errorbar(aes(ymin = avg - stdev, ymax = avg + stdev), color = "#22292F", width = 0.1)
+
+md %>% ggplot(aes(identifier2, CARTEx_84)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Young Naive')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','Young Naive')), label = "p.signif", label.y = 2.5) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Young Naive')), label = "p.signif", label.y = 1)
+
+
 
 
 
