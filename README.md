@@ -11,6 +11,7 @@ This is the github repository for the CAR T cell exhaustion (CARTEx) signature p
 - [Literature](#literature)
   - [Reviews](#reviews)
   - [Signatures](#signatures)
+  - [Limitations](#limitations)
 
 # About <a name = "about"></a>
 
@@ -157,7 +158,11 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 [Good et al. 2021](https://pubmed.ncbi.nlm.nih.gov/34861191/) describes NK-like CAR T cell exhaustion based on continuous antigen exposure of mesothelin CAR T cells.
 
 
+## Limitations of scRNAseq analysis <a name = "limitations"></a>
 
+[Murphy and Skene 2022 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/36550119/) describes the use of pseudobulk aggregation to address biased inference.
+
+[Li et al. 2023 Frontiers](https://pubmed.ncbi.nlm.nih.gov/37255988/) describes that the gene representation in single-cell methods is biased due to library preparation.
 
 
 
