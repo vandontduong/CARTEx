@@ -406,38 +406,6 @@ barplot_phase_group <- BarPlotStackSplit(expt.obj, 'Phase', 'Group')
 generate_figs(barplot_phase_group, paste('./plots/', experiment, '_prepare_barplot_phase_group', sep = ''), c(8,4))
 
 
-
-
-# label CD8s based on having 
-# azimuth: CD8 Naive; CD8 TCM; CD8 TEM; CD8 Proliferating
-# monaco: Naive CD8 T cells; Effector memory CD8 T cells; Central memory CD8 T cells; Terminal effector CD8 T cells
-# dice: T cells, CD8+, naive; T cells, CD8+, naive, stimulated"
-
-# CD8 T cell detected in any reference
-expt.obj$CD8Tref_1 <- with(expt.obj, ifelse((expt.obj@meta.data$azimuth == "CD8 Naive") | (expt.obj@meta.data$azimuth == "CD8 TEM") | (expt.obj@meta.data$azimuth == "CD8 Proliferating") | 
-                                              (expt.obj@meta.data$monaco == "Naive CD8 T cells") | (expt.obj@meta.data$monaco == "Effector CD8 T cells") | (expt.obj@meta.data$monaco == "Central Memory CD8 T cells") | (expt.obj@meta.data$monaco == "Terminal effector CD8 T cells") |
-                                              (expt.obj@meta.data$dice == "T cells, CD8+, naive") | (expt.obj@meta.data$dice == "T cells, CD8+, naive, stimulated") , 
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(expt.obj@meta.data, CD8Tref_1, sort = TRUE)
-
-umap_predicted_CD8Tref_1 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_1", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_1, paste('./plots/', experiment, '_umap_predicted_CD8Tref_1', sep = ''))
-
-
-# CD8 T cell detected in at least 2 references
-expt.obj$CD8Tref_2 <- with(expt.obj, ifelse(expt.obj@meta.data$azimuth %in% c("CD8 Naive", "CD8 TEM", "CD8 Proliferating") +
-                                              expt.obj@meta.data$monaco %in% c("Naive CD8 T cells", "Effector CD8 T cells", "Central Memory CD8 T cells", "Terminal effector CD8 T cells") +
-                                              expt.obj@meta.data$dice %in% c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated") > 1,
-                                            'CD8 T cell', 'Other'))
-
-dplyr::count(expt.obj@meta.data, CD8Tref_2, sort = TRUE)
-
-umap_predicted_CD8Tref_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "CD8Tref_2", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-generate_figs(umap_predicted_CD8Tref_2, paste('./plots/', experiment, '_umap_predicted_CD8Tref_2', sep = ''))
-
-
-
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -451,29 +419,6 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 # The ROGUE method was developed to robustly measure the purity of cell populations
 
 expt.obj <- UpdateSeuratObject(expt.obj)
-
-expt.obj@assays$RNA@data
-expt.obj@assays$RNA@layers$data
-
-
-EntropyScore <- function(atlas, col_labels, col_samples){
-  tryCatch({
-    print("1")
-    expr <-  atlas@assays$RNA@layers$data
-    rownames(expr) <- Features(atlas@assays$RNA)
-    
-  }, error = function(atlas){
-    print("2")
-    expr <- atlas@assays$RNA@data
-  })
-  # expr <- atlas@assays$RNA@layers$data
-  # rownames(expr) <- Features(atlas@assays$RNA)
-  meta <- atlas@meta.data
-  results <- rogue(expr, labels = meta[[col_labels]], samples = meta[[col_samples]], platform = "UMI", span = 0.6)
-  results <- results[ , colSums(is.na(results))==0] # remove columns with NA
-  return(results)
-}
-
 
 rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Group')
 rogue_boxplot_seurat_clusters_group <- rogue.boxplot(rogue.res)

@@ -207,7 +207,8 @@ EntropyScore <- function(atlas, col_labels, col_samples){
   rownames(expr) <- Features(atlas@assays$RNA)
   meta <- atlas@meta.data
   results <- rogue(expr, labels = meta[[col_labels]], samples = meta[[col_samples]], platform = "UMI", span = 0.6)
-  results <- results[ , colSums(is.na(results))==0] # remove columns with NA
+  # results <- results[ , colSums(is.na(results))==0] # remove columns with any NA
+  results <- results[colSums(!is.na(results)) > 0] # remove columns with all NA
   return(results)
 }
 
