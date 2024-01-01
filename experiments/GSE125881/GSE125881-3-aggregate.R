@@ -49,31 +49,20 @@ query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'pbl
 ####################################################################################################
 
 # CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(query.obj.agg))
-expr <- t(as.matrix(GetAssayData(query.obj.agg))[match(common, rownames(as.matrix(GetAssayData(query.obj.agg)))),])
-weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
-scores <- expr %*% as.matrix(weights)
-query.obj.agg@meta.data$CARTEx_630 <- Z(scores)
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+query.obj.agg@meta.data$CARTEx_630 <- Z(SignatureScore(query.obj.agg, cartex_630_weights))
 query.obj.agg@meta.data$CARTEx_630i <- integerize(query.obj.agg@meta.data$CARTEx_630)
 
 # CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(query.obj.agg))
-expr <- t(as.matrix(GetAssayData(query.obj.agg))[match(common, rownames(as.matrix(GetAssayData(query.obj.agg)))),])
-weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
-scores <- expr %*% as.matrix(weights)
-query.obj.agg@meta.data$CARTEx_200 <- Z(scores)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+query.obj.agg@meta.data$CARTEx_200 <- Z(SignatureScore(query.obj.agg, cartex_200_weights))
 query.obj.agg@meta.data$CARTEx_200i <- integerize(query.obj.agg@meta.data$CARTEx_200)
 
 # CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(query.obj.agg))
-expr <- t(as.matrix(GetAssayData(query.obj.agg))[match(common, rownames(as.matrix(GetAssayData(query.obj.agg)))),])
-weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
-scores <- expr %*% as.matrix(weights)
-query.obj.agg@meta.data$CARTEx_84 <- Z(scores)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+query.obj.agg@meta.data$CARTEx_84 <- Z(SignatureScore(query.obj.agg, cartex_84_weights))
 query.obj.agg@meta.data$CARTEx_84i <- integerize(query.obj.agg@meta.data$CARTEx_84)
+
 
 saveRDS(query.obj.agg, file = paste('./data/', experiment, '_query_agg_scored.rds', sep = ''))
 
@@ -97,7 +86,6 @@ vlnplot_CARTEx_84 <- VlnPlot(query.obj.agg, features = c("CARTEx_84"), group.by 
 
 md <- query.obj.agg@meta.data %>% as.data.table
 md[, .N, by = c("identifier2")]
-barplot(max.temp)
 
 # https://ggplot2tutor.com/tutorials/barchart_simple
 # https://stackoverflow.com/questions/65675688/ggplot-filling-color-based-on-condition

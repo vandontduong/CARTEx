@@ -198,6 +198,16 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 # expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
 # expt.obj@meta.data$PFSD_CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
 
+#####
+# score cells using weighted signature
+
+SignatureScore <- function(atlas, sig_weights){
+  common <- intersect(rownames(sig_weights), rownames(atlas))
+  expr <- t(as.matrix(GetAssayData(atlas))[match(common, rownames(as.matrix(GetAssayData(atlas)))),])
+  weights <- sig_weights[match(common, rownames(sig_weights)),]
+  scores <- expr %*% as.matrix(weights)
+  return(scores)
+}
 
 #####
 # build entropy model based on ROGUE
