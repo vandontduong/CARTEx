@@ -160,6 +160,8 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 ## Limitations of scRNAseq analysis <a name = "limitations"></a>
 
+[Andrews et al. 2021 Nature Protocols](https://www.nature.com/articles/s41596-020-00409-w) describes common challenges with processing scRNAseq datasets.
+
 [Murphy and Skene 2022 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/36550119/) describes the use of pseudobulk aggregation to address biased inference, which arises from subsampling cells from the same donor (i.e. identical genetic backgrounds).
 
 [Li et al. 2023 Frontiers](https://pubmed.ncbi.nlm.nih.gov/37255988/) describes that the gene representation in single-cell methods is biased due to library preparation. It is likely that genes with enriched poly(G) motifs at the 3' end are underdetected as a result of hairpin structure formation with poly(A) tails.
