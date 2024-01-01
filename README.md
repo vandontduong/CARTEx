@@ -164,6 +164,9 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 [Li et al. 2023 Frontiers](https://pubmed.ncbi.nlm.nih.gov/37255988/) describes that the gene representation in single-cell methods is biased due to library preparation. It is likely that genes with enriched poly(G) motifs at the 3' end are underdetected as a result of hairpin structure formation with poly(A) tails.
 
+[Grabski et al. 2023 Nature Methods](https://www.nature.com/articles/s41592-023-01933-9) describes the challenges with clustering analysis in scRNAseq. The standard procedure with Seurat is to perform principial components analysis on log-transformed, normalize counts, compute Euclidean distances between top principal components for every pair of cells, identify nearest neighbors for each cell, assign a weight to every pair of cells, and define clusters in a way to maximize modularity. Such an approach does not evaluate the likelihood of over- or under-clustering, so there could be falsely discovered or undetected clusters. 
+
+
 
 
 
