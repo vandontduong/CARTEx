@@ -103,6 +103,7 @@ We installed and used several packages from the [Comprehensive R Archive Network
 - [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html): toolkit for dataframe operations
 - [`data.table`](https://cran.r-project.org/web/packages/data.table/index.html): extension of `data.frame`
 - [`EnhancedVolcano`](https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html): toolkit for differential expression analysis visualization
+- [`glmGamPoi`](https://bioconductor.org/packages/release/bioc/html/glmGamPoi.html) package for fitting Gamma-Poisson distribution to single-cell data
 
 We established path variables to enable ease of general use, in which files can be called through `paste(<PATH_NAME>, <FILE_NAME>, sep = '')`:
 - `PATH_CARTEX`: absolute path to where the project directory resides
@@ -175,6 +176,7 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 [Grabski et al. 2023 Nature Methods](https://www.nature.com/articles/s41592-023-01933-9) describes the challenges with clustering analysis in scRNAseq. The standard procedure with Seurat is to perform principial components analysis on log-transformed, normalize counts, compute Euclidean distances between top principal components for every pair of cells, identify nearest neighbors for each cell, assign a weight to every pair of cells, and define clusters in a way to maximize modularity. Such an approach does not evaluate the likelihood of over- or under-clustering, so there could be falsely discovered or undetected clusters. 
 
+[Ahlmann-Eltze and Huber 2021 Bioinformatics](https://pubmed.ncbi.nlm.nih.gov/33295604/) describes the robust fitting of Gamma-Poisson distribution to single-cell data, which has frequent zero and small values due to sparse sampling.
 
 
 
