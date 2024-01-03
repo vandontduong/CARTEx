@@ -160,7 +160,7 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 ## Limitations of scRNAseq analysis <a name = "limitations"></a>
 
-[Andrews et al. 2021 Nature Protocols](https://www.nature.com/articles/s41596-020-00409-w) describes common challenges with processing scRNAseq datasets.
+[Andrews et al. 2021 Nature Protocols](https://www.nature.com/articles/s41596-020-00409-w) describes common challenges with processing scRNAseq datasets, including quality control, differential expression, etc.
 
 [Murphy and Skene 2022 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/36550119/) describes the use of pseudobulk aggregation to address biased inference, which arises from subsampling cells from the same donor (i.e. identical genetic backgrounds).
 
