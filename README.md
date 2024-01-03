@@ -84,6 +84,9 @@ We built custom functions and archived these within [`cartex-utilities.R`](carte
 - `DimPlotHighlightIdents()` to customize Seurat [`DimPlot()`](https://satijalab.org/seurat/reference/dimplot) for highlighting cells by identity group
 - `BarPlotStackSplit()` to visualize data stratification by two identity groups
 - `PercentageFeatureSetDetected()` to customize Seurat [`PercentageFeatureSet()`](https://satijalab.org/seurat/reference/percentagefeatureset) for computing the detectable genes from a given feature set
+- `SignatureScore()` to score cells using a weighted signature
+- `EntropyScore()` to build an entropy model based on [ROGUE](https://github.com/PaulingLiu/ROGUE)
+- `PseudoBulkLabels()` to construct a metadata vector to assign cells according to pseudo-bulk samples
 
 We installed and used several packages from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/web/packages/ggpubr/index.html) and [Bioconductor](https://bioconductor.org/), sourced in [`cartex-utilities.R`](cartex-utilities.R), including:
 - [`Seurat`](https://cran.r-project.org/web/packages/Seurat/index.html): toolkit for single-cell RNA sequencing analysis
