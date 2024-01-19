@@ -179,6 +179,10 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 [Ahlmann-Eltze and Huber 2021 Bioinformatics](https://pubmed.ncbi.nlm.nih.gov/33295604/) describes the robust fitting of Gamma-Poisson distribution to single-cell data, which has frequent zero and small values due to sparse sampling.
 
+[Zappia and Oshlack 2018 GigaScience](https://pubmed.ncbi.nlm.nih.gov/30010766/) describes clustering trees as a visualization of clusterings across many resolutions.
+
+
+
 
 
 
