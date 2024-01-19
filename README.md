@@ -96,6 +96,7 @@ We installed and used several packages from the [Comprehensive R Archive Network
 - [`Seurat`](https://cran.r-project.org/web/packages/Seurat/index.html): toolkit for single-cell RNA sequencing analysis
 - [`SingleR`](https://bioconductor.org/packages/release/bioc/html/SingleR.html): toolkit for reference-based single-cell RNA sequencing annotation
 - [`scuttle`](https://bioconductor.org/packages/release/bioc/html/scuttle.html): toolkit for single-cell RNA sequencing analysis
+- [`clustree`](https://cran.r-project.org/web/packages/clustree/index.html): toolkit for inspecting clusterings across many resolutions
 - [`ggpubr`](https://cran.r-project.org/web/packages/ggpubr/index.html): `ggplot2`-based custom visualization
 - [`ggplotify`](https://cran.r-project.org/web/packages/ggplotify/index.html): render figures compatible with `grid` and `ggplot2` systems
 - [`patchwork`](https://cran.r-project.org/web/packages/patchwork/index.html): `ggplot2`-based composition of multiple plots
