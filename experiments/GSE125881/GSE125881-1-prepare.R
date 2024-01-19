@@ -118,17 +118,32 @@ write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep 
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
-top10_CART <- head(VariableFeatures(expt.obj), 10)
+top10_varfeats <- head(VariableFeatures(expt.obj), 10)
 varplt <- VariableFeaturePlot(expt.obj)
-varplt_labeled <- LabelPoints(plot = varplt, points = top10_CART, repel = TRUE)
+varplt_labeled <- LabelPoints(plot = varplt, points = top10_varfeats, repel = TRUE)
 generate_figs(varplt_labeled, paste('./plots/', experiment, '_prepare_varplt_labeled', sep = ''))
 
 expt.obj <- ScaleData(expt.obj, features = all.genes)
-expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 40)
+expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 30)
 
-expt.obj <- FindNeighbors(expt.obj, dims = 1:10)
-expt.obj <- FindClusters(expt.obj, resolution = 0.5)
-expt.obj <- RunUMAP(expt.obj, dims = 1:10)
+inspect_elbow <- ElbowPlot(expt.obj)
+generate_figs(inspect_elbow, paste('./plots/', experiment, '_prepare_inspect_elbow', sep = ''), c(5, 4))
+
+# select dimensionality based on elbowplot analysis
+dim.max <- 15
+expt.obj <- FindNeighbors(expt.obj, dims = 1:dim.max)
+
+# Examine a range of clustering resolutions
+resolution.range <- seq(from = 0, to = 1, by = 0.2)
+expt.obj <- FindClusters(expt.obj, resolution = resolution.range)
+
+inspect_clustering <- clustree(expt.obj, prefix = "RNA_snn_res.")
+generate_figs(inspect_clustering, paste('./plots/', experiment, '_prepare_inspect_clustering', sep = ''), c(12, 8))
+
+# Select clustering resolution based on clustree analysis
+expt.obj@meta.data$seurat_clusters <- expt.obj@meta.data$RNA_snn_res.0.6
+
+expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
 
@@ -150,13 +165,15 @@ generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient
 umap_patient_highlight <- DimPlotHighlightIdents(expt.obj, Patient, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_umap_patient_highlight', sep = ''), c(14, 14))
 
-umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123)
+# umap_group_cols <- c('IP' = 'red', 'd12' = 'violetred', 'd21' = 'violetred', 'd28' = 'violet', 'd29' = 'violet', 'd38' = 'violet', 'd83' = 'purple', 'd89' = 'purple', 'd102' = 'purple', 'd112' = 'purple')
+umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123, cols = umap_timepoint_cols)
 generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''))
 
 umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'umap', 'blue', 0.1, 5)
 generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(25, 14))
 
-umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle = TRUE, seed = 123)
+umap_group_cols <- c('IP' = 'red', 'ExpansionPeak' = 'violetred', 'Contraction' = 'violet', 'Late' = 'purple')
+umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle = TRUE, seed = 123, cols = umap_group_cols)
 generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''))
 
 umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 0.1, 2)

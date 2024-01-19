@@ -26,7 +26,9 @@ library(scuttle)
 library(data.table)
 library(patchwork)
 library(EnhancedVolcano)
+library(clustree)
 library(ROGUE)
+library(glmGamPoi)
 
 # absolute path to where the project directory resides
 PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
@@ -210,7 +212,7 @@ SignatureScore <- function(atlas, sig_weights){
 }
 
 #####
-# build entropy model based on ROGUE
+# build entropy model based on ROGUE procedure
 
 EntropyScore <- function(atlas, col_labels, col_samples){
   expr <- atlas@assays$RNA@layers$data
