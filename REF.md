@@ -23,6 +23,16 @@ Additional modules: biology physics geos/3.6.2 hdf5/1.12.2
 
 `squeue -u vandon` to examine job lists
 
+Install `devtools` on Sherlock requires:
+
+`ml system harfbuzz fribidi`
+
+`ml devel cmake libgit2`
+
+`ml system openssl`
+
+
+
 ## Housekeeping
 
 ### Organizing R code
