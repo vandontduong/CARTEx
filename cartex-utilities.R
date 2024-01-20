@@ -135,6 +135,26 @@ ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncol
 }
 
 #####
+# function: 
+
+ChoosePC <- function(atlas){
+  # Determine percent of variation associated with each PC
+  pct <- atlas[["pca"]]@stdev / sum(atlas[["pca"]]@stdev) * 100
+  # Calculate cumulative percents for each PC
+  cumu <- cumsum(pct)
+  # Determine which PC exhibits cumulative percent greater than 90% and % variation associated with the PC as less than 5
+  co1 <- which(cumu > 90 & pct < 5)[1]
+  # Determine the difference between variation of PC and subsequent PC
+  co2 <- sort(which((pct[1:length(pct) - 1] - pct[2:length(pct)]) > 0.1), decreasing = T)[1] + 1
+  # Minimum of the two calculation
+  return(min(co1, co2))
+}
+
+# References
+# https://hbctraining.github.io/scRNA-seq/lessons/elbow_plot_metric.html
+
+
+#####
 # function: DimPlot() customized to highlight cells by identity group
 # @ Seurat object
 # @ identity: string describing the relevant metadata identity group

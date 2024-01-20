@@ -130,7 +130,7 @@ inspect_elbow <- ElbowPlot(expt.obj)
 generate_figs(inspect_elbow, paste('./plots/', experiment, '_prepare_inspect_elbow', sep = ''), c(5, 4))
 
 # select dimensionality based on elbowplot analysis
-dim.max <- 15
+dim.max <- ChoosePC(expt.obj)
 expt.obj <- FindNeighbors(expt.obj, dims = 1:dim.max)
 
 # Examine a range of clustering resolutions
@@ -165,7 +165,9 @@ generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient
 umap_patient_highlight <- DimPlotHighlightIdents(expt.obj, Patient, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_umap_patient_highlight', sep = ''), c(14, 14))
 
-# umap_group_cols <- c('IP' = 'red', 'd12' = 'violetred', 'd21' = 'violetred', 'd28' = 'violet', 'd29' = 'violet', 'd38' = 'violet', 'd83' = 'purple', 'd89' = 'purple', 'd102' = 'purple', 'd112' = 'purple')
+# umap_timepoint_cols <- c('IP' = 'red', 'd12' = 'violetred', 'd21' = 'violetred', 'd28' = 'violet', 'd29' = 'violet', 'd38' = 'violet', 'd83' = 'purple', 'd89' = 'purple', 'd102' = 'purple', 'd112' = 'purple')
+# https://stackoverflow.com/questions/13353213/gradient-of-n-colors-ranging-from-color-1-and-color-2
+umap_timepoint_cols <- colorRampPalette(c("red","violetred","violet","purple"))(length(unique(expt.obj@meta.data$TimePoint)))
 umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123, cols = umap_timepoint_cols)
 generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''))
 
@@ -267,12 +269,15 @@ ridgeplt <- RidgePlot(expt.obj, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), 
 generate_figs(ridgeplt, paste('./plots/', experiment, '_prepare_ridgeplt', sep = ''))
 
 expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
-# DimPlot(expt.obj)
+PCAplot <- DimPlot(expt.obj)
+generate_figs(PCAplot, paste('./plots/', experiment, '_prepare_PCAplot', sep = ''))
 
 # regress cell cycle
 expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(expt.obj))
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
+PCAplot_regressed <- DimPlot(expt.obj)
+generate_figs(PCAplot_regressed, paste('./plots/', experiment, '_prepare_PCAplot_regressed', sep = ''))
 
 expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S', 'G2M'))
 
