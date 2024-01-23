@@ -21,14 +21,6 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
-# https://github.com/satijalab/seurat/issues/6007
-
-
-
-# pseudo_samples <- 3
-# num_cells <- length(Cells(expt.obj))
-# labels <- sample.int(pseudo_samples, num_cells, replace = TRUE)
-
 query.obj@meta.data$pblabels <- PseudoBulkLabels(query.obj, 5)
 md <- query.obj@meta.data %>% as.data.table
 md[, .N, by = c("identifier2", "monaco")]
@@ -39,9 +31,6 @@ unique(query.obj@meta.data$identifier2)
 query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'pblabels'), return.seurat = TRUE)
 # query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco', 'pblabels'), return.seurat = TRUE)
 # query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco'), return.seurat = TRUE)
-
-# filter by cell type?
-# use identifier instead of Group when aggregating query data
 
 
 ####################################################################################################

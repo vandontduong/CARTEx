@@ -8,21 +8,14 @@
 ####################################### Initialize environment #####################################
 ####################################################################################################
 
-ptm <- proc.time()
-
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE125881'
 setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
-stopwatch_initialize <- proc.time() - ptm
-timesheet <- rbind(stopwatch_initialize)
-
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
-
-ptm <- proc.time()
 
 counts_data <- read.csv(file = "./data/GSE125881_raw.expMatrix.csv", header = TRUE, row.names = 1)
 # expt.obj <- CreateSeuratObject(counts = counts_data, project = "Kinetics", min.cells = 3, min.features = 200)
@@ -198,15 +191,9 @@ generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
 
-
-stopwatch_loadfilter <- proc.time() - ptm
-timesheet <- rbind(timesheet, stopwatch_loadfilter)
-
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################
-
-ptm <- proc.time()
 
 # examine metadata split by Seurat clusters
 
@@ -262,14 +249,9 @@ write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_marker
 # cluster 4 - GZMB, IL17RB indicates TC1, TC17?
 # cluster 5 - NKG7 indicates NK-like
 
-stopwatch_clusteranalysis <- proc.time() - ptm
-timesheet <- rbind(timesheet, stopwatch_clusteranalysis)
-
 ####################################################################################################
 ######################################## Cell cycle analysis #######################################
 ####################################################################################################
-
-ptm <- proc.time()
 
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
@@ -291,15 +273,15 @@ ridgeplt <- RidgePlot(expt.obj, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), 
 generate_figs(ridgeplt, paste('./plots/', experiment, '_prepare_ridgeplt', sep = ''))
 
 expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
-PCAplot <- DimPlot(expt.obj)
-generate_figs(PCAplot, paste('./plots/', experiment, '_prepare_PCAplot', sep = ''))
+PCAplot <- DimPlot(expt.obj, reduction = 'pca')
+generate_figs(PCAplot, paste('./plots/', experiment, '_prepare_PCAplot', sep = ''), c(6, 5))
 
 # regress cell cycle
 expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(expt.obj))
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
-PCAplot_regressed <- DimPlot(expt.obj)
-generate_figs(PCAplot_regressed, paste('./plots/', experiment, '_prepare_PCAplot_regressed', sep = ''))
+PCAplot_regressed <- DimPlot(expt.obj, reduction = 'pca')
+generate_figs(PCAplot_regressed, paste('./plots/', experiment, '_prepare_PCAplot_regressed', sep = ''), c(6, 5))
 
 expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S', 'G2M'))
 
@@ -325,14 +307,9 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
-stopwatch_cellcycleanno <- proc.time() - ptm
-timesheet <- rbind(timesheet, stopwatch_cellcycleanno)
-
 ####################################################################################################
 ######################################## Cell type annotation ######################################
 ####################################################################################################
-
-ptm <- proc.time()
 
 # https://bioconductor.org/books/release/SingleRBook/introduction.html
 # https://github.com/dviraran/SingleR/issues/150
@@ -464,9 +441,6 @@ generate_figs(barplot_phase_group, paste('./plots/', experiment, '_prepare_barpl
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
-
-stopwatch_celltypeanno <- proc.time() - ptm
-timesheet <- rbind(timesheet, stopwatch_celltypeanno)
 
 ####################################################################################################
 ########################################### Entropy scoring ########################################

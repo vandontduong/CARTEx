@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 ### Script name: GSE125881-2-integrate.R
 ### Description: integrate seurat object for GSE125881
 ### Author: Vandon Duong
