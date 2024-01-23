@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 ### Script name: GSE125881-1-prepare.R
 ### Description: prepare seurat object for GSE125881
 ### Author: Vandon Duong
@@ -6,14 +8,21 @@
 ####################################### Initialize environment #####################################
 ####################################################################################################
 
+ptm <- proc.time()
+
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE125881'
 setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
+stopwatch_initialize <- proc.time() - ptm
+timesheet <- rbind(stopwatch_initialize)
+
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
+
+ptm <- proc.time()
 
 counts_data <- read.csv(file = "./data/GSE125881_raw.expMatrix.csv", header = TRUE, row.names = 1)
 # expt.obj <- CreateSeuratObject(counts = counts_data, project = "Kinetics", min.cells = 3, min.features = 200)
@@ -142,6 +151,7 @@ generate_figs(inspect_clustering, paste('./plots/', experiment, '_prepare_inspec
 
 # Select clustering resolution based on clustree analysis
 expt.obj@meta.data$seurat_clusters <- expt.obj@meta.data$RNA_snn_res.0.6
+expt.obj@meta.data$seurat_clusters <- factor(expt.obj@meta.data$seurat_clusters, levels = SortNumStrList(unique(expt.obj@meta.data$seurat_clusters), shift = TRUE))
 
 expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
@@ -151,16 +161,17 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
 
 head(expt.obj)
 
+
 # Generate UMAPs for metadata
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "Patient", shuffle = TRUE, seed = 123)
-generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''))
+generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''), c(6.5, 5))
 
 umap_patient_highlight <- DimPlotHighlightIdents(expt.obj, Patient, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_umap_patient_highlight', sep = ''), c(14, 14))
@@ -169,14 +180,14 @@ generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_um
 # https://stackoverflow.com/questions/13353213/gradient-of-n-colors-ranging-from-color-1-and-color-2
 umap_timepoint_cols <- colorRampPalette(c("red","violetred","violet","purple"))(length(unique(expt.obj@meta.data$TimePoint)))
 umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123, cols = umap_timepoint_cols)
-generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''))
+generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(6.5, 5))
 
 umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'umap', 'blue', 0.1, 5)
 generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(25, 14))
 
 umap_group_cols <- c('IP' = 'red', 'ExpansionPeak' = 'violetred', 'Contraction' = 'violet', 'Late' = 'purple')
 umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle = TRUE, seed = 123, cols = umap_group_cols)
-generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''))
+generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''), c(6.5, 5))
 
 umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(14, 14))
@@ -187,9 +198,15 @@ generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
 
+
+stopwatch_loadfilter <- proc.time() - ptm
+timesheet <- rbind(timesheet, stopwatch_loadfilter)
+
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################
+
+ptm <- proc.time()
 
 # examine metadata split by Seurat clusters
 
@@ -245,10 +262,15 @@ write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_marker
 # cluster 4 - GZMB, IL17RB indicates TC1, TC17?
 # cluster 5 - NKG7 indicates NK-like
 
+stopwatch_clusteranalysis <- proc.time() - ptm
+timesheet <- rbind(timesheet, stopwatch_clusteranalysis)
 
 ####################################################################################################
 ######################################## Cell cycle analysis #######################################
 ####################################################################################################
+
+ptm <- proc.time()
+
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
 # Read in the expression matrix The first row is a header row, the first column is rownames
@@ -293,7 +315,7 @@ barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(st
 generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
 
 umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
-generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''))
+generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''), c(6, 5))
 
 umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
@@ -303,10 +325,14 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
+stopwatch_cellcycleanno <- proc.time() - ptm
+timesheet <- rbind(timesheet, stopwatch_cellcycleanno)
 
 ####################################################################################################
 ######################################## Cell type annotation ######################################
 ####################################################################################################
+
+ptm <- proc.time()
 
 # https://bioconductor.org/books/release/SingleRBook/introduction.html
 # https://github.com/dviraran/SingleR/issues/150
@@ -328,14 +354,16 @@ azimuth.obj <- subset(azimuth.obj, downsample = 100)
 azimuth_assay <- LayerData(azimuth.obj)
 
 # https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
-monaco.obj <- MonacoImmuneData(ensembl=F)
+# monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.obj <- readRDS(paste(PATH_CELLANNOTATE, "MonacoImmuneData.rds", sep = ''))
 monaco.obj.md <- monaco.obj@colData %>% as.data.table
 monaco.obj.md[, .N, by = c("label.main", "label.fine")]
 monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
 monaco.obj <- monaco.obj[, monaco.index]
 unique(monaco.obj$label.main)
 
-dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+# dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.obj <- readRDS(paste(PATH_CELLANNOTATE, "DatabaseImmuneCellExpressionData.rds", sep = ''))
 dice.obj.md <- dice.obj@colData %>% as.data.table
 dice.obj.md[, .N, by = c("label.main", "label.fine")]
 dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
@@ -343,6 +371,11 @@ dice.obj <- dice.obj[, dice.index]
 # downsample
 dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
 unique(dice.obj$label.main)
+
+# SingleR() has this error
+# Error: useNames = NA is defunct. Instead, specify either useNames = TRUE or useNames = FALSE.
+# solution is to downgrade matrixStats, according to https://github.com/satijalab/seurat/issues/7501#issuecomment-1854571904
+# remotes::install_version("matrixStats", version="1.1.0")
 
 azimuth.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = azimuth_assay, labels = azimuth.obj$celltype.l2)
 table(azimuth.predictions$labels)
@@ -356,7 +389,7 @@ expt.obj@meta.data$azimuth <- factor(expt.obj@meta.data$azimuth, levels = c('CD8
 
 # umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
+generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''), c(6.5, 5))
 
 umap_predicted_azimuth_highlight <- DimPlotHighlightIdents(expt.obj, azimuth, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_azimuth_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_azimuth_highlight', sep = ''), c(12, 8))
@@ -374,7 +407,7 @@ expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(6.5, 5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -392,7 +425,7 @@ expt.obj@meta.data$dice <- factor(expt.obj@meta.data$dice, levels = c('T cells, 
 
 # umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
+generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''), c(6.5, 5))
 
 umap_predicted_dice_highlight <- DimPlotHighlightIdents(expt.obj, dice, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_dice_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_dice_highlight', sep = ''), c(12, 8))
@@ -432,7 +465,8 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
-
+stopwatch_celltypeanno <- proc.time() - ptm
+timesheet <- rbind(timesheet, stopwatch_celltypeanno)
 
 ####################################################################################################
 ########################################### Entropy scoring ########################################
@@ -440,9 +474,10 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 
 # The ROGUE method was developed to robustly measure the purity of cell populations
 
-expt.obj <- UpdateSeuratObject(expt.obj)
+# expt.obj <- UpdateSeuratObject(expt.obj)
 
 rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Group')
+rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
 rogue_boxplot_seurat_clusters_group <- rogue.boxplot(rogue.res)
 generate_figs(rogue_boxplot_seurat_clusters_group, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_group', sep = ''), c(8,4))
 

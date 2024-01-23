@@ -101,6 +101,16 @@ check_levels <- function(atlas){
 }
 
 #####
+
+SortNumStrList <- function(num_str_list, shift){
+  if(shift == TRUE){
+    return(as.character(sort(as.numeric(num_str_list) - 1)))
+  }
+  return(as.character(sort(as.numeric(num_str_list))))
+}
+
+
+#####
 # function: VlnPlot() customized to show cutoff thresholds for quality control filters
 # only use on original dataset before QC filtering, otherwise it will not display the non-filtered datapoints
 # @ atlas: Seurat object with features relevant for quality control
@@ -163,13 +173,29 @@ ChoosePC <- function(atlas){
 # @ pt_size: string describing the size of the datapoints
 # @ ncols: number of columns to split the resulting figure into
 
+# DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
+#   plot.list <- list()
+#   for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
+#     plot.list[[i]] <- DimPlot(
+#       object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
+#       cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
+#     ) + NoLegend() + ggtitle(i)
+#   }
+#   # combined_plots <- CombinePlots(plots = plot.list, ncol = ncols)
+#   combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
+#   return(combined_plots)
+# }
+
+
 DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
   plot.list <- list()
   for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
-    plot.list[[i]] <- DimPlot(
-      object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
-      cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
-    ) + NoLegend() + ggtitle(i)
+    tryCatch({
+      plot.list[[i]] <- DimPlot(
+        object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
+        cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
+      ) + NoLegend() + ggtitle(i)
+    }, error = function(e){cat("ERROR :",conditionMessage(e), " for ", i, "\n")})
   }
   # combined_plots <- CombinePlots(plots = plot.list, ncol = ncols)
   combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
