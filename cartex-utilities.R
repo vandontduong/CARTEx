@@ -23,6 +23,7 @@ library(stringr)
 library(dplyr)
 library(SingleR)
 library(scuttle)
+library(destiny)
 library(data.table)
 library(patchwork)
 library(EnhancedVolcano)
@@ -163,6 +164,22 @@ ChoosePC <- function(atlas){
 # References
 # https://hbctraining.github.io/scRNA-seq/lessons/elbow_plot_metric.html
 
+
+#####
+
+
+RunDiffusion <- function(atlas, k_int){
+  sce <- as.SingleCellExperiment(atlas)
+  dm <- DiffusionMap(sce, k = k_int, verbose = TRUE)
+  tmp <- data.matrix(data.frame(DC1 = eigenvectors(dm)[, 1], DC2 = eigenvectors(dm)[, 2], row.names = colnames(atlas)))
+  atlas[["dm"]] <- CreateDimReducObject(embeddings = tmp, key = "DC_", assay = DefaultAssay(atlas))
+  return(atlas)
+}
+
+# http://barcwiki.wi.mit.edu/wiki/SOP/scRNA-seq/diffusionMaps
+# https://rnabioco.github.io/cellar/previous/2019/docs/3_norm_viz_clustering.html
+# https://github.com/satijalab/seurat/issues/1475
+# https://satijalab.org/seurat/archive/v3.0/dim_reduction_vignette.html
 
 #####
 # function: DimPlot() customized to highlight cells by identity group
