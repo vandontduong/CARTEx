@@ -17,10 +17,13 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 ####################################################################################################
 ######################################## Cell cycle analysis #######################################
 ####################################################################################################
+
+expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
 # Read in the expression matrix The first row is a header row, the first column is rownames
-exp.mat <- read.table(file = "../cellannotate/nestorawa_forcellcycle_expressionMatrix.txt", header = TRUE, as.is = TRUE, row.names = 1)
+exp.mat <- read.table(file = paste(PATH_CELLANNOTATE, "nestorawa_forcellcycle_expressionMatrix.txt", sep = ''), header = TRUE, as.is = TRUE, row.names = 1)
 
 # A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
 # segregate this list into markers of G2/M phase and markers of S phase
@@ -37,12 +40,15 @@ ridgeplt <- RidgePlot(expt.obj, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), 
 generate_figs(ridgeplt, paste('./plots/', experiment, '_prepare_ridgeplt', sep = ''))
 
 expt.obj <- RunPCA(expt.obj, features = c(s.genes, g2m.genes))
-# DimPlot(expt.obj)
+PCAplot <- DimPlot(expt.obj, reduction = 'pca')
+generate_figs(PCAplot, paste('./plots/', experiment, '_prepare_PCAplot', sep = ''), c(6, 5))
 
 # regress cell cycle
 expt.obj <- ScaleData(expt.obj, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(expt.obj))
 # Now, a PCA on the variable genes no longer returns components associated with cell cycle
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(expt.obj), nfeatures.print = 10)
+PCAplot_regressed <- DimPlot(expt.obj, reduction = 'pca')
+generate_figs(PCAplot_regressed, paste('./plots/', experiment, '_prepare_PCAplot_regressed', sep = ''), c(6, 5))
 
 expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S', 'G2M'))
 
@@ -58,7 +64,7 @@ barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(st
 generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
 
 umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
-generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''))
+generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''), c(6, 5))
 
 umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
@@ -66,8 +72,7 @@ generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
-
+# expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 ####################################################################################################
 ######################################## Cell type annotation ######################################
@@ -82,7 +87,7 @@ expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 test_assay <- LayerData(expt.obj) # LayerData() is the updated function; GetAssayData() was depreciated
 
 # azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds")
-azimuth.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/cellannotate/AzimuthPBMC.rds")
+azimuth.obj <- readRDS(paste(PATH_CELLANNOTATE, "AzimuthPBMC.rds", sep = ''))
 azimuth.obj.md <- azimuth.obj@meta.data %>% as.data.table
 azimuth.obj.md[, .N, by = c("celltype.l1", "celltype.l2")]
 azimuth.obj <- SetIdent(azimuth.obj, value = "celltype.l1")
@@ -93,14 +98,16 @@ azimuth.obj <- subset(azimuth.obj, downsample = 100)
 azimuth_assay <- LayerData(azimuth.obj)
 
 # https://bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html#subsetting-summarizedexperiment
-monaco.obj <- MonacoImmuneData(ensembl=F)
+# monaco.obj <- MonacoImmuneData(ensembl=F)
+monaco.obj <- readRDS(paste(PATH_CELLANNOTATE, "MonacoImmuneData.rds", sep = ''))
 monaco.obj.md <- monaco.obj@colData %>% as.data.table
 monaco.obj.md[, .N, by = c("label.main", "label.fine")]
 monaco.index <- monaco.obj$label.main %in% c('CD8+ T cells')
 monaco.obj <- monaco.obj[, monaco.index]
 unique(monaco.obj$label.main)
 
-dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+# dice.obj <- DatabaseImmuneCellExpressionData(ensembl=F)
+dice.obj <- readRDS(paste(PATH_CELLANNOTATE, "DatabaseImmuneCellExpressionData.rds", sep = ''))
 dice.obj.md <- dice.obj@colData %>% as.data.table
 dice.obj.md[, .N, by = c("label.main", "label.fine")]
 dice.index <- dice.obj$label.main %in% c('T cells, CD8+')
@@ -108,6 +115,11 @@ dice.obj <- dice.obj[, dice.index]
 # downsample
 dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
 unique(dice.obj$label.main)
+
+# SingleR() has this error
+# Error: useNames = NA is defunct. Instead, specify either useNames = TRUE or useNames = FALSE.
+# solution is to downgrade matrixStats, according to https://github.com/satijalab/seurat/issues/7501#issuecomment-1854571904
+# remotes::install_version("matrixStats", version="1.1.0")
 
 azimuth.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = azimuth_assay, labels = azimuth.obj$celltype.l2)
 table(azimuth.predictions$labels)
@@ -121,7 +133,7 @@ expt.obj@meta.data$azimuth <- factor(expt.obj@meta.data$azimuth, levels = c('CD8
 
 # umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_azimuth <- DimPlot(expt.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''))
+generate_figs(umap_predicted_azimuth, paste('./plots/', experiment, '_umap_predicted_azimuth', sep = ''), c(6.5, 5))
 
 umap_predicted_azimuth_highlight <- DimPlotHighlightIdents(expt.obj, azimuth, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_azimuth_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_azimuth_highlight', sep = ''), c(12, 8))
@@ -139,7 +151,7 @@ expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(6.5, 5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -157,7 +169,7 @@ expt.obj@meta.data$dice <- factor(expt.obj@meta.data$dice, levels = c('T cells, 
 
 # umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_dice <- DimPlot(expt.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''))
+generate_figs(umap_predicted_dice, paste('./plots/', experiment, '_umap_predicted_dice', sep = ''), c(6.5, 5))
 
 umap_predicted_dice_highlight <- DimPlotHighlightIdents(expt.obj, dice, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_dice_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_dice_highlight', sep = ''), c(12, 8))
@@ -171,94 +183,61 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_prepare
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-md_temp <- md[, .N, by = c('azimuth', 'characteristics_response')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_response <- ggplot(md_temp, aes(x = characteristics_response, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_response, paste('./plots/', experiment, '_prepare_barplot_azimuth_response', sep = ''))
+barplot_azimuth_seurat_clusters <- BarPlotStackSplit(expt.obj, 'azimuth', 'seurat_clusters')
+generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'characteristics_response')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_response <- ggplot(md_temp, aes(x = characteristics_response, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''))
+barplot_monaco_seurat_clusters <- BarPlotStackSplit(expt.obj, 'monaco', 'seurat_clusters')
+generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_monaco_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'characteristics_response')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_response <- ggplot(md_temp, aes(x = characteristics_response, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_response, paste('./plots/', experiment, '_prepare_barplot_dice_response', sep = ''))
+barplot_dice_seurat_clusters <- BarPlotStackSplit(expt.obj, 'dice', 'seurat_clusters')
+generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('Phase', 'characteristics_response')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_phase_response <- ggplot(md_temp, aes(x = characteristics_response, y = N, fill = Phase)) + geom_col(position = "fill")
-generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''))
+barplot_azimuth_response <- BarPlotStackSplit(expt.obj, 'azimuth', 'characteristics_response')
+generate_figs(barplot_azimuth_response, paste('./plots/', experiment, '_prepare_barplot_azimuth_response', sep = ''), c(8,4))
 
+barplot_monaco_response <- BarPlotStackSplit(expt.obj, 'monaco', 'characteristics_response')
+generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''), c(8,4))
+
+barplot_dice_response <- BarPlotStackSplit(expt.obj, 'dice', 'characteristics_response')
+generate_figs(barplot_dice_response, paste('./plots/', experiment, '_prepare_barplot_dice_response', sep = ''), c(8,4))
+
+barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'characteristics_response')
+generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(8,4))
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
-
-
-
+# expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 
 ####################################################################################################
-########################################### CARTEx scoring #########################################
+########################################### Entropy scoring ########################################
 ####################################################################################################
 
-# CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_630 <- Z(scores)
-expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
+# The ROGUE method was developed to robustly measure the purity of cell populations
 
-expt.obj@meta.data$CARTEx_630_repcount <- rowSums(expr > 0)
-expt.obj@meta.data$CARTEx_630_reppercent <- expt.obj@meta.data$CARTEx_630_repcount / 630
+# expt.obj <- UpdateSeuratObject(expt.obj)
 
-scatterplot_CARTEx_630_representation <- FeatureScatter(expt.obj, feature1 = 'CARTEx_630', feature2 = 'CARTEx_630_reppercent', shuffle = TRUE, seed = 123)
-generate_figs(scatterplot_CARTEx_630_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_630_representation', sep = ''))
+rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'characteristics_response')
+rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
+rogue_boxplot_seurat_clusters_response <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_seurat_clusters_response, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_response', sep = ''), c(8,4))
 
-# CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_200 <- Z(scores)
-expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
+rogue.res <- EntropyScore(expt.obj, 'monaco', 'characteristics_response')
+rogue_boxplot_monaco_response <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_monaco_response, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_response', sep = ''), c(8,4))
 
-expt.obj@meta.data$CARTEx_200_repcount <- rowSums(expr > 0)
-expt.obj@meta.data$CARTEx_200_reppercent <- expt.obj@meta.data$CARTEx_200_repcount / 200
 
-scatterplot_CARTEx_200_representation <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'CARTEx_200_reppercent', shuffle = TRUE, seed = 123)
-generate_figs(scatterplot_CARTEx_200_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_200_representation', sep = ''))
-
-# CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(expt.obj))
-expr <- t(as.matrix(GetAssayData(expt.obj))[match(common, rownames(as.matrix(GetAssayData(expt.obj)))),])
-weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
-scores <- expr %*% as.matrix(weights)
-expt.obj@meta.data$CARTEx_84 <- Z(scores)
-expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
-
-expt.obj@meta.data$CARTEx_84_repcount <- rowSums(expr > 0)
-expt.obj@meta.data$CARTEx_84_reppercent <- expt.obj@meta.data$CARTEx_84_repcount / 84
-
-scatterplot_CARTEx_84_representation <- FeatureScatter(expt.obj, feature1 = 'CARTEx_84', feature2 = 'CARTEx_84_reppercent', shuffle = TRUE, seed = 123)
-generate_figs(scatterplot_CARTEx_84_representation, paste('./plots/', experiment, '_scatterplot_CARTEx_84_representation', sep = ''))
 
 ####################################################################################################
 ########################################### Module scoring #########################################
 ####################################################################################################
 
-activation_sig <- rownames(read.csv("../../signatures/panther-activation.csv", header = TRUE, row.names = 1))
-anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.csv", header = TRUE, row.names = 1))
-stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
-senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
+activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
+anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
+stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
+senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
 
-expt.obj <- AddModuleScore(expt.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+expt.obj <- AddModuleScore(expt.obj, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
 
 # z score normalization
 expt.obj@meta.data$Activation <- scale(expt.obj@meta.data$State1)
@@ -271,36 +250,57 @@ expt.obj@meta.data$Anergyi <- integerize(expt.obj@meta.data$Anergy)
 expt.obj@meta.data$Stemnessi <- integerize(expt.obj@meta.data$Stemness)
 expt.obj@meta.data$Senescencei <- integerize(expt.obj@meta.data$Senescence)
 
+expt.obj@meta.data$Activationi <- factor(expt.obj@meta.data$Activationi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Anergyi <- factor(expt.obj@meta.data$Anergyi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Stemnessi <- factor(expt.obj@meta.data$Stemnessi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Senescencei <- factor(expt.obj@meta.data$Senescencei, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+
 expt.obj@meta.data$State1 <- NULL
 expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
-# examine other signatures
-NK_like = rownames(read.csv("../../signatures/NK-like-dysfunction.csv", row.names=1, header = TRUE))
-Wherry_Tex = rownames(read.csv("../../signatures/Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", row.names = 1, header = TRUE))
-BBD_Tex = rownames(read.csv("../../signatures/Selli_2023_Blood_TBBDex.csv", row.names = 1, header = TRUE))
-PD1_Tex = rownames(read.csv("../../signatures/Cai_2020_Pathology_PD1_Tex.csv", row.names = 1, header = TRUE))
+# UMAP of cell state scores
+umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''))
 
-expt.obj <- AddModuleScore(expt.obj, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+umap_sig_activationi_highlight <- DimPlotHighlightIdents(expt.obj, Activationi, 'umap', 'blue', 0.1, 4)
+generate_figs(umap_sig_activationi_highlight, paste('./plots/', experiment, '_prepare_umap_sig_activationi_highlight', sep = ''), c(10, 8))
 
-expt.obj@meta.data$NKlike_Tex <- scale(expt.obj@meta.data$Signature1)
-expt.obj@meta.data$LCMV_Tex <- scale(expt.obj@meta.data$Signature2)
-expt.obj@meta.data$BBD_Tex <- scale(expt.obj@meta.data$Signature3)
-expt.obj@meta.data$PD1_Tex <- scale(expt.obj@meta.data$Signature4)
+umap_sig_anergyi <- DimPlot(expt.obj, group.by = "Anergyi", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_anergyi, paste('./plots/', experiment, '_prepare_umap_sig_anergyi', sep = ''))
 
-expt.obj@meta.data$NKlike_Texi <- integerize(expt.obj@meta.data$NKlike_Tex)
-expt.obj@meta.data$LCMV_Texi <- integerize(expt.obj@meta.data$LCMV_Tex)
-expt.obj@meta.data$BBD_Texi <- integerize(expt.obj@meta.data$BBD_Tex)
-expt.obj@meta.data$PD1_Texi <- integerize(expt.obj@meta.data$PD1_Tex)
+umap_sig_anergyi_highlight <- DimPlotHighlightIdents(expt.obj, Anergyi, 'umap', 'blue', 0.1, 4)
+generate_figs(umap_sig_anergyi_highlight, paste('./plots/', experiment, '_prepare_umap_sig_anergyi_highlight', sep = ''), c(10, 8))
 
-expt.obj@meta.data$Signature1 <- NULL
-expt.obj@meta.data$Signature2 <- NULL
-expt.obj@meta.data$Signature3 <- NULL
-expt.obj@meta.data$Signature4 <- NULL
+umap_sig_stemnessi <- DimPlot(expt.obj, group.by = "Stemnessi", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_stemnessi, paste('./plots/', experiment, '_prepare_umap_sig_stemnessi', sep = ''))
+
+umap_sig_stemnessi_highlight <- DimPlotHighlightIdents(expt.obj, Stemnessi, 'umap', 'blue', 0.1, 4)
+generate_figs(umap_sig_stemnessi_highlight, paste('./plots/', experiment, '_prepare_umap_sig_stemnessi_highlight', sep = ''), c(10, 8))
+
+umap_sig_senescencei <- DimPlot(expt.obj, group.by = "Senescencei", shuffle = TRUE, seed = 123)
+generate_figs(umap_sig_senescencei, paste('./plots/', experiment, '_prepare_umap_sig_senescencei', sep = ''))
+
+umap_sig_senescencei_highlight <- DimPlotHighlightIdents(expt.obj, Stemnessi, 'umap', 'blue', 0.1, 4)
+generate_figs(umap_sig_senescencei_highlight, paste('./plots/', experiment, '_prepare_umap_sig_senescencei_highlight', sep = ''), c(10, 8))
 
 
-saveRDS(expt.obj, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
+# better way to generate UMAPs for scored cells
+
+fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-5,5))
+umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE) + fix.sc
+umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
+umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
+umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
+
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''))
+
+
+saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 

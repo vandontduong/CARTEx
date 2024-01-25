@@ -17,6 +17,8 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 ######################################## Cell cycle analysis #######################################
 ####################################################################################################
 
+expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+
 # https://satijalab.org/seurat/articles/cell_cycle_vignette.html
 
 # Read in the expression matrix The first row is a header row, the first column is rownames
@@ -231,12 +233,12 @@ generate_figs(rogue_boxplot_monaco_group, paste('./plots/', experiment, '_prepar
 ########################################### Module scoring #########################################
 ####################################################################################################
 
-activation_sig <- rownames(read.csv("../../signatures/panther-activation.csv", header = TRUE, row.names = 1))
-anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.csv", header = TRUE, row.names = 1))
-stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
-senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
+activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
+anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
+stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
+senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
 
-expt.obj <- AddModuleScore(expt.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+expt.obj <- AddModuleScore(expt.obj, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
 
 # z score normalization
 expt.obj@meta.data$Activation <- scale(expt.obj@meta.data$State1)

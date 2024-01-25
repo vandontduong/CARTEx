@@ -200,6 +200,17 @@ generate_figs(umap_timepoint_response, paste('./plots/', experiment, '_prepare_u
 umap_timepoint_response_highlight <- DimPlotHighlightIdents(expt.obj, Timepoint_Response, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_timepoint_response_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_response_highlight', sep = ''), c(8, 8))
 
+# generate diffusion maps for metadata
+
+dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
+
+dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 4)
+generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
+
+dmap_timepoint <- DimPlot(expt.obj, reduction = "dm", group.by = "Timepoint", shuffle = TRUE, seed = 123)
+generate_figs(dmap_timepoint, paste('./plots/', experiment, '_prepare_dmap_timepoint', sep = ''), c(6.5, 5))
+
 
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
