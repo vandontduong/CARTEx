@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-### Script name: GSE125881-2-integrate.R
+### Script name: GSE125881-3-integrate.R
 ### Description: integrate seurat object for GSE125881
 ### Author: Vandon Duong
 
@@ -13,12 +13,9 @@ source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE125881'
 setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
-# https://samuel-marsh.github.io/scCustomize/articles/Gene_Expression_Plotting.html
-
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
-
 
 # https://satijalab.org/seurat/articles/integration_introduction.html
 # https://satijalab.org/seurat/articles/integration_rpca.html
