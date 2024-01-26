@@ -98,16 +98,18 @@ md <- query.obj.agg@meta.data %>% as.data.table
 
 md_mean_values <- md %>% group_by(identifier5) %>% summarise(avg = mean(CARTEx_84), stdev = sd(CARTEx_84))
 
-aggplot_qk_CARTEx_84_postonly <- md_mean_values %>% ggplot(aes(identifier5, avg)) +
+aggplot_qk_CARTEx_84_baseline <- md_mean_values %>% ggplot(aes(identifier5, avg)) +
   geom_col(aes(fill = identifier5), color = "black", width = 0.85) +
+  scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   geom_errorbar(aes(ymin = avg - stdev, ymax = avg + stdev), color = "#22292F", width = 0.1)
-generate_figs(aggplot_qk_CARTEx_84_postonly, paste('./plots/', experiment, '_query_agg_aggplot_qk_CARTEx_84_postonly', sep = ''), c(6,5))
+generate_figs(aggplot_qk_CARTEx_84_baseline, paste('./plots/', experiment, '_query_agg_aggplot_qk_CARTEx_84_baseline', sep = ''), c(6,5))
 
 
-aggplot_CARTEx_84_postonly <- md %>% ggplot(aes(identifier5, CARTEx_84)) +
+aggplot_CARTEx_84_baseline <- md %>% ggplot(aes(identifier5, CARTEx_84)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 0.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.5)
-generate_figs(aggplot_CARTEx_84_postonly, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_postonly', sep = ''), c(6,5))
+generate_figs(aggplot_CARTEx_84_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_baseline', sep = ''), c(6,5))
 
