@@ -310,7 +310,7 @@ head(expt.obj)
 Idents(expt.obj) <- "Timepoint_Response"
 expt.obj <- subset(expt.obj, idents = c("Post-NR", "Post-R"), invert = TRUE)
 
-barplot_monaco_timepoint_response_baseline <- BarPlotStackSplit(expt.obj, 'monaco', 'Timepoint_Response')
+barplot_monaco_timepoint_response_baseline <- BarPlotStackSplit(expt.obj, 'monaco', 'Timepoint_Response', color_set = c('deepskyblue','seagreen','darkgoldenrod','plum3'))
 generate_figs(barplot_monaco_timepoint_response_baseline, paste('./plots/', experiment, '_prepare_barplot_monaco_timepoint_response_baseline', sep = ''), c(8,4))
 
 # https://github.com/satijalab/seurat/issues/3366#issuecomment-674262907

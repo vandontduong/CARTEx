@@ -242,6 +242,19 @@ BarPlotStackSplit <- function(atlas, x_identity, y_identity){
   return(barplot)
 }
 
+BarPlotStackSplit <- function(atlas, x_identity, y_identity, color_set = NULL){
+  md <- as.data.table(atlas@meta.data)[, .N, by = c(x_identity, y_identity)]
+  md$percent <- round(100*md$N / sum(md$N), digits = 1)
+  if (is.null(color_set)) {
+    barplot <- ggplot(md, aes_string(x = y_identity, y = 'N', fill = x_identity)) + geom_col(position = "fill")
+  }
+  else {
+    barplot <- ggplot(md, aes_string(x = y_identity, y = 'N', fill = x_identity)) + geom_col(position = "fill") +
+      scale_fill_manual(values=color_set)
+  }
+  return(barplot)
+}
+
 #####
 # PercentageFeatureSet() customized to compute percentage of feature set detected, i.e. expression level is non-zero, rather than what percentage it is of all transcripts
 # Examine CARTEx representation at single-cell resolution
