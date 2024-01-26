@@ -1,69 +1,53 @@
-# integrate seurat object
-# Vandon Duong
+#!/usr/bin/env Rscript
+
+### Script name: GSE120575-3-integrate.R
+### Description: integrate seurat object for GSE120575
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
-
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE120575'
-
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
-
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(data.table)
-library(EnhancedVolcano)
-
-####################################################################################################
-############################################# Functions ############################################
-####################################################################################################
-
-Z=function(s){
-  s=as.numeric(s)
-  z=(s - mean(s))/sd(s)
-  return (z)
-}
-
-generate_figs = function(figure_object, file_name, dimensions){
-  if(missing(dimensions)){
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  } else {
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
-  }
-  return (paste("generating figure for ", file_name))
-}
-
-integerize = function(score){
-  score_mod = round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
-  return (score_mod)
-}
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
-
 # https://satijalab.org/seurat/articles/integration_introduction.html
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
-aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_annotated_cross.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_annotated.rds")
-# ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds") # T cell reference ?
-# ref.obj <- SetIdent(ref.obj, value = "celltype.l1")
-# ref.obj <- subset(ref.obj, idents = c("CD4 T", "CD8 T", "other T"))
+expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
+# aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
+aging.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE136184/data/GSE136184_aging_extract.rds", sep = ''))
+ref.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE164378/data/GSE164378_CD8pos_scored.rds", sep = ''))
 
 # add experiment identifier
 expt.obj@meta.data[['identifier']] <- experiment
 aging.obj@meta.data[['identifier']] <- "GSE136184"
 ref.obj@meta.data[['identifier']] <- "GSE164378"
 
+glimpse(expt.obj@meta.data)
+
 expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$characteristics_response
-aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+# aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier2']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier3']] <- expt.obj@meta.data$characteristics_therapy
+aging.obj@meta.data[['identifier3']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier3']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier4']] <- expt.obj@meta.data$Timepoint
+aging.obj@meta.data[['identifier4']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier4']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier5']] <- expt.obj@meta.data$Timepoint_Response
+aging.obj@meta.data[['identifier5']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier5']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"
@@ -99,12 +83,37 @@ integration.obj <- FindClusters(integration.obj, resolution = 0.5)
 
 head(integration.obj)
 
+integration.obj$identifier <- factor(integration.obj$identifier, levels = c(experiment, "GSE136184", "GSE164378"))
+unique(integration.obj$identifier)
+
+integration.obj$identifier2 <- factor(integration.obj$identifier2, levels = c(names(table(expt.obj$identifier2)), names(table(aging.obj$identifier2)), names(table(ref.obj$identifier2))))
+table(integration.obj$identifier2)
+
+integration.obj$identifier3 <- factor(integration.obj$identifier3, levels = c(names(table(expt.obj$identifier3)), names(table(aging.obj$identifier3)), names(table(ref.obj$identifier3))))
+table(integration.obj$identifier3)
+
+unique(integration.obj$azimuth)
+integration.obj$azimuth <- factor(integration.obj$azimuth, levels = c("CD8 Naive", "CD8 Proliferating", "CD8 TCM", "CD8 TEM"))
+
+unique(integration.obj$monaco)
+integration.obj$monaco <- factor(integration.obj$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+unique(integration.obj$dice)
+integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
+
+unique(integration.obj$split.ident)
+integration.obj$split.ident <- factor(integration.obj$split.ident, levels = c("Query", "Reference"))
+
+
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
-integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+# integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
+
+integrated_umap_identifier_highlight <- DimPlotHighlightIdents(integration.obj, identifier, 'umap', 'blue', 0.1, 3)
+generate_figs(integrated_umap_identifier_highlight, paste('./plots/', experiment, '_integrated_umap_identifier_highlight', sep = ''), c(12, 5))
 
 integrated_umap_identifier_expts <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier", split.by = "split.ident", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier_expts, paste('./plots/', experiment, '_integrated_umap_identifier_expts', sep = ''), c(12, 5))
@@ -112,14 +121,26 @@ generate_figs(integrated_umap_identifier_expts, paste('./plots/', experiment, '_
 integrated_umap_seurat_clusters <- DimPlot(integration.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_seurat_clusters, paste('./plots/', experiment, '_integrated_umap_seurat_clusters', sep = ''))
 
+integrated_umap_seurat_clusters_highlight <- DimPlotHighlightIdents(integration.obj, seurat_clusters, 'umap', 'blue', 0.1, 5)
+generate_figs(integrated_umap_seurat_clusters_highlight, paste('./plots/', experiment, '_integrated_umap_seurat_clusters_highlight', sep = ''), c(22, 20))
+
 integrated_umap_azimuth <- DimPlot(integration.obj, reduction = "umap", group.by = "azimuth", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_azimuth, paste('./plots/', experiment, '_integrated_umap_azimuth', sep = ''))
+
+integrated_umap_azimuth_highlight <- DimPlotHighlightIdents(integration.obj, azimuth, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_azimuth_highlight, paste('./plots/', experiment, '_integrated_umap_azimuth_highlight', sep = ''), c(10, 6))
 
 integrated_umap_monaco <- DimPlot(integration.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_monaco, paste('./plots/', experiment, '_integrated_umap_monaco', sep = ''))
 
+integrated_umap_monaco_highlight <- DimPlotHighlightIdents(integration.obj, monaco, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_monaco_highlight, paste('./plots/', experiment, '_integrated_umap_monaco_highlight', sep = ''), c(10, 6))
+
 integrated_umap_dice <- DimPlot(integration.obj, reduction = "umap", group.by = "dice", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_dice, paste('./plots/', experiment, '_integrated_umap_dice', sep = ''))
+
+integrated_umap_dice_highlight <- DimPlotHighlightIdents(integration.obj, dice, 'umap', 'blue', 0.1, 2)
+generate_figs(integrated_umap_dice_highlight, paste('./plots/', experiment, '_integrated_umap_dice_highlight', sep = ''), c(10, 6))
 
 featureplot_Tcell_markers <- FeaturePlot(integration.obj, features = c("CD4", "CD8A", "CD8B", "PDCD1"), raster = FALSE)
 generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_integrated_featureplot_Tcell_markers', sep = ''))
@@ -148,7 +169,7 @@ generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_inte
 ####################################### Examine query datasets #####################################
 ####################################################################################################
 
-integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+# integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 query.list <- SplitObject(integration.obj, split.by = "split.ident")
 query.obj <- query.list$Query
@@ -201,6 +222,13 @@ anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.cs
 stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
 senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
 
+# https://github.com/satijalab/seurat/issues/4819
+# https://github.com/satijalab/seurat/issues/7985#issuecomment-1806483174
+
+# DefaultAssay(query.obj) <- "integrated"
+DefaultAssay(query.obj) <- "RNA"
+query.obj <- JoinLayers(query.obj)
+
 query.obj <- AddModuleScore(query.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
 
 
@@ -222,22 +250,23 @@ query.obj@meta.data$State4 <- NULL
 
 saveRDS(query.obj, file = paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
-query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
+# query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
 head(query.obj)
 
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("Responder", "Non-responder", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
+# split.ident.order = c("R", "NR", "Newborn", "Under 30", "Under 50", "Under 70", "Elderly")
+split.ident.order = c("R", "NR", "YoungNaive", "OldTerminal")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
 query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
 vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','Non-responder')), label = "p.signif", label.y = 4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','Newborn')), label = "p.signif", label.y = 5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Newborn')), label = "p.signif", label.y = 4.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','NR')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','YoungNaive')), label = "p.signif", label.y = 4.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 # BAR CHARTS of CELL TYPES

@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ### Script name: GSE120575-1-prepare.R
-### Description: prepare seurat object for GSE120575
+### Description: annotate seurat object for GSE120575
 ### Author: Vandon Duong
 
 ####################################################################################################
@@ -12,7 +12,6 @@ set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE120575'
 setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
-
 
 ####################################################################################################
 ######################################## Cell cycle analysis #######################################
@@ -217,14 +216,14 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 
 # expt.obj <- UpdateSeuratObject(expt.obj)
 
-rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'characteristics_response')
-rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
-rogue_boxplot_seurat_clusters_response <- rogue.boxplot(rogue.res)
-generate_figs(rogue_boxplot_seurat_clusters_response, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_response', sep = ''), c(8,4))
+# rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'characteristics_response')
+# rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
+# rogue_boxplot_seurat_clusters_response <- rogue.boxplot(rogue.res)
+# generate_figs(rogue_boxplot_seurat_clusters_response, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_response', sep = ''), c(8,4))
 
-rogue.res <- EntropyScore(expt.obj, 'monaco', 'characteristics_response')
-rogue_boxplot_monaco_response <- rogue.boxplot(rogue.res)
-generate_figs(rogue_boxplot_monaco_response, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_response', sep = ''), c(8,4))
+# rogue.res <- EntropyScore(expt.obj, 'monaco', 'characteristics_response')
+# rogue_boxplot_monaco_response <- rogue.boxplot(rogue.res)
+# generate_figs(rogue_boxplot_monaco_response, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_response', sep = ''), c(8,4))
 
 
 
