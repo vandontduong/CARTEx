@@ -4,6 +4,10 @@
 ### Description: annotate seurat object for GSE125881
 ### Author: Vandon Duong
 
+# track time
+ptm <- proc.time()
+print("The script is starting...")
+
 ####################################################################################################
 ####################################### Initialize environment #####################################
 ####################################################################################################
@@ -227,6 +231,24 @@ generate_figs(rogue_boxplot_monaco_group, paste('./plots/', experiment, '_prepar
 
 
 
+####################################################################################################
+########################################### CARTEx scoring #########################################
+####################################################################################################
+
+# CARTEx with weights // 630 genes
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+expt.obj@meta.data$CARTEx_630 <- Z(SignatureScore(expt.obj, cartex_630_weights))
+expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
+
+# CARTEx with weights // 200 genes
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+expt.obj@meta.data$CARTEx_200 <- Z(SignatureScore(expt.obj, cartex_200_weights))
+expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
+
+# CARTEx with weights // 84 genes
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+expt.obj@meta.data$CARTEx_84 <- Z(SignatureScore(expt.obj, cartex_84_weights))
+expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
 
 
 ####################################################################################################
@@ -251,10 +273,10 @@ expt.obj@meta.data$Anergyi <- integerize(expt.obj@meta.data$Anergy)
 expt.obj@meta.data$Stemnessi <- integerize(expt.obj@meta.data$Stemness)
 expt.obj@meta.data$Senescencei <- integerize(expt.obj@meta.data$Senescence)
 
-expt.obj@meta.data$Activationi <- factor(expt.obj@meta.data$Activationi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
-expt.obj@meta.data$Anergyi <- factor(expt.obj@meta.data$Anergyi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
-expt.obj@meta.data$Stemnessi <- factor(expt.obj@meta.data$Stemnessi, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
-expt.obj@meta.data$Senescencei <- factor(expt.obj@meta.data$Senescencei, levels = c(5,4,3,2,1,0,-1,-2,-3,-4,-5))
+expt.obj@meta.data$Activationi <- factor(expt.obj@meta.data$Activationi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
+expt.obj@meta.data$Anergyi <- factor(expt.obj@meta.data$Anergyi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
+expt.obj@meta.data$Stemnessi <- factor(expt.obj@meta.data$Stemnessi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
+expt.obj@meta.data$Senescencei <- factor(expt.obj@meta.data$Senescencei, levels = c(4,3,2,1,0,-1,-2,-3,-4))
 
 expt.obj@meta.data$State1 <- NULL
 expt.obj@meta.data$State2 <- NULL
@@ -289,12 +311,18 @@ generate_figs(umap_sig_senescencei_highlight, paste('./plots/', experiment, '_pr
 
 # better way to generate UMAPs for scored cells
 
-fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-5,5))
+fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
+umap_CARTEx_84 <- FeaturePlot(expt.obj, features = c("CARTEx_84"), order = TRUE) + fix.sc
+umap_CARTEx_200 <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE) + fix.sc
+umap_CARTEx_630 <- FeaturePlot(expt.obj, features = c("CARTEx_630"), order = TRUE) + fix.sc
 umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE) + fix.sc
 umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
 
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_umap_CARTEx_84', sep = ''))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_umap_CARTEx_200', sep = ''))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_umap_CARTEx_630', sep = ''))
 generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''))
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''))
@@ -305,5 +333,9 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
+# report time
+print("The script has completed...")
+proc.time() - ptm
 
+sessionInfo()
 

@@ -154,7 +154,10 @@ print("Calculating UMAPs...")
 expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
 print("Calculating diffusion maps...")
-expt.obj <- RunDiffusion(expt.obj, k_int = 10)
+diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
+expt.obj <- diffusion_map$atlas
+saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
+rm(diffusion_map)
 
 print("Saving Seurat object...")
 saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
@@ -222,7 +225,7 @@ dmap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'dm', 'b
 generate_figs(dmap_timepoint_highlight, paste('./plots/', experiment, '_prepare_dmap_timepoint_highlight', sep = ''), c(25, 14))
 
 dmap_group_cols <- c('IP' = 'red', 'ExpansionPeak' = 'violetred', 'Contraction' = 'violet', 'Late' = 'purple')
-dmap_group <- DimPlot(expt.obj, reduction = "dmap", group.by = "Group", shuffle = TRUE, seed = 123, cols = dmap_group_cols)
+dmap_group <- DimPlot(expt.obj, reduction = "dm", group.by = "Group", shuffle = TRUE, seed = 123, cols = dmap_group_cols)
 generate_figs(dmap_group, paste('./plots/', experiment, '_prepare_dmap_group', sep = ''), c(6.5, 5))
 
 dmap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'dm', 'blue', 0.1, 2)

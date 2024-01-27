@@ -154,8 +154,11 @@ expt.obj@meta.data$seurat_clusters <- factor(expt.obj@meta.data$seurat_clusters,
 print("Calculating UMAPs...")
 expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
-# print("Calculating diffusion maps...")
-# expt.obj <- RunDiffusion(expt.obj, k_int = 10)
+print("Calculating diffusion maps...")
+diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
+expt.obj <- diffusion_map$atlas
+saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
+rm(diffusion_map)
 
 print("Saving Seurat object...")
 saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
@@ -205,14 +208,14 @@ generate_figs(umap_timepoint_response_highlight, paste('./plots/', experiment, '
 
 # generate diffusion maps for metadata
 
-# dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-# generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
+dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
 
-# dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 4)
-# generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
+dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 4)
+generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
-# dmap_timepoint <- DimPlot(expt.obj, reduction = "dm", group.by = "Timepoint", shuffle = TRUE, seed = 123)
-# generate_figs(dmap_timepoint, paste('./plots/', experiment, '_prepare_dmap_timepoint', sep = ''), c(6.5, 5))
+dmap_timepoint <- DimPlot(expt.obj, reduction = "dm", group.by = "Timepoint", shuffle = TRUE, seed = 123)
+generate_figs(dmap_timepoint, paste('./plots/', experiment, '_prepare_dmap_timepoint', sep = ''), c(6.5, 5))
 
 
 ####################################################################################################
