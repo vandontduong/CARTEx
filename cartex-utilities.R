@@ -30,6 +30,7 @@ library(EnhancedVolcano)
 library(clustree)
 library(ROGUE)
 library(glmGamPoi)
+library(ggbeeswarm)
 
 # absolute path to where the project directory resides
 PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
@@ -74,13 +75,13 @@ generate_figs <- function(figure_object, file_name, dimensions){
 }
 
 #####
-# function: round scores to nearest integer; cut-off at +/-5
+# function: round scores to nearest integer; cut-off at +/-4
 # @ score: vector of floats
 
 integerize <- function(score){
   score_mod <- round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
+  score_mod[score_mod <= -4] <- -4
+  score_mod[score_mod >= 4] <- 4
   return (score_mod)
 }
 
@@ -173,7 +174,9 @@ RunDiffusion <- function(atlas, k_int){
   dm <- DiffusionMap(sce, k = k_int, verbose = TRUE)
   tmp <- data.matrix(data.frame(DC1 = eigenvectors(dm)[, 1], DC2 = eigenvectors(dm)[, 2], row.names = colnames(atlas)))
   atlas[["dm"]] <- CreateDimReducObject(embeddings = tmp, key = "DC_", assay = DefaultAssay(atlas))
-  return(atlas)
+  atlas@meta.data$DC1rank <- rank(atlas[['dm']]@cell.embeddings[,1])
+  atlas@meta.data$DC2rank <- rank(atlas[['dm']]@cell.embeddings[,2])
+  return(list("atlas" = atlas, "dmap" = dm))
 }
 
 # http://barcwiki.wi.mit.edu/wiki/SOP/scRNA-seq/diffusionMaps
@@ -234,13 +237,6 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # @ atlas: Seurat object
 # @ x_identity: string describing the relevant metadata identity group to stack by
 # @ y_identity: string describing the relevant metadata identity group to split by
-
-BarPlotStackSplit <- function(atlas, x_identity, y_identity){
-  md <- as.data.table(atlas@meta.data)[, .N, by = c(x_identity, y_identity)]
-  md$percent <- round(100*md$N / sum(md$N), digits = 1)
-  barplot <- ggplot(md, aes_string(x = y_identity, y = 'N', fill = x_identity)) + geom_col(position = "fill")
-  return(barplot)
-}
 
 BarPlotStackSplit <- function(atlas, x_identity, y_identity, color_set = NULL){
   md <- as.data.table(atlas@meta.data)[, .N, by = c(x_identity, y_identity)]
