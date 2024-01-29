@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
-### Script name: GSE136184-cs-1-prepare.R
-### Description: prepare seurat object for GSE136184 (cross-sectional study)
+### Script name: GSE136184-l-1-prepare.R
+### Description: prepare seurat object for GSE136184 (longitudinal study)
 ### Author: Vandon Duong
 
 # track time
@@ -27,12 +27,12 @@ expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 expt.obj[['identifier']] <- experiment
 
 vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
-generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_cs_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_l_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
 
 
 # extract genes
 all.genes <- rownames(expt.obj)
-write.csv(all.genes, paste('./data/', experiment, '_cs_allgenes.csv', sep = ''))
+write.csv(all.genes, paste('./data/', experiment, '_l_allgenes.csv', sep = ''))
 
 # Calculate the percentage of all counts that belong to a given set of features
 # i.e. compute the percentage of transcripts that map to CARTEx genes
@@ -126,7 +126,7 @@ expt.obj@meta.data$Cohort <- plyr::mapvalues(x = expt.obj@meta.data$Code,
 expt.obj@meta.data$Cohort <- factor(expt.obj@meta.data$Cohort, levels = c('Cross-sectional', 'Longitudinal'))
 
 Idents(expt.obj) <- "Cohort"
-expt.obj <- subset(expt.obj, idents = c("Cross-sectional"))
+expt.obj <- subset(expt.obj, idents = c("Longitudinal"))
 
 # check levels() for metadata
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
@@ -134,10 +134,10 @@ check_levels(expt.obj)
 
 # Examine features before quality control
 vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
-generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_cs_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_l_prepare_vlnplot_quality_control_standard_pre', sep = ''))
 
 vlnplot_quality_control_CARTEx_pre <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
-#### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_cs_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+#### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_l_prepare_vlnplot_quality_control_standard_pre', sep = ''))
 
 # capture counts before quality filter
 qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
@@ -147,7 +147,7 @@ expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 &
 
 # Examine features after quality control
 vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
-generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_cs_prepare_vlnplot_quality_control_standard_post', sep = ''))
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_l_prepare_vlnplot_quality_control_standard_post', sep = ''))
 
 vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
 
@@ -155,20 +155,20 @@ vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('
 qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
 rownames(qc_review) <- c("All", "preQC", "preQC")
 colnames(qc_review) <- c("genes", "cells")
-write.csv(qc_review, paste('./data/', experiment, '_cs_prepare_qc_review.csv', sep = ''))
+write.csv(qc_review, paste('./data/', experiment, '_l_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
 top10_varfeats <- head(VariableFeatures(expt.obj), 10)
 varplt <- VariableFeaturePlot(expt.obj)
 varplt_labeled <- LabelPoints(plot = varplt, points = top10_varfeats, repel = TRUE)
-generate_figs(varplt_labeled, paste('./plots/', experiment, '_cs_prepare_varplt_labeled', sep = ''))
+generate_figs(varplt_labeled, paste('./plots/', experiment, '_l_prepare_varplt_labeled', sep = ''))
 
 expt.obj <- ScaleData(expt.obj, features = all.genes)
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 30)
 
 inspect_elbow <- ElbowPlot(expt.obj)
-generate_figs(inspect_elbow, paste('./plots/', experiment, '_cs_prepare_inspect_elbow', sep = ''), c(5, 4))
+generate_figs(inspect_elbow, paste('./plots/', experiment, '_l_prepare_inspect_elbow', sep = ''), c(5, 4))
 
 # select dimensionality based on elbowplot analysis
 dim.max <- ChoosePC(expt.obj)
@@ -179,7 +179,7 @@ resolution.range <- seq(from = 0, to = 1, by = 0.2)
 expt.obj <- FindClusters(expt.obj, resolution = resolution.range)
 
 inspect_clustering <- clustree(expt.obj, prefix = "RNA_snn_res.")
-generate_figs(inspect_clustering, paste('./plots/', experiment, '_cs_prepare_inspect_clustering', sep = ''), c(12, 8))
+generate_figs(inspect_clustering, paste('./plots/', experiment, '_l_prepare_inspect_clustering', sep = ''), c(12, 8))
 
 # Select clustering resolution based on clustree analysis
 expt.obj@meta.data$seurat_clusters <- expt.obj@meta.data$RNA_snn_res.0.4
@@ -191,65 +191,64 @@ expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 print("Calculating diffusion maps...")
 diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
 expt.obj <- diffusion_map$atlas
-saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_cs_dmap.rds', sep = ''))
+saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_l_dmap.rds', sep = ''))
 rm(diffusion_map)
 
 print("Saving Seurat object...")
-saveRDS(expt.obj, file = paste('./data/', experiment, '_cs.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_l.rds', sep = ''))
 
-# expt.obj <- readRDS(paste('./data/', experiment, '_cs.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_l.rds', sep = ''))
 
 head(expt.obj)
 
 # Generate UMAPs for metadata
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_umap_seurat_clusters', sep = ''), c(6,5))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_l_prepare_umap_seurat_clusters', sep = ''))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
-generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_cs_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
+generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_l_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_age_group <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
-generate_figs(umap_age_group, paste('./plots/', experiment, '_cs_prepare_umap_age_group', sep = ''), c(6,5))
+generate_figs(umap_age_group, paste('./plots/', experiment, '_l_prepare_umap_age_group', sep = ''))
 
 umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123)
-generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(6,5))
+generate_figs(umap_age_group_2, paste('./plots/', experiment, '_l_prepare_umap_age_group_2', sep = ''))
 
 umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap', 'blue', 0.1, 3)
-generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))
+generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_l_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))
 
 umap_sex <- DimPlot(expt.obj, reduction = "umap", group.by = "Sex", shuffle = TRUE, seed = 123)
-generate_figs(umap_sex, paste('./plots/', experiment, '_cs_prepare_umap_sex', sep = ''), c(6,5))
+generate_figs(umap_sex, paste('./plots/', experiment, '_l_prepare_umap_sex', sep = ''))
 
 umap_sex_highlight <- DimPlotHighlightIdents(expt.obj, Sex, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_sex_highlight, paste('./plots/', experiment, '_cs_prepare_umap_sex_highlight', sep = ''), c(6, 5))
+generate_figs(umap_sex_highlight, paste('./plots/', experiment, '_l_prepare_umap_sex_highlight', sep = ''), c(6, 5))
 
 umap_visit <- DimPlot(expt.obj, reduction = "umap", group.by = "visit", shuffle = TRUE, seed = 123)
-generate_figs(umap_visit, paste('./plots/', experiment, '_cs_prepare_umap_visit', sep = ''), c(6,5))
+generate_figs(umap_visit, paste('./plots/', experiment, '_l_prepare_umap_visit', sep = ''))
 
 umap_code <- DimPlot(expt.obj, reduction = "umap", group.by = "Code", shuffle = TRUE, seed = 123)
-generate_figs(umap_code, paste('./plots/', experiment, '_cs_prepare_umap_code', sep = ''), c(6,5))
+generate_figs(umap_code, paste('./plots/', experiment, '_l_prepare_umap_code', sep = ''))
 
 umap_cohort <- DimPlot(expt.obj, reduction = "umap", group.by = "Cohort", shuffle = TRUE, seed = 123)
-generate_figs(umap_cohort, paste('./plots/', experiment, '_cs_prepare_umap_cohort', sep = ''), c(6,5))
+generate_figs(umap_cohort, paste('./plots/', experiment, '_l_prepare_umap_cohort', sep = ''))
 
 umap_cohort_highlight <- DimPlotHighlightIdents(expt.obj, Cohort, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_cs_prepare_umap_cohort_highlight', sep = ''), c(6, 5))
+generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_l_prepare_umap_cohort_highlight', sep = ''), c(6, 5))
 
 # generate diffusion maps for metadata
 
 dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
+generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_l_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
 
 dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 4)
-generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_cs_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
+generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_l_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 dmap_age_group <- DimPlot(expt.obj, reduction = "dm", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
-generate_figs(dmap_age_group, paste('./plots/', experiment, '_cs_prepare_dmap_age_group', sep = ''), c(6, 5))
+generate_figs(dmap_age_group, paste('./plots/', experiment, '_l_prepare_dmap_age_group', sep = ''), c(6, 5))
 
 dmap_visit <- DimPlot(expt.obj, reduction = "dm", group.by = "visit", shuffle = TRUE, seed = 123)
-generate_figs(dmap_visit, paste('./plots/', experiment, '_cs_prepare_dmap_visit', sep = ''), c(6, 5))
-
+generate_figs(dmap_visit, paste('./plots/', experiment, '_l_prepare_dmap_visit', sep = ''), c(6, 5))
 
 
 ####################################################################################################
@@ -259,18 +258,18 @@ generate_figs(dmap_visit, paste('./plots/', experiment, '_cs_prepare_dmap_visit'
 # examine metadata split by Seurat clusters
 
 barplot_age_group_2_seurat_clusters <- BarPlotStackSplit(expt.obj, 'AgeGroup2', 'seurat_clusters')
-generate_figs(barplot_age_group_2_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_barplot_age_group_2_seurat_clusters', sep = ''), c(8,4))
+generate_figs(barplot_age_group_2_seurat_clusters, paste('./plots/', experiment, '_l_prepare_barplot_age_group_2_seurat_clusters', sep = ''), c(8,4))
 
 barplot_cohort_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Cohort', 'seurat_clusters')
-generate_figs(barplot_cohort_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_barplot_cohort_seurat_clusters', sep = ''), c(8,4))
+generate_figs(barplot_cohort_seurat_clusters, paste('./plots/', experiment, '_l_prepare_barplot_cohort_seurat_clusters', sep = ''), c(8,4))
 
 
 # identify markers for each Seurat cluster
 # https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
 
 expt.markers <- FindAllMarkers(expt.obj, only.pos = TRUE)
-saveRDS(expt.markers, paste(file='./data/', experiment, '_cs_seurat_markers.rds', sep = ''))
-write.csv(expt.markers, paste(file='./data/', experiment, '_cs_seurat_markers.csv', sep = ''))
+saveRDS(expt.markers, paste(file='./data/', experiment, '_l_seurat_markers.rds', sep = ''))
+write.csv(expt.markers, paste(file='./data/', experiment, '_l_seurat_markers.csv', sep = ''))
 # expt.markers <- readRDS(paste('./data/', experiment, '_seurat_markers.rds', sep = ''))
 
 expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
@@ -279,7 +278,7 @@ expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
 # https://github.com/satijalab/seurat/issues/2724
 expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
 cluster_markers_heatmap <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
-generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_cs_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
+generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_l_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
 
 for (i in unique(expt.markers$cluster)){
   print(paste("Cluster:", i))
@@ -296,7 +295,7 @@ for (i in unique(expt.markers$cluster)){
   cat("\n")
 }
 colnames(cluster_markers) <- c('Cluster', 'Markers')
-write.csv(cluster_markers, paste('./data/', experiment, '_cs_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
+write.csv(cluster_markers, paste('./data/', experiment, '_l_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
 
 # https://www.nature.com/articles/s12276-023-01105-x
 
