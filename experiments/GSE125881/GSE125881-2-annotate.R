@@ -119,7 +119,7 @@ dice.obj <- dice.obj[, dice.index]
 dice.obj@assays@data@listData$logcounts <- downsampleMatrix(dice.obj@assays@data@listData$logcounts, prop = 0.05)
 unique(dice.obj$label.main)
 
-# SingleR() has this error
+# SingleR() has this error, likely due to Seurat versioning
 # Error: useNames = NA is defunct. Instead, specify either useNames = TRUE or useNames = FALSE.
 # solution is to downgrade matrixStats, according to https://github.com/satijalab/seurat/issues/7501#issuecomment-1854571904
 # remotes::install_version("matrixStats", version="1.1.0")
@@ -285,25 +285,25 @@ expt.obj@meta.data$State4 <- NULL
 
 # UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
-generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''))
+generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''), c(6,5))
 
 umap_sig_activationi_highlight <- DimPlotHighlightIdents(expt.obj, Activationi, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_sig_activationi_highlight, paste('./plots/', experiment, '_prepare_umap_sig_activationi_highlight', sep = ''), c(10, 8))
 
 umap_sig_anergyi <- DimPlot(expt.obj, group.by = "Anergyi", shuffle = TRUE, seed = 123)
-generate_figs(umap_sig_anergyi, paste('./plots/', experiment, '_prepare_umap_sig_anergyi', sep = ''))
+generate_figs(umap_sig_anergyi, paste('./plots/', experiment, '_prepare_umap_sig_anergyi', sep = ''), c(6,5))
 
 umap_sig_anergyi_highlight <- DimPlotHighlightIdents(expt.obj, Anergyi, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_sig_anergyi_highlight, paste('./plots/', experiment, '_prepare_umap_sig_anergyi_highlight', sep = ''), c(10, 8))
 
 umap_sig_stemnessi <- DimPlot(expt.obj, group.by = "Stemnessi", shuffle = TRUE, seed = 123)
-generate_figs(umap_sig_stemnessi, paste('./plots/', experiment, '_prepare_umap_sig_stemnessi', sep = ''))
+generate_figs(umap_sig_stemnessi, paste('./plots/', experiment, '_prepare_umap_sig_stemnessi', sep = ''), c(6,5))
 
 umap_sig_stemnessi_highlight <- DimPlotHighlightIdents(expt.obj, Stemnessi, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_sig_stemnessi_highlight, paste('./plots/', experiment, '_prepare_umap_sig_stemnessi_highlight', sep = ''), c(10, 8))
 
 umap_sig_senescencei <- DimPlot(expt.obj, group.by = "Senescencei", shuffle = TRUE, seed = 123)
-generate_figs(umap_sig_senescencei, paste('./plots/', experiment, '_prepare_umap_sig_senescencei', sep = ''))
+generate_figs(umap_sig_senescencei, paste('./plots/', experiment, '_prepare_umap_sig_senescencei', sep = ''), c(6,5))
 
 umap_sig_senescencei_highlight <- DimPlotHighlightIdents(expt.obj, Stemnessi, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_sig_senescencei_highlight, paste('./plots/', experiment, '_prepare_umap_sig_senescencei_highlight', sep = ''), c(10, 8))
@@ -320,9 +320,9 @@ umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) +
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_umap_CARTEx_84', sep = ''))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_umap_CARTEx_200', sep = ''))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_umap_CARTEx_630', sep = ''))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''))
 generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''))
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''))
@@ -330,6 +330,8 @@ generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
+
+# expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 

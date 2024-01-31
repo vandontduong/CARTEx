@@ -236,6 +236,14 @@ generate_figs(umap_cohort, paste('./plots/', experiment, '_cs_prepare_umap_cohor
 umap_cohort_highlight <- DimPlotHighlightIdents(expt.obj, Cohort, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_cs_prepare_umap_cohort_highlight', sep = ''), c(6, 5))
 
+
+# examine UMAP of age as a scalar
+age.sc <- scale_color_gradientn(colours = c("lightgrey","lightblue", "mediumblue2"), limits = c(0, 100))
+umap_age <- FeaturePlot(expt.obj, features = c("Age"), order = TRUE) + age.sc
+generate_figs(umap_age, paste('./plots/', experiment, '_cs_prepare_umap_age', sep = ''), c(6,5))
+
+
+
 # generate diffusion maps for metadata
 
 dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)

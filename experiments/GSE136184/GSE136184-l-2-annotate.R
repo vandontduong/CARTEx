@@ -184,21 +184,6 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_l_prepa
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-for (cell_ref in c("azimuth", "monaco", "dice")){
-  for (age_group in unique(md$AgeGroup2)) {
-    print(cell_ref)
-    print(age_group)
-    print(md[AgeGroup2 == age_group, .N, by = cell_ref])
-    md_temp <- md[AgeGroup2 == age_group, .N, by = cell_ref]
-    setkey(md_temp[, cell_ref := cell_ref], cell_ref)
-    setorder(md_temp, cols = cell_ref)
-    md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-    md_temp$label <- paste(md_temp$cell_ref, " (", md_temp$percent,"%)", sep = "")
-    md_temp$cols <- hcl.colors(n = nrow(md_temp), palette = "Temps")
-    barplot_temp <- ggplot(data= md_temp, aes(x=cell_ref, y=percent)) + geom_bar(stat="identity", fill = md_temp$cols)
-    generate_figs(barplot_temp, paste('./plots/', experiment, '_barplot_', cell_ref, '_', age_group, sep = ''))
-  }
-}
 
 barplot_azimuth_seurat_clusters <- BarPlotStackSplit(expt.obj, 'azimuth', 'seurat_clusters')
 generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_l_prepare_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))

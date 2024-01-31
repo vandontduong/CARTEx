@@ -151,8 +151,8 @@ unique(expt.obj[["monaco"]])
 expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_cs_prepare_umap_predicted_monaco', sep = ''))
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3'))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_cs_prepare_umap_predicted_monaco', sep = ''), c(7.5,5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_cs_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -184,21 +184,6 @@ generate_figs(featureplot_Tcell_markers, paste('./plots/', experiment, '_cs_prep
 md <- expt.obj@meta.data %>% as.data.table
 md[, .N, by = c("azimuth", "monaco", "dice")]
 
-for (cell_ref in c("azimuth", "monaco", "dice")){
-  for (age_group in unique(md$AgeGroup2)) {
-    print(cell_ref)
-    print(age_group)
-    print(md[AgeGroup2 == age_group, .N, by = cell_ref])
-    md_temp <- md[AgeGroup2 == age_group, .N, by = cell_ref]
-    setkey(md_temp[, cell_ref := cell_ref], cell_ref)
-    setorder(md_temp, cols = cell_ref)
-    md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-    md_temp$label <- paste(md_temp$cell_ref, " (", md_temp$percent,"%)", sep = "")
-    md_temp$cols <- hcl.colors(n = nrow(md_temp), palette = "Temps")
-    barplot_temp <- ggplot(data= md_temp, aes(x=cell_ref, y=percent)) + geom_bar(stat="identity", fill = md_temp$cols)
-    generate_figs(barplot_temp, paste('./plots/', experiment, '_barplot_', cell_ref, '_', age_group, sep = ''))
-  }
-}
 
 barplot_azimuth_seurat_clusters <- BarPlotStackSplit(expt.obj, 'azimuth', 'seurat_clusters')
 generate_figs(barplot_azimuth_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_barplot_azimuth_seurat_clusters', sep = ''), c(8,4))
@@ -215,7 +200,7 @@ generate_figs(barplot_phase_seurat_clusters, paste('./plots/', experiment, '_cs_
 barplot_azimuth_age_group <- BarPlotStackSplit(expt.obj, 'azimuth', 'AgeGroup2')
 generate_figs(barplot_azimuth_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_azimuth_age_group', sep = ''), c(8,4))
 
-barplot_monaco_age_group <- BarPlotStackSplit(expt.obj, 'monaco', 'AgeGroup2')
+barplot_monaco_age_group <- BarPlotStackSplit(expt.obj, 'monaco', 'AgeGroup2', color_set = c('deepskyblue','seagreen','darkgoldenrod','plum3'))
 generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_monaco_age_group', sep = ''), c(8,4))
 
 barplot_dice_age_group <- BarPlotStackSplit(expt.obj, 'dice', 'AgeGroup2')
@@ -223,7 +208,6 @@ generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_cs_prepare
 
 barplot_phase_age_group <- BarPlotStackSplit(expt.obj, 'Phase', 'AgeGroup2')
 generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_phase_age_group', sep = ''), c(8,4))
-
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_annotated.rds', sep = ''))
@@ -337,14 +321,26 @@ umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) +
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_84', sep = ''))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200', sep = ''))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_630', sep = ''))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_cs_prepare_umap_sig_activation', sep = ''))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_cs_prepare_umap_sig_anergy', sep = ''))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_cs_prepare_umap_sig_stemness', sep = ''))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_cs_prepare_umap_sig_senescence', sep = ''))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_84', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_630', sep = ''), c(6,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_cs_prepare_umap_sig_activation', sep = ''), c(6,5))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_cs_prepare_umap_sig_anergy', sep = ''), c(6,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_cs_prepare_umap_sig_stemness', sep = ''), c(6,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_cs_prepare_umap_sig_senescence', sep = ''), c(6,5))
 
+
+# Examine CARTEx scores grouped by age group
+vlnplot_CARTEx_630_age_group <- VlnPlot(expt.obj, feature = c("CARTEx_630"), group.by = "AgeGroup2", pt.size = 0) + theme(legend.position = 'none') + ylim(c(-3, 4)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_200_age_group <- VlnPlot(expt.obj, feature = c("CARTEx_200"), group.by = "AgeGroup2", pt.size = 0) + theme(legend.position = 'none') + ylim(c(-3, 4)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_84_age_group <- VlnPlot(expt.obj, feature = c("CARTEx_84"), group.by = "AgeGroup2", pt.size = 0) + theme(legend.position = 'none') + ylim(c(-3, 4)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+
+generate_figs(vlnplot_CARTEx_630_age_group, paste('./plots/', experiment, '_cs_prepare_vlnplot_CARTEx_630_age_group', sep = ''), c(7,5))
+generate_figs(vlnplot_CARTEx_200_age_group, paste('./plots/', experiment, '_cs_prepare_vlnplot_CARTEx_200_age_group', sep = ''), c(7,5))
+generate_figs(vlnplot_CARTEx_84_age_group, paste('./plots/', experiment, '_cs_prepare_vlnplot_CARTEx_84_age_group', sep = ''), c(7,5))
+
+
+###
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_scored.rds', sep = ''))
 

@@ -1,5 +1,10 @@
-# extract newborn data
-# Vandon Duong
+### Script name: GSE136184-3-extract.R
+### Description: extract young naive and old terminal
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
 experiment = 'GSE136184'
@@ -80,6 +85,7 @@ cellIDs_naiveCD8T <- Cells(expt.obj[, expt.obj[['monaco']] == 'Naive CD8 T cells
 cellIDs_terminalCD8T <- Cells(expt.obj[, expt.obj[['monaco']] == 'Terminal effector CD8 T cells'])
 
 expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% intersect(union(cellIDs_newborn, cellIDs_under30), cellIDs_naiveCD8T))]
+# expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% intersect(cellIDs_newborn, cellIDs_naiveCD8T))]
 expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% intersect(cellIDs_elderly, cellIDs_terminalCD8T))]
 
 # expt.obj.young_naive@meta.data$extract.ident <- "Young, naive CD8 T cells"
@@ -93,8 +99,8 @@ SelectSortCells <- function(atlas, module, direction, counts){
   return(cells)
 }
 
-cellIDs_YN_low <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'low', 1500)
-cellIDs_ET_high <- SelectSortCells(expt.obj.elderly_terminal, 'CARTEx_84', 'high', 1500)
+cellIDs_YN_low <- SelectSortCells(expt.obj.young_naive, 'CARTEx_84', 'low', 3000)
+cellIDs_ET_high <- SelectSortCells(expt.obj.elderly_terminal, 'CARTEx_84', 'high', 3000)
 
 # expt.obj.young_naive <- expt.obj[,(colnames(expt.obj) %in% cellIDs_YN_low)]
 # expt.obj.elderly_terminal <- expt.obj[,(colnames(expt.obj) %in% cellIDs_ET_high)]
@@ -133,7 +139,7 @@ expt.obj <- FindClusters(expt.obj, resolution = 0.5)
 expt.obj <- RunUMAP(expt.obj, dims = 1:10)
 
 Idents(expt.obj) <- "extract.ident"
-expt.obj <- RenameIdents(expt.obj, `Old, Terminal effector CD8 T cells` = "Old Terminal", `Young, Naive CD8 T cells` = "Young Naive")
+expt.obj <- RenameIdents(expt.obj, `Old, Terminal effector CD8 T cells` = "OldTerminal", `Young, Naive CD8 T cells` = "YoungNaive")
 table(Idents(expt.obj))
 expt.obj[['extract.ident']] <- Idents(expt.obj)
 table(expt.obj[['extract.ident']])

@@ -90,7 +90,7 @@ generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggpl
 
 
 
-# exclude post-
+# exclude post- (baseline only)
 Idents(query.obj.agg) <- "identifier5"
 query.obj.agg <- subset(query.obj.agg, idents = c("Post-NR", "Post-R"), invert = TRUE)
 md <- query.obj.agg@meta.data %>% as.data.table
@@ -112,4 +112,9 @@ aggplot_CARTEx_84_baseline <- md %>% ggplot(aes(identifier5, CARTEx_84)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 0.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.5)
 generate_figs(aggplot_CARTEx_84_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_baseline', sep = ''), c(6,5))
+
+
+
+
+
 
