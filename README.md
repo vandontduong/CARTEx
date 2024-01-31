@@ -7,6 +7,7 @@ This is the github repository for the CAR T cell exhaustion (CARTEx) signature p
   - [Datasets](#datasets)
   - [Utilities](#utilities)
   - [Analyses](#analyses)
+    - [GSE136184](#gse136184)
     - [GSE125881](#gse125881)
 - [Literature](#literature)
   - [Reviews](#reviews)
@@ -116,6 +117,16 @@ We established path variables to enable ease of general use, in which files can 
 ## Analyses <a name = "analyses"></a>
 
 We share some summarized analyses resulting from our custom pipelines. Select figures from [`experiments`](experiments) were reorganized and archived to [`miscellaneous`](miscellaneous) using bash script [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
+
+### GSE136184 <a name = "GSE136184"></a>
+
+The [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) experiment was the cross-sectional and longitudinal studies of CD8 T cells in humans spanning 9 decades of life.
+
+Working directory: [`GSE136184`](experiments/GSE136184)
+
+<img alt="GSE136184 UMAP age" src="miscellaneous/plots/GSE136184_cs_prepare_umap_age.jpeg" width="300" />
+
+<img alt="GSE136184 UMAP monaco" src="miscellaneous/plots/GSE136184_cs_prepare_umap_predicted_monaco.jpeg" width="300" />
 
 ### GSE125881 <a name = "GSE125881"></a>
 
