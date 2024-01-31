@@ -125,6 +125,7 @@ The [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) ex
 Working directory: [`GSE136184`](experiments/GSE136184)
 
 <img alt="GSE136184 UMAP age" src="miscellaneous/plots/GSE136184_cs_prepare_umap_age.jpeg" width="300" />
+<img alt="GSE136184 UMAP sex" src="miscellaneous/plots/GSE136184_cs_prepare_umap_sex.jpeg" width="300" />
 
 <img alt="GSE136184 UMAP monaco" src="miscellaneous/plots/GSE136184_cs_prepare_umap_predicted_monaco.jpeg" width="300" />
 
