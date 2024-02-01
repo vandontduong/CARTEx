@@ -149,7 +149,7 @@ generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(10, 8))
 
-umap_CAR <- DimPlot(expt.obj, reduction = "umap", group.by = "CAR", shuffle = TRUE, seed = 123)
+umap_CAR <- DimPlot(expt.obj, reduction = "umap", group.by = "CAR", shuffle = TRUE, seed = 123, cols = c('dodgerblue', 'indianred'))
 generate_figs(umap_CAR, paste('./plots/', experiment, '_prepare_umap_CAR', sep = ''), c(6, 5))
 
 umap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'umap', 'blue', 0.1, 2)

@@ -198,8 +198,8 @@ generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prep
 barplot_azimuth_group <- BarPlotStackSplit(expt.obj, 'azimuth', 'Group')
 generate_figs(barplot_azimuth_group, paste('./plots/', experiment, '_prepare_barplot_azimuth_group', sep = ''), c(8,4))
 
-barplot_monaco_group <- BarPlotStackSplit(expt.obj, 'monaco', 'Group')
-generate_figs(barplot_monaco_group, paste('./plots/', experiment, '_prepare_barplot_monaco_group', sep = ''), c(8,4))
+barplot_monaco_group <- BarPlotStackSplit(expt.obj, 'monaco', 'Group', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_group, paste('./plots/', experiment, '_prepare_barplot_monaco_group', sep = ''), c(6,4))
 
 barplot_dice_group <- BarPlotStackSplit(expt.obj, 'dice', 'Group')
 generate_figs(barplot_dice_group, paste('./plots/', experiment, '_prepare_barplot_dice_group', sep = ''), c(8,4))

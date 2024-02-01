@@ -75,12 +75,15 @@ md_mean_values <- md %>% group_by(identifier2) %>% summarise(avg = mean(CARTEx_8
 
 aggplot_qk_CARTEx_84 <- md_mean_values %>% ggplot(aes(identifier2, avg)) +
   geom_col(aes(fill = identifier2), color = "black", width = 0.85) +
-  geom_errorbar(aes(ymin = avg - stdev, ymax = avg + stdev), color = "#22292F", width = 0.1)
+  geom_errorbar(aes(ymin = avg - stdev, ymax = avg + stdev), color = "#22292F", width = 0.1) +
+  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid"))
 generate_figs(aggplot_qk_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_qk_CARTEx_84', sep = ''), c(6,5))
 
+# scale_fill_manual(c("IP" = "red", "ExpansionPeak" = "violetred", "Contraction" = "violet", "Late" = "purple", "YoungNaive" = "royalblue", "oldterminal" = "orchid")
 
 aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','OldTerminal')), label = "p.signif", label.y = 2) +
@@ -88,7 +91,25 @@ aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Contraction','Late')), label = "p.signif", label.y = 1)
 generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(6,5))
 
+aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','OldTerminal')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Contraction','Late')), label = "p.signif", label.y = 1)
+generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(6,5))
 
+aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','ExpansionPeak')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('ExpansionPeak','OldTerminal')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Contraction','Late')), label = "p.signif", label.y = 1)
+generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(6,5))
 
 
 
