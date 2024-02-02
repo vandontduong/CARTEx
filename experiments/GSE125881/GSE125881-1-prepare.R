@@ -183,9 +183,10 @@ generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_um
 
 # umap_timepoint_cols <- c('IP' = 'red', 'd12' = 'violetred', 'd21' = 'violetred', 'd28' = 'violet', 'd29' = 'violet', 'd38' = 'violet', 'd83' = 'purple', 'd89' = 'purple', 'd102' = 'purple', 'd112' = 'purple')
 # https://stackoverflow.com/questions/13353213/gradient-of-n-colors-ranging-from-color-1-and-color-2
-umap_timepoint_cols <- colorRampPalette(c("red","violetred","violet","purple"))(length(unique(expt.obj@meta.data$TimePoint)))
+# umap_timepoint_cols <- colorRampPalette(c("red","violetred","violet","purple"))(length(unique(expt.obj@meta.data$TimePoint)))
+umap_timepoint_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue2"))(length(unique(expt.obj@meta.data$TimePoint)))
 umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123, cols = umap_timepoint_cols)
-generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(6.5, 5))
+generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(6, 5))
 
 umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'umap', 'blue', 0.1, 5)
 generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(25, 14))
@@ -198,7 +199,7 @@ umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 
 generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(14, 14))
 
 umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123)
-generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''))
+generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''), c(6,5))
 
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(15, 8))
