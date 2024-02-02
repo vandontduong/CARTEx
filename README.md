@@ -193,7 +193,7 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 [Zappia and Oshlack 2018 GigaScience](https://pubmed.ncbi.nlm.nih.gov/30010766/) describes clustering trees as a visualization of clusterings across many resolutions.
 
-
+[Böhm et al. 2022 Journal of Machine Learning Research](https://dl.acm.org/doi/abs/10.5555/3586589.3586684) describes neighborhood embeddings across attraction-repulsion spectrum.
 
 
 
