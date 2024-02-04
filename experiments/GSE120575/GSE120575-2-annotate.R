@@ -149,8 +149,8 @@ unique(expt.obj[["monaco"]])
 expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(6.5, 5))
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(7.5, 5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -194,14 +194,14 @@ generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prep
 barplot_azimuth_response <- BarPlotStackSplit(expt.obj, 'azimuth', 'characteristics_response')
 generate_figs(barplot_azimuth_response, paste('./plots/', experiment, '_prepare_barplot_azimuth_response', sep = ''), c(8,4))
 
-barplot_monaco_response <- BarPlotStackSplit(expt.obj, 'monaco', 'characteristics_response')
-generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''), c(8,4))
+barplot_monaco_response <- BarPlotStackSplit(expt.obj, 'monaco', 'characteristics_response', color_set = c("deepskyblue", "seagreen", "darkgoldenrod", "plum3"))
+generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''), c(6,4))
 
 barplot_dice_response <- BarPlotStackSplit(expt.obj, 'dice', 'characteristics_response')
 generate_figs(barplot_dice_response, paste('./plots/', experiment, '_prepare_barplot_dice_response', sep = ''), c(8,4))
 
-barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'characteristics_response')
-generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(8,4))
+barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'characteristics_response', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(5,4))
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
@@ -325,6 +325,8 @@ generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
+
+# expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
