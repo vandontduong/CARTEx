@@ -201,13 +201,13 @@ barplot_azimuth_age_group <- BarPlotStackSplit(expt.obj, 'azimuth', 'AgeGroup2')
 generate_figs(barplot_azimuth_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_azimuth_age_group', sep = ''), c(8,4))
 
 barplot_monaco_age_group <- BarPlotStackSplit(expt.obj, 'monaco', 'AgeGroup2', color_set = c('deepskyblue','seagreen','darkgoldenrod','plum3'))
-generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_monaco_age_group', sep = ''), c(8,4))
+generate_figs(barplot_monaco_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_monaco_age_group', sep = ''), c(6,4))
 
 barplot_dice_age_group <- BarPlotStackSplit(expt.obj, 'dice', 'AgeGroup2')
 generate_figs(barplot_dice_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_dice_age_group', sep = ''), c(8,4))
 
-barplot_phase_age_group <- BarPlotStackSplit(expt.obj, 'Phase', 'AgeGroup2')
-generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_phase_age_group', sep = ''), c(8,4))
+barplot_phase_age_group <- BarPlotStackSplit(expt.obj, 'Phase', 'AgeGroup2', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_age_group, paste('./plots/', experiment, '_cs_prepare_barplot_phase_age_group', sep = ''), c(5,4))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_annotated.rds', sep = ''))

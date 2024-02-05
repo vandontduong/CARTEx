@@ -283,6 +283,31 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
+
+# examine other signatures
+NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
+Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
+BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
+PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
+
+expt.obj <- AddModuleScore(expt.obj, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+
+expt.obj@meta.data$NKlike_Tex <- scale(expt.obj@meta.data$Signature1)
+expt.obj@meta.data$LCMV_Tex <- scale(expt.obj@meta.data$Signature2)
+expt.obj@meta.data$BBD_Tex <- scale(expt.obj@meta.data$Signature3)
+expt.obj@meta.data$PD1_Tex <- scale(expt.obj@meta.data$Signature4)
+
+expt.obj@meta.data$NKlike_Texi <- integerize(expt.obj@meta.data$NKlike_Tex)
+expt.obj@meta.data$LCMV_Texi <- integerize(expt.obj@meta.data$LCMV_Tex)
+expt.obj@meta.data$BBD_Texi <- integerize(expt.obj@meta.data$BBD_Tex)
+expt.obj@meta.data$PD1_Texi <- integerize(expt.obj@meta.data$PD1_Tex)
+
+expt.obj@meta.data$Signature1 <- NULL
+expt.obj@meta.data$Signature2 <- NULL
+expt.obj@meta.data$Signature3 <- NULL
+expt.obj@meta.data$Signature4 <- NULL
+
+
 # UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
 generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''), c(6,5))
@@ -319,6 +344,10 @@ umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order =
 umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
+umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE) + fix.sc
+umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) + fix.sc
+umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
+umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(6,5))
 generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(6,5))
@@ -327,6 +356,10 @@ generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(6,5))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(6,5))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(6,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(6,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(6,5))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))

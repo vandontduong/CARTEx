@@ -141,7 +141,8 @@ aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier5, CARTEx_84)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Post-NR')), label = "p.signif", label.y = 0.75) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','Post-R')), label = "p.signif", label.y = 0.75) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.25)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.25) +
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(6,5))
 
 
@@ -161,10 +162,10 @@ query.obj.agg@meta.data$Anergy <- scale(query.obj.agg@meta.data$Anergy)
 query.obj.agg@meta.data$Stemness <- scale(query.obj.agg@meta.data$Stemness)
 query.obj.agg@meta.data$Senescence <- scale(query.obj.agg@meta.data$Senescence)
 
-query.obj.agg@meta.data$NKlike_Tex <- scale(query.obj.agg@meta.data$Signature1)
-query.obj.agg@meta.data$LCMV_Tex <- scale(query.obj.agg@meta.data$Signature2)
-query.obj.agg@meta.data$BBD_Tex <- scale(query.obj.agg@meta.data$Signature3)
-query.obj.agg@meta.data$PD1_Tex <- scale(query.obj.agg@meta.data$Signature4)
+query.obj.agg@meta.data$NKlike_Tex <- scale(query.obj.agg@meta.data$NKlike_Tex)
+query.obj.agg@meta.data$LCMV_Tex <- scale(query.obj.agg@meta.data$LCMV_Tex)
+query.obj.agg@meta.data$BBD_Tex <- scale(query.obj.agg@meta.data$BBD_Tex)
+query.obj.agg@meta.data$PD1_Tex <- scale(query.obj.agg@meta.data$PD1_Tex)
 
 
 md <- query.obj.agg@meta.data %>% as.data.table
@@ -184,7 +185,8 @@ aggplot_CARTEx_84_baseline <- md %>% ggplot(aes(identifier5, CARTEx_84)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_CARTEx_84_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_baseline', sep = ''), c(6,5))
 
 aggplot_CARTEx_200_baseline <- md %>% ggplot(aes(identifier5, CARTEx_200)) +
@@ -192,7 +194,8 @@ aggplot_CARTEx_200_baseline <- md %>% ggplot(aes(identifier5, CARTEx_200)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_CARTEx_200_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200_baseline', sep = ''), c(6,5))
 
 aggplot_CARTEx_630_baseline <- md %>% ggplot(aes(identifier5, CARTEx_630)) +
@@ -200,7 +203,8 @@ aggplot_CARTEx_630_baseline <- md %>% ggplot(aes(identifier5, CARTEx_630)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_CARTEx_630_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630_baseline', sep = ''), c(6,5))
 
 
@@ -208,53 +212,52 @@ generate_figs(aggplot_CARTEx_630_baseline, paste('./plots/', experiment, '_query
 aggplot_activation_baseline <- md %>% ggplot(aes(identifier5, Activation)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_activation_baseline, paste('./plots/', experiment, '_query_agg_aggplot_activation_baseline', sep = ''), c(6,5))
 
 aggplot_anergy_baseline <- md %>% ggplot(aes(identifier5, Anergy)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_anergy_baseline, paste('./plots/', experiment, '_query_agg_aggplot_anergy_baseline', sep = ''), c(6,5))
 
 aggplot_senescence_baseline <- md %>% ggplot(aes(identifier5, Senescence)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_senescence_baseline, paste('./plots/', experiment, '_query_agg_aggplot_senescence_baseline', sep = ''), c(6,5))
 
 aggplot_stemness_baseline <- md %>% ggplot(aes(identifier5, Stemness)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_stemness_baseline, paste('./plots/', experiment, '_query_agg_aggplot_stemness_baseline', sep = ''), c(6,5))
+
 
 
 aggplot_NKlike_Tex_baseline <- md %>% ggplot(aes(identifier5, NKlike_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_NKlike_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex_baseline', sep = ''), c(6,5))
 
 aggplot_LCMV_Tex_baseline <- md %>% ggplot(aes(identifier5, LCMV_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7)
+  xlab("T cells and controls") + geom_point()
 generate_figs(aggplot_LCMV_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex_baseline', sep = ''), c(6,5))
 
+aggplot_BBD_Tex_baseline <- md %>% ggplot(aes(identifier5, BBD_Tex)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
+  xlab("T cells and controls") + geom_point()
+generate_figs(aggplot_BBD_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex_baseline', sep = ''), c(6,5))
 
+aggplot_PD1_Tex_baseline <- md %>% ggplot(aes(identifier5, PD1_Tex)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
+  xlab("T cells and controls") + geom_point()
+generate_figs(aggplot_PD1_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex_baseline', sep = ''), c(6,5))
 
 
 
