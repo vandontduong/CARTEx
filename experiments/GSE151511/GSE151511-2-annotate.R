@@ -152,7 +152,7 @@ unique(expt.obj[["monaco"]])
 expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(6.5, 5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
@@ -194,32 +194,35 @@ generate_figs(barplot_monaco_seurat_clusters, paste('./plots/', experiment, '_pr
 barplot_dice_seurat_clusters <- BarPlotStackSplit(expt.obj, 'dice', 'seurat_clusters')
 generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_dice_seurat_clusters', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('azimuth', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_azimuth_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = azimuth)) + geom_col(position = "fill")
-generate_figs(barplot_azimuth_CAR, paste('./plots/', experiment, '_barplot_azimuth_CAR', sep = ''))
+barplot_azimuth_patient <- BarPlotStackSplit(expt.obj, 'azimuth', 'orig.ident')
+generate_figs(barplot_azimuth_patient, paste('./plots/', experiment, '_prepare_barplot_azimuth_patient', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('monaco', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_monaco_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = monaco)) + geom_col(position = "fill")
-generate_figs(barplot_monaco_CAR, paste('./plots/', experiment, '_barplot_monaco_CAR', sep = ''))
+barplot_monaco_patient <- BarPlotStackSplit(expt.obj, 'monaco', 'orig.ident', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_patient, paste('./plots/', experiment, '_prepare_barplot_monaco_patient', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('dice', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_dice_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = dice)) + geom_col(position = "fill")
-generate_figs(barplot_dice_CAR, paste('./plots/', experiment, '_barplot_dice_CAR', sep = ''))
+barplot_dice_patient <- BarPlotStackSplit(expt.obj, 'dice', 'orig.ident')
+generate_figs(barplot_dice_patient, paste('./plots/', experiment, '_prepare_barplot_dice_patient', sep = ''), c(8,4))
 
-md_temp <- md[, .N, by = c('Phase', 'orig.ident')]
-md_temp$percent <- round(100*md_temp$N / sum(md_temp$N), digits = 1)
-barplot_phase_CAR <- ggplot(md_temp, aes(x = orig.ident, y = N, fill = Phase)) + geom_col(position = "fill")
-generate_figs(barplot_phase_CAR, paste('./plots/', experiment, '_barplot_phase_CAR', sep = ''))
+barplot_phase_patient <- BarPlotStackSplit(expt.obj, 'Phase', 'orig.ident', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_patient, paste('./plots/', experiment, '_prepare_barplot_phase_patient', sep = ''), c(8,4))
 
+barplot_azimuth_response <- BarPlotStackSplit(expt.obj, 'azimuth', 'Responder')
+generate_figs(barplot_azimuth_response, paste('./plots/', experiment, '_prepare_barplot_azimuth_response', sep = ''), c(8,4))
+
+barplot_monaco_response <- BarPlotStackSplit(expt.obj, 'monaco', 'Responder', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''), c(6,4))
+
+barplot_dice_response <- BarPlotStackSplit(expt.obj, 'dice', 'Responder')
+generate_figs(barplot_dice_response, paste('./plots/', experiment, '_prepare_barplot_dice_response', sep = ''), c(8,4))
+
+barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'Responder', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(5,4))
 
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 ####################################################################################################
 ########################################### Entropy scoring ########################################
@@ -243,6 +246,9 @@ generate_figs(rogue_boxplot_monaco_group, paste('./plots/', experiment, '_prepar
 ####################################################################################################
 ########################################### CARTEx scoring #########################################
 ####################################################################################################
+
+# expt.obj@assays$RNA@layers$counts <- expt.obj@assays$RNA@counts
+
 
 # CARTEx with weights // 630 genes
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
@@ -292,6 +298,31 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
+
+# examine other signatures
+NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
+Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
+BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
+PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
+
+expt.obj <- AddModuleScore(expt.obj, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+
+expt.obj@meta.data$NKlike_Tex <- scale(expt.obj@meta.data$Signature1)
+expt.obj@meta.data$LCMV_Tex <- scale(expt.obj@meta.data$Signature2)
+expt.obj@meta.data$BBD_Tex <- scale(expt.obj@meta.data$Signature3)
+expt.obj@meta.data$PD1_Tex <- scale(expt.obj@meta.data$Signature4)
+
+expt.obj@meta.data$NKlike_Texi <- integerize(expt.obj@meta.data$NKlike_Tex)
+expt.obj@meta.data$LCMV_Texi <- integerize(expt.obj@meta.data$LCMV_Tex)
+expt.obj@meta.data$BBD_Texi <- integerize(expt.obj@meta.data$BBD_Tex)
+expt.obj@meta.data$PD1_Texi <- integerize(expt.obj@meta.data$PD1_Tex)
+
+expt.obj@meta.data$Signature1 <- NULL
+expt.obj@meta.data$Signature2 <- NULL
+expt.obj@meta.data$Signature3 <- NULL
+expt.obj@meta.data$Signature4 <- NULL
+
+
 # UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
 generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''))
@@ -328,17 +359,27 @@ umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order =
 umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
+umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE) + fix.sc
+umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) + fix.sc
+umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
+umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(6,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(6,5))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(6,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(6,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(6,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(6,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(6,5))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
+
+# expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 

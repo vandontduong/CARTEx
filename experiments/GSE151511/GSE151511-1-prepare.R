@@ -250,16 +250,16 @@ umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_cluste
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.ident", shuffle = TRUE, seed = 123)
-generate_figs(umap_patient, paste('./plots/', experiment, '_umap_patient', sep = ''), c(6.5,5))
+generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''), c(6.5,5))
 
-umap_clinicalresponse <- DimPlot(expt.obj, reduction = "umap", group.by = "ClinicalResponse", shuffle = TRUE, seed = 123)
-generate_figs(umap_clinicalresponse, paste('./plots/', experiment, '_umap_clinicalresponse', sep = ''), c(6.5,5))
+umap_clinicalresponse <- DimPlot(expt.obj, reduction = "umap", group.by = "ClinicalResponse", shuffle = TRUE, seed = 123, cols = c("seagreen", "slateblue", "firebrick", "lightgrey"))
+generate_figs(umap_clinicalresponse, paste('./plots/', experiment, '_prepare_umap_clinicalresponse', sep = ''), c(6,5))
 
-umap_responder <- DimPlot(expt.obj, reduction = "umap", group.by = "Responder", shuffle = TRUE, seed = 123)
-generate_figs(umap_responder, paste('./plots/', experiment, '_umap_responder', sep = ''), c(6.5,5))
+umap_responder <- DimPlot(expt.obj, reduction = "umap", group.by = "Responder", shuffle = TRUE, seed = 123, cols = c("seagreen", "firebrick", "lightgrey"))
+generate_figs(umap_responder, paste('./plots/', experiment, '_prepare_umap_responder', sep = ''), c(6.5,5))
 
-umap_EMR <- DimPlot(expt.obj, reduction = "umap", group.by = "EMR", shuffle = TRUE, seed = 123)
-generate_figs(umap_EMR, paste('./plots/', experiment, '_umap_EMR', sep = ''), c(6.5,5))
+umap_EMR <- DimPlot(expt.obj, reduction = "umap", group.by = "EMR", shuffle = TRUE, seed = 123, cols = c("seagreen", "firebrick", "lightgrey"))
+generate_figs(umap_EMR, paste('./plots/', experiment, '_prepare_umap_EMR', sep = ''), c(6.5,5))
 
 
 

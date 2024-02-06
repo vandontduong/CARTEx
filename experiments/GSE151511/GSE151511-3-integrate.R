@@ -1,45 +1,17 @@
-# integrate seurat object
-# Vandon Duong
+#!/usr/bin/env Rscript
+
+### Script name: GSE151511-3-integrate.R
+### Description: integrate seurat object for GSE151511
+### Author: Vandon Duong
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
 
 set.seed(123)
-
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE151511'
-
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
-
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(data.table)
-library(EnhancedVolcano)
-
-####################################################################################################
-############################################# Functions ############################################
-####################################################################################################
-
-Z=function(s){
-  s=as.numeric(s)
-  z=(s - mean(s))/sd(s)
-  return (z)
-}
-
-generate_figs = function(figure_object, file_name, dimensions){
-  if(missing(dimensions)){
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  } else {
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
-  }
-  return (paste("generating figure for ", file_name))
-}
-
-integerize = function(score){
-  score_mod = round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
-  return (score_mod)
-}
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
@@ -49,12 +21,10 @@ integerize = function(score){
 # https://satijalab.org/seurat/articles/integration_introduction.html
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
-expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
-aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_annotated_cross.rds")
-ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_CD8pos_annotated.rds")
-# ref.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE164378/data/GSE164378_cellcycle.rds") # T cell reference ?
-# ref.obj <- SetIdent(ref.obj, value = "celltype.l1")
-# ref.obj <- subset(ref.obj, idents = c("CD4 T", "CD8 T", "other T"))
+expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
+# aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
+aging.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE136184/data/GSE136184_aging_extract.rds", sep = ''))
+ref.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE164378/data/GSE164378_CD8pos_scored.rds", sep = ''))
 
 # add experiment identifier
 expt.obj@meta.data[['identifier']] <- experiment
@@ -62,15 +32,16 @@ aging.obj@meta.data[['identifier']] <- "GSE136184"
 ref.obj@meta.data[['identifier']] <- "GSE164378"
 
 expt.obj@meta.data[['identifier2']] <- expt.obj@meta.data$Responder
-aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+# aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$AgeGroup2
+aging.obj@meta.data[['identifier2']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier2']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[['identifier2_CRS']] <- expt.obj@meta.data$CRS
-aging.obj@meta.data[['identifier2_CRS']] <- aging.obj@meta.data$AgeGroup2
+aging.obj@meta.data[['identifier2_CRS']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier2_CRS']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[['identifier2_ICANS']] <- expt.obj@meta.data$ICANS
-aging.obj@meta.data[['identifier2_ICANS']] <- aging.obj@meta.data$AgeGroup2
+aging.obj@meta.data[['identifier2_ICANS']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier2_ICANS']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[["split.ident"]] <- "Query"
@@ -107,9 +78,34 @@ integration.obj <- FindClusters(integration.obj, resolution = 0.5)
 
 head(integration.obj)
 
+integration.obj$identifier <- factor(integration.obj$identifier, levels = c(experiment, "GSE136184", "GSE164378"))
+unique(integration.obj$identifier)
+
+integration.obj$identifier2 <- factor(integration.obj$identifier2, levels = c(names(table(expt.obj$identifier2)), names(table(aging.obj$identifier2)), names(table(ref.obj$identifier2))))
+table(integration.obj$identifier2)
+
+integration.obj$identifier2_CRS <- factor(integration.obj$identifier2_CRS, levels = c(names(table(expt.obj$identifier2_CRS)), names(table(aging.obj$identifier2_CRS)), names(table(ref.obj$identifier2_CRS))))
+table(integration.obj$identifier2_CRS)
+
+integration.obj$identifier2_ICANS <- factor(integration.obj$identifier2_ICANS, levels = c(names(table(expt.obj$identifier2_ICANS)), names(table(aging.obj$identifier2_ICANS)), names(table(ref.obj$identifier2_ICANS))))
+table(integration.obj$identifier2_ICANS)
+
+unique(integration.obj$azimuth)
+integration.obj$azimuth <- factor(integration.obj$azimuth, levels = c("CD8 Naive", "CD8 Proliferating", "CD8 TCM", "CD8 TEM"))
+
+unique(integration.obj$monaco)
+integration.obj$monaco <- factor(integration.obj$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+unique(integration.obj$dice)
+integration.obj$dice <- factor(integration.obj$dice, levels = c("T cells, CD8+, naive", "T cells, CD8+, naive, stimulated"))
+
+unique(integration.obj$split.ident)
+integration.obj$split.ident <- factor(integration.obj$split.ident, levels = c("Query", "Reference"))
+
+
 saveRDS(integration.obj, file = paste('./data/', experiment, '_integrated.rds', sep = ''))
 
-integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+# integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 integrated_umap_identifier <- DimPlot(integration.obj, reduction = "umap", group.by = "identifier2", split.by = "identifier", shuffle = TRUE, seed = 123, raster = FALSE)
 generate_figs(integrated_umap_identifier, paste('./plots/', experiment, '_integrated_umap_identifier', sep = ''), c(12, 5))
@@ -156,7 +152,7 @@ generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_inte
 ####################################### Examine query datasets #####################################
 ####################################################################################################
 
-integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
+# integration.obj <- readRDS(paste('./data/', experiment, '_integrated.rds', sep = ''))
 
 query.list <- SplitObject(integration.obj, split.by = "split.ident")
 query.obj <- query.list$Query
@@ -200,36 +196,9 @@ query.obj@meta.data$CARTEx_84 <- Z(scores)
 query.obj@meta.data$CARTEx_84i <- integerize(query.obj@meta.data$CARTEx_84)
 
 
-####################################################################################################
-########################################### Module scoring #########################################
-####################################################################################################
-
-activation_sig <- rownames(read.csv("../../signatures/panther-activation.csv", header = TRUE, row.names = 1))
-anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.csv", header = TRUE, row.names = 1))
-stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
-senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
-
-query.obj <- AddModuleScore(query.obj, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
-
-# z score normalization
-query.obj@meta.data$Activation <- scale(query.obj@meta.data$State1)
-query.obj@meta.data$Anergy <- scale(query.obj@meta.data$State2)
-query.obj@meta.data$Stemness <- scale(query.obj@meta.data$State3)
-query.obj@meta.data$Senescence <- scale(query.obj@meta.data$State4)
-
-query.obj@meta.data$Activationi <- integerize(query.obj@meta.data$Activation)
-query.obj@meta.data$Anergyi <- integerize(query.obj@meta.data$Anergy)
-query.obj@meta.data$Stemnessi <- integerize(query.obj@meta.data$Stemness)
-query.obj@meta.data$Senescencei <- integerize(query.obj@meta.data$Senescence)
-
-query.obj@meta.data$State1 <- NULL
-query.obj@meta.data$State2 <- NULL
-query.obj@meta.data$State3 <- NULL
-query.obj@meta.data$State4 <- NULL
-
 saveRDS(query.obj, file = paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
-query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
+# query.obj <- readRDS(paste('./data/', experiment, '_query_scored.rds', sep = ''))
 
 head(query.obj)
 unique(query.obj$identifier2)
