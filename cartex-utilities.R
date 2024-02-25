@@ -254,7 +254,7 @@ HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group)
   
   heatmap_anno = HeatmapAnnotation(df = ordered_meta_data,
                                    show_annotation_name = TRUE,
-                                   col = annotation_colors)
+                                   col = anno_colors)
   
   col_fun = circlize::colorRamp2(c(-1, 0, 3), c("#FF00FF", "black", "#FFFF00"))
   

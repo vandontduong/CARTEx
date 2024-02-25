@@ -63,7 +63,30 @@ annotation_colors <- list("AgeGroup2"= c("Newborn" = "red",
                           "monaco" = c("Naive CD8 T cells" = "deepskyblue",
                                        "Central memory CD8 T cells" = "seagreen",
                                        "Effector memory CD8 T cells" = "darkgoldenrod",
+                                       "Terminal effector CD8 T cells" = "plum3"),
+                          "Phase" = c("G1" = "#089392",
+                                      "S" = "#EAE29C",
+                                      "G2M" = "#CF597E"))
+
+annotation_colors <- list("AgeGroup2"= c("Newborn" = "red",
+                                         "Under 30" = "orange",
+                                         "Under 50" = "gray",
+                                         "Under 70" = "green",
+                                         "Elderly" = "purple"),
+                          "monaco" = c("Naive CD8 T cells" = "deepskyblue",
+                                       "Central memory CD8 T cells" = "seagreen",
+                                       "Effector memory CD8 T cells" = "darkgoldenrod",
                                        "Terminal effector CD8 T cells" = "plum3"))
+
+
+annotation_colors <- list("AgeGroup2"= c("Newborn" = "red",
+                                         "Under 30" = "orange",
+                                         "Under 50" = "gray",
+                                         "Under 70" = "green",
+                                         "Elderly" = "purple"),
+                          "Phase" = c("G1" = "#089392",
+                                      "S" = "#EAE29C",
+                                      "G2M" = "#CF597E"))
 
 
 test <- HeatmapWithMultiGroups(expt.obj.downsample, rownames(cartex_200_weights), annotation_colors, 'AgeGroup2')
