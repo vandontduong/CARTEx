@@ -31,12 +31,15 @@ library(clustree)
 library(ROGUE)
 library(glmGamPoi)
 library(ggbeeswarm)
+library(ComplexUpset) # library(UpSetR)
+library(ComplexHeatmap)
 
 # absolute path to where the project directory resides
 PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
 
 # relative paths
 PATH_CELLANNOTATE <- paste(PATH_CARTEX, 'cellannotate/', sep = '')
+PATH_CONSTRUCTION <- paste(PATH_CARTEX, 'construction/', sep = '')
 PATH_EXPERIMENTS <- paste(PATH_CARTEX, 'experiments/', sep = '')
 PATH_SIGNATURES <- paste(PATH_CARTEX, 'signatures/', sep = '')
 PATH_WEIGHTS <- paste(PATH_CARTEX, 'weights/', sep = '')
@@ -231,6 +234,41 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # Here are two ways to capture cells which match; the latter works within defined function
 # WhichCells(object = integration.obj, expression = identifier == experiment)
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
+
+
+#####
+# function: heatmap
+
+HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group){
+  meta_data <- atlas@meta.data
+  # sort_by_group <- names(anno_colors)[anno_i]
+  ordered_meta_data <- meta_data[order(meta_data[[sort_by_group]]), ]
+  
+  common <- intersect(gene_list, rownames(atlas))
+  
+  scale_data <- atlas@assays$RNA@scale.data
+  scale_data <- scale_data[match(common, rownames(atlas)), rownames(ordered_meta_data)]
+  
+  ordered_meta_data <- select(ordered_meta_data, names(anno_colors))
+  rownames(ordered_meta_data) <- NULL
+  
+  heatmap_anno = HeatmapAnnotation(df = ordered_meta_data,
+                                   show_annotation_name = TRUE,
+                                   col = annotation_colors)
+  
+  col_fun = circlize::colorRamp2(c(-1, 0, 3), c("#FF00FF", "black", "#FFFF00"))
+  
+  heatmap_plt <- Heatmap(scale_data, col = col_fun, cluster_rows = FALSE, cluster_columns = FALSE,
+                         column_order = NULL, show_row_dend = FALSE, show_column_dend = FALSE, show_row_names = TRUE, show_column_names = FALSE,
+                         use_raster = TRUE, bottom_annotation = NULL, top_annotation = heatmap_anno)
+  
+  return(heatmap_plt)
+}
+
+
+# https://divingintogeneticsandgenomics.com/post/enhancement-of-scrnaseq-heatmap-using-complexheatmap/
+# https://bioinformatics.stackexchange.com/questions/4851/how-i-can-reproduce-this-heat-map
+
 
 #####
 # function: Bar plot stacked and split according to two different identity groups
