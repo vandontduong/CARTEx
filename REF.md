@@ -19,6 +19,8 @@ Additional modules: biology physics geos/3.6.2 hdf5/1.12.2
 
 `du -hs $(ls -A)` to examine directory storage
 
+`~/ondemand/data/sys/dashboard/batch_connect/sys/sh_rstudio`
+
 `~/.rstudio/ctx/ctx-8787/environmentTmp` 
 
 `squeue -u vandon` to examine job lists
