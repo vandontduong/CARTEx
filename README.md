@@ -71,9 +71,9 @@ General procedure for scRNAseq analyses:
 | scRNAseq | [Zenodo 3993994](https://zenodo.org/record/3993994) | T cells from patients with Parkinson's disease | [Wang et al. 2021 Cell Discovery](https://www.nature.com/articles/s41421-021-00280-3) |
 | scRNAseq | [GSE196606](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE196606) | T cells from NBEAL2-deficient patients with thrombocytopenia | [Delage et al. 2023 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/37349339/) |
 | scRNAseq | [GSE146264](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE146264) | CD8+ T cell from autoimmune patients with psoriasis | [Liu et al. 2021 Journal of Allergy and Clinical Immunology](https://pubmed.ncbi.nlm.nih.gov/33309739/) |
-| scRNAseq | [mdanderson TCM](https://singlecell.mdanderson.org/TCM/) | Integrated atlas of T cells from numerous cancer types | [Chu et al. 2023 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/37248301/) 
-| scRNAseq | [GSE168940](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE168940) | Circulating CAR T cells in cancer patients | [Good et al. 2022 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/36097223/)
-
+| scRNAseq | [mdanderson TCM](https://singlecell.mdanderson.org/TCM/) | Integrated atlas of T cells from numerous cancer types | [Chu et al. 2023 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/37248301/) |
+| scRNAseq | [GSE168940](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE168940) | Circulating CAR T cells in cancer patients | [Good et al. 2022 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/36097223/) |
+| scRNAseq | [GSE160160](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE160160) | Continuous antigen exposure in CAR T cells | [Good et al. 2021 Cell](https://pubmed.ncbi.nlm.nih.gov/34861191/) |
 
 
 
