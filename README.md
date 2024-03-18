@@ -76,7 +76,7 @@ General procedure for scRNAseq analyses:
 | scRNAseq | [GSE160160](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE160160) | Continuous antigen exposure in CAR T cells | [Good et al. 2021 Cell](https://pubmed.ncbi.nlm.nih.gov/34861191/) |
 | scRNAseq | [GSE221070](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE221070) | Adapter CAR T cells over time | [Nixdorf et al. 2023 Leukemia](https://pubmed.ncbi.nlm.nih.gov/37106163/) |
 | scRNAseq | [GSE261475](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE261475) | Engineered CD47 CAR T cells | draft |
-
+| scRNAseq | [GSE255850](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE255850) | Phase 1 study of CAR T cells for glioma | [Brown et al. 2023 preprint](https://www.researchsquare.com/article/rs-3117663/v1) |
 
 
 [More notes](REF.md)
