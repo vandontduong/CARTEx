@@ -417,6 +417,13 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_scored.rds', sep = ''
 
 head(expt.obj)
 
+umap_gene_ADGRG1 <- FeaturePlot(expt.obj, features = "ADGRG1")
+generate_figs(umap_gene_ADGRG1, paste('./plots/', experiment, '_cs_prepare_umap_gene_ADGRG1', sep = ''), c(6,5) )
+
+umap_gene_MT2A <- FeaturePlot(expt.obj, features = "MT2A")
+generate_figs(umap_gene_MT2A, paste('./plots/', experiment, '_cs_prepare_umap_gene_MT2A', sep = ''), c(6,5) )
+
+
 # report time
 print("The script has completed...")
 proc.time() - ptm

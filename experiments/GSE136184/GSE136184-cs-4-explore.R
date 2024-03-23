@@ -93,7 +93,3 @@ test <- HeatmapWithMultiGroups(expt.obj.downsample, rownames(cartex_200_weights)
 generate_figs(as.grob(test), paste0('./plots/', experiment, '_cs_explore_heatmap_test'), c(15, 12))
 
 
-
-
-
-

@@ -68,5 +68,50 @@ vlnplot_SYK_substrates <- VlnPlot(expt.obj, features = c('SYK', 'ARHGDIA', 'BTK'
 generate_figs(vlnplot_SYK_substrates, paste0('./plots/', experiment, '_explore_vlnplot_SYK_substrates'), c(15, 15))
 
 
+# Compare CAE to day0
+
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+de_genes <- FindMarkers(expt.obj, ident.1 = "CAE", ident.2 = "day0", group.by = "exposure", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
+signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_CAEvday0 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         selectLab = rownames(signif), drawConnectors = TRUE,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_CAEvday0, paste('./plots/', experiment, '_explore_volcano_CAEvday0', sep = ''), c(10, 8))
+
+
+FeaturePlot(expt.obj, features = c('CCL3', 'CCL4', 'PPARG', 'METRNL', 'IFNG', 'IL2RA', 'PMCH', 'EPAS1', 'RDH10'))
+
+
+# Compare CAE exhausted to CAE not exhausted
+# 3, 1, 8, 0 vs 6, 9, 7
+
+de_genes <- FindMarkers(expt.obj, ident.1 = c(0,1,3,8), ident.2 = c(6,7,9), group.by = "seurat_clusters", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
+signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_CAE2groups <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         selectLab = rownames(signif), drawConnectors = TRUE,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_CAE2groups, paste('./plots/', experiment, '_explore_volcano_CAE2groups', sep = ''), c(10, 8))
+
+de_genes_sorted_CAE2groups <- arrange(filter(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2), avg_log2FC)
+write.csv(de_genes_sorted_CAE2groups, "data/de_genes_sorted_CAE2groups.csv")
+
+
+FeaturePlot(expt.obj, features = rownames(filter(de_genes_sorted_CAE2groups, avg_log2FC < 0)))
+
+
+
 
 

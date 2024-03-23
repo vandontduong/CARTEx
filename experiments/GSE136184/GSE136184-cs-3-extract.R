@@ -172,6 +172,29 @@ featplot_CARTEx_combined_extract_ident <- (featplot_CARTEx_630_extract_ident | f
 generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(14,5))
 
 
+####################################################################################################
+################################### Differentially expressed genes #################################
+####################################################################################################
+
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+de_genes <- FindMarkers(expt.obj, ident.1 = "OldTerminal", ident.2 = "YoungNaive", group.by = "extract.ident", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
+signif <- signif[rownames(signif) %in% rownames(cartex_84_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_OTvYN <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         selectLab = rownames(signif), drawConnectors = TRUE,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_OTvYN, paste('./plots/', experiment, '_transition_volcano_OTvYN', sep = ''), c(10, 8))
+
+
+
+
 # report time
 print("The script has completed...")
 proc.time() - ptm

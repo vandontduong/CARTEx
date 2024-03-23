@@ -240,8 +240,8 @@ generate_figs(dmap_disease_highlight, paste('./plots/', experiment, '_prepare_dm
 
 # examine metadata split
 
-barplot_group_patient <- BarPlotStackSplit(expt.obj, 'Group', 'Patient', color_set = )
-generate_figs(barplot_group_patient, paste('./plots/', experiment, '_prepare_barplot_group_patient', sep = ''), c(8,4))
+# barplot_group_patient <- BarPlotStackSplit(expt.obj, 'Group', 'Patient', color_set = )
+# generate_figs(barplot_group_patient, paste('./plots/', experiment, '_prepare_barplot_group_patient', sep = ''), c(8,4))
 
 
 ####################################################################################################

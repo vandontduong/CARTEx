@@ -29,15 +29,26 @@ cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep =
 
 TSG <- rownames(read.csv(paste0(PATH_SIGNATURES, "tumor-suppressor-genes.csv"), row.names = 1, header = TRUE))
 
+allgenes_exCARTEx <- rownames(expt.obj)[!(rownames(expt.obj) %in% rownames(cartex_630_weights))]
+
 expt.obj.downsample <- subset(expt.obj, downsample = 100)
 
+heatmap_allgenes_TissueType <- DoHeatmap(expt.obj.downsample, group.by = "TissueType")
+heatmap_allgenes_exCARTEx630_TissueType <- DoHeatmap(expt.obj.downsample, features = allgenes_exCARTEx, group.by = "TissueType")
 heatmap_CARTEx630_TissueType <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_630_weights), group.by = "TissueType")
 heatmap_CARTEx84_TissueType <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_84_weights), group.by = "TissueType")
 heatmap_TSG_TissueType <- DoHeatmap(expt.obj.downsample, features = TSG, group.by = "TissueType")
 
+generate_figs(heatmap_allgenes_TissueType, paste0('./plots/', experiment, '_explore_heatmap_allgenes_TissueType'), c(15, 12))
+generate_figs(heatmap_allgenes_exCARTEx630_TissueType, paste0('./plots/', experiment, '_explore_heatmap_allgenes_exCARTEx630_TissueType'), c(15, 12))
 generate_figs(heatmap_CARTEx630_TissueType, paste0('./plots/', experiment, '_explore_heatmap_CARTEx630_TissueType'), c(15, 12))
 generate_figs(heatmap_CARTEx84_TissueType, paste0('./plots/', experiment, '_explore_heatmap_CARTEx84_TissueType'), c(15, 12))
 generate_figs(heatmap_TSG_TissueType, paste0('./plots/', experiment, '_explore_heatmap_TSG_TissueType'), c(15, 12))
+
+
+
+
+
 
 
 
