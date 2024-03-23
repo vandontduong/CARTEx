@@ -31,7 +31,8 @@ library(clustree)
 library(ROGUE)
 library(glmGamPoi)
 library(ggbeeswarm)
-library(ComplexUpset) # library(UpSetR)
+# library(UpSetR) # need fromList() function
+library(ComplexUpset)
 library(ComplexHeatmap)
 
 # absolute path to where the project directory resides
@@ -179,6 +180,7 @@ RunDiffusion <- function(atlas, k_int){
   atlas[["dm"]] <- CreateDimReducObject(embeddings = tmp, key = "DC_", assay = DefaultAssay(atlas))
   atlas@meta.data$DC1rank <- rank(atlas[['dm']]@cell.embeddings[,1])
   atlas@meta.data$DC2rank <- rank(atlas[['dm']]@cell.embeddings[,2])
+  atlas@meta.data$dpt <- DPT(dm)
   return(list("atlas" = atlas, "dmap" = dm))
 }
 
