@@ -1,184 +1,241 @@
-# prepare seurat object
-# Vandon Duong
+#!/usr/bin/env Rscript
 
+### Script name: GSE207935-1-prepare.R
+### Description: prepare seurat object for GSE207935
+### Author: Vandon Duong
+
+# track time
+ptm <- proc.time()
+print("The script is starting...")
+
+####################################################################################################
+####################################### Initialize environment #####################################
+####################################################################################################
+
+set.seed(123)
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 experiment = 'GSE207935'
-
-setwd(paste("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/", experiment, sep = ''))
-
-library(Seurat)
-library(ggpubr)
-library(ggplotify)
-library(stringr)
-library(dplyr)
-
-
-####################################################################################################
-############################################# Functions ############################################
-####################################################################################################
-
-Z=function(s){
-  s=as.numeric(s)
-  z=(s - mean(s))/sd(s)
-  return (z)
-}
-
-generate_figs = function(figure_object, file_name){
-  ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-  ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  return (paste("generating figure for ", file_name))
-}
-
-integerize = function(score){
-  score_mod = round(score)
-  score_mod[score_mod < -4] <- -5
-  score_mod[score_mod > 4] <- 5
-  return (score_mod)
-}
+setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
-CART.combined <- readRDS(paste('./data/GSE207935_stat3_sct.rds', sep = ''))
-CART.combined <- SetIdent(CART.combined, value = "Affstat")
+expt.obj <- readRDS(paste('./data/GSE207935_stat3_sct.rds', sep = ''))
+expt.obj <- SetIdent(expt.obj, value = "Affstat")
+DefaultAssay(expt.obj) <- "RNA"
+expt.obj@assays$integrated <- NULL
+class(expt.obj@assays$RNA$counts)
 
-# Filter for CD8A +  cells, removing CD4+
-CD4_expression <- GetAssayData(object = CART.combined, assay = "RNA", slot = "data")["CD4",]
-CD8A_expression <- GetAssayData(object = CART.combined, assay = "RNA", slot = "data")["CD8A",]
-CD8B_expression <- GetAssayData(object = CART.combined, assay = "RNA", slot = "data")["CD8B",]
-pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0))
-neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
-CART.combined.CD8pos <- subset(CART.combined,cells=pos_ids)
+expt.obj[['SCT']] <- NULL
+expt.obj <- DietSeurat(expt.obj)
 
-rm(CART.combined)
+expt.obj[['identifier']] <- experiment
 
-# Quality filter
-CART.combined.CD8pos <- subset(CART.combined.CD8pos, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
+# clean-up metadata
+expt.obj@meta.data$integrated_snn_res.0.8 <- NULL
+expt.obj@meta.data$seurat_clusters <- NULL
+expt.obj@meta.data$nCount_SCT <- NULL
+expt.obj@meta.data$nFeature_SCT <- NULL
+
+
+vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+
 
 # extract genes
-all.genes <- rownames(CART.combined.CD8pos)
+all.genes <- rownames(expt.obj)
 write.csv(all.genes, paste('./data/', experiment, '_allgenes.csv', sep = ''))
 
-# Examine features
-vlnplot_quality <- VlnPlot(object = CART.combined.CD8pos, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'orig.ident', ncol=3)
-generate_figs(vlnplot_quality, paste('./plots/', experiment, '_vlnplot_quality', sep = ''))
+# Calculate the percentage of all counts that belong to a given set of features
+# i.e. compute the percentage of transcripts that map to CARTEx genes
+# also compute the percentage of CARTEx genes detected
+
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "/cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_200 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_200_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_200 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_200_weights)) 
+
+expt.obj@meta.data$percent.CARTEx_84 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_84_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
+expt.obj@meta.data$PFSD.CARTEx_84 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_84_weights)) 
+
+# capture counts before CD8+ T cell filter
+qc_review <- dim(expt.obj) # [genes, cells]
+
+# Filter for CD8A + cells, removing CD4+
+CD4_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD4",]
+CD8A_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8A",]
+CD8B_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")["CD8B",]
+pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expression == 0))
+neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
+expt.obj <- subset(expt.obj,cells=pos_ids)
+
+# update metadata
+expt.obj@meta.data$Sample <- factor(expt.obj@meta.data$Sample, levels = unique(expt.obj@meta.data$Sample))
+
+expt.obj@meta.data$Affstat <- factor(expt.obj@meta.data$Affstat, levels = c("Control", "STAT3_GOF"))
+
+expt.obj@meta.data$Stim <- plyr::mapvalues(x = expt.obj@meta.data$Stim,
+                                              from = c('No Stim', 'Stim'),
+                                              to = c('no', 'yes'))
+
+expt.obj@meta.data$Stim <- factor(expt.obj@meta.data$Stim, levels = c("no", "yes"))
+
+# check levels() for metadata
+# check anything NULL: unique(expt.obj@meta.data[['identity']])
+check_levels(expt.obj)
+
+# Examine features before quality control
+vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+vlnplot_quality_control_CARTEx_pre <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+#### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+
+# capture counts before quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+
+# Quality filter
+expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)
+
+# Examine features after quality control
+vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
+
+vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
+
+# capture counts after quality filter
+qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
+rownames(qc_review) <- c("All", "preQC", "preQC")
+colnames(qc_review) <- c("genes", "cells")
+write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
-CART.combined.CD8pos <- FindVariableFeatures(CART.combined.CD8pos, selection.method = "vst", nfeatures = 2000)
-top10_CART <- head(VariableFeatures(CART.combined.CD8pos), 10)
-varplt <- VariableFeaturePlot(CART.combined.CD8pos)
-varplt_labeled <- LabelPoints(plot = varplt, points = top10_CART, repel = TRUE)
-generate_figs(varplt_labeled, paste('./plots/', experiment, '_varplt_labeled', sep = ''))
+expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
+top10_varfeats <- head(VariableFeatures(expt.obj), 10)
+varplt <- VariableFeaturePlot(expt.obj)
+varplt_labeled <- LabelPoints(plot = varplt, points = top10_varfeats, repel = TRUE)
+generate_figs(varplt_labeled, paste('./plots/', experiment, '_prepare_varplt_labeled', sep = ''))
 
-CART.combined.CD8pos <- ScaleData(CART.combined.CD8pos, features = all.genes)
-CART.combined.CD8pos <- RunPCA(CART.combined.CD8pos, features = VariableFeatures(object = CART.combined.CD8pos), npcs = 40)
+expt.obj <- ScaleData(expt.obj, features = all.genes)
+expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 30)
 
-CART.combined.CD8pos <- FindNeighbors(CART.combined.CD8pos, dims = 1:10)
-CART.combined.CD8pos <- FindClusters(CART.combined.CD8pos, resolution = 0.5)
-CART.combined.CD8pos <- RunUMAP(CART.combined.CD8pos, dims = 1:10)
+inspect_elbow <- ElbowPlot(expt.obj)
+generate_figs(inspect_elbow, paste('./plots/', experiment, '_prepare_inspect_elbow', sep = ''), c(5, 4))
 
-saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '.rds', sep = ''))
+# select dimensionality based on elbowplot analysis
+dim.max <- ChoosePC(expt.obj)
+expt.obj <- FindNeighbors(expt.obj, dims = 1:dim.max)
 
-CART.combined.CD8pos <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+# Examine a range of clustering resolutions
+resolution.range <- seq(from = 0, to = 1, by = 0.2)
+expt.obj <- FindClusters(expt.obj, resolution = resolution.range)
 
+inspect_clustering <- clustree(expt.obj, prefix = "RNA_snn_res.")
+generate_figs(inspect_clustering, paste('./plots/', experiment, '_prepare_inspect_clustering', sep = ''), c(12, 8))
 
-####################################################################################################
-######################################## Cell cycle analysis #######################################
-####################################################################################################
-# https://satijalab.org/seurat/articles/cell_cycle_vignette.html
+# Select clustering resolution based on clustree analysis
+expt.obj@meta.data$seurat_clusters <- expt.obj@meta.data$RNA_snn_res.0.4
+expt.obj@meta.data$seurat_clusters <- factor(expt.obj@meta.data$seurat_clusters, levels = SortNumStrList(unique(expt.obj@meta.data$seurat_clusters), shift = TRUE))
 
-# Read in the expression matrix The first row is a header row, the first column is rownames
-exp.mat <- read.table(file = "../cellannotate/nestorawa_forcellcycle_expressionMatrix.txt", header = TRUE, as.is = TRUE, row.names = 1)
+print("Calculating UMAPs...")
+expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
-# A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
-# segregate this list into markers of G2/M phase and markers of S phase
-s.genes <- cc.genes$s.genes
-g2m.genes <- cc.genes$g2m.genes
+print("Calculating diffusion maps...")
+diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
+expt.obj <- diffusion_map$atlas
+saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
+rm(diffusion_map)
 
-CART.combined.CD8pos <- CellCycleScoring(CART.combined.CD8pos, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+print("Saving Seurat object...")
+saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
 
-# view cell cycle scores and phase assignments
-head(CART.combined.CD8pos[[]])
+# expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
-# Visualize the distribution of cell cycle markers across
-ridgeplt <- RidgePlot(CART.combined.CD8pos, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), ncol = 2)
-generate_figs(ridgeplt, paste('./plots/', experiment, '_ridgeplt', sep = ''))
-
-CART.combined.CD8pos <- RunPCA(CART.combined.CD8pos, features = c(s.genes, g2m.genes))
-# DimPlot(CART.combined.CD8pos)
-
-# regress cell cycle
-CART.combined.CD8pos <- ScaleData(CART.combined.CD8pos, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(CART.combined.CD8pos))
-# Now, a PCA on the variable genes no longer returns components associated with cell cycle
-CART.combined.CD8pos <- RunPCA(CART.combined.CD8pos, features = VariableFeatures(CART.combined.CD8pos), nfeatures.print = 10)
-
-saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '_CD8pos_cellcycle.rds', sep = ''))
-
-CART.combined.CD8pos <- readRDS(paste('./data/', experiment, '_CD8pos_cellcycle.rds', sep = ''))
+head(expt.obj)
 
 
-####################################################################################################
-########################################### CARTEx scoring #########################################
-####################################################################################################
 
-# CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_630_weights), rownames(CART.combined.CD8pos))
-expr <- t(as.matrix(GetAssayData(CART.combined.CD8pos))[match(common, rownames(as.matrix(GetAssayData(CART.combined.CD8pos)))),])
-weights <- cartex_630_weights[match(common, rownames(cartex_630_weights)),]
-scores <- expr %*% as.matrix(weights)
-CART.combined.CD8pos@meta.data$CARTEx_630 <- Z(scores)
-CART.combined.CD8pos@meta.data$CARTEx_630i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_630)
+# Generate UMAPs for metadata
 
-# CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv("../../weights/cartex-200-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_200_weights), rownames(CART.combined.CD8pos))
-expr <- t(as.matrix(GetAssayData(CART.combined.CD8pos))[match(common, rownames(as.matrix(GetAssayData(CART.combined.CD8pos)))),])
-weights <- cartex_200_weights[match(common, rownames(cartex_200_weights)),]
-scores <- expr %*% as.matrix(weights)
-CART.combined.CD8pos@meta.data$CARTEx_200 <- Z(scores)
-CART.combined.CD8pos@meta.data$CARTEx_200i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_200)
+umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
 
-# CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv("../../weights/cartex-84-weights.csv", header = TRUE, row.names = 1)
-common <- intersect(rownames(cartex_84_weights), rownames(CART.combined.CD8pos))
-expr <- t(as.matrix(GetAssayData(CART.combined.CD8pos))[match(common, rownames(as.matrix(GetAssayData(CART.combined.CD8pos)))),])
-weights <- cartex_84_weights[match(common, rownames(cartex_84_weights)),]
-scores <- expr %*% as.matrix(weights)
-CART.combined.CD8pos@meta.data$CARTEx_84 <- Z(scores)
-CART.combined.CD8pos@meta.data$CARTEx_84i <- integerize(CART.combined.CD8pos@meta.data$CARTEx_84)
+umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
+generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
+
+umap_sample <- DimPlot(expt.obj, reduction = "umap", group.by = "Sample", shuffle = TRUE, seed = 123)
+generate_figs(umap_sample, paste('./plots/', experiment, '_prepare_umap_sample', sep = ''), c(6.5, 5))
+
+umap_affstat <- DimPlot(expt.obj, reduction = "umap", group.by = "Affstat", shuffle = TRUE, seed = 123)
+generate_figs(umap_affstat, paste('./plots/', experiment, '_prepare_umap_affstat', sep = ''), c(6.5, 5))
+
+umap_stim <- DimPlot(expt.obj, reduction = "umap", group.by = "Stim", shuffle = TRUE, seed = 123)
+generate_figs(umap_stim, paste('./plots/', experiment, '_prepare_umap_stim', sep = ''), c(6.5, 5))
+
 
 
 ####################################################################################################
-########################################### Module scoring #########################################
+###################################### Seurat cluster analysis #####################################
 ####################################################################################################
 
-activation_sig <- rownames(read.csv("../../signatures/panther-activation.csv", header = TRUE, row.names = 1))
-anergy_sig <- rownames(read.csv("../../signatures/SAFFORD_T_LYMPHOCYTE_ANERGY.csv", header = TRUE, row.names = 1))
-stemness_sig <- rownames(read.csv("../../signatures/GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", row.names = 1, header = TRUE))
-senescence_sig <- rownames(read.csv("../../signatures/M9143_FRIDMAN_SENESCENCE_UP.csv", row.names = 1, header = TRUE))
+# examine metadata split by Seurat clusters
 
-CART.combined.CD8pos <- AddModuleScore(CART.combined.CD8pos, features = list(activation_sig, anergy_sig, stemness_sig, senescence_sig), name="State", search = TRUE)
+barplot_affstat_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Affstat', 'seurat_clusters')
+generate_figs(barplot_affstat_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_affstat_seurat_clusters', sep = ''), c(8,4))
 
-# z score normalization
-CART.combined.CD8pos@meta.data$Activation <- scale(CART.combined.CD8pos@meta.data$State1)
-CART.combined.CD8pos@meta.data$Anergy <- scale(CART.combined.CD8pos@meta.data$State2)
-CART.combined.CD8pos@meta.data$Stemness <- scale(CART.combined.CD8pos@meta.data$State3)
-CART.combined.CD8pos@meta.data$Senescence <- scale(CART.combined.CD8pos@meta.data$State4)
+barplot_stim_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Stim', 'seurat_clusters')
+generate_figs(barplot_stim_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_stim_seurat_clusters', sep = ''), c(8,4))
 
-CART.combined.CD8pos@meta.data$Activationi <- integerize(CART.combined.CD8pos@meta.data$Activation)
-CART.combined.CD8pos@meta.data$Anergyi <- integerize(CART.combined.CD8pos@meta.data$Anergy)
-CART.combined.CD8pos@meta.data$Stemnessi <- integerize(CART.combined.CD8pos@meta.data$Stemness)
-CART.combined.CD8pos@meta.data$Senescencei <- integerize(CART.combined.CD8pos@meta.data$Senescence)
 
-CART.combined.CD8pos@meta.data$State1 <- NULL
-CART.combined.CD8pos@meta.data$State2 <- NULL
-CART.combined.CD8pos@meta.data$State3 <- NULL
-CART.combined.CD8pos@meta.data$State4 <- NULL
+# identify markers for each Seurat cluster
+# https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
 
-saveRDS(CART.combined.CD8pos, file = paste('./data/', experiment, '_CD8pos_scored.rds', sep = ''))
+expt.markers <- FindAllMarkers(expt.obj, only.pos = TRUE)
+saveRDS(expt.markers, paste(file='./data/', experiment, '_seurat_markers.rds', sep = ''))
+write.csv(expt.markers, paste(file='./data/', experiment, '_seurat_markers.csv', sep = ''))
+# expt.markers <- readRDS(paste('./data/', experiment, '_seurat_markers.rds', sep = ''))
 
-head(CART.combined.CD8pos)
+expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
+
+# visualize; downsampling is necessary for DoHeatmap()
+# https://github.com/satijalab/seurat/issues/2724
+expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
+cluster_markers_heatmap <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
+generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
+
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  print(expt.markers.top10[expt.markers.top10$cluster == i,])
+}
+
+# extract markers
+cluster_markers <- data.frame()
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  putative_markers = expt.markers.top10[expt.markers.top10$cluster == i,]$gene
+  print(paste(unlist(putative_markers), collapse=', '))
+  cluster_markers <- rbind(cluster_markers, cbind(i, paste(unlist(putative_markers), collapse=', ')))
+  cat("\n")
+}
+colnames(cluster_markers) <- c('Cluster', 'Markers')
+write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
+
+# https://www.nature.com/articles/s12276-023-01105-x
+
+# report time
+print("The script has completed...")
+proc.time() - ptm
+
+sessionInfo()
+
+
+
 
 
 

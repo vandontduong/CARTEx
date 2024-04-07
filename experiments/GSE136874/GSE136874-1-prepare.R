@@ -160,11 +160,14 @@ generate_figs(umap_CAR_highlight, paste('./plots/', experiment, '_prepare_umap_C
 dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123) + xlim(c(-0.2, 0.2)) + ylim(c(-0.2, 0.2))
 generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
 
-dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 4)
+dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 3)
 generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
-dmap_CAR <- DimPlot(expt.obj, reduction = "dm", group.by = "CAR", shuffle = TRUE, seed = 123) + xlim(c(-0.2, 0.2)) + ylim(c(-0.2, 0.2))
+dmap_CAR <- DimPlot(expt.obj, reduction = "dm", group.by = "CAR", shuffle = TRUE, seed = 123, cols = c('dodgerblue', 'indianred')) + xlim(c(-0.2, 0.2)) + ylim(c(-0.2, 0.2))
 generate_figs(dmap_CAR, paste('./plots/', experiment, '_prepare_dmap_CAR', sep = ''), c(6.5, 5))
+
+dmap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'dm', 'blue', 0.1, 2)
+generate_figs(dmap_CAR_highlight, paste('./plots/', experiment, '_prepare_dmap_CAR_highlight', sep = ''), c(12, 10))
 
 
 ####################################################################################################

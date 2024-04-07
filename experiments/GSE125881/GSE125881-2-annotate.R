@@ -55,8 +55,12 @@ generate_figs(PCAplot_regressed, paste('./plots/', experiment, '_prepare_PCAplot
 
 expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S', 'G2M'))
 
+# TEMP
+saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+
 # ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
-md <- expt.obj@meta.data %>% as.data.table
+# md <- expt.obj@meta.data %>% as.data.table
+md <- setDT(expt.obj@meta.data)
 md[, .N, by = c("orig.ident", "Phase")]
 phase_data <- md[, .N, by = c("Phase")]
 setorder(phase_data, cols = "Phase")
@@ -66,14 +70,14 @@ phase_data$cols <- hcl.colors(n = nrow(phase_data), palette = "Temps")
 barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(stat="identity", fill = phase_data$cols)
 generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
 
-umap_phase <- DimPlot(expt.obj, group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
+umap_phase <- DimPlot(expt.obj, reduction = 'umap', group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
 generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''), c(6, 5))
 
 umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
 
 
-saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+# saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
