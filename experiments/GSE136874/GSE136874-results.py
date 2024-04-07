@@ -32,7 +32,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_varplt_labele
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_inspect_clustering.jpeg", left = Inches(5.5), top = Inches(1), height = Inches(7))
 
 
-# slide 1
+# new slide
 slide = add_slide(prs, blank_slide_layout, "UMAPs for cell annotations")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CAR.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
@@ -46,7 +46,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_barplot_phase
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_barplot_monaco_CAR.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
 
-# slide 2
+# new slide
 slide = add_slide(prs, blank_slide_layout, "UMAPs for cell states")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_sig_activation.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
@@ -57,7 +57,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_sig_sene
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_sig_stemness.jpeg", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
 
-# slide 3
+# new slide
 slide = add_slide(prs, blank_slide_layout, "UMAPs for exhaustion scores")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
@@ -72,7 +72,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_T
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
-# slide 4
+# new slide
 slide = add_slide(prs, blank_slide_layout, "Diffusion maps")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_dmap_CAR.jpeg", left = Inches(0.25), top = Inches(1), height = Inches(3))
@@ -90,6 +90,24 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_dmap_sig_aner
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_dmap_sig_senescence.jpeg", left = Inches(8.25), top = Inches(4.5), height = Inches(3))
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_dmap_sig_stemness.jpeg", left = Inches(12.25), top = Inches(4.5), height = Inches(3))
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores")
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_200.jpeg", left = Inches(5.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_84.jpeg", left = Inches(10.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.jpeg", left = Inches(0.5), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.jpeg", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
+
+
+
 
 prs.save(experiment + '_results.pptx')
 
