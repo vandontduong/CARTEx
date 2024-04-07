@@ -172,7 +172,6 @@ ChoosePC <- function(atlas){
 
 #####
 
-
 RunDiffusion <- function(atlas, k_int){
   sce <- as.SingleCellExperiment(atlas)
   dm <- DiffusionMap(sce, k = k_int, verbose = TRUE)
@@ -180,7 +179,8 @@ RunDiffusion <- function(atlas, k_int){
   atlas[["dm"]] <- CreateDimReducObject(embeddings = tmp, key = "DC_", assay = DefaultAssay(atlas))
   atlas@meta.data$DC1rank <- rank(atlas[['dm']]@cell.embeddings[,1])
   atlas@meta.data$DC2rank <- rank(atlas[['dm']]@cell.embeddings[,2])
-  atlas@meta.data$dpt <- DPT(dm)
+  dpt_obj <- DPT(dm)
+  atlas@meta.data$dpt <- dpt_obj@dm@eigenvec0
   return(list("atlas" = atlas, "dmap" = dm))
 }
 
