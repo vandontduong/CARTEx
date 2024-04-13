@@ -278,6 +278,30 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
+# examine other signatures
+NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
+Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
+BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
+PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
+
+expt.obj <- AddModuleScore(expt.obj, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+
+expt.obj@meta.data$NKlike_Tex <- scale(expt.obj@meta.data$Signature1)
+expt.obj@meta.data$LCMV_Tex <- scale(expt.obj@meta.data$Signature2)
+expt.obj@meta.data$BBD_Tex <- scale(expt.obj@meta.data$Signature3)
+expt.obj@meta.data$PD1_Tex <- scale(expt.obj@meta.data$Signature4)
+
+expt.obj@meta.data$NKlike_Texi <- integerize(expt.obj@meta.data$NKlike_Tex)
+expt.obj@meta.data$LCMV_Texi <- integerize(expt.obj@meta.data$LCMV_Tex)
+expt.obj@meta.data$BBD_Texi <- integerize(expt.obj@meta.data$BBD_Tex)
+expt.obj@meta.data$PD1_Texi <- integerize(expt.obj@meta.data$PD1_Tex)
+
+expt.obj@meta.data$Signature1 <- NULL
+expt.obj@meta.data$Signature2 <- NULL
+expt.obj@meta.data$Signature3 <- NULL
+expt.obj@meta.data$Signature4 <- NULL
+
+
 # UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
 generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_prepare_umap_sig_activationi', sep = ''))
