@@ -92,6 +92,21 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_dmap_sig_sene
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_dmap_sig_stemness.jpeg", left = Inches(12.25), top = Inches(4.5), height = Inches(3))
 
 # new slide
+slide = add_slide(prs, blank_slide_layout, "Transition plots")
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_transitplot_CAR_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_transitplot_CAR_CARTEx_200.jpeg", left = Inches(5.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_transitplot_CAR_CARTEx_84.jpeg", left = Inches(10.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_transitplot_CAR_activation.jpeg", left = Inches(0.5), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_transitplot_CAR_anergy.jpeg", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_transitplot_CAR_senescence.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
+
+# new slide
 slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
