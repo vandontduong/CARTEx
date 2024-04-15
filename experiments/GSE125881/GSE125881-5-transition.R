@@ -22,7 +22,7 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
-dm <- readRDS(paste('./data/', experiment, '_dmap.rds', sep = ''))
+# dm <- readRDS(paste('./data/', experiment, '_dmap.rds', sep = ''))
 
 
 
@@ -69,4 +69,10 @@ generate_figs(transitplot_timepoint_phase, paste('./plots/', experiment, '_trans
 transitplot_timepoint_monaco <- ggplot(md, aes(x = DC1rank, y = TimePoint, colour = monaco)) +
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + scale_color_manual(values = c("deepskyblue", "seagreen", "darkgoldenrod", "plum3"))
 generate_figs(transitplot_timepoint_monaco, paste('./plots/', experiment, '_transition_transitplot_timepoint_monaco', sep = ''), c(9, 5))
+
+
+transitplot_group_monaco <- ggplot(md, aes(x = DC1rank, y = Group, colour = monaco)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + scale_color_manual(values = c("deepskyblue", "seagreen", "darkgoldenrod", "plum3"))
+generate_figs(transitplot_group_monaco, paste('./plots/', experiment, '_transition_transitplot_group_monaco', sep = ''), c(9, 5))
+
 

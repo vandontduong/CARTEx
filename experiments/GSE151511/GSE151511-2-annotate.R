@@ -232,14 +232,14 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 
 # expt.obj <- UpdateSeuratObject(expt.obj)
 
-rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Group')
+rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Responder')
 rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
-rogue_boxplot_seurat_clusters_group <- rogue.boxplot(rogue.res)
-generate_figs(rogue_boxplot_seurat_clusters_group, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_group', sep = ''), c(8,4))
+rogue_boxplot_seurat_clusters_responder <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_seurat_clusters_responder, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_responder', sep = ''), c(8,4))
 
-rogue.res <- EntropyScore(expt.obj, 'monaco', 'Group')
-rogue_boxplot_monaco_group <- rogue.boxplot(rogue.res)
-generate_figs(rogue_boxplot_monaco_group, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_group', sep = ''), c(8,4))
+rogue.res <- EntropyScore(expt.obj, 'monaco', 'Responder')
+rogue_boxplot_monaco_responder <- rogue.boxplot(rogue.res)
+generate_figs(rogue_boxplot_monaco_responder, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_responder', sep = ''), c(8,4))
 
 
 
