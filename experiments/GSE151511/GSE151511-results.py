@@ -73,7 +73,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_T
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores")
+slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores (clinical)")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
 
@@ -87,7 +87,20 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NKl
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores (EMR)")
 
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_630_EMR.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_200_EMR.jpeg", left = Inches(5.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_84_EMR.jpeg", left = Inches(10.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_LCMV_Tex_EMR.jpeg", left = Inches(0.5), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NKlike_Tex_EMR.jpeg", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_BBD_Tex_EMR.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
 
 prs.save(experiment + '_results.pptx')
