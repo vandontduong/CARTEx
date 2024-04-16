@@ -44,6 +44,14 @@ expt.obj@meta.data[['identifier2_ICANS']] <- expt.obj@meta.data$ICANS
 aging.obj@meta.data[['identifier2_ICANS']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier2_ICANS']] <- ref.obj@meta.data$monaco
 
+expt.obj@meta.data[['identifier3_clinical']] <- expt.obj@meta.data$ClinicalResponse
+aging.obj@meta.data[['identifier3_clinical']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier3_clinical']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier3_EMR']] <- expt.obj@meta.data$EMR
+aging.obj@meta.data[['identifier3_EMR']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier3_EMR']] <- ref.obj@meta.data$monaco
+
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"
 ref.obj@meta.data[["split.ident"]] <- "Reference"

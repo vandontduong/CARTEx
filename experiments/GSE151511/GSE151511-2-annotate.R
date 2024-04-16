@@ -219,6 +219,14 @@ barplot_phase_responder <- BarPlotStackSplit(expt.obj, 'Phase', 'Responder', col
 generate_figs(barplot_phase_responder, paste('./plots/', experiment, '_prepare_barplot_phase_responder', sep = ''), c(5,4))
 
 
+barplot_monaco_response <- BarPlotStackSplit(expt.obj, 'monaco', 'ClinicalResponse', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''), c(6,4))
+
+barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'ClinicalResponse', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(5,4))
+
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
