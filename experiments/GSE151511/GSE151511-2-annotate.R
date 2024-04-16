@@ -153,7 +153,7 @@ expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
 umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(6.5, 5))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(7.5, 5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -206,18 +206,17 @@ generate_figs(barplot_dice_patient, paste('./plots/', experiment, '_prepare_barp
 barplot_phase_patient <- BarPlotStackSplit(expt.obj, 'Phase', 'orig.ident', color_set = hcl.colors(3, palette = "Temps"))
 generate_figs(barplot_phase_patient, paste('./plots/', experiment, '_prepare_barplot_phase_patient', sep = ''), c(8,4))
 
-barplot_azimuth_response <- BarPlotStackSplit(expt.obj, 'azimuth', 'Responder')
-generate_figs(barplot_azimuth_response, paste('./plots/', experiment, '_prepare_barplot_azimuth_response', sep = ''), c(8,4))
+barplot_azimuth_responder <- BarPlotStackSplit(expt.obj, 'azimuth', 'Responder')
+generate_figs(barplot_azimuth_responder, paste('./plots/', experiment, '_prepare_barplot_azimuth_responder', sep = ''), c(8,4))
 
-barplot_monaco_response <- BarPlotStackSplit(expt.obj, 'monaco', 'Responder', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
-generate_figs(barplot_monaco_response, paste('./plots/', experiment, '_prepare_barplot_monaco_response', sep = ''), c(6,4))
+barplot_monaco_responder <- BarPlotStackSplit(expt.obj, 'monaco', 'Responder', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_responder, paste('./plots/', experiment, '_prepare_barplot_monaco_responder', sep = ''), c(6,4))
 
-barplot_dice_response <- BarPlotStackSplit(expt.obj, 'dice', 'Responder')
-generate_figs(barplot_dice_response, paste('./plots/', experiment, '_prepare_barplot_dice_response', sep = ''), c(8,4))
+barplot_dice_responder <- BarPlotStackSplit(expt.obj, 'dice', 'Responder')
+generate_figs(barplot_dice_responder, paste('./plots/', experiment, '_prepare_barplot_dice_responder', sep = ''), c(8,4))
 
-barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'Responder', color_set = hcl.colors(3, palette = "Temps"))
-generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(5,4))
-
+barplot_phase_responder <- BarPlotStackSplit(expt.obj, 'Phase', 'Responder', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_responder, paste('./plots/', experiment, '_prepare_barplot_phase_responder', sep = ''), c(5,4))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -232,14 +231,14 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''
 
 # expt.obj <- UpdateSeuratObject(expt.obj)
 
-rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Responder')
-rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
-rogue_boxplot_seurat_clusters_responder <- rogue.boxplot(rogue.res)
-generate_figs(rogue_boxplot_seurat_clusters_responder, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_responder', sep = ''), c(8,4))
+# rogue.res <- EntropyScore(expt.obj, 'seurat_clusters', 'Responder')
+# rogue.res <- rogue.res[ , SortNumStrList(colnames(rogue.res), shift = FALSE)]
+# rogue_boxplot_seurat_clusters_responder <- rogue.boxplot(rogue.res)
+# generate_figs(rogue_boxplot_seurat_clusters_responder, paste('./plots/', experiment, '_prepare_rogue_boxplot_seurat_clusters_responder', sep = ''), c(8,4))
 
-rogue.res <- EntropyScore(expt.obj, 'monaco', 'Responder')
-rogue_boxplot_monaco_responder <- rogue.boxplot(rogue.res)
-generate_figs(rogue_boxplot_monaco_responder, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_responder', sep = ''), c(8,4))
+# rogue.res <- EntropyScore(expt.obj, 'monaco', 'Responder')
+# rogue_boxplot_monaco_responder <- rogue.boxplot(rogue.res)
+# generate_figs(rogue_boxplot_monaco_responder, paste('./plots/', experiment, '_prepare_rogue_boxplot_monaco_responder', sep = ''), c(8,4))
 
 
 
