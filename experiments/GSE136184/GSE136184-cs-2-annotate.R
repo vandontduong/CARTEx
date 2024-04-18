@@ -343,6 +343,10 @@ umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order =
 umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
+umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE) + fix.sc
+umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) + fix.sc
+umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
+umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_84', sep = ''), c(6,5))
 generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200', sep = ''), c(6,5))
@@ -351,7 +355,10 @@ generate_figs(umap_sig_activation, paste('./plots/', experiment, '_cs_prepare_um
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_cs_prepare_umap_sig_anergy', sep = ''), c(6,5))
 generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_cs_prepare_umap_sig_stemness', sep = ''), c(6,5))
 generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_cs_prepare_umap_sig_senescence', sep = ''), c(6,5))
-
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_cs_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_cs_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_cs_prepare_umap_BBD_Tex', sep = ''), c(6,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_cs_prepare_umap_PD1_Tex', sep = ''), c(6,5))
 
 # Examine CARTEx scores grouped by age group
 vlnplot_CARTEx_630_age_group <- VlnPlot(expt.obj, feature = c("CARTEx_630"), group.by = "AgeGroup2", pt.size = 0) + theme(legend.position = 'none') + ylim(c(-3, 4)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
@@ -422,6 +429,16 @@ generate_figs(umap_gene_ADGRG1, paste('./plots/', experiment, '_cs_prepare_umap_
 
 umap_gene_MT2A <- FeaturePlot(expt.obj, features = "MT2A")
 generate_figs(umap_gene_MT2A, paste('./plots/', experiment, '_cs_prepare_umap_gene_MT2A', sep = ''), c(6,5) )
+
+# PDCD1 corresponds to PD-1
+# HAVCR2 corresponds to TIM-3
+# LAG3
+# CTLA4
+# NT5E corresponds to CD73
+
+vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'AgeGroup2', ncol = 3)
+generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
+
 
 
 # report time
