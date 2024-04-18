@@ -94,8 +94,16 @@ p.text = "CTLA4 encodes CTLA-4"
 p = tf.add_paragraph()
 p.text = "NT5E encodes CD73"
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Extraction of young naive T cells and old terminal effector T cells")
 
+pic = slide.shapes.add_picture("./plots/" + experiment + "_cs_extract_umap_highlight_combined.jpeg", left = Inches(0.25), top = Inches(1), height = Inches(2.5))
 
+pic = slide.shapes.add_picture("./plots/" + experiment + "_extract_vlnplot_CARTEx_combined_extract_ident.jpeg", left = Inches(7), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_extract_featplot_CARTEx_combined_extract_ident.jpeg", left = Inches(7), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_200.jpeg", left = Inches(0.25), top = Inches(3.5), height = Inches(5))
 
 prs.save(experiment + '_results.pptx')
 
