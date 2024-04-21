@@ -145,8 +145,8 @@ expt.obj@meta.data$EMR <- factor(expt.obj@meta.data$EMR, levels = c('GOOD', 'BAD
 
 expt.obj@meta.data$Responder <- plyr::mapvalues(x = expt.obj@meta.data$orig.ident,
                                                 from = c('pt01', 'pt02', 'pt03', 'pt04', 'pt05', 'pt06', 'pt07', 'pt08', 'pt09', 'pt10', 'pt11', 'pt12', 'pt13', 'pt14', 'pt15', 'pt16', 'pt17', 'pt18', 'pt19', 'pt20', 'pt21', 'pt22', 'pt23', 'pt24'),
-                                                to = c('Responder', 'Non-responder', 'Non-responder', 'Non-responder', 'Responder', 'NE', 'Responder', 'Responder', 'Responder', 'Responder', 'Non-responder', 'Responder', 'Non-responder', 'Responder', 'Non-responder', 'Responder', 'Non-responder', 'Non-responder', 'Non-responder', 'Responder', 'Non-responder', 'Non-responder', 'Non-responder', 'Non-responder'))
-expt.obj@meta.data$Responder <- factor(expt.obj@meta.data$Responder, levels = c('Responder', 'Non-responder', 'NE'))
+                                                to = c('R', 'NR', 'NR', 'NR', 'R', 'NE', 'R', 'R', 'R', 'R', 'NR', 'R', 'NR', 'R', 'NR', 'R', 'NR', 'NR', 'NR', 'R', 'NR', 'NR', 'NR', 'NR'))
+expt.obj@meta.data$Responder <- factor(expt.obj@meta.data$Responder, levels = c('R', 'NR', 'NE'))
 
 expt.obj@meta.data$CRS <- plyr::mapvalues(x = expt.obj@meta.data$orig.ident,
                                           from = c('pt01', 'pt02', 'pt03', 'pt04', 'pt05', 'pt06', 'pt07', 'pt08', 'pt09', 'pt10', 'pt11', 'pt12', 'pt13', 'pt14', 'pt15', 'pt16', 'pt17', 'pt18', 'pt19', 'pt20', 'pt21', 'pt22', 'pt23', 'pt24'),
