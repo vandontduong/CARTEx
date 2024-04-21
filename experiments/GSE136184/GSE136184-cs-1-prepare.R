@@ -212,7 +212,8 @@ generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_cs
 umap_age_group <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
 generate_figs(umap_age_group, paste('./plots/', experiment, '_cs_prepare_umap_age_group', sep = ''), c(6,5))
 
-umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123)
+umap_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123, cols = umap_age_group_2_cols)
 generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(6,5))
 
 umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap', 'blue', 0.1, 3)
@@ -238,7 +239,7 @@ generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_cs_prepare_
 
 
 # examine UMAP of age as a scalar
-age.sc <- scale_color_gradientn(colours = c("lightgrey","lightblue", "mediumblue2"), limits = c(0, 100))
+age.sc <- scale_color_gradientn(colours = c("lightgrey","lightblue", "mediumblue"), limits = c(0, 100))
 umap_age <- FeaturePlot(expt.obj, features = c("Age"), order = TRUE) + age.sc
 generate_figs(umap_age, paste('./plots/', experiment, '_cs_prepare_umap_age', sep = ''), c(6,5))
 

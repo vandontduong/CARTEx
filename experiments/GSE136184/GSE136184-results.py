@@ -76,7 +76,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_cs_prepare_umap_BBD_T
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustion markers across age")
+slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustion markers")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_cs_prepare_vlnplot_age_group_exhaustion_markers.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(8))
 
