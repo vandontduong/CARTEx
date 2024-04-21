@@ -379,6 +379,16 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
+# PDCD1 corresponds to PD-1
+# HAVCR2 corresponds to TIM-3
+# LAG3
+# CTLA4
+# NT5E corresponds to CD73
+
+vlnplot_CAR_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'CAR', ncol = 3, cols = c('dodgerblue', 'indianred'), y.max = 3)
+generate_figs(vlnplot_CAR_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_CAR_exhaustion_markers', sep = ''), c(8,6))
+
+
 # report time
 print("The script has completed...")
 proc.time() - ptm

@@ -368,7 +368,7 @@ head(expt.obj)
 # CTLA4
 # NT5E corresponds to CD73
 
-vlnplot_response_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'characteristics_response', ncol = 2, cols = c("firebrick", "seagreen"))
+vlnplot_response_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'characteristics_response', ncol = 2, cols = c("firebrick", "seagreen"), y.max = 3)
 generate_figs(vlnplot_response_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_response_exhaustion_markers', sep = ''), c(8,6))
 
 
@@ -383,7 +383,7 @@ generate_figs(barplot_monaco_timepoint_response_baseline, paste('./plots/', expe
 
 # https://github.com/satijalab/seurat/issues/3366#issuecomment-674262907
 
-vlnplot_response_exhaustion_markers_baseline <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'characteristics_response', ncol = 2, cols = c("firebrick", "seagreen"))
+vlnplot_response_exhaustion_markers_baseline <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'characteristics_response', ncol = 2, cols = c("firebrick", "seagreen"), y.max = 3)
 generate_figs(vlnplot_response_exhaustion_markers_baseline, paste('./plots/', experiment, '_prepare_vlnplot_response_exhaustion_markers_baseline', sep = ''), c(8,6))
 
 
