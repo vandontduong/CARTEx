@@ -436,7 +436,8 @@ generate_figs(umap_gene_MT2A, paste('./plots/', experiment, '_cs_prepare_umap_ge
 # CTLA4
 # NT5E corresponds to CD73
 
-vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'AgeGroup2', ncol = 3)
+vlnplot_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'AgeGroup2', ncol = 3, cols = vlnplot_age_group_2_cols)
 generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
 
 

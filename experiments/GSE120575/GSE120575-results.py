@@ -89,7 +89,22 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NKl
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_BBD_Tex_baseline.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustion markers (baseline)")
 
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers_baseline.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(8))
+
+txBox = slide.shapes.add_textbox(left = Inches(11), top = Inches(5.5), width = Inches(1), height = Inches(1))
+tf = txBox.text_frame
+tf.text = "Gene and corresponding protein"
+p = tf.add_paragraph()
+p.text = "PDCD1 encodes PD-1"
+p = tf.add_paragraph()
+p.text = "HAVCR2 encodes TIM-3"
+p = tf.add_paragraph()
+p.text = "LAG3 encodes LAG-3"
+p = tf.add_paragraph()
+p.text = "CTLA4 encodes CTLA-4"
 
 
 prs.save(experiment + '_results.pptx')
