@@ -33,7 +33,9 @@ Install `devtools` on Sherlock requires:
 
 `ml system openssl`
 
+Install `python-pptx` on Sherlock requires:
 
+`pip install --user python-pptx`
 
 ## Housekeeping
 
