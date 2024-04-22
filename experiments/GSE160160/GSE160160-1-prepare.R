@@ -60,8 +60,8 @@ expt.obj@meta.data$donor <- factor(expt.obj@meta.data$donor, levels = c('donor15
 
 expt.obj@meta.data$exposure <- plyr::mapvalues(x = expt.obj@meta.data$orig.ident,
                                             from = c('donor150_day0', 'donor150_CAE', 'donor388_day0', 'donor388_CAE', 'donor538_day0', 'donor538_CAE'),
-                                            to = c('day0', 'CAE', 'day0', 'CAE', 'day0', 'CAE'))
-expt.obj@meta.data$exposure <- factor(expt.obj@meta.data$exposure, levels = c('day0', 'CAE'))
+                                            to = c('day0', 'day20', 'day0', 'day20', 'day0', 'day20'))
+expt.obj@meta.data$exposure <- factor(expt.obj@meta.data$exposure, levels = c('day0', 'day20'))
 
 
 vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
@@ -162,11 +162,11 @@ expt.obj@meta.data$seurat_clusters <- factor(expt.obj@meta.data$seurat_clusters,
 print("Calculating UMAPs...")
 expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
-# print("Calculating diffusion maps...")
-# diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
-# expt.obj <- diffusion_map$atlas
-# saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
-# rm(diffusion_map)
+print("Calculating diffusion maps...")
+diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
+expt.obj <- diffusion_map$atlas
+saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
+rm(diffusion_map)
 
 print("Saving Seurat object...")
 saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
