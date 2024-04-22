@@ -187,38 +187,38 @@ generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_pr
 umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "Patient", shuffle = TRUE, seed = 123)
 generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''), c(6.5, 5))
 
-umap_orig_virus  <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_virus, paste('./plots/', experiment, '_prepare_umap_orig_virus', sep = ''))
+umap_orig_virus  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_virus, paste('./plots/', experiment, '_prepare_umap_orig_virus', sep = ''), c(6.5, 5))
 
-umap_orig_virus2  <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_orig_virus2', sep = ''))
+umap_orig_virus2  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_orig_virus2', sep = ''), c(6.5, 5))
 
-umap_orig_severity  <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_severity, paste('./plots/', experiment, '_prepare_umap_orig_severity', sep = ''))
+umap_orig_severity  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_severity, paste('./plots/', experiment, '_prepare_umap_orig_severity', sep = ''), c(6.5, 5))
 
-umap_orig_severity_score  <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_severity_score, paste('./plots/', experiment, '_prepare_umap_orig_severity_score', sep = ''))
+umap_orig_severity_score  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_severity_score, paste('./plots/', experiment, '_prepare_umap_orig_severity_score', sep = ''), c(6.5, 5))
 
-umap_orig_peptide  <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_peptide, paste('./plots/', experiment, '_prepare_umap_orig_peptide', sep = ''))
+umap_orig_peptide  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_peptide, paste('./plots/', experiment, '_prepare_umap_orig_peptide', sep = ''), c(6.5, 5))
 
-umap_orig_hospital <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.hospital", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_hospital, paste('./plots/', experiment, '_prepare_umap_orig_hospital', sep = ''))
+umap_orig_hospital <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.hospital", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_hospital, paste('./plots/', experiment, '_prepare_umap_orig_hospital', sep = ''), c(6.5, 5))
 
-umap_orig_unit <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.unit", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_unit, paste('./plots/', experiment, '_prepare_umap_orig_unit', sep = ''))
+umap_orig_unit <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.unit", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_unit, paste('./plots/', experiment, '_prepare_umap_orig_unit', sep = ''), c(6.5, 5))
 
-umap_orig_diabetes <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.diabetes", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_diabetes, paste('./plots/', experiment, '_prepare_umap_orig_diabetes', sep = ''))
+umap_orig_diabetes <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.diabetes", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_diabetes, paste('./plots/', experiment, '_prepare_umap_orig_diabetes', sep = ''), c(6.5, 5))
 
-umap_orig_asthma <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.asthma", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_asthma, paste('./plots/', experiment, '_prepare_umap_orig_asthma', sep = ''))
+umap_orig_asthma <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.asthma", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_asthma, paste('./plots/', experiment, '_prepare_umap_orig_asthma', sep = ''), c(6.5, 5))
 
-umap_cardiovascular <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "cardiovascular", shuffle = TRUE, seed = 123)
-generate_figs(umap_cardiovascular, paste('./plots/', experiment, '_prepare_umap_cardiovascular', sep = ''))
+umap_cardiovascular <- DimPlot(expt.obj, reduction = "umap", group.by = "cardiovascular", shuffle = TRUE, seed = 123)
+generate_figs(umap_cardiovascular, paste('./plots/', experiment, '_prepare_umap_cardiovascular', sep = ''), c(6.5, 5))
 
-umap_tumour <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "tumour", shuffle = TRUE, seed = 123)
-generate_figs(umap_tumour, paste('./plots/', experiment, '_prepare_umap_tumour', sep = ''))
+umap_tumour <- DimPlot(expt.obj, reduction = "umap", group.by = "tumour", shuffle = TRUE, seed = 123)
+generate_figs(umap_tumour, paste('./plots/', experiment, '_prepare_umap_tumour', sep = ''), c(6.5, 5))
 
 
 

@@ -22,8 +22,8 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 ####################################################################################################
 
 expt.obj <- readRDS(paste('./data/GSE196606_integrated_seurat_object.rds', sep = ''))
-# expt.obj <- SetIdent(expt.obj, value = "cellType_corrected")
-# expt.obj <- subset(expt.obj, idents = c("TCD8", "TCD8-toxic", "TCD8-naive", "TCD8-effector_memory+TEMRA", "TCD8-central_memory", "TCD8-effector1", "TCD8-effector2"))
+expt.obj <- SetIdent(expt.obj, value = "cellType_corrected")
+expt.obj <- subset(expt.obj, idents = c("TCD8", "TCD8-toxic", "TCD8-naive", "TCD8-effector_memory+TEMRA", "TCD8-central_memory", "TCD8-effector1", "TCD8-effector2"))
 
 class(expt.obj@assays$RNA$counts)
 
@@ -147,16 +147,16 @@ head(expt.obj)
 # Generate UMAPs for metadata
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
 
 umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "group", shuffle = TRUE, seed = 123)
-generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''))
+generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''), c(6, 5))
 
 umap_cell_type <- DimPlot(expt.obj, reduction = "umap", group.by = "cellType_corrected", shuffle = TRUE, seed = 123)
-generate_figs(umap_cell_type, paste('./plots/', experiment, '_prepare_umap_cell_type', sep = ''))
+generate_figs(umap_cell_type, paste('./plots/', experiment, '_prepare_umap_cell_type', sep = ''), c(6, 5))
 
 umap_orig_ident <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.ident", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_ident, paste('./plots/', experiment, '_prepare_umap_orig_ident', sep = ''))
+generate_figs(umap_orig_ident, paste('./plots/', experiment, '_prepare_umap_orig_ident', sep = ''), c(6, 5))
 
 
 
