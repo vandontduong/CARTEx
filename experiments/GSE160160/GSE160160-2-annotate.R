@@ -198,11 +198,14 @@ generate_figs(barplot_dice_seurat_clusters, paste('./plots/', experiment, '_prep
 barplot_azimuth_exposure <- BarPlotStackSplit(expt.obj, 'azimuth', 'exposure')
 generate_figs(barplot_azimuth_exposure, paste('./plots/', experiment, '_prepare_barplot_azimuth_exposure', sep = ''), c(8,4))
 
-barplot_monaco_exposure <- BarPlotStackSplit(expt.obj, 'monaco', 'exposure')
-generate_figs(barplot_monaco_exposure, paste('./plots/', experiment, '_prepare_barplot_monaco_exposure', sep = ''), c(8,4))
+barplot_monaco_exposure <- BarPlotStackSplit(expt.obj, 'monaco', 'exposure', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_exposure, paste('./plots/', experiment, '_prepare_barplot_monaco_exposure', sep = ''), c(6,4))
 
 barplot_dice_exposure <- BarPlotStackSplit(expt.obj, 'dice', 'exposure')
 generate_figs(barplot_dice_exposure, paste('./plots/', experiment, '_prepare_barplot_dice_exposure', sep = ''), c(8,4))
+
+barplot_phase_exposure <- BarPlotStackSplit(expt.obj, 'Phase', 'exposure', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_exposure, paste('./plots/', experiment, '_prepare_barplot_phase_exposure', sep = ''), c(5,4))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
