@@ -188,25 +188,25 @@ head(expt.obj)
 
 # Generate UMAPs for metadata
 
-umap_seurat_clusters <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
 generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
 
-umap_orig_ident <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "orig.ident", shuffle = TRUE, seed = 123)
+umap_orig_ident <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.ident", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_ident, paste('./plots/', experiment, '_prepare_umap_orig_ident', sep = ''), c(6, 5))
 
-umap_subject <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "subject", shuffle = TRUE, seed = 123)
+umap_subject <- DimPlot(expt.obj, reduction = "umap", group.by = "subject", shuffle = TRUE, seed = 123)
 generate_figs(umap_subject, paste('./plots/', experiment, '_prepare_umap_subject', sep = ''), c(6, 5))
 
-umap_PASI <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "PASI", shuffle = TRUE, seed = 123)
+umap_PASI <- DimPlot(expt.obj, reduction = "umap", group.by = "PASI", shuffle = TRUE, seed = 123)
 generate_figs(umap_PASI, paste('./plots/', experiment, '_prepare_umap_PASI', sep = ''), c(6, 5))
 
-umap_PGA <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "PGA", shuffle = TRUE, seed = 123)
+umap_PGA <- DimPlot(expt.obj, reduction = "umap", group.by = "PGA", shuffle = TRUE, seed = 123)
 generate_figs(umap_PGA, paste('./plots/', experiment, '_prepare_umap_PGA', sep = ''), c(6, 5))
 
-umap_Onset <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "Onset", shuffle = TRUE, seed = 123)
+umap_Onset <- DimPlot(expt.obj, reduction = "umap", group.by = "Onset", shuffle = TRUE, seed = 123)
 generate_figs(umap_Onset, paste('./plots/', experiment, '_prepare_umap_Onset', sep = ''), c(6, 5))
 
-umap_Duration <- DimPlot(CART.combined.CD8pos, reduction = "umap", group.by = "Duration", shuffle = TRUE, seed = 123)
+umap_Duration <- DimPlot(expt.obj, reduction = "umap", group.by = "Duration", shuffle = TRUE, seed = 123)
 generate_figs(umap_Duration, paste('./plots/', experiment, '_prepare_umap_Duration', sep = ''), c(6, 5))
 
 

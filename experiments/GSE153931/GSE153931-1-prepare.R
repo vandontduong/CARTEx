@@ -41,7 +41,9 @@ expt.obj@meta.data$orig.donor <- annotatedData$orig.donor
 expt.obj@meta.data$orig.donors <- annotatedData$orig.donors
 expt.obj@meta.data$orig.severity <- annotatedData$orig.severity
 expt.obj@meta.data$orig.severity_score <- annotatedData$orig.severity_score
+expt.obj@meta.data$orig.severity_score <- factor(expt.obj@meta.data$orig.severity_score, levels = c('Mild', 'Moderate', 'Severe', 'Critical', 'void'))
 expt.obj@meta.data$orig.severity_x <- annotatedData$orig.severity_x
+expt.obj@meta.data$orig.severity_x <- factor(expt.obj@meta.data$orig.severity_x, levels = c('Mild', 'Moderate', 'Severe', 'void'))
 expt.obj@meta.data$drug <- annotatedData$drug
 expt.obj@meta.data$orig.diabetes <- annotatedData$orig.diabetes
 expt.obj@meta.data$age <- annotatedData$age
@@ -55,6 +57,12 @@ expt.obj@meta.data$orig.unit <- annotatedData$orig.unit
 # eliminate void donors
 expt.obj <- SetIdent(expt.obj, value = "orig.donor")
 expt.obj <- subset(expt.obj,cells=colnames(expt.obj)[Idents(expt.obj) !="void"])
+
+
+# contingency tables
+table(expt.obj@meta.data$orig.virus, expt.obj@meta.data$orig.virus2)
+
+
 
 class(expt.obj@assays$RNA$counts)
 
@@ -184,22 +192,25 @@ generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
-umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "Patient", shuffle = TRUE, seed = 123)
+umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.donor", shuffle = TRUE, seed = 123)
 generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''), c(6.5, 5))
 
-umap_orig_virus  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123)
+umap_orig_virus <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_virus, paste('./plots/', experiment, '_prepare_umap_orig_virus', sep = ''), c(6.5, 5))
 
-umap_orig_virus2  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123)
+umap_orig_virus2 <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_orig_virus2', sep = ''), c(6.5, 5))
 
-umap_orig_severity  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
+umap_orig_severity <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_severity, paste('./plots/', experiment, '_prepare_umap_orig_severity', sep = ''), c(6.5, 5))
 
-umap_orig_severity_score  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123)
+umap_orig_severity_score <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_severity_score, paste('./plots/', experiment, '_prepare_umap_orig_severity_score', sep = ''), c(6.5, 5))
 
-umap_orig_peptide  <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
+umap_orig_severity_x <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_x", shuffle = TRUE, seed = 123)
+generate_figs(umap_orig_severity_x, paste('./plots/', experiment, '_prepare_umap_orig_severity_x', sep = ''), c(6.5, 5))
+
+umap_orig_peptide <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_peptide, paste('./plots/', experiment, '_prepare_umap_orig_peptide', sep = ''), c(6.5, 5))
 
 umap_orig_hospital <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.hospital", shuffle = TRUE, seed = 123)
