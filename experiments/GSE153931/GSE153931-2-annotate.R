@@ -358,10 +358,10 @@ table(expt.obj@meta.data$orig.severity_x, expt.obj@meta.data$orig.virus2)
 
 expt.obj.subset <- subset(expt.obj, subset = orig.severity_x != 'void')
 
-vlnplot_severity_x_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'orig.severity_x', ncol = 3, cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)
+vlnplot_severity_x_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'orig.severity_x', ncol = 3, cols = c('cadetblue', 'violetred', 'indianred'), y.max = 4)
 generate_figs(vlnplot_severity_x_CV_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_severity_x_CV_exhaustion_markers', sep = ''), c(8,6))
 
-vlnplot_severity_score_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'orig.severity_score', ncol = 3, cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)
+vlnplot_severity_score_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'orig.severity_score', ncol = 3, cols = c('cadetblue', 'violetred', 'indianred', 'firebrick'), y.max = 4)
 generate_figs(vlnplot_severity_score_CV_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_severity_score_CV_exhaustion_markers', sep = ''), c(8,6))
 
 

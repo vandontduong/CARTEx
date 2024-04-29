@@ -204,10 +204,10 @@ generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_ori
 umap_orig_severity <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_severity, paste('./plots/', experiment, '_prepare_umap_orig_severity', sep = ''), c(6.5, 5))
 
-umap_orig_severity_score <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123)
+umap_orig_severity_score <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'violetred', 'indianred', 'firebrick', 'grey'))
 generate_figs(umap_orig_severity_score, paste('./plots/', experiment, '_prepare_umap_orig_severity_score', sep = ''), c(6.5, 5))
 
-umap_orig_severity_x <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_x", shuffle = TRUE, seed = 123)
+umap_orig_severity_x <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_x", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'violetred', 'indianred', 'grey'))
 generate_figs(umap_orig_severity_x, paste('./plots/', experiment, '_prepare_umap_orig_severity_x', sep = ''), c(6.5, 5))
 
 umap_orig_peptide <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
