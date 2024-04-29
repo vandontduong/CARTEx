@@ -62,32 +62,36 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_sig_stem
 # new slide
 slide = add_slide(prs, blank_slide_layout, "UMAPs for exhaustion scores")
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_630.jpeg", left = Inches(0.25), top = Inches(1), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_200.jpeg", left = Inches(5.5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_200.jpeg", left = Inches(4.25), top = Inches(1), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_84.jpeg", left = Inches(10.5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_84.jpeg", left = Inches(8.25), top = Inches(1), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_LCMV_Tex.jpeg", left = Inches(0.5), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_LCMV_Tex.jpeg", left = Inches(0.25), top = Inches(4.5), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_Tex.jpeg", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_Tex.jpeg", left = Inches(4.25), top = Inches(4.5), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(8.25), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(12.25), top = Inches(4.5), height = Inches(3))
 
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores")
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_630.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_630.jpeg", left = Inches(0.25), top = Inches(1), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_200.jpeg", left = Inches(5.5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_200.jpeg", left = Inches(4.25), top = Inches(1), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_84.jpeg", left = Inches(10.5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CARTEx_84.jpeg", left = Inches(8.25), top = Inches(1), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.jpeg", left = Inches(0.5), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.jpeg", left = Inches(0.25), top = Inches(4.5), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.jpeg", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.jpeg", left = Inches(4.25), top = Inches(4.5), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_BBD_Tex.jpeg", left = Inches(8.25), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_PD1_Tex.jpeg", left = Inches(12.25), top = Inches(4.5), height = Inches(3))
 
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk immune checkpoint expression levels")
@@ -107,7 +111,7 @@ slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustio
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_vlnplot_group_exhaustion_markers.jpeg", left = Inches(0.5), top = Inches(1), height = Inches(8))
 
-txBox = slide.shapes.add_textbox(left = Inches(8), top = Inches(5.5), width = Inches(1), height = Inches(1))
+txBox = slide.shapes.add_textbox(left = Inches(12), top = Inches(5.5), width = Inches(1), height = Inches(1))
 tf = txBox.text_frame
 tf.text = "Gene and corresponding protein"
 p = tf.add_paragraph()
@@ -120,6 +124,8 @@ p = tf.add_paragraph()
 p.text = "CTLA4 encodes CTLA-4"
 p = tf.add_paragraph()
 p.text = "NT5E encodes CD73"
+p = tf.add_paragraph()
+p.text = "ENTPD1 encodes CD39"
 
 prs.save(experiment + '_results.pptx')
 

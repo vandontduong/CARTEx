@@ -377,8 +377,9 @@ head(expt.obj)
 # LAG3
 # CTLA4
 # NT5E corresponds to CD73
+# ENTPD1 corresponds to CD39
 
-vlnplot_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'Group', ncol = 3, cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)
+vlnplot_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'Group', ncol = 3, cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)
 generate_figs(vlnplot_group_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_group_exhaustion_markers', sep = ''), c(8,6))
 
 
