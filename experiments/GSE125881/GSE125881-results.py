@@ -74,7 +74,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_T
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(8.25), top = Inches(4.5), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.jpeg", left = Inches(12.25), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_PD1_Tex.jpeg", left = Inches(12.25), top = Inches(4.5), height = Inches(3))
 
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Pseudo-bulk exhaustion scores")
