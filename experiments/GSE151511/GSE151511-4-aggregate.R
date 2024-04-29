@@ -111,7 +111,7 @@ query.obj.agg@meta.data$Signature3 <- NULL
 query.obj.agg@meta.data$Signature4 <- NULL
 
 
-query.obj.agg$identifier2 <- factor(query.obj.agg$identifier2, levels = c("Non-responder", "Responder", "NE", "YoungNaive", "OldTerminal"))
+query.obj.agg$identifier2 <- factor(query.obj.agg$identifier2, levels = c("NR", "R", "NE", "YoungNaive", "OldTerminal"))
 
 saveRDS(query.obj.agg, file = paste('./data/', experiment, '_query_agg_scored.rds', sep = ''))
 
@@ -130,27 +130,27 @@ glimpse(md)
 aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(6,5))
 
 aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(6,5))
 
 aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(6,5))
 
@@ -158,36 +158,36 @@ generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggp
 aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(6,5))
 
 aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(6,5))
 
 aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(6,5))
 
 aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','Responder')), label = "p.signif", label.y = 1.4) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Non-responder','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Responder','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
   xlab("CAR T cells and controls") + geom_point() + ylim(-2, 2)
 generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(6,5))
 
