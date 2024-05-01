@@ -34,6 +34,7 @@ library(ggbeeswarm)
 # library(UpSetR) # need fromList() function
 library(ComplexUpset)
 library(ComplexHeatmap)
+library(ca)
 
 # absolute path to where the project directory resides
 PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'
@@ -71,9 +72,11 @@ generate_figs <- function(figure_object, file_name, dimensions){
   if(missing(dimensions)){
     ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
     ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
+    ggsave(filename = gsub(" ", "", paste(file_name,".png")), plot = figure_object, bg = "white")
   } else {
     ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
     ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
+    ggsave(filename = gsub(" ", "", paste(file_name,".png")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
   }
   return (paste("generating figure for ", file_name))
 }
