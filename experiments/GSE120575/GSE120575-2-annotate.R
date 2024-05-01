@@ -367,9 +367,54 @@ head(expt.obj)
 # LAG3
 # CTLA4
 # NT5E corresponds to CD73
+# ENTPD1 corresponds to CD39
 
-vlnplot_response_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'characteristics_response', ncol = 2, cols = c("firebrick", "seagreen"), y.max = 3)
+vlnplot_response_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'characteristics_response', ncol = 3, cols = c("firebrick", "seagreen"), y.max = 3)
 generate_figs(vlnplot_response_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_response_exhaustion_markers', sep = ''), c(8,6))
+
+
+# triple checkpoint expression
+triple_checkpoint_expression <- GetAssayData(object = expt.obj, assay = "RNA", slot = "data")[c("PDCD1", "HAVCR2", "LAG3"),]
+expt.obj@meta.data$triple_checkpoint_expression <- diff(triple_checkpoint_expression@p)
+
+scatterplot_triple_checkpoint_expression_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$triple_checkpoint_expression)))
+scatterplot_CARTEx_200_activation_triple_checkpoint_expression <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'Activation', group.by = "triple_checkpoint_expression", cols = scatterplot_triple_checkpoint_expression_cols, shuffle = TRUE, seed = 123)
+generate_figs(scatterplot_CARTEx_200_activation_triple_checkpoint_expression, paste('./plots/', experiment, '_prepare_scatterplot_CARTEx_200_activation_triple_checkpoint_expression', sep = ''), c(8,6))
+
+
+# correspondence analysis from contingency tables
+
+table_triple_checkpoint_expression_phase <- table(expt.obj@meta.data$triple_checkpoint_expression, expt.obj@meta.data$Phase)
+corr_triple_checkpoint_expression_phase <- CorrespondenceAnalysisPlot(table_triple_checkpoint_expression_phase, "Triple Checkpoint Expression", "Phase")
+generate_figs(corr_triple_checkpoint_expression_phase, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_phase', sep = ''), c(6,6))
+
+table_timepoint_response_phase <- table(expt.obj@meta.data$Timepoint_Response, expt.obj@meta.data$Phase)
+corr_timepoint_response_phase <- CorrespondenceAnalysisPlot(table_timepoint_response_phase, "Timepoint-Response", "Phase")
+generate_figs(corr_timepoint_response_phase, paste('./plots/', experiment, '_prepare_corr_timepoint_response_phase', sep = ''), c(6,6))
+
+table_triple_checkpoint_expression_CARTEx_200i <- table(expt.obj@meta.data$triple_checkpoint_expression, expt.obj@meta.data$CARTEx_200i)
+corr_triple_checkpoint_expression_CARTEx_200i <- CorrespondenceAnalysisPlot(table_triple_checkpoint_expression_CARTEx_200i, "Triple Checkpoint Expression", "CARTEx 200")
+generate_figs(corr_triple_checkpoint_expression_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_CARTEx_200i', sep = ''), c(6,6))
+
+table_NKlike_Texi_CARTEx_200i <- table(expt.obj@meta.data$NKlike_Texi, expt.obj@meta.data$CARTEx_200i)
+corr_NKlike_Texi_CARTEx_200i <- CorrespondenceAnalysisPlot(table_NKlike_Texi_CARTEx_200i, "NK-like", "CARTEx 200")
+generate_figs(corr_NKlike_Texi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_NKlike_Texi_CARTEx_200i', sep = ''), c(6,6))
+
+table_activationi_CARTEx_200i <- table(expt.obj@meta.data$Activationi, expt.obj@meta.data$CARTEx_200i)
+table_activationi_CARTEx_200i <- CleanTable(table_activationi_CARTEx_200i)
+corr_activationi_CARTEx_200i <- CorrespondenceAnalysisPlot(table_activationi_CARTEx_200i, "Activation", "CARTEx 200")
+generate_figs(corr_activationi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_activationi_CARTEx_200i', sep = ''), c(6,6))
+
+table_anergyi_CARTEx_200i <- table(expt.obj@meta.data$Anergyi, expt.obj@meta.data$CARTEx_200i)
+table_anergyi_CARTEx_200i <- CleanTable(table_anergyi_CARTEx_200i)
+corr_anergyi_CARTEx_200i <- CorrespondenceAnalysisPlot(table_anergyi_CARTEx_200i, "Anergy", "CARTEx 200")
+generate_figs(corr_anergyi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_anergyi_CARTEx_200i', sep = ''), c(6,6))
+
+table_anergyi_NKlike_Texi <- table(expt.obj@meta.data$Anergyi, expt.obj@meta.data$NKlike_Texi)
+table_anergyi_NKlike_Texi <- CleanTable(table_anergyi_NKlike_Texi)
+corr_anergyi_NKlike_Texi <- CorrespondenceAnalysisPlot(table_anergyi_NKlike_Texi, "Anergy", "NK-like")
+generate_figs(corr_anergyi_NKlike_Texi, paste('./plots/', experiment, '_prepare_corr_anergyi_NKlike_Texi', sep = ''), c(6,6))
+
 
 
 ### examining baseline (exclude post)
@@ -383,9 +428,17 @@ generate_figs(barplot_monaco_timepoint_response_baseline, paste('./plots/', expe
 
 # https://github.com/satijalab/seurat/issues/3366#issuecomment-674262907
 
-vlnplot_response_exhaustion_markers_baseline <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'characteristics_response', ncol = 2, cols = c("firebrick", "seagreen"), y.max = 3)
+vlnplot_response_exhaustion_markers_baseline <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'characteristics_response', ncol = 3, cols = c("firebrick", "seagreen"), y.max = 3)
 generate_figs(vlnplot_response_exhaustion_markers_baseline, paste('./plots/', experiment, '_prepare_vlnplot_response_exhaustion_markers_baseline', sep = ''), c(8,6))
 
+
+
+
+# report time
+print("The script has completed...")
+proc.time() - ptm
+
+sessionInfo()
 
 
 

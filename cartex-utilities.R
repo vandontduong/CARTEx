@@ -240,6 +240,63 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # WhichCells(object = integration.obj, expression = identifier == experiment)
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
+#####
+# function: correspondence analysis from contingency tables
+# @ Seurat object
+# @ identity: string describing the relevant metadata identity group
+# @ reduction_map: string describing the relevant dimensionality reduction method
+# @ highlight_color: string describing the color of the highlighted datapoints
+# @ pt_size: string describing the size of the datapoints
+# @ ncols: number of columns to split the resulting figure into
+
+make.ca.plot.df <- function (ca.plot.obj,
+                             row.lab = "Rows",
+                             col.lab = "Columns") {
+  df <- data.frame(Label = c(rownames(ca.plot.obj$rows),
+                             rownames(ca.plot.obj$cols)),
+                   Dim1 = c(ca.plot.obj$rows[,1], ca.plot.obj$cols[,1]),
+                   Dim2 = c(ca.plot.obj$rows[,2], ca.plot.obj$cols[,2]),
+                   Variable = c(rep(row.lab, nrow(ca.plot.obj$rows)),
+                                rep(col.lab, nrow(ca.plot.obj$cols))))
+  rownames(df) <- 1:nrow(df)
+  df
+}
+
+CorrespondenceAnalysisPlot <- function(contingency_table, row_lab, col_lab){
+  ca.fit <- ca(contingency_table)
+  ca.plot <- plot(ca.fit)
+  ca.plot.df <- make.ca.plot.df(ca.plot, row.lab = row_lab, col.lab = col_lab)
+  ca.sum <- summary(ca.fit)
+  dim.var.percs <- ca.sum$scree[,"values2"]
+  
+  p <- ggplot(ca.plot.df, aes(x = Dim1, y = Dim2, col = Variable, shape = Variable, label = Label)) +
+    geom_vline(xintercept = 0, lty = "dashed", alpha = .5) + geom_hline(yintercept = 0, lty = "dashed", alpha = .5) + geom_point()
+  
+  p <- p +
+    scale_x_continuous(limits = range(ca.plot.df$Dim1) + c(diff(range(ca.plot.df$Dim1)) * -0.2, diff(range(ca.plot.df$Dim1)) * 0.2)) +
+    scale_y_continuous(limits = range(ca.plot.df$Dim2) + c(diff(range(ca.plot.df$Dim2)) * -0.2, diff(range(ca.plot.df$Dim2)) * 0.2)) +
+    scale_size(range = c(4, 7), guide = F) +
+    geom_label_repel(show.legend = F, segment.alpha = .5, point.padding = unit(5, "points"))
+  
+  p <- p +
+    labs(x = paste0("Dimension 1 (", signif(dim.var.percs[1], 3), "%)"),
+         y = paste0("Dimension 2 (", signif(dim.var.percs[2], 3), "%)"),
+         col = "", shape = "") + theme_bw() + scale_colour_brewer(palette = "Set1") + theme(legend.position='bottom')
+}
+
+# References
+# https://stats.stackexchange.com/questions/147721/which-is-the-best-visualization-for-contingency-tables
+# https://www.r-bloggers.com/2019/08/correspondence-analysis-visualization-using-ggplot/
+
+
+#####
+# function: clean up table and remove any rows or columns that are all zero values
+CleanTable <- function(tab){
+  tab <- tab[rowSums(tab) > 0, colSums(tab) > 0]
+}
+
+
+
 
 #####
 # function: heatmap
