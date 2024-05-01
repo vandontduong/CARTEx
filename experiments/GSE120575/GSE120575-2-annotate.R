@@ -392,6 +392,16 @@ table_timepoint_response_phase <- table(expt.obj@meta.data$Timepoint_Response, e
 corr_timepoint_response_phase <- CorrespondenceAnalysisPlot(table_timepoint_response_phase, "Timepoint-Response", "Phase")
 generate_figs(corr_timepoint_response_phase, paste('./plots/', experiment, '_prepare_corr_timepoint_response_phase', sep = ''), c(6,6))
 
+table_monaco_phase <- table(expt.obj@meta.data$monaco, expt.obj@meta.data$Phase)
+corr_monaco_phase <- CorrespondenceAnalysisPlot(table_monaco_phase, "Monaco", "Phase")
+generate_figs(corr_monaco_phase, paste('./plots/', experiment, '_prepare_corr_monaco_phase', sep = ''), c(6,6))
+
+table_timepoint_response_monaco <- table(expt.obj@meta.data$Timepoint_Response, expt.obj@meta.data$monaco)
+corr_timepoint_response_monaco <- CorrespondenceAnalysisPlot(table_timepoint_response_monaco, "Timepoint-Response", "Monaco")
+generate_figs(corr_timepoint_response_monaco, paste('./plots/', experiment, '_prepare_corr_timepoint_response_monaco', sep = ''), c(6,6))
+
+
+
 table_triple_checkpoint_expression_CARTEx_200i <- table(expt.obj@meta.data$triple_checkpoint_expression, expt.obj@meta.data$CARTEx_200i)
 corr_triple_checkpoint_expression_CARTEx_200i <- CorrespondenceAnalysisPlot(table_triple_checkpoint_expression_CARTEx_200i, "Triple Checkpoint Expression", "CARTEx 200")
 generate_figs(corr_triple_checkpoint_expression_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_CARTEx_200i', sep = ''), c(6,6))
