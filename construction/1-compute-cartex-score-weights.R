@@ -45,6 +45,8 @@ sampleTable <- read.csv(samplefile,header=T, row.names=1)
 sampleTable=sampleTable[order(rownames(sampleTable)),]
 all(rownames(sampleTable)==colnames(select)) # check if the samplenames and order match
 
+write.csv(rownames(data), "./data/background_genes.csv", row.names=FALSE)
+
 #------------
 # Heatmap
 #------------
@@ -72,9 +74,13 @@ pamClusters$clustering <- paste0('C', pamClusters$clustering)
 # plot
 set.seed(123)
 split = c('CD19','CD19','CD19','CD19','CD19','CD19','CD19','CD19','CD19','Controls','Controls','Controls','HA','HA','HA','HA','HA','HA','HA','HA','HA')
+col_order = c('CD19_Donor76_Day11', 'CD19_Donor86_Day11', 'CD19_Donor90_Day11', 'CD19_Donor76_Day15', 'CD19_Donor86_Day15', 'CD19_Donor90_Day15', 'CD19_Donor76_Day21', 'CD19_Donor86_Day21', 'CD19_Donor90_Day21',
+              'HA_Donor76_Day11', 'HA_Donor86_Day11', 'HA_Donor90_Day11', 'HA_Donor76_Day15', 'HA_Donor86_Day15', 'HA_Donor90_Day15', 'HA_Donor76_Day21', 'HA_Donor86_Day21', 'HA_Donor90_Day21',
+              'Control_Donor76_Day0', 'Control_Donor86_Day0', 'Control_Donor90_Day0')
+
 hmap <- Heatmap(mat, 
                 name = 'Zscore',
-                column_split = split,
+                column_split = split, column_order = col_order,
                 row_gap = unit(1.5, "mm"),
                 row_split = pamClusters$clustering, 
                 cluster_row_slices = FALSE,
@@ -92,7 +98,7 @@ hmap <- Heatmap(mat,
 
 # draw(hmap,  annotation_legend_side = 'left', heatmap_legend_side = 'left')
 plot_heatmap_all_clusters <- as.grob(hmap)
-generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters')
+generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(10,6))
 
 
 # Save the clusters and gene info
