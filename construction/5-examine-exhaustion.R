@@ -230,9 +230,20 @@ hmap_stemness <- Heatmap(mat_stemness, name = 'Zscore', column_split = split, co
 generate_figs(as.grob(hmap_stemness), './plots/plot_heatmap_stemness', c(6,6))
 
 
+intersect(rownames(mat), c('HNF1A', 'HNF1B'))
+mat[rownames(mat) %in% c('HNF1A', 'HNF1B'),]
 
+HNF1B_score <- mat[rownames(mat) %in% c('HNF1B'),]
+CAR <- split
+Days <- c(11, 15, 21, 11, 15, 21, 11, 15, 21, 0, 0, 0, 11, 15, 21, 11, 15, 21, 11, 15, 21)
+Days <- as.character(Days)
 
+HNF1B_dataset <- data.frame(HNF1B_score, CAR, Days)
 
+ggplot(data=HNF1B_dataset, aes(x=CAR, y=HNF1B_score)) + geom_boxplot() + geom_point(aes(color=Days)) + xlab("CAR") +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
+  theme_bw()
 
+colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4)
 
 
