@@ -31,6 +31,8 @@ slide = add_slide(prs, blank_slide_layout, "Heatmaps of all genes in experiment"
 
 pic = slide.shapes.add_picture("./plots/" + "plot_heatmap_all_clusters.png", left = Inches(0.5), top = Inches(1), height = Inches(7))
 
+pic = slide.shapes.add_picture("./plots/" + "plot_initial_pca.png", left = Inches(5), top = Inches(1), height = Inches(3))
+
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Heatmaps of exhaustion")
 

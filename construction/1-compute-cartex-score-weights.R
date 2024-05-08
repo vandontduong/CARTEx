@@ -2,6 +2,7 @@
 
 setwd("/oak/stanford/groups/cmackall/vandon/CARTEx/construction")
 set.seed(123)
+source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
 
 library(ComplexHeatmap)
 library(ggplot2)
@@ -98,7 +99,7 @@ hmap <- Heatmap(mat,
 
 # draw(hmap,  annotation_legend_side = 'left', heatmap_legend_side = 'left')
 plot_heatmap_all_clusters <- as.grob(hmap)
-generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(10,6))
+# generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(10,6))
 
 
 # Save the clusters and gene info
@@ -136,7 +137,7 @@ var_genes <- apply(select_cluster_expression, 1, var)
 topXmostvariable_genes=names(sort(var_genes, decreasing=TRUE))[1:200]
 select_cluster_expression <- select_cluster_expression[match(topXmostvariable_genes, rownames(select_cluster_expression)),]
 # Specify order of cartex based on most variable genes 
-cartex_200=cartex[match(rownames(select_cluster_expression), rownames(cartex)), ]
+cartex_200=PC1_4[match(rownames(select_cluster_expression), rownames(PC1_4)), ]
 write.csv(cartex_200, file="./data/cartex200_gene_ranks.csv")
 
 
@@ -159,16 +160,22 @@ rld <- rlog(dds)
 # Plot PCA (Figure 1A)
 pcaData <- plotPCA(rld, intgroup = c("CAR", "Timepoint"), returnData = TRUE) 
 percentVar <- round(100 * attr(pcaData, "percentVar")) 
+
+Timepoint_cols <- setNames(colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4), c(0,11,15,21))
+
 initial_pca <- ggplot(pcaData, aes(x = PC1, y = PC2, color = Timepoint, shape = CAR)) + 
-  geom_point(size=5) + scale_color_manual(values = c('11' = 'lightblue1', '15' = 'slateblue1', '21' = 'seagreen1')) +
-  theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=10), 
+  geom_point(size=5) + scale_color_manual(values = c('11' = '#B9D6DF', '15' = '#7390DD', '21' = '#0000CD')) +
+  theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=14), 
                           legend.position="bottom", legend.text = element_text(colour="black", size = 9), 
                           legend.title = element_text(colour="black", size = 8, face="bold"), text = element_text(size=15), 
                           # panel.border = element_rect(colour = "black", fill=NA, size=0.5)) +
-                          panel.border = element_rect(colour = "black", fill=NA, linewidth=0.5)) +
-  xlab(paste0("PC1: ", percentVar[1], "% variance")) + 
-  ylab(paste0("PC2: ", percentVar[2], "% variance"))
+                          panel.border = element_rect(colour = "black", fill=NA, linewidth=1)) +
+  xlab(paste0("PC1 (", percentVar[1], "% variance)")) + 
+  ylab(paste0("PC2 (", percentVar[2], "% variance)"))
+
+generate_figs(initial_pca, './plots/plot_initial_pca', c(5,5))
+
 
 # Save figure
 # ggsave(OUTPUT_FILE)
-generate_figs()
+#generate_figs()
