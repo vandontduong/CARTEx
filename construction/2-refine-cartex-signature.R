@@ -206,27 +206,42 @@ out_cartex_630 <- cartex("./data/2021-04-28-cartex-data-logTPM.csv","./data/2021
 out_cartex_200 <- cartex("./data/2021-04-28-cartex-data-logTPM.csv","./data/2021-04-28-metadata.csv","../weights/cartex-200-weights.csv")
 out_cartex_84 <- cartex("./data/2021-04-28-cartex-data-logTPM.csv","./data/2021-04-28-metadata.csv","../weights/cartex-84-weights.csv")
 
-Days = factor(out_cartex_630$Day)
-plt_CARTEx_630 <- ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + geom_point(aes(color=Days)) + xlab("CAR") +
+colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4)
+# scale_fill_manual(values = c("0" = "#D3D3D3", "11" = "#B9D6DF", "15" = "#7390DD", "21" = "#0000CD"))
+# scale_fill_manual(values = colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4))
+# scale_fill_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD"))
+
+ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + 
+  geom_point(stat = "identity",aes(fill = Days, color=Days)) + 
+  scale_fill_manual(values = c("0" = "#D3D3D3", "11" = "#B9D6DF", "15" = "#7390DD", "21" = "#0000CD"))
+
+
+# Days = factor(out_cartex_630$Day)
+Days = factor(as.character(out_cartex_630$Day))
+# out_cartex_630$Day <- factor(as.character(out_cartex_630$Day))
+plt_CARTEx_630 <- ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + geom_point(aes(color=Days)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) + 
+  xlab("CAR") + ylab("CARTEx score 630") + theme_bw()
 
-generate_figs(plt_CARTEx_630, "./plots/plt_CARTEx_630")
+generate_figs(plt_CARTEx_630, "./plots/plt_CARTEx_630", c(5,4))
 
-plt_CARTEx_200 <- ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + geom_point(aes(color=Days)) + xlab("CAR") +
+plt_CARTEx_200 <- ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + geom_point(aes(color=Days)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) +
+  xlab("CAR") + ylab("CARTEx score 200") + theme_bw()
 
-generate_figs(plt_CARTEx_200, "./plots/plt_CARTEx_200")
+generate_figs(plt_CARTEx_200, "./plots/plt_CARTEx_200", c(5,4))
 
-plt_CARTEx_84 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + geom_point(aes(color=Days)) + xlab("CAR") +
+plt_CARTEx_84 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + geom_point(aes(color=Days)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) +
+  xlab("CAR") + ylab("CARTEx score 84") + theme_bw()
 
-generate_figs(plt_CARTEx_84, "./plots/plt_CARTEx_84")
+generate_figs(plt_CARTEx_84, "./plots/plt_CARTEx_84", c(5,4))
 
 
 

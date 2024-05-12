@@ -12,17 +12,6 @@ library(ggplotify)
 ############################################# Functions ############################################
 ####################################################################################################
 
-generate_figs = function(figure_object, file_name, dimensions){
-  if(missing(dimensions)){
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object)
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white")
-  } else {
-    ggsave(filename = gsub(" ", "", paste(file_name,".pdf")), plot = figure_object, width = dimensions[1], height = dimensions[2])
-    ggsave(filename = gsub(" ", "", paste(file_name,".jpeg")), plot = figure_object, bg = "white",  width = dimensions[1], height = dimensions[2])
-  }
-  return (paste("generating figure for ", file_name))
-}
-
 
 #------------
 # Data
@@ -139,6 +128,29 @@ select_cluster_expression <- select_cluster_expression[match(topXmostvariable_ge
 # Specify order of cartex based on most variable genes 
 cartex_200=PC1_4[match(rownames(select_cluster_expression), rownames(PC1_4)), ]
 write.csv(cartex_200, file="./data/cartex200_gene_ranks.csv")
+
+rownames(cartex_200)
+cartex_200$PC1
+names(var_genes)
+
+
+df_CARTEx_weights <- PC1_4[,c("PC1", "Var1")]
+df_CARTEx_weights$gene_name <- df_CARTEx_weights$Var1
+df_CARTEx_weights$Var1 <- NULL
+df_CARTEx_weights$selected <- df_CARTEx_weights$gene_name %in% rownames(cartex_200)
+df_CARTEx_weights$gene_name <- factor(df_CARTEx_weights$gene_name, levels = df_CARTEx_weights$gene_name[order(df_CARTEx_weights$PC1)])
+
+
+plot_weights <- ggplot(df_CARTEx_weights, aes(x = PC1, y = gene_name, fill = selected)) +
+  geom_bar(stat = "identity", position = "identity", width = 1) + labs(x = "Weights", y = "Genes from cluster 5") +
+  theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "darkgoldenrod")) + guides(fill="none")
+
+generate_figs(plot_weights, './plots/plot_weights', c(3,5))
+
+ggplot(df_CARTEx_weights, aes(x = PC1, y = gene_name, fill = selected)) +
+  geom_col() + labs(x = "Weights", y = "Genes from cluster 5") +
+  theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "darkgoldenrod"))
+
 
 
 #-----------------------------------------------------

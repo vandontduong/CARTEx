@@ -28,6 +28,42 @@ sampleTable <- read.csv(samplefile,header=T, row.names=1)
 sampleTable=sampleTable[order(rownames(sampleTable)),]
 all(rownames(sampleTable)==colnames(select)) # check if the samplenames and order match
 
+
+### canonical exhaustion markers
+
+intersect(rownames(data), c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "NT5E", "ENTPD1"))
+
+expression_canonical_exhaustion_markers <- data[c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "NT5E", "ENTPD1"),]
+expression_canonical_exhaustion_markers <- expression_canonical_exhaustion_markers[,c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
+
+CAR <- c('Control','Control','Control','CD19','CD19','CD19','CD19','CD19','CD19','CD19','CD19','CD19','HA','HA','HA','HA','HA','HA','HA','HA','HA')
+CAR <- factor(CAR, levels = c("CD19", "HA", "Control"))
+Days <- c(0, 0, 0, 11, 11, 11, 15, 15, 15, 21, 21, 21, 11, 11, 11, 15, 15, 15, 21, 21, 21)
+Days <- as.character(Days)
+Donor <- c("Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90")
+
+library(tidyr)
+
+df_canonical_exhaustion_markers <- data.frame(t(expression_canonical_exhaustion_markers), CAR, Days, Donor)
+
+melted_df <- reshape2::melt(df_canonical_exhaustion_markers, id.vars = c("Days", "CAR", "Donor"))
+melted_df <- melted_df %>% group_by(CAR, Days, variable) %>% summarise_at(vars(value), list(name = mean, sd))
+
+custom_colors <- c("CD19" = "dodgerblue", "HA" = "indianred", "Control" = "darkgoldenrod")
+
+plot_canonical_exhaustion_markers <- ggplot(melted_df, aes(x = Days, y = name, fill = CAR)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~variable, scales = "free_y") +
+  geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
+  scale_fill_manual(values = custom_colors) + theme_bw()
+
+# log2-transformed TPM values
+generate_figs(plot_canonical_exhaustion_markers, './plots/plot_canonical_exhaustion_markers', c(5,3))
+
+
+
+
 #------------
 # Heatmap
 #------------
@@ -125,6 +161,13 @@ colAnn <- HeatmapAnnotation(
              Timepoint = setNames(colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4), c(0,11,15,21)))
   )
 
+
+# https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
+select_genes <- c('FOS', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
+index_select_genes <- which(rownames(mat) %in% select_genes)
+rightAnn <- rowAnnotation(CAR = anno_mark(at = index_select_genes, 
+                                   labels = select_genes))
+
 hmap <- Heatmap(mat, 
                 name = 'Zscore',
                 column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
@@ -139,8 +182,10 @@ hmap <- Heatmap(mat,
                 row_names_side = 'right',
                 row_dend_width = unit(5,'mm'),
                 column_dend_reorder = FALSE,
-                column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
-                top_annotation = colAnn, 
+                # column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                show_column_names = FALSE,
+                top_annotation = colAnn,
+                right_annotation = rightAnn,
                 use_raster=FALSE)
 
 
@@ -148,84 +193,142 @@ hmap <- Heatmap(mat,
 plot_heatmap_all_clusters <- as.grob(hmap)
 generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(6,6))
 
+pdf(plot_heatmap_all_clusters)
+png(filename = "./plots/plot_heatmap_all_clusters", width = 480, height = 480, units = "px", pointsize = 12)
+
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html
 
 hmap_CARTEx_630 <- Heatmap(mat_CARTEx_630, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                        row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_CARTEx_630], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
                        cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                        top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_CARTEx_630), './plots/plot_heatmap_CARTEx_630', c(6,6))
 
 hmap_CARTEx_200 <- Heatmap(mat_CARTEx_200, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                            row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_CARTEx_200], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                            cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                            top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_CARTEx_200), './plots/plot_heatmap_CARTEx_200', c(6,6))
 
 hmap_CARTEx_84 <- Heatmap(mat_CARTEx_84, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                            row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_CARTEx_84], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                            cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                            top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_CARTEx_84), './plots/plot_heatmap_CARTEx_84', c(6,6))
 
 hmap_NKlike <- Heatmap(mat_NKlike, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                 row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_NKlike], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                 cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                 top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_NKlike), './plots/plot_heatmap_NKlike', c(6,6))
 
 hmap_Wherry <- Heatmap(mat_Wherry, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                        row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_Wherry], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                        cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                        top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_Wherry), './plots/plot_heatmap_Wherry', c(6,6))
 
 hmap_BBD <- Heatmap(mat_BBD, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                        row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_BBD], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                        cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                        top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_BBD), './plots/plot_heatmap_BBD', c(6,6))
 
 hmap_PD1 <- Heatmap(mat_PD1, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                     row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_PD1], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                     cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                     top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_PD1), './plots/plot_heatmap_PD1', c(6,6))
 
 hmap_activation <- Heatmap(mat_activation, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                     row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_activation], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                     cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                     top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_activation), './plots/plot_heatmap_activation', c(6,6))
 
 hmap_anergy <- Heatmap(mat_anergy, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                            row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_anergy], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                            cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                            top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_anergy), './plots/plot_heatmap_anergy', c(6,6))
 
 hmap_senescence <- Heatmap(mat_senescence, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                        row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_senescence], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                        cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                        top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_senescence), './plots/plot_heatmap_senescence', c(6,6))
 
 hmap_stemness <- Heatmap(mat_stemness, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                            row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_stemness], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                            cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
-                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
                            top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_stemness), './plots/plot_heatmap_stemness', c(6,6))
+
+
+CAR <- split
+Days <- c(0, 0, 0, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21)
+Days <- as.character(Days)
+Donor <- c("Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90", "Donor76", "Donor86", "Donor90")
+
+mean_CARTEx_630 <- colMeans(mat_CARTEx_630)
+mean_CARTEx_200 <- colMeans(mat_CARTEx_200)
+mean_CARTEx_84 <- colMeans(mat_CARTEx_84)
+mean_NKlike <- colMeans(mat_NKlike)
+mean_Wherry <- colMeans(mat_Wherry)
+mean_BBD <- colMeans(mat_BBD)
+mean_PD1 <- colMeans(mat_PD1)
+mean_activation <- colMeans(mat_activation)
+mean_anergy <- colMeans(mat_anergy)
+mean_senescence <- colMeans(mat_senescence)
+mean_stemness <- colMeans(mat_stemness)
+
+mean_dataset <- data.frame(mean_CARTEx_630, mean_CARTEx_200, mean_CARTEx_84, mean_NKlike, mean_Wherry, mean_BBD, mean_PD1,
+                           mean_activation, mean_anergy, mean_senescence, mean_stemness, CAR, Days, Donor)
+
+
+
+library(tidyr)
+df_long <- gather(mean_dataset, key = "measurement", value = "value", -CAR, -Days, -Donor)
+
+ggplot(df_long, aes(x = Days, y = value, group = paste(CAR, Donor), color = CAR)) +
+  geom_line() +
+  facet_wrap(~measurement, scales = "free_y") +
+  labs(title = "Line Plot of Measurements by Category and Type",
+       x = "Category",
+       y = "Measurement")
+
+mean_dataset_avgbydonor <- mean_dataset %>%
+  group_by(CAR, Days, Donor) %>%
+  summarize(across(starts_with("mean"), mean))
+
+df_long_avgbydonor <- gather(mean_dataset_avgbydonor, key = "measurement", value = "value", -CAR, -Days, -Donor)
+
+
+df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
+df_long_avgbydonor <- subset(df_long_avgbydonor, measurement != "mean_CARTEx_84")
+
+measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "CARTEx 630", mean_CARTEx_200 = "CARTEx 200",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
+
+ggplot(df_long_avgbydonor, aes(x = Days, y = value, group = CAR, color = CAR)) +
+  geom_line() +
+  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
+  labs(x = "Category", y = "Mean z-score") +
+  scale_y_continuous(limits = c(-1, 1.5)) +
+  scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred"))
+
+
+
 
 
 intersect(rownames(mat), c('HNF1A', 'HNF1B'))
