@@ -31,9 +31,9 @@ all(rownames(sampleTable)==colnames(select)) # check if the samplenames and orde
 
 ### canonical exhaustion markers
 
-intersect(rownames(data), c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "NT5E", "ENTPD1"))
+intersect(rownames(data), c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1"))
 
-expression_canonical_exhaustion_markers <- data[c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "NT5E", "ENTPD1"),]
+expression_canonical_exhaustion_markers <- data[c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1"),]
 expression_canonical_exhaustion_markers <- expression_canonical_exhaustion_markers[,c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
 
 CAR <- c('Control','Control','Control','CD19','CD19','CD19','CD19','CD19','CD19','CD19','CD19','CD19','HA','HA','HA','HA','HA','HA','HA','HA','HA')
@@ -83,6 +83,7 @@ myBreaks <- seq(-3, 3, length.out = 100)
 #-------------------------------------
 pamClusters <- cluster::pam(mat[,-c(10:12)], k = 5)
 pamClusters$clustering <- paste0('C', pamClusters$clustering)
+table(pamClusters$clustering)
 
 
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
@@ -96,6 +97,7 @@ activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.c
 anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
 stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
 senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
+
 
 
 rownames(mat)
@@ -163,10 +165,22 @@ colAnn <- HeatmapAnnotation(
 
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
-select_genes <- c('FOS', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
+select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
 index_select_genes <- which(rownames(mat) %in% select_genes)
-rightAnn <- rowAnnotation(CAR = anno_mark(at = index_select_genes, 
-                                   labels = select_genes))
+select_genes_ordered <- rownames(mat)[index_select_genes]
+
+rightAnn <- rowAnnotation(CAR = anno_mark(at = index_select_genes, labels = select_genes_ordered))
+
+
+gene_cluster_pairs <- data.frame(rownames(pamClusters$data),pamClusters$clustering)
+colnames(gene_cluster_pairs) <- c('gene', 'cluster')
+
+select_gene_cluster_pairs <- gene_cluster_pairs %>% filter_all(any_vars(. %in% select_genes))
+select_gene_cluster_pairs[order(select_gene_cluster_pairs$cluster),]
+
+# check number of genes in each cluster
+table(gene_cluster_pairs$cluster)
+
 
 hmap <- Heatmap(mat, 
                 name = 'Zscore',
@@ -193,8 +207,8 @@ hmap <- Heatmap(mat,
 plot_heatmap_all_clusters <- as.grob(hmap)
 generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(6,6))
 
-pdf(plot_heatmap_all_clusters)
-png(filename = "./plots/plot_heatmap_all_clusters", width = 480, height = 480, units = "px", pointsize = 12)
+# pdf(plot_heatmap_all_clusters)
+#png(filename = "./plots/plot_heatmap_all_clusters.png", width = 480, height = 480, units = "px", pointsize = 12)
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html
 

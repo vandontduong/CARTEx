@@ -27,11 +27,22 @@ def add_text(x, y, statement):
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Heatmaps of all genes in experiment")
+slide = add_slide(prs, blank_slide_layout, "Experiment overview")
 
 pic = slide.shapes.add_picture("./plots/" + "plot_heatmap_all_clusters.png", left = Inches(0.5), top = Inches(1), height = Inches(7))
 
-pic = slide.shapes.add_picture("./plots/" + "plot_initial_pca.png", left = Inches(5), top = Inches(1), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + "plot_initial_pca.png", left = Inches(7), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + "plot_weights.png", left = Inches(10), top = Inches(1), height = Inches(3))
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Training CARTEx")
+
+pic = slide.shapes.add_picture("./plots/" + "plt_CARTEx_630.png", left = Inches(0.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + "plt_CARTEx_200.png", left = Inches(4.5), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + "plt_CARTEx_84.png", left = Inches(8.5), top = Inches(1), height = Inches(3))
 
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Heatmaps of exhaustion")

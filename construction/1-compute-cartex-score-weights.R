@@ -138,18 +138,22 @@ df_CARTEx_weights <- PC1_4[,c("PC1", "Var1")]
 df_CARTEx_weights$gene_name <- df_CARTEx_weights$Var1
 df_CARTEx_weights$Var1 <- NULL
 df_CARTEx_weights$selected <- df_CARTEx_weights$gene_name %in% rownames(cartex_200)
-df_CARTEx_weights$gene_name <- factor(df_CARTEx_weights$gene_name, levels = df_CARTEx_weights$gene_name[order(df_CARTEx_weights$PC1)])
+# df_CARTEx_weights$gene_name <- factor(df_CARTEx_weights$gene_name, levels = df_CARTEx_weights$gene_name[order(df_CARTEx_weights$PC1)])
+# reverse order
+df_CARTEx_weights$gene_name <- factor(df_CARTEx_weights$gene_name, levels = df_CARTEx_weights$gene_name[order(-df_CARTEx_weights$PC1)])
 
 
 plot_weights <- ggplot(df_CARTEx_weights, aes(x = PC1, y = gene_name, fill = selected)) +
   geom_bar(stat = "identity", position = "identity", width = 1) + labs(x = "Weights", y = "Genes from cluster 5") +
-  theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "darkgoldenrod")) + guides(fill="none")
+  theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "orangered")) + guides(fill="none")
 
-generate_figs(plot_weights, './plots/plot_weights', c(3,5))
+generate_figs(plot_weights, './plots/plot_weights', c(3,3))
 
 ggplot(df_CARTEx_weights, aes(x = PC1, y = gene_name, fill = selected)) +
   geom_col() + labs(x = "Weights", y = "Genes from cluster 5") +
-  theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "darkgoldenrod"))
+  theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "orangered"))
+
+
 
 
 
@@ -175,8 +179,28 @@ percentVar <- round(100 * attr(pcaData, "percentVar"))
 
 Timepoint_cols <- setNames(colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4), c(0,11,15,21))
 
-initial_pca <- ggplot(pcaData, aes(x = PC1, y = PC2, color = Timepoint, shape = CAR)) + 
+ggplot(pcaData, aes(x = PC1, y = PC2, color = Timepoint, shape = CAR)) + 
   geom_point(size=5) + scale_color_manual(values = c('11' = '#B9D6DF', '15' = '#7390DD', '21' = '#0000CD')) +
+  theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=14), 
+                          legend.position="bottom", legend.text = element_text(colour="black", size = 9), 
+                          legend.title = element_text(colour="black", size = 8, face="bold"), text = element_text(size=15), 
+                          # panel.border = element_rect(colour = "black", fill=NA, size=0.5)) +
+                          panel.border = element_rect(colour = "black", fill=NA, linewidth=1)) +
+  xlab(paste0("PC1 (", percentVar[1], "% variance)")) + 
+  ylab(paste0("PC2 (", percentVar[2], "% variance)"))
+
+# generate_figs(initial_pca, './plots/plot_initial_pca', c(5,5))
+
+
+# Save figure
+# ggsave(OUTPUT_FILE)
+# generate_figs()
+
+
+
+initial_pca <- ggplot(pcaData, aes(x = PC1, y = PC2, fill = CAR, alpha = Timepoint)) + 
+  geom_point(size=5, shape = 21, color = 'black') + scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred')) +
+  scale_alpha_manual(values = c('11' = 0.5, '15' = 0.75, '21' = 1)) +
   theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=14), 
                           legend.position="bottom", legend.text = element_text(colour="black", size = 9), 
                           legend.title = element_text(colour="black", size = 8, face="bold"), text = element_text(size=15), 
@@ -188,6 +212,7 @@ initial_pca <- ggplot(pcaData, aes(x = PC1, y = PC2, color = Timepoint, shape = 
 generate_figs(initial_pca, './plots/plot_initial_pca', c(5,5))
 
 
-# Save figure
-# ggsave(OUTPUT_FILE)
-#generate_figs()
+
+
+
+
