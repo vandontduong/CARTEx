@@ -326,23 +326,23 @@ mean_dataset_avgbydonor <- mean_dataset %>%
   group_by(CAR, Days, Donor) %>%
   summarize(across(starts_with("mean"), mean))
 
+
 df_long_avgbydonor <- gather(mean_dataset_avgbydonor, key = "measurement", value = "value", -CAR, -Days, -Donor)
-
-
 df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
 df_long_avgbydonor <- subset(df_long_avgbydonor, measurement != "mean_CARTEx_84")
+df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("mean_CARTEx_630", "mean_CARTEx_200", "mean_Wherry", "mean_NKlike", "mean_BBD", "mean_PD1", "mean_activation", "mean_anergy",  "mean_senescence", "mean_stemness"))
 
 measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "CARTEx 630", mean_CARTEx_200 = "CARTEx 200",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
 
-ggplot(df_long_avgbydonor, aes(x = Days, y = value, group = CAR, color = CAR)) +
-  geom_line() +
+plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = value, group = CAR, color = CAR)) +
+  geom_line() + geom_point() +
   facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
-  labs(x = "Category", y = "Mean z-score") +
-  scale_y_continuous(limits = c(-1, 1.5)) +
-  scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred"))
+  labs(x = "Days", y = "Mean z-score") +
+  scale_y_continuous(limits = c(-1.5, 1.5)) +
+  scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
+  theme(legend.position = "none")
 
-
-
+generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(8,3))
 
 
 intersect(rownames(mat), c('HNF1A', 'HNF1B'))

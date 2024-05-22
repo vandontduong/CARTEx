@@ -147,7 +147,7 @@ plot_weights <- ggplot(df_CARTEx_weights, aes(x = PC1, y = gene_name, fill = sel
   geom_bar(stat = "identity", position = "identity", width = 1) + labs(x = "Weights", y = "Genes from cluster 5") +
   theme(axis.text.y = element_blank()) + scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "orangered")) + guides(fill="none")
 
-generate_figs(plot_weights, './plots/plot_weights', c(3,3))
+generate_figs(plot_weights, './plots/plot_weights', c(2,3))
 
 ggplot(df_CARTEx_weights, aes(x = PC1, y = gene_name, fill = selected)) +
   geom_col() + labs(x = "Weights", y = "Genes from cluster 5") +

@@ -203,6 +203,7 @@ length(PD1_Tex)
 
 exhaustion_sigs <- list(
   CARTEx_630 = rownames(cartex_630_weights),
+  CARTEx_200 = rownames(cartex_200_weights),
   NKlike_Tex = NK_like,
   LCMV_Tex = Wherry_Tex,
   BBD_Tex = BBD_Tex,
@@ -211,11 +212,12 @@ exhaustion_sigs <- list(
 
 upset_exhaustion_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_sigs), intersect = names(exhaustion_sigs),
                                              base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_exhaustion_sigs, "./plots/upset_exhaustion_sigs", c(6, 3))
+generate_figs(upset_exhaustion_sigs, "./plots/upset_exhaustion_sigs", c(7.5, 3.5))
 
 
 state_sigs <- list(
   CARTEx_630 = rownames(cartex_630_weights),
+  CARTEx_200 = rownames(cartex_200_weights),
   Activation = activation.sig,
   Anergy = anergy.sig,
   Senescence = senescence.sig,
@@ -223,7 +225,26 @@ state_sigs <- list(
 )
 
 upset_state_sigs <- ComplexUpset::upset(UpSetR::fromList(state_sigs), intersect = names(state_sigs),
-                                             base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_state_sigs, "./plots/upset_state_sigs", c(5, 3))
+                                        base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
+generate_figs(upset_state_sigs, "./plots/upset_state_sigs", c(5, 3.5))
+
+
+
+exhaustion_state_sigs <- list(
+  CARTEx_630 = rownames(cartex_630_weights),
+  CARTEx_200 = rownames(cartex_200_weights),
+  NKlike_Tex = NK_like,
+  LCMV_Tex = Wherry_Tex,
+  BBD_Tex = BBD_Tex,
+  PD1_Tex = PD1_Tex,
+  Activation = activation.sig,
+  Anergy = anergy.sig,
+  Senescence = senescence.sig,
+  Stemness = stemness.sig
+)
+
+upset_exhaustion_state_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_state_sigs), intersect = names(exhaustion_state_sigs),
+                                        base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
+generate_figs(upset_exhaustion_state_sigs, "./plots/upset_exhaustion_state_sigs", c(12, 3.5))
 
 

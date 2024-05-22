@@ -196,34 +196,6 @@ colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4)
 
 out_cartex_630$Day <- factor(as.character(out_cartex_630$Day))
 
-ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
-  geom_point(stat = "identity", aes(fill = Day, color=Day)) +
-  scale_color_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD")) +
-  xlab("CAR") + ylab("CARTEx score 630") + ylim(-2.5,2.5) + theme_bw()
-
-ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
-  geom_point(stat = "identity", aes(fill = Day, color=Day), shape = 21, size = 3, color = 'black') +
-  scale_color_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD")) +
-  xlab("CAR") + ylab("CARTEx score 630") + ylim(-2.5,2.5) + theme_bw()
-
-ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
-  geom_point(stat = "identity", aes(fill = Day, color=Day), shape = 21, size = 3, color = 'black') +
-  scale_fill_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD")) +
-  xlab("CAR") + ylab("CARTEx score 630") + ylim(-2.5,2.5) + theme_bw()
-
-# Days = factor(out_cartex_630$Day)
-# Days = factor(as.character(out_cartex_630$Day))
-out_cartex_630$Day <- factor(as.character(out_cartex_630$Day))
-
-ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
-  geom_jitter(stat = "identity", aes(fill = Day, color=Day), shape = 21, size = 3, color = 'black', width = 0.05) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) + 
-  scale_fill_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD")) +
-  xlab("CAR") + ylab("CARTEx score 630") + ylim(-2.5,2.5) + theme_bw()
-
-
 plt_CARTEx_630 <- ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
   geom_jitter(stat = "identity", aes(fill = CAR, alpha = Day), shape = 21, size = 3, color = 'black', width = 0.05) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
@@ -231,18 +203,11 @@ plt_CARTEx_630 <- ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD1
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) + 
   scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
   scale_alpha_manual(values = c('0' = 0.25, '11' = 0.5, '15' = 0.75, '21' = 1)) +
-  xlab("CAR") + ylab("CARTEx score 630") + ylim(-2.5,2.5) + theme_bw()
+  xlab("CAR") + ylab("CARTEx 630") + ylim(-2.5,2.5) + theme_bw()
 
 generate_figs(plt_CARTEx_630, "./plots/plt_CARTEx_630", c(4,4))
 
 out_cartex_200$Day <- factor(as.character(out_cartex_200$Day))
-ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
-  geom_jitter(stat = "identity", aes(fill = Day, color=Day), shape = 21, size = 3, color = 'black', width = 0.05) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) +
-  scale_fill_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD")) +
-  xlab("CAR") + ylab("CARTEx score 200") + ylim(-2.5,2.5) + theme_bw()
 
 plt_CARTEx_200 <- ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
   geom_jitter(stat = "identity", aes(fill = CAR, alpha = Day), shape = 21, size = 3, color = 'black', width = 0.05) +
@@ -251,18 +216,11 @@ plt_CARTEx_200 <- ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD1
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) + 
   scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
   scale_alpha_manual(values = c('0' = 0.25, '11' = 0.5, '15' = 0.75, '21' = 1)) +
-  xlab("CAR") + ylab("CARTEx score 200") + ylim(-2.5,2.5) + theme_bw()
+  xlab("CAR") + ylab("CARTEx 200") + ylim(-2.5,2.5) + theme_bw()
 
 generate_figs(plt_CARTEx_200, "./plots/plt_CARTEx_200", c(4,4))
 
 out_cartex_84$Day <- factor(as.character(out_cartex_84$Day))
-plt_CARTEx_84 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
-  geom_jitter(stat = "identity", aes(fill = Day, color=Day), shape = 21, size = 3, color = 'black', width = 0.05) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) +
-  scale_fill_manual(values = c("#D3D3D3", "#B9D6DF", "#7390DD", "#0000CD")) +
-  xlab("CAR") + ylab("CARTEx score 84") + ylim(-2.5,2.5) + theme_bw()
 
 plt_CARTEx_84 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
   geom_jitter(stat = "identity", aes(fill = CAR, alpha = Day), shape = 21, size = 3, color = 'black', width = 0.05) +
@@ -271,7 +229,7 @@ plt_CARTEx_84 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19"
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.1) + 
   scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
   scale_alpha_manual(values = c('0' = 0.25, '11' = 0.5, '15' = 0.75, '21' = 1)) +
-  xlab("CAR") + ylab("CARTEx score 84") + ylim(-2.5,2.5) + theme_bw()
+  xlab("CAR") + ylab("CARTEx 84") + ylim(-2.5,2.5) + theme_bw()
 
 
 generate_figs(plt_CARTEx_84, "./plots/plt_CARTEx_84", c(4,4))
