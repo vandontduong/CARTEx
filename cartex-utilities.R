@@ -35,6 +35,7 @@ library(ggbeeswarm)
 library(ComplexUpset)
 library(ComplexHeatmap)
 library(ca)
+library(cowplot)
 
 # absolute path to where the project directory resides
 PATH_CARTEX <- '/oak/stanford/groups/cmackall/vandon/CARTEx/'

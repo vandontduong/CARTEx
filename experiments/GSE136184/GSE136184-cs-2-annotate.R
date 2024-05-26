@@ -348,17 +348,17 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) +
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_84', sep = ''), c(6,5))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200', sep = ''), c(6,5))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_630', sep = ''), c(6,5))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_cs_prepare_umap_sig_activation', sep = ''), c(6,5))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_cs_prepare_umap_sig_anergy', sep = ''), c(6,5))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_cs_prepare_umap_sig_stemness', sep = ''), c(6,5))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_cs_prepare_umap_sig_senescence', sep = ''), c(6,5))
-generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_cs_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
-generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_cs_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
-generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_cs_prepare_umap_BBD_Tex', sep = ''), c(6,5))
-generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_cs_prepare_umap_PD1_Tex', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_84', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_630', sep = ''), c(5.5,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_cs_prepare_umap_sig_activation', sep = ''), c(5.5,5))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_cs_prepare_umap_sig_anergy', sep = ''), c(5.5,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_cs_prepare_umap_sig_stemness', sep = ''), c(5.5,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_cs_prepare_umap_sig_senescence', sep = ''), c(5.5,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_cs_prepare_umap_NKlike_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_cs_prepare_umap_LCMV_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_cs_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_cs_prepare_umap_PD1_Tex', sep = ''), c(5.5,5))
 
 # Examine CARTEx scores grouped by age group
 vlnplot_CARTEx_630_age_group <- VlnPlot(expt.obj, feature = c("CARTEx_630"), group.by = "AgeGroup2", pt.size = 0) + theme(legend.position = 'none') + ylim(c(-3, 4)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
@@ -437,9 +437,24 @@ generate_figs(umap_gene_MT2A, paste('./plots/', experiment, '_cs_prepare_umap_ge
 # NT5E corresponds to CD73
 
 vlnplot_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
-vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E'), group.by = 'AgeGroup2', ncol = 3, cols = vlnplot_age_group_2_cols, y.max = 4)
-generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
+vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'AgeGroup2', ncol = 3, cols = vlnplot_age_group_2_cols, y.max = 4)
+# generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
 
+# ENTPD1 not detected
+vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+
+vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
+
+
+generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(6,5))
 
 
 # report time

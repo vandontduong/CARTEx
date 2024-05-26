@@ -187,7 +187,7 @@ umap_donor <- DimPlot(expt.obj, reduction = "umap", group.by = "donor", shuffle 
 generate_figs(umap_donor, paste('./plots/', experiment, '_prepare_umap_donor', sep = ''), c(6.5,5))
 
 umap_exposure <- DimPlot(expt.obj, reduction = "umap", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue'))
-generate_figs(umap_exposure, paste('./plots/', experiment, '_prepare_umap_exposure', sep = ''), c(6.5,5))
+generate_figs(umap_exposure, paste('./plots/', experiment, '_prepare_umap_exposure', sep = ''), c(6,5))
 
 
 ####################################################################################################

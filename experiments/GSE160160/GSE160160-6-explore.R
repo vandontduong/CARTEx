@@ -69,17 +69,18 @@ generate_figs(vlnplot_SYK_substrates, paste0('./plots/', experiment, '_explore_v
 
 
 # Compare CAE to day0
-
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
-de_genes <- FindMarkers(expt.obj, ident.1 = "CAE", ident.2 = "day0", group.by = "exposure", min.pct = 0.25)
+de_genes <- FindMarkers(expt.obj, ident.1 = "day20", ident.2 = "day0", group.by = "exposure", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
-signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_CAEvday0 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 1, title = NULL, subtitle = NULL, 
                                          selectLab = rownames(signif), drawConnectors = TRUE,
                                          xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
@@ -95,8 +96,8 @@ FeaturePlot(expt.obj, features = c('CCL3', 'CCL4', 'PPARG', 'METRNL', 'IFNG', 'I
 de_genes <- FindMarkers(expt.obj, ident.1 = c(0,1,3,8), ident.2 = c(6,7,9), group.by = "seurat_clusters", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
-signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_CAE2groups <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
@@ -105,7 +106,7 @@ plot_volcano_CAE2groups <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x
 
 generate_figs(plot_volcano_CAE2groups, paste('./plots/', experiment, '_explore_volcano_CAE2groups', sep = ''), c(10, 8))
 
-de_genes_sorted_CAE2groups <- arrange(filter(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2), avg_log2FC)
+de_genes_sorted_CAE2groups <- arrange(filter(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1), avg_log2FC)
 write.csv(de_genes_sorted_CAE2groups, "data/de_genes_sorted_CAE2groups.csv")
 
 

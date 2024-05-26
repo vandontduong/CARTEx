@@ -75,11 +75,11 @@ saveRDS(cellIDs_ET_high, file="./data/cellIDs_ET_high.RData")
 
 umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "blue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from young naive CD8+ T cells") + theme(legend.position="none")
 umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "blue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from elderly terminal effector CD8+ T cells") + theme(legend.position="none")
-generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(6,5))
-generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(6,5))
+generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(5,5))
+generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(5,5))
 
 umap_extract_highlight_combined <- umap_extract_highlight_YN_low + umap_extract_highlight_ET_high
-generate_figs(umap_extract_highlight_combined, paste('./plots/', experiment, '_cs_extract_umap_highlight_combined', sep = ''), c(12,5))
+generate_figs(umap_extract_highlight_combined, paste('./plots/', experiment, '_cs_extract_umap_highlight_combined', sep = ''), c(10,5))
 
 
 expt.obj <- expt.obj[,(colnames(expt.obj) %in% union(cellIDs_YN_low, cellIDs_ET_high))]
@@ -156,25 +156,27 @@ generate_figs(vlnplot_CARTEx_84_extract_ident, paste('./plots/', experiment, '_e
 vlnplot_CARTEx_84_age_group_2 <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "AgeGroup2", pt.size = 1)
 generate_figs(vlnplot_CARTEx_84_age_group_2, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_84_age_group_2', sep = ''), c(6,5))
 
-vlnplot_CARTEx_630_extract_ident <- VlnPlot(expt.obj, c("CARTEx_630"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none') + ylim(c(-3, 6)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
-vlnplot_CARTEx_200_extract_ident <- VlnPlot(expt.obj, c("CARTEx_200"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none') + ylim(c(-3, 6)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
-vlnplot_CARTEx_84_extract_ident <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none') + ylim(c(-3, 6)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_630_extract_ident <- VlnPlot(expt.obj, c("CARTEx_630"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 630') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_200_extract_ident <- VlnPlot(expt.obj, c("CARTEx_200"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 200') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_84_extract_ident <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 84') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
 
 vlnplot_CARTEx_combined_extract_ident <- (vlnplot_CARTEx_630_extract_ident | vlnplot_CARTEx_200_extract_ident | vlnplot_CARTEx_84_extract_ident)
-generate_figs(vlnplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_combined_extract_ident', sep = ''), c(14,5))
+generate_figs(vlnplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_combined_extract_ident', sep = ''), c(10,5))
 
 
-featplot_CARTEx_630_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', cols=c("orchid", "royalblue")) + theme(legend.position = 'none') + xlim(c(0, 11.5)) + ylim(c(-3, 6))
-featplot_CARTEx_200_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', cols=c("orchid", "royalblue")) + theme(legend.position = 'none') + xlim(c(0, 11.5)) + ylim(c(-3, 6))
-featplot_CARTEx_84_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', cols=c("orchid", "royalblue")) + theme(legend.position = 'none') + xlim(c(0, 11.5)) + ylim(c(-3, 6))
+featplot_CARTEx_630_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', cols=c("orchid", "royalblue")) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
+featplot_CARTEx_200_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', cols=c("orchid", "royalblue")) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
+featplot_CARTEx_84_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', cols=c("orchid", "royalblue")) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_extract_ident <- (featplot_CARTEx_630_extract_ident | featplot_CARTEx_200_extract_ident | featplot_CARTEx_84_extract_ident)
-generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(14,5))
+generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(10,5))
 
 
 ####################################################################################################
 ################################### Differentially expressed genes #################################
 ####################################################################################################
+
+# https://bioc.r-universe.dev/EnhancedVolcano/doc/manual.html
 
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
@@ -183,37 +185,40 @@ cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep =
 de_genes <- FindMarkers(expt.obj, ident.1 = "OldTerminal", ident.2 = "YoungNaive", group.by = "extract.ident", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
-plot_volcano_OTvYN_CARTEx_630 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                         selectLab = rownames(signif), drawConnectors = TRUE,
-                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+plot_volcano_OTvYN_CARTEx_630 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val',
+                                                 pCutoff = 10e-6, FCcutoff = 1, 
+                                                 selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
-generate_figs(plot_volcano_OTvYN_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_630', sep = ''), c(10, 8))
+generate_figs(plot_volcano_OTvYN_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_630', sep = ''), c(12, 8))
 
 
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
 signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_OTvYN_CARTEx_200 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                      selectLab = rownames(signif), drawConnectors = TRUE,
-                                      xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                 pCutoff = 10e-6, FCcutoff = 1, 
+                                                 selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
-generate_figs(plot_volcano_OTvYN_CARTEx_200, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_200', sep = ''), c(10, 8))
+generate_figs(plot_volcano_OTvYN_CARTEx_200, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_200', sep = ''), c(12, 8))
 
 
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 2)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
 signif <- signif[rownames(signif) %in% rownames(cartex_84_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_OTvYN_CARTEx_84 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                      selectLab = rownames(signif), drawConnectors = TRUE,
-                                      xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                pCutoff = 10e-6, FCcutoff = 1, 
+                                                selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                                xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
-generate_figs(plot_volcano_OTvYN_CARTEx_84, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_84', sep = ''), c(10, 8))
+generate_figs(plot_volcano_OTvYN_CARTEx_84, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_84', sep = ''), c(12, 8))
 
 
 

@@ -205,16 +205,16 @@ head(query.obj)
 
 # CARTEx violin plot
 query.obj <- SetIdent(query.obj, value = "identifier2")
-split.ident.order = c("day0", "CAE", "YoungNaive", "OldTerminal")
+split.ident.order = c("day0", "day20", "YoungNaive", "OldTerminal")
 Idents(query.obj) <- factor(Idents(query.obj), levels = split.ident.order)
 
 
 query.obj$identifier2 <- factor(query.obj$identifier2, levels = split.ident.order)
 vlnplot_CARTEx_84 <- VlnPlot(query.obj, features = c("CARTEx_84"), group.by = 'identifier2', y.max = 6, pt.size = 0) + 
   theme(legend.position = 'none') + geom_boxplot(width=0.2, color="black", alpha=0) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','CAE')), label = "p.signif", label.y = 4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 5) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CAE','OldTerminal')), label = "p.signif", label.y = 3.5)
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 3.5)
 generate_figs(vlnplot_CARTEx_84, paste('./plots/', experiment, '_query_vlnplot_CARTEx_84', sep = ''))
 
 
