@@ -37,6 +37,8 @@ all(rownames(sampleTable)==colnames(select)) # check if the samplenames and orde
 
 write.csv(rownames(data), "./data/background_genes.csv", row.names=FALSE)
 
+
+
 #------------
 # Heatmap
 #------------
@@ -60,6 +62,7 @@ myBreaks <- seq(-3, 3, length.out = 100)
 #-------------------------------------
 pamClusters <- cluster::pam(mat[,-c(10:12)], k = 5)
 pamClusters$clustering <- paste0('C', pamClusters$clustering)
+table(pamClusters$clustering)
 
 # plot
 set.seed(123)

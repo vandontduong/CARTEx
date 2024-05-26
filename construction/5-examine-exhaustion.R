@@ -362,3 +362,24 @@ ggplot(data=HNF1B_dataset, aes(x=CAR, y=HNF1B_score)) + geom_boxplot() + geom_po
 colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4)
 
 
+# SIRPA is not part of cluster 5 (mat)
+
+intersect(rownames(data), c('SIRPA'))
+data[rownames(data) %in% c('SIRPA'),]
+
+SIRPA_score <- data[rownames(data) %in% c('SIRPA'),]
+SIRPA_score <- SIRPA_score %>% pivot_longer(everything(), names_to = "name", values_to = "SIRPA_score")
+
+CAR <- sub("_.*", "", SIRPA_score$name)
+Days <- sub(".*_", "", SIRPA_score$name)
+
+SIRPA_dataset <- data.frame(SIRPA_score, CAR, Days)
+ggplot(data=SIRPA_dataset, aes(x = factor(CAR, levels = c('Control', 'CD19', 'HA')), y=SIRPA_score)) + geom_boxplot() + geom_point(aes(color=Days)) + 
+  xlab("CAR") + scale_y_continuous(limits = c(-1, 1)) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 0.7) +
+  theme_bw()
+
+
+
+
+
