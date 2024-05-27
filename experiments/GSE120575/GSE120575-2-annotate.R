@@ -343,17 +343,17 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) +
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(5.5,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(5.5,5))
 generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''))
-generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
-generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
-generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(6,5))
-generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(6,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(5.5,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(5.5,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(5.5,5))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
@@ -438,10 +438,36 @@ generate_figs(barplot_monaco_timepoint_response_baseline, paste('./plots/', expe
 
 # https://github.com/satijalab/seurat/issues/3366#issuecomment-674262907
 
-vlnplot_response_exhaustion_markers_baseline <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'characteristics_response', ncol = 3, cols = c("firebrick", "seagreen"), y.max = 3)
+vlnplot_response_exhaustion_markers_baseline <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'characteristics_response', ncol = 3, cols = c("firebrick", "seagreen"), y.max = 3)
+
+vlnplot_response_exhaustion_markers_baseline <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'characteristics_response', cols = c("firebrick", "seagreen"), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'characteristics_response', cols = c("firebrick", "seagreen"), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('LAG3'), group.by = 'characteristics_response', cols = c("firebrick", "seagreen"), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'characteristics_response', cols = c("firebrick", "seagreen"), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'characteristics_response', cols = c("firebrick", "seagreen"), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'characteristics_response', cols = c("firebrick", "seagreen"), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+
 generate_figs(vlnplot_response_exhaustion_markers_baseline, paste('./plots/', experiment, '_prepare_vlnplot_response_exhaustion_markers_baseline', sep = ''), c(8,6))
 
 
+
+### exploded volcano
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+# Compare Pre-R vs Pre-NR
+de_genes <- FindMarkers(expt.obj, ident.1 = "Pre-R", ident.2 = "Pre-NR", group.by = "Timepoint_Response", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_baseline_response <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 1, 
+                                         selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(10, 8))
 
 
 # report time

@@ -353,17 +353,17 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) +
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(6,5))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(6,5))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(6,5))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(6,5))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(6,5))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(6,5))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(6,5))
-generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
-generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
-generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(6,5))
-generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(5.5,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(5.5,5))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(5.5,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(5.5,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(5.5,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(5.5,5))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
@@ -379,7 +379,15 @@ head(expt.obj)
 # NT5E corresponds to CD73
 # ENTPD1 corresponds to CD39
 
-vlnplot_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'NT5E', 'ENTPD1'), group.by = 'Group', ncol = 3, cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)
+vlnplot_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'Group', ncol = 3, cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)
+
+vlnplot_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Group', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Group', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Group', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Group', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Group', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                 VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Group', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
+
 generate_figs(vlnplot_group_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_group_exhaustion_markers', sep = ''), c(8,6))
 
 

@@ -142,7 +142,7 @@ aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(5.5,5))
 
 
@@ -152,7 +152,7 @@ aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(5.5,5))
 
 
@@ -162,7 +162,7 @@ aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(5.5,5))
 
 
@@ -200,7 +200,7 @@ aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(5.5,5))
 
 aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
@@ -209,7 +209,7 @@ aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(5.5,5))
 
 aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
@@ -218,7 +218,7 @@ aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(5.5,5))
 
 aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
@@ -227,7 +227,7 @@ aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-3, 3)
+  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme(legend.position="none")
 generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(5.5,5))
 
 
