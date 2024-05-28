@@ -74,7 +74,7 @@ generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', s
 umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
 
-# saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_cellcycle.rds', sep = ''))
 
@@ -216,6 +216,14 @@ barplot_phase_affstat <- BarPlotStackSplit(expt.obj, 'Phase', 'Affstat', color_s
 generate_figs(barplot_phase_affstat, paste('./plots/', experiment, '_prepare_barplot_phase_affstat', sep = ''), c(5,4))
 
 
+
+barplot_monaco_affstatstim <- BarPlotStackSplit(expt.obj, 'monaco', 'AffstatStim', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_affstatstim, paste('./plots/', experiment, '_prepare_barplot_monaco_affstatstim', sep = ''), c(6,4))
+
+barplot_phase_affstatstim <- BarPlotStackSplit(expt.obj, 'Phase', 'AffstatStim', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_affstatstim, paste('./plots/', experiment, '_prepare_barplot_phase_affstatstim', sep = ''), c(5,4))
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -342,17 +350,17 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) +
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(6,5))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(6,5))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(6,5))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(6,5))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(6,5))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(6,5))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(6,5))
-generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(6,5))
-generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(6,5))
-generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(6,5))
-generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(6,5))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(5.5,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(5.5,5))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(5.5,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(5.5,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(5.5,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(5.5,5))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
@@ -360,6 +368,97 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 # expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
+
+VlnPlot(expt.obj, features=c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'Affstat')
+
+vlnplot_affstat_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Affstat', cols = c("steelblue", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                            VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Affstat', cols = c("steelblue", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                            VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Affstat', cols = c("steelblue", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                            VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Affstat', cols = c("steelblue", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                            VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Affstat', cols = c("steelblue", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                            VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Affstat', cols = c("steelblue", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+
+generate_figs(vlnplot_affstat_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_affstat_exhaustion_markers', sep = ''), c(6,5))
+
+vlnplot_stim_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Stim', cols = c("lightslategrey", "darkslategrey"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Stim', cols = c("lightslategrey", "darkslategrey"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Stim', cols = c("lightslategrey", "darkslategrey"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Stim', cols =c("lightslategrey", "darkslategrey"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Stim', cols = c("lightslategrey", "darkslategrey"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Stim', cols = c("lightslategrey", "darkslategrey"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+
+generate_figs(vlnplot_stim_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_stim_exhaustion_markers', sep = ''), c(6,5))
+
+
+VlnPlot(expt.obj, features=c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)
+
+custom_labels <- c('Control\nRested', 'Control\nStimulated', 'STAT3_GOF\nRested', 'STAT3_GOF\nStimulated')
+
+vlnplot_affstatstim_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels = custom_labels))
+
+
+
+custom_labels <- c('Control (R)', 'Control (S)', 'STAT3_GOF (R)', 'STAT3_GOF (S)')
+
+vlnplot_affstatstim_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.title.x = element_blank()) + guides(fill=FALSE)+ scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.title.x = element_blank()) + guides(fill=FALSE)+ scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.title.x = element_blank()) + guides(fill=FALSE)+ scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.title.x = element_blank()) + guides(fill=FALSE)+ scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.title.x = element_blank()) + guides(fill=FALSE)+ scale_x_discrete(labels = custom_labels),
+                                                    VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'AffstatStim', cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), y.max = 20)+theme(axis.title.x = element_blank()) + guides(fill=FALSE)+ scale_x_discrete(labels = custom_labels))
+
+
+generate_figs(vlnplot_affstatstim_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_affstatstim_exhaustion_markers', sep = ''), c(6,5))
+
+
+
+### exploded volcano
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+# Compare STAT3 GOF (stim)
+de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF_Stimulated", ident.2 = "Control_Stimulated", group.by = "AffstatStim", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_STAT3GOF_stim <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 1, 
+                                         selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_STAT3GOF_stim, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_stim', sep = ''), c(10, 8))
+
+
+
+
+# Compare STAT3 GOF vs control
+de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF", ident.2 = "Control", group.by = "Affstat", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_STAT3GOF_control <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                              pCutoff = 10e-6, FCcutoff = 1, 
+                                              selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_STAT3GOF_control, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control', sep = ''), c(10, 8))
+
+
+
+
+
+
+
 
 # report time
 print("The script has completed...")

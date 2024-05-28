@@ -39,6 +39,10 @@ expt.obj@meta.data[['identifier3']] <- expt.obj@meta.data$Stim
 aging.obj@meta.data[['identifier3']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier3']] <- ref.obj@meta.data$monaco
 
+expt.obj@meta.data[['identifier4']] <- expt.obj@meta.data$AffstatStim
+aging.obj@meta.data[['identifier4']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier4']] <- ref.obj@meta.data$monaco
+
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"
 ref.obj@meta.data[["split.ident"]] <- "Reference"

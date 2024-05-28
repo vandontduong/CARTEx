@@ -82,9 +82,13 @@ expt.obj@meta.data$Affstat <- factor(expt.obj@meta.data$Affstat, levels = c("Con
 
 expt.obj@meta.data$Stim <- plyr::mapvalues(x = expt.obj@meta.data$Stim,
                                               from = c('No Stim', 'Stim'),
-                                              to = c('no', 'yes'))
+                                              to = c('Rested', 'Stimulated'))
 
-expt.obj@meta.data$Stim <- factor(expt.obj@meta.data$Stim, levels = c("no", "yes"))
+expt.obj@meta.data$Stim <- factor(expt.obj@meta.data$Stim, levels = c("Rested", "Stimulated"))
+
+expt.obj@meta.data$AffstatStim <- paste(expt.obj@meta.data$Affstat, expt.obj@meta.data$Stim, sep = "_")
+expt.obj@meta.data$AffstatStim <- factor(expt.obj@meta.data$AffstatStim, levels = c("Control_Rested", "Control_Stimulated", "STAT3_GOF_Rested", "STAT3_GOF_Stimulated"))
+
 
 # check levels() for metadata
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
@@ -172,11 +176,31 @@ generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_pr
 umap_sample <- DimPlot(expt.obj, reduction = "umap", group.by = "Sample", shuffle = TRUE, seed = 123)
 generate_figs(umap_sample, paste('./plots/', experiment, '_prepare_umap_sample', sep = ''), c(6.5, 5))
 
-umap_affstat <- DimPlot(expt.obj, reduction = "umap", group.by = "Affstat", shuffle = TRUE, seed = 123)
+umap_affstat <- DimPlot(expt.obj, reduction = "umap", group.by = "Affstat", shuffle = TRUE, seed = 123, cols = c("lightsteelblue", "violetred"))
 generate_figs(umap_affstat, paste('./plots/', experiment, '_prepare_umap_affstat', sep = ''), c(6.5, 5))
 
-umap_stim <- DimPlot(expt.obj, reduction = "umap", group.by = "Stim", shuffle = TRUE, seed = 123)
+umap_stim <- DimPlot(expt.obj, reduction = "umap", group.by = "Stim", shuffle = TRUE, seed = 123, cols = c("lightslategrey", "darkslategrey"))
 generate_figs(umap_stim, paste('./plots/', experiment, '_prepare_umap_stim', sep = ''), c(6.5, 5))
+
+umap_affstatstim <- DimPlot(expt.obj, reduction = "umap", group.by = "AffstatStim", shuffle = TRUE, seed = 123, cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"))
+generate_figs(umap_affstatstim, paste('./plots/', experiment, '_prepare_umap_affstatstim', sep = ''), c(7.5, 5))
+
+
+
+dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
+generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
+
+dmap_affstat <- DimPlot(expt.obj, reduction = "dm", group.by = "Affstat", shuffle = TRUE, seed = 123, cols = c("steelblue", "violetred"))
+generate_figs(dmap_affstat, paste('./plots/', experiment, '_prepare_dmap_affstat', sep = ''), c(6.5, 5))
+
+dmap_stim <- DimPlot(expt.obj, reduction = "dm", group.by = "Stim", shuffle = TRUE, seed = 123, cols = c("lightslategrey", "darkslategrey"))
+generate_figs(dmap_stim, paste('./plots/', experiment, '_prepare_dmap_stim', sep = ''), c(6.5, 5))
+
+dmap_affstatstim <- DimPlot(expt.obj, reduction = "dm", group.by = "AffstatStim", shuffle = TRUE, seed = 123, cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"))
+generate_figs(dmap_affstatstim, paste('./plots/', experiment, '_prepare_dmap_affstatstim', sep = ''), c(7.5, 5))
+
+
+
 
 
 
