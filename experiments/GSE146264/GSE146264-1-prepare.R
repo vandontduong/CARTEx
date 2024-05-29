@@ -209,6 +209,9 @@ generate_figs(umap_Onset, paste('./plots/', experiment, '_prepare_umap_Onset', s
 umap_Duration <- DimPlot(expt.obj, reduction = "umap", group.by = "Duration", shuffle = TRUE, seed = 123)
 generate_figs(umap_Duration, paste('./plots/', experiment, '_prepare_umap_Duration', sep = ''), c(6, 5))
 
+umap_Severity <- DimPlot(expt.obj, reduction = "umap", group.by = "Severity", shuffle = TRUE, seed = 123, cols = c('seagreen', 'steelblue', 'firebrick'))
+generate_figs(umap_Severity, paste('./plots/', experiment, '_prepare_umap_Severity', sep = ''), c(6, 5))
+
 
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################

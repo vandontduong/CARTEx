@@ -142,19 +142,24 @@ CARTEx_versions <- list(
 
 
 
-upset_expt_allgenes <- ComplexUpset::upset(UpSetR::fromList(expt.allgenes), intersect = names(expt.allgenes))
+upset_expt_allgenes <- ComplexUpset::upset(UpSetR::fromList(expt.allgenes), intersect = names(expt.allgenes),
+                                           base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_expt_allgenes, "./plots/upset_expt_allgenes", c(16, 6))
 
-upset_expt_CARTEx630 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx630), intersect = names(expt.CARTEx630))
+upset_expt_CARTEx630 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx630), intersect = names(expt.CARTEx630),
+                                            base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_expt_CARTEx630, "./plots/upset_expt_CARTEx630", c(6, 6))
 
-upset_expt_CARTEx200 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx200), intersect = names(expt.CARTEx200))
+upset_expt_CARTEx200 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx200), intersect = names(expt.CARTEx200),
+                                            base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_expt_CARTEx200, "./plots/upset_expt_CARTEx200", c(6, 6))
 
-upset_expt_CARTEx84 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx84), intersect = names(expt.CARTEx84))
+upset_expt_CARTEx84 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx84), intersect = names(expt.CARTEx84),
+                                           base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_expt_CARTEx84, "./plots/upset_expt_CARTEx84", c(6, 6))
 
-upset_expt_TSG <- ComplexUpset::upset(UpSetR::fromList(expt.TSG), intersect = names(expt.TSG))
+upset_expt_TSG <- ComplexUpset::upset(UpSetR::fromList(expt.TSG), intersect = names(expt.TSG),
+                                      base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_expt_TSG, "./plots/upset_expt_TSG", c(6, 6))
 
 

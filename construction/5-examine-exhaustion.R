@@ -70,7 +70,6 @@ generate_figs(plot_canonical_exhaustion_markers, './plots/plot_canonical_exhaust
 sampleTable2 <- sampleTable[c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21"),]
 
 mat <- t(scale(t(select))) # mean-center data
-mat <- mat[, c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
 ann <- data.frame(Timepoint = as.factor(sampleTable2$Timepoint), CAR = sampleTable2$CAR)
 
 # Color heatmap
@@ -98,7 +97,8 @@ anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANE
 stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
 senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
 
-
+# reorder columns
+mat <- mat[, c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
 
 rownames(mat)
 index_CARTEx_630 <- rownames(mat) %in% rownames(cartex_630_weights)
@@ -165,7 +165,8 @@ colAnn <- HeatmapAnnotation(
 
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
-select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
+# select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
+select_genes <- c('TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2')
 index_select_genes <- which(rownames(mat) %in% select_genes)
 select_genes_ordered <- rownames(mat)[index_select_genes]
 
@@ -205,7 +206,7 @@ hmap <- Heatmap(mat,
 
 # draw(hmap,  annotation_legend_side = 'left', heatmap_legend_side = 'left')
 plot_heatmap_all_clusters <- as.grob(hmap)
-generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(6,6))
+generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(6,6)) # due to anno_mark, which is not scalable for some reason, export manually
 
 # pdf(plot_heatmap_all_clusters)
 #png(filename = "./plots/plot_heatmap_all_clusters.png", width = 480, height = 480, units = "px", pointsize = 12)

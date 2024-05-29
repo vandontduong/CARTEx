@@ -397,6 +397,17 @@ generate_figs(vlnplot_exposure_exhaustion_markers, paste('./plots/', experiment,
 
 
 
+# percentage of CARTEx detected
+
+featplot_CARTEx_630_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 50)) + ylim(c(-3, 5))
+featplot_CARTEx_200_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 50)) + ylim(c(-3, 5))
+featplot_CARTEx_84_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 50)) + ylim(c(-3, 5))
+
+featplot_CARTEx_combined_exposure <- (featplot_CARTEx_630_exposure | featplot_CARTEx_200_exposure | featplot_CARTEx_84_exposure)
+generate_figs(featplot_CARTEx_combined_exposure, paste('./plots/', experiment, '_featplot_CARTEx_combined_exposure', sep = ''), c(10,5))
+
+
+
 # report time
 print("The script has completed...")
 proc.time() - ptm

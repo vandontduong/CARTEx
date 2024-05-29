@@ -398,6 +398,21 @@ vlnplot_CAR_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'
 generate_figs(vlnplot_CAR_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_CAR_exhaustion_markers', sep = ''), c(6,5))
 
 
+
+# percentage of CARTEx detected
+
+featplot_CARTEx_630_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 35)) + ylim(c(-3, 5))
+featplot_CARTEx_200_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 35)) + ylim(c(-3, 5))
+featplot_CARTEx_84_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 35)) + ylim(c(-3, 5))
+
+featplot_CARTEx_combined_CAR <- (featplot_CARTEx_630_CAR | featplot_CARTEx_200_CAR | featplot_CARTEx_84_CAR)
+generate_figs(featplot_CARTEx_combined_CAR, paste('./plots/', experiment, '_featplot_CARTEx_combined_CAR', sep = ''), c(10,5))
+
+
+
+
+
+
 # report time
 print("The script has completed...")
 proc.time() - ptm

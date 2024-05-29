@@ -217,10 +217,12 @@ generate_figs(barplot_phase_affstat, paste('./plots/', experiment, '_prepare_bar
 
 
 
-barplot_monaco_affstatstim <- BarPlotStackSplit(expt.obj, 'monaco', 'AffstatStim', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+custom_labels <- c('Control\nRested', 'Control\nStimulated', 'STAT3_GOF\nRested', 'STAT3_GOF\nStimulated')
+
+barplot_monaco_affstatstim <- BarPlotStackSplit(expt.obj, 'monaco', 'AffstatStim', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3')) + scale_x_discrete(labels = custom_labels)
 generate_figs(barplot_monaco_affstatstim, paste('./plots/', experiment, '_prepare_barplot_monaco_affstatstim', sep = ''), c(6,4))
 
-barplot_phase_affstatstim <- BarPlotStackSplit(expt.obj, 'Phase', 'AffstatStim', color_set = hcl.colors(3, palette = "Temps"))
+barplot_phase_affstatstim <- BarPlotStackSplit(expt.obj, 'Phase', 'AffstatStim', color_set = hcl.colors(3, palette = "Temps")) + scale_x_discrete(labels = custom_labels)
 generate_figs(barplot_phase_affstatstim, paste('./plots/', experiment, '_prepare_barplot_phase_affstatstim', sep = ''), c(5,4))
 
 
@@ -452,6 +454,17 @@ plot_volcano_STAT3GOF_control <- EnhancedVolcano(de_genes, lab = rownames(de_gen
                                               xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
 generate_figs(plot_volcano_STAT3GOF_control, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control', sep = ''), c(10, 8))
+
+
+
+# percentage of CARTEx detected
+
+featplot_CARTEx_630_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 30)) + ylim(c(-1, 8))
+featplot_CARTEx_200_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 30)) + ylim(c(-1, 8))
+featplot_CARTEx_84_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-1, 8))
+
+featplot_CARTEx_combined_affstatstim <- (featplot_CARTEx_630_affstatstim | featplot_CARTEx_200_affstatstim | featplot_CARTEx_84_affstatstim)
+generate_figs(featplot_CARTEx_combined_affstatstim, paste('./plots/', experiment, '_featplot_CARTEx_combined_affstatstim', sep = ''), c(10,5))
 
 
 

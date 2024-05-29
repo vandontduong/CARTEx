@@ -386,50 +386,77 @@ generate_figs(scatterplot_CARTEx_200_activation_triple_checkpoint_expression, pa
 
 table_triple_checkpoint_expression_phase <- table(expt.obj@meta.data$triple_checkpoint_expression, expt.obj@meta.data$Phase)
 corr_triple_checkpoint_expression_phase <- CorrespondenceAnalysisPlot(table_triple_checkpoint_expression_phase, "Triple Checkpoint Expression", "Phase")
-generate_figs(corr_triple_checkpoint_expression_phase, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_phase', sep = ''), c(6,6))
+generate_figs(corr_triple_checkpoint_expression_phase, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_phase', sep = ''), c(4,4))
 
 table_timepoint_response_phase <- table(expt.obj@meta.data$Timepoint_Response, expt.obj@meta.data$Phase)
 corr_timepoint_response_phase <- CorrespondenceAnalysisPlot(table_timepoint_response_phase, "Timepoint-Response", "Phase")
-generate_figs(corr_timepoint_response_phase, paste('./plots/', experiment, '_prepare_corr_timepoint_response_phase', sep = ''), c(6,6))
+generate_figs(corr_timepoint_response_phase, paste('./plots/', experiment, '_prepare_corr_timepoint_response_phase', sep = ''), c(4,4))
 
 table_monaco_phase <- table(expt.obj@meta.data$monaco, expt.obj@meta.data$Phase)
 corr_monaco_phase <- CorrespondenceAnalysisPlot(table_monaco_phase, "Monaco", "Phase")
-generate_figs(corr_monaco_phase, paste('./plots/', experiment, '_prepare_corr_monaco_phase', sep = ''), c(6,6))
+generate_figs(corr_monaco_phase, paste('./plots/', experiment, '_prepare_corr_monaco_phase', sep = ''), c(4,4))
 
 table_timepoint_response_monaco <- table(expt.obj@meta.data$Timepoint_Response, expt.obj@meta.data$monaco)
 corr_timepoint_response_monaco <- CorrespondenceAnalysisPlot(table_timepoint_response_monaco, "Timepoint-Response", "Monaco")
-generate_figs(corr_timepoint_response_monaco, paste('./plots/', experiment, '_prepare_corr_timepoint_response_monaco', sep = ''), c(6,6))
+generate_figs(corr_timepoint_response_monaco, paste('./plots/', experiment, '_prepare_corr_timepoint_response_monaco', sep = ''), c(4,4))
 
 
 
 table_triple_checkpoint_expression_CARTEx_200i <- table(expt.obj@meta.data$triple_checkpoint_expression, expt.obj@meta.data$CARTEx_200i)
 corr_triple_checkpoint_expression_CARTEx_200i <- CorrespondenceAnalysisPlot(table_triple_checkpoint_expression_CARTEx_200i, "Triple Checkpoint Expression", "CARTEx 200")
-generate_figs(corr_triple_checkpoint_expression_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_CARTEx_200i', sep = ''), c(6,6))
+generate_figs(corr_triple_checkpoint_expression_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_triple_checkpoint_expression_CARTEx_200i', sep = ''), c(4,4))
 
 table_NKlike_Texi_CARTEx_200i <- table(expt.obj@meta.data$NKlike_Texi, expt.obj@meta.data$CARTEx_200i)
 corr_NKlike_Texi_CARTEx_200i <- CorrespondenceAnalysisPlot(table_NKlike_Texi_CARTEx_200i, "NK-like", "CARTEx 200")
-generate_figs(corr_NKlike_Texi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_NKlike_Texi_CARTEx_200i', sep = ''), c(6,6))
+generate_figs(corr_NKlike_Texi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_NKlike_Texi_CARTEx_200i', sep = ''), c(4,4))
 
 table_activationi_CARTEx_200i <- table(expt.obj@meta.data$Activationi, expt.obj@meta.data$CARTEx_200i)
 table_activationi_CARTEx_200i <- CleanTable(table_activationi_CARTEx_200i)
 corr_activationi_CARTEx_200i <- CorrespondenceAnalysisPlot(table_activationi_CARTEx_200i, "Activation", "CARTEx 200")
-generate_figs(corr_activationi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_activationi_CARTEx_200i', sep = ''), c(6,6))
+generate_figs(corr_activationi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_activationi_CARTEx_200i', sep = ''), c(4,4))
 
 table_anergyi_CARTEx_200i <- table(expt.obj@meta.data$Anergyi, expt.obj@meta.data$CARTEx_200i)
 table_anergyi_CARTEx_200i <- CleanTable(table_anergyi_CARTEx_200i)
 corr_anergyi_CARTEx_200i <- CorrespondenceAnalysisPlot(table_anergyi_CARTEx_200i, "Anergy", "CARTEx 200")
-generate_figs(corr_anergyi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_anergyi_CARTEx_200i', sep = ''), c(6,6))
+generate_figs(corr_anergyi_CARTEx_200i, paste('./plots/', experiment, '_prepare_corr_anergyi_CARTEx_200i', sep = ''), c(4,4))
 
 table_anergyi_NKlike_Texi <- table(expt.obj@meta.data$Anergyi, expt.obj@meta.data$NKlike_Texi)
 table_anergyi_NKlike_Texi <- CleanTable(table_anergyi_NKlike_Texi)
 corr_anergyi_NKlike_Texi <- CorrespondenceAnalysisPlot(table_anergyi_NKlike_Texi, "Anergy", "NK-like")
-generate_figs(corr_anergyi_NKlike_Texi, paste('./plots/', experiment, '_prepare_corr_anergyi_NKlike_Texi', sep = ''), c(6,6))
+generate_figs(corr_anergyi_NKlike_Texi, paste('./plots/', experiment, '_prepare_corr_anergyi_NKlike_Texi', sep = ''), c(4,4))
+
+
+
+
+# COLORFUL gradient
+
+meta_trunc <- data.frame(expt.obj@meta.data$CARTEx_200, expt.obj@meta.data$characteristics_response, expt.obj@meta.data$characteristics_therapy, expt.obj@meta.data$Timepoint)
+colnames(meta_trunc) <- c('CARTEx_score', 'Response', 'Therapy', 'Timepoint')
+
+gradient_timepoint_response <- ggplot(meta_trunc, aes(x=factor(Timepoint, level = c("Pre","Post")),y=CARTEx_score)) + 
+  geom_boxplot() + geom_jitter(aes(color = Response), alpha = 0.5) + xlab("Therapy") +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre','Post')), label = "p.signif") +
+  scale_color_manual(values = c('NR' = 'firebrick', 'R' = 'seagreen')) +
+  ylab('CARTEx 200')
+
+generate_figs(gradient_timepoint_response, paste('./plots/', experiment, '_gradient_timepoint_response', sep = ''), c(4,6))
+
+
+# percentage of CARTEx detected
+
+featplot_CARTEx_630_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_200_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_84_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 20)) + ylim(c(-3, 5))
+
+featplot_CARTEx_combined_response <- (featplot_CARTEx_630_response | featplot_CARTEx_200_response | featplot_CARTEx_84_response)
+generate_figs(featplot_CARTEx_combined_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_response', sep = ''), c(10,5))
+
 
 
 
 ### examining baseline (exclude post)
 
-# expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
+# expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 Idents(expt.obj) <- "Timepoint_Response"
 expt.obj <- subset(expt.obj, idents = c("Post-NR", "Post-R"), invert = TRUE)
 
@@ -468,6 +495,21 @@ plot_volcano_baseline_response <- EnhancedVolcano(de_genes, lab = rownames(de_ge
                                          xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
 generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(10, 8))
+
+
+# percentage of CARTEx detected
+
+featplot_CARTEx_630_baseline_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_200_baseline_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_84_baseline_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 20)) + ylim(c(-3, 5))
+
+featplot_CARTEx_combined_baseline_response <- (featplot_CARTEx_630_baseline_response | featplot_CARTEx_200_baseline_response | featplot_CARTEx_84_baseline_response)
+generate_figs(featplot_CARTEx_combined_baseline_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_baseline_response', sep = ''), c(10,5))
+
+
+
+
+
 
 
 # report time
