@@ -78,6 +78,7 @@ General procedure for scRNAseq analyses:
 | scRNAseq | [GSE261475](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE261475) | Engineered CD47 CAR T cells | draft |
 | scRNAseq | [GSE255850](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE255850) | Phase 1 study of CAR T cells for glioma | [Brown et al. 2024 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/38454126/) |
 | scRNAseq | [GSE139555](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139555) | Peripheral T cell and TILs | |
+| scRNAseq | [GSE126030](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE126030) | T cell activation | [Szabo et al. 2019 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/31624246/) |
 
 [More notes](REF.md)
 
