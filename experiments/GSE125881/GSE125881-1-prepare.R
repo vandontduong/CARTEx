@@ -75,8 +75,8 @@ expt.obj@meta.data$SampleID <- factor(expt.obj@meta.data$SampleID, levels = c('1
 
 expt.obj@meta.data$Patient <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                           from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
-                                                          to = c('CLL-1', 'CLL-1', 'CLL-1', 'CLL-1', 'NHL-9', 'NHL-9', 'NHL-9', 'CLL-2', 'CLL-2', 'CLL-2', 'CLL-2', 'NHL-10', 'NHL-10', 'NHL-10', 'NHL-10', 'NHL-9'))
-expt.obj@meta.data$Patient <- factor(expt.obj@meta.data$Patient, levels = c('CLL-1', 'CLL-2', 'NHL-9', 'NHL-10'))
+                                                          to = c('CLL-1', 'CLL-1', 'CLL-1', 'CLL-1', 'NHL-6', 'NHL-6', 'NHL-6', 'CLL-2', 'CLL-2', 'CLL-2', 'CLL-2', 'NHL-7', 'NHL-7', 'NHL-7', 'NHL-7', 'NHL-6'))
+expt.obj@meta.data$Patient <- factor(expt.obj@meta.data$Patient, levels = c('CLL-1', 'CLL-2', 'NHL-6', 'NHL-7'))
 
 expt.obj@meta.data$TimePoint <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                             from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
@@ -87,6 +87,11 @@ expt.obj@meta.data$Group <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                         from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
                                                         to = c('IP', 'ExpansionPeak', 'Contraction', 'Late', 'ExpansionPeak', 'Contraction', 'Late', 'IP', 'ExpansionPeak', 'Contraction', 'Late', 'IP', 'ExpansionPeak', 'Contraction', 'Late', 'IP'))
 expt.obj@meta.data$Group <- factor(expt.obj@meta.data$Group, levels = c('IP', 'ExpansionPeak', 'Contraction', 'Late'))
+
+expt.obj@meta.data$Group2 <- plyr::mapvalues(x = expt.obj@meta.data$Group,
+                                            from = c('IP', 'ExpansionPeak', 'Contraction', 'Late'),
+                                            to = c('IP', 'Early', 'Late', 'Very Late'))
+expt.obj@meta.data$Group2 <- factor(expt.obj@meta.data$Group2, levels = c('IP', 'Early', 'Late', 'Very Late'))
 
 expt.obj@meta.data$Disease <- plyr::mapvalues(x = expt.obj@meta.data$SampleID,
                                                           from = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
@@ -198,6 +203,10 @@ generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', s
 umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(14, 14))
 
+umap_group2_cols <- c('IP' = 'red', 'Early' = 'violetred', 'Late' = 'violet', 'Very Late' = 'purple')
+umap_group2 <- DimPlot(expt.obj, reduction = "umap", group.by = "Group2", shuffle = TRUE, seed = 123, cols = umap_group2_cols)
+generate_figs(umap_group2, paste('./plots/', experiment, '_prepare_umap_group2', sep = ''), c(6.5, 5))
+
 umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123)
 generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''), c(6,5))
 
@@ -231,6 +240,10 @@ generate_figs(dmap_group, paste('./plots/', experiment, '_prepare_dmap_group', s
 
 dmap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'dm', 'blue', 0.1, 2)
 generate_figs(dmap_group_highlight, paste('./plots/', experiment, '_prepare_dmap_group_highlight', sep = ''), c(14, 14))
+
+dmap_group2_cols <- c('IP' = 'red', 'Early' = 'violetred', 'Late' = 'violet', 'Very Late' = 'purple')
+dmap_group2 <- DimPlot(expt.obj, reduction = "dm", group.by = "Group2", shuffle = TRUE, seed = 123, cols = dmap_group2_cols)
+generate_figs(dmap_group2, paste('./plots/', experiment, '_prepare_dmap_group2', sep = ''), c(6.5, 5))
 
 dmap_disease <- DimPlot(expt.obj, reduction = "dm", group.by = "Disease", shuffle = TRUE, seed = 123)
 generate_figs(dmap_disease, paste('./plots/', experiment, '_prepare_dmap_disease', sep = ''))
