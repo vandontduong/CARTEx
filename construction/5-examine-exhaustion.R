@@ -166,7 +166,7 @@ colAnn <- HeatmapAnnotation(
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
 # select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
-select_genes <- c('TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2')
+select_genes <- c('STAT1', 'STAT3', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2')
 index_select_genes <- which(rownames(mat) %in% select_genes)
 select_genes_ordered <- rownames(mat)[index_select_genes]
 
@@ -181,6 +181,13 @@ select_gene_cluster_pairs[order(select_gene_cluster_pairs$cluster),]
 
 # check number of genes in each cluster
 table(gene_cluster_pairs$cluster)
+
+# search a specific gene for its corresponding cluster
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT3"]
+
+# list genes in a specific cluster
+gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C2"]
+
 
 
 hmap <- Heatmap(mat, 

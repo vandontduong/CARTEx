@@ -454,8 +454,7 @@ vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('
                                                   VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
 
 
-generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(6,5))
-
+generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(6,5)) 
 
 
 

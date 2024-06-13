@@ -151,8 +151,8 @@ unique(expt.obj[["monaco"]])
 expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123)
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_l_prepare_umap_predicted_monaco', sep = ''))
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3'))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_l_prepare_umap_predicted_monaco', sep = ''), c(7.5,5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_l_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -285,6 +285,31 @@ expt.obj@meta.data$State2 <- NULL
 expt.obj@meta.data$State3 <- NULL
 expt.obj@meta.data$State4 <- NULL
 
+
+# examine other signatures
+NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
+Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
+BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
+PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
+
+expt.obj <- AddModuleScore(expt.obj, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+
+expt.obj@meta.data$NKlike_Tex <- scale(expt.obj@meta.data$Signature1)
+expt.obj@meta.data$LCMV_Tex <- scale(expt.obj@meta.data$Signature2)
+expt.obj@meta.data$BBD_Tex <- scale(expt.obj@meta.data$Signature3)
+expt.obj@meta.data$PD1_Tex <- scale(expt.obj@meta.data$Signature4)
+
+expt.obj@meta.data$NKlike_Texi <- integerize(expt.obj@meta.data$NKlike_Tex)
+expt.obj@meta.data$LCMV_Texi <- integerize(expt.obj@meta.data$LCMV_Tex)
+expt.obj@meta.data$BBD_Texi <- integerize(expt.obj@meta.data$BBD_Tex)
+expt.obj@meta.data$PD1_Texi <- integerize(expt.obj@meta.data$PD1_Tex)
+
+expt.obj@meta.data$Signature1 <- NULL
+expt.obj@meta.data$Signature2 <- NULL
+expt.obj@meta.data$Signature3 <- NULL
+expt.obj@meta.data$Signature4 <- NULL
+
+
 # UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
 generate_figs(umap_sig_activationi, paste('./plots/', experiment, '_l_prepare_umap_sig_activationi', sep = ''))
@@ -321,14 +346,22 @@ umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order =
 umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
 umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
 umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
+umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE) + fix.sc
+umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) + fix.sc
+umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
+umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_l_prepare_umap_CARTEx_84', sep = ''))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_l_prepare_umap_CARTEx_200', sep = ''))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_l_prepare_umap_CARTEx_630', sep = ''))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_l_prepare_umap_sig_activation', sep = ''))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_l_prepare_umap_sig_anergy', sep = ''))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_l_prepare_umap_sig_stemness', sep = ''))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_l_prepare_umap_sig_senescence', sep = ''))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_l_prepare_umap_CARTEx_84', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_l_prepare_umap_CARTEx_200', sep = ''), c(5.5,5))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_l_prepare_umap_CARTEx_630', sep = ''), c(5.5,5))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_l_prepare_umap_sig_activation', sep = ''), c(5.5,5))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_l_prepare_umap_sig_anergy', sep = ''), c(5.5,5))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_l_prepare_umap_sig_stemness', sep = ''), c(5.5,5))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_l_prepare_umap_sig_senescence', sep = ''), c(5.5,5))
+generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_l_prepare_umap_NKlike_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_l_prepare_umap_LCMV_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_l_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
+generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_l_prepare_umap_PD1_Tex', sep = ''), c(5.5,5))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_l_scored.rds', sep = ''))
@@ -336,6 +369,33 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_l_scored.rds', sep = '')
 # expt.obj <- readRDS(paste('./data/', experiment, '_l_scored.rds', sep = ''))
 
 head(expt.obj)
+
+
+
+
+
+
+### exploded volcano
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+# Compare visit 2 vs visit 2
+de_genes <- FindMarkers(expt.obj, ident.1 = 2, ident.2 = 1, group.by = "visit", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_visit_2_1 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                          pCutoff = 10e-6, FCcutoff = 0.5, 
+                                          selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                          xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_visit_2_1, paste('./plots/', experiment, '_plot_volcano_visit_2_1', sep = ''), c(10, 8))
+
+
+
+
 
 # report time
 print("The script has completed...")

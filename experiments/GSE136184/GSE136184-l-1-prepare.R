@@ -125,6 +125,11 @@ expt.obj@meta.data$Cohort <- plyr::mapvalues(x = expt.obj@meta.data$Code,
                                                       to = c('Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal'))
 expt.obj@meta.data$Cohort <- factor(expt.obj@meta.data$Cohort, levels = c('Cross-sectional', 'Longitudinal'))
 
+expt.obj@meta.data$Code <- factor(expt.obj@meta.data$Code, levels = c("L1", "L2", "L3", "L4", "L5", "L6", "L7"))
+
+expt.obj@meta.data$visit <- factor(expt.obj@meta.data$visit, levels = c(1,2,3))
+
+
 Idents(expt.obj) <- "Cohort"
 expt.obj <- subset(expt.obj, idents = c("Longitudinal"))
 
@@ -227,8 +232,14 @@ generate_figs(umap_sex_highlight, paste('./plots/', experiment, '_l_prepare_umap
 umap_visit <- DimPlot(expt.obj, reduction = "umap", group.by = "visit", shuffle = TRUE, seed = 123)
 generate_figs(umap_visit, paste('./plots/', experiment, '_l_prepare_umap_visit', sep = ''))
 
+umap_visit_highlight <- DimPlotHighlightIdents(expt.obj, visit, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_visit_highlight, paste('./plots/', experiment, '_l_prepare_umap_visit_highlight', sep = ''), c(6, 5))
+
 umap_code <- DimPlot(expt.obj, reduction = "umap", group.by = "Code", shuffle = TRUE, seed = 123)
 generate_figs(umap_code, paste('./plots/', experiment, '_l_prepare_umap_code', sep = ''))
+
+umap_code_highlight <- DimPlotHighlightIdents(expt.obj, Code, 'umap', 'blue', 0.1, 2)
+generate_figs(umap_code_highlight, paste('./plots/', experiment, '_l_prepare_umap_code_highlight', sep = ''), c(6, 5))
 
 umap_cohort <- DimPlot(expt.obj, reduction = "umap", group.by = "Cohort", shuffle = TRUE, seed = 123)
 generate_figs(umap_cohort, paste('./plots/', experiment, '_l_prepare_umap_cohort', sep = ''))
@@ -246,6 +257,9 @@ generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_l_
 
 dmap_age_group <- DimPlot(expt.obj, reduction = "dm", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
 generate_figs(dmap_age_group, paste('./plots/', experiment, '_l_prepare_dmap_age_group', sep = ''), c(6, 5))
+
+dmap_age_group_2 <- DimPlot(expt.obj, reduction = "dm", group.by = "AgeGroup2", shuffle = TRUE, seed = 123)
+generate_figs(dmap_age_group_2, paste('./plots/', experiment, '_l_prepare_dmap_age_group_2', sep = ''), c(6, 5))
 
 dmap_visit <- DimPlot(expt.obj, reduction = "dm", group.by = "visit", shuffle = TRUE, seed = 123)
 generate_figs(dmap_visit, paste('./plots/', experiment, '_l_prepare_dmap_visit', sep = ''), c(6, 5))
