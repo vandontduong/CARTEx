@@ -57,7 +57,7 @@ expt.obj@meta.data$Phase <- factor(expt.obj@meta.data$Phase, levels = c('G1', 'S
 
 # ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
 md <- expt.obj@meta.data %>% as.data.table
-md[, .N, by = c("orig.ident", "Phase")]
+# md[, .N, by = c("orig.ident", "Phase")]
 phase_data <- md[, .N, by = c("Phase")]
 setorder(phase_data, cols = "Phase")
 phase_data$percent <- round(100*phase_data$N / sum(phase_data$N), digits = 1)
