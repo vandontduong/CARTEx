@@ -1,0 +1,541 @@
+[1] "The script is starting..."
+[1] "dgCMatrix"
+attr(,"package")
+[1] "Matrix"
+[1] "generating figure for  ./plots/GSE120575_prepare_vlnplot_quality_control_standard_original"
+[1] 0
+[1] "orig.ident levels() is not NULL"
+ [1] "A1"  "A2"  "A3"  "A4"  "A5"  "A6"  "A7"  "A8"  "A9"  "A10" "A11" "A12"
+[13] "B1"  "B2"  "B3"  "B4"  "B5"  "B6"  "B7"  "B8"  "B9"  "B10" "B11" "B12"
+[25] "C1"  "C2"  "C3"  "C4"  "C5"  "C6"  "C7"  "C8"  "C9"  "C10" "C11" "C12"
+[37] "D1"  "D2"  "D3"  "D4"  "D5"  "D6"  "D7"  "D8"  "D9"  "D10" "D11" "D12"
+[49] "E1"  "E2"  "E3"  "E4"  "E5"  "E6"  "E7"  "E8"  "E9"  "E10" "E11" "E12"
+[61] "F1"  "F2"  "F3"  "F4"  "F5"  "F6"  "F7"  "F8"  "F9"  "F10" "F11" "F12"
+[73] "G1"  "G2"  "G3"  "G4"  "G5"  "G6"  "G7"  "G8"  "G9"  "G10" "G11" "G12"
+[85] "H1"  "H2"  "H3"  "H4"  "H5"  "H6"  "H7"  "H8"  "H9"  "H10" "H11" "H12"
+
+[1] "nCount_RNA levels() is NULL"
+
+[1] "nFeature_RNA levels() is NULL"
+
+[1] "source_name levels() is NULL"
+
+[1] "organism levels() is NULL"
+
+[1] "characteristics_patinet_ID_Prebaseline_Post_ontreatment levels() is NULL"
+
+[1] "characteristics_response levels() is not NULL"
+[1] "NR" "R" 
+
+[1] "characteristics_therapy levels() is not NULL"
+[1] "anti-CTLA4"     "anti-PD1"       "anti-CTLA4+PD1"
+
+[1] "percent.mt levels() is NULL"
+
+[1] "identifier levels() is NULL"
+
+[1] "percent.CARTEx_630 levels() is NULL"
+
+[1] "PFSD.CARTEx_630 levels() is NULL"
+
+[1] "percent.CARTEx_200 levels() is NULL"
+
+[1] "PFSD.CARTEx_200 levels() is NULL"
+
+[1] "percent.CARTEx_84 levels() is NULL"
+
+[1] "PFSD.CARTEx_84 levels() is NULL"
+
+[1] "Timepoint levels() is not NULL"
+[1] "Pre"  "Post"
+
+[1] "Timepoint_Response levels() is not NULL"
+[1] "Pre-NR"  "Pre-R"   "Post-NR" "Post-R" 
+
+[1] "generating figure for  ./plots/GSE120575_prepare_vlnplot_quality_control_standard_pre"
+[1] "generating figure for  ./plots/GSE120575_prepare_vlnplot_quality_control_standard_post"
+[1] "generating figure for  ./plots/GSE120575_prepare_varplt_labeled"
+[1] "generating figure for  ./plots/GSE120575_prepare_inspect_elbow"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4619
+Number of edges: 150331
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 1.0000
+Number of communities: 1
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4619
+Number of edges: 150331
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8733
+Number of communities: 4
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4619
+Number of edges: 150331
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8237
+Number of communities: 5
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4619
+Number of edges: 150331
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.7871
+Number of communities: 7
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4619
+Number of edges: 150331
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.7588
+Number of communities: 8
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4619
+Number of edges: 150331
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.7361
+Number of communities: 11
+Elapsed time: 0 seconds
+[1] "generating figure for  ./plots/GSE120575_prepare_inspect_clustering"
+[1] "Calculating UMAPs..."
+[1] "Calculating diffusion maps..."
+finding knns......done. Time: 217.44s
+Calculating transition probabilities......done. Time: 0.01s
+
+performing eigen decomposition......done. Time: 0.53s
+[1] "Saving Seurat object..."
+           orig.ident nCount_RNA nFeature_RNA          source_name     organism
+A12_P6_M11        A12   1655.205         1864 Melanoma single cell Homo sapiens
+A4_P3_M11          A4   1935.864         2200 Melanoma single cell Homo sapiens
+A4_P6_M11          A4   1482.521         1681 Melanoma single cell Homo sapiens
+A6_P6_M11          A6   1839.977         2088 Melanoma single cell Homo sapiens
+A7_P2_M11          A7   1117.562         1235 Melanoma single cell Homo sapiens
+A7_P6_M11          A7   1521.303         1725 Melanoma single cell Homo sapiens
+A9_P4_M11          A9   1874.753         2113 Melanoma single cell Homo sapiens
+B10_P1_M11        B10   1186.708         1308 Melanoma single cell Homo sapiens
+B10_P3_M11        B10   1284.119         1434 Melanoma single cell Homo sapiens
+B10_P6_M11        B10   1892.852         2143 Melanoma single cell Homo sapiens
+           characteristics_patinet_ID_Prebaseline_Post_ontreatment
+A12_P6_M11                                                  Pre_P1
+A4_P3_M11                                                   Pre_P1
+A4_P6_M11                                                   Pre_P1
+A6_P6_M11                                                   Pre_P1
+A7_P2_M11                                                   Pre_P1
+A7_P6_M11                                                   Pre_P1
+A9_P4_M11                                                   Pre_P1
+B10_P1_M11                                                  Pre_P1
+B10_P3_M11                                                  Pre_P1
+B10_P6_M11                                                  Pre_P1
+           characteristics_response characteristics_therapy percent.mt
+A12_P6_M11                        R              anti-CTLA4  0.1833925
+A4_P3_M11                         R              anti-CTLA4  0.2075370
+A4_P6_M11                         R              anti-CTLA4  0.2706002
+A6_P6_M11                         R              anti-CTLA4  0.2073468
+A7_P2_M11                         R              anti-CTLA4  0.3759499
+A7_P6_M11                         R              anti-CTLA4  0.2770853
+A9_P4_M11                         R              anti-CTLA4  0.2205391
+B10_P1_M11                        R              anti-CTLA4  0.3404403
+B10_P3_M11                        R              anti-CTLA4  0.3350712
+B10_P6_M11                        R              anti-CTLA4  0.1951100
+           identifier percent.CARTEx_630 PFSD.CARTEx_630 percent.CARTEx_200
+A12_P6_M11  GSE120575           4.369291       12.380952          1.6035130
+A4_P3_M11   GSE120575           3.200346       10.952381          1.2703959
+A4_P6_M11   GSE120575           3.632717        9.047619          1.2518211
+A6_P6_M11   GSE120575           3.458972       10.952381          1.2423457
+A7_P2_M11   GSE120575           3.396290        6.666667          1.1169557
+A7_P6_M11   GSE120575           2.964980        7.936508          1.0460104
+A9_P4_M11   GSE120575           4.301602       13.809524          1.5496583
+B10_P1_M11  GSE120575           4.191458        8.412698          1.6523491
+B10_P3_M11  GSE120575           1.403022        3.333333          0.3081206
+B10_P6_M11  GSE120575           3.847662       12.539683          1.4483547
+           PFSD.CARTEx_200 percent.CARTEx_84 PFSD.CARTEx_84 Timepoint
+A12_P6_M11            14.0         0.4948631      10.714286       Pre
+A4_P3_M11             13.5         0.4434504      10.714286       Pre
+A4_P6_M11              9.5         0.4579349       8.333333       Pre
+A6_P6_M11             12.5         0.3775609       9.523810       Pre
+A7_P2_M11              7.0         0.3988475       5.952381       Pre
+A7_P6_M11              9.0         0.1697835       3.571429       Pre
+A9_P4_M11             15.5         0.5703564      14.285714       Pre
+B10_P1_M11            10.5         0.4610052       7.142857       Pre
+B10_P3_M11             2.0         0.0000000       0.000000       Pre
+B10_P6_M11            14.5         0.3366601       8.333333       Pre
+           Timepoint_Response RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+A12_P6_M11              Pre-R             0               1               4
+A4_P3_M11               Pre-R             0               3               3
+A4_P6_M11               Pre-R             0               1               2
+A6_P6_M11               Pre-R             0               3               3
+A7_P2_M11               Pre-R             0               1               2
+A7_P6_M11               Pre-R             0               1               2
+A9_P4_M11               Pre-R             0               1               4
+B10_P1_M11              Pre-R             0               1               2
+B10_P3_M11              Pre-R             0               2               1
+B10_P6_M11              Pre-R             0               1               4
+           RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1 seurat_clusters
+A12_P6_M11               5               3             7               4
+A4_P3_M11                3               1             2               3
+A4_P6_M11                4               2             4               2
+A6_P6_M11                3               6             5               3
+A7_P2_M11                4               2             4               2
+A7_P6_M11                4               2             4               2
+A9_P4_M11                5               3             7               4
+B10_P1_M11               4               2             4               2
+B10_P3_M11               1               4             0               1
+B10_P6_M11               5               3             7               4
+           DC1rank DC2rank          dpt
+A12_P6_M11    2118    2078 -0.008201219
+A4_P3_M11     2245    2214 -0.007547771
+A4_P6_M11      628     620 -0.024929042
+A6_P6_M11     3850    3823 -0.004394117
+A7_P2_M11      516     501 -0.027151253
+A7_P6_M11     3444    3370 -0.004658279
+A9_P4_M11     3078    3014 -0.005579850
+B10_P1_M11    1083    1069 -0.015857362
+B10_P3_M11    3751    3774 -0.004253043
+B10_P6_M11     759     745 -0.022850613
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_seurat_clusters"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_seurat_clusters_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_orig_ident"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_orig_ident_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_response"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_response_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_therapy"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_therapy_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_timepoint"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_timepoint_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_timepoint_response"
+[1] "generating figure for  ./plots/GSE120575_prepare_umap_timepoint_response_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_dmap_seurat_clusters"
+[1] "generating figure for  ./plots/GSE120575_prepare_dmap_seurat_clusters_highlight"
+[1] "generating figure for  ./plots/GSE120575_prepare_dmap_timepoint"
+[1] "generating figure for  ./plots/GSE120575_prepare_barplot_response_seurat_clusters"
+[1] "generating figure for  ./plots/GSE120575_prepare_barplot_therapy_seurat_clusters"
+[1] "generating figure for  ./plots/GSE120575_prepare_barplot_timepoint_seurat_clusters"
+# A tibble: 577 × 7
+# Groups:   cluster [11]
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1 1.33e-80       2.27 0.326 0.077  6.63e-77 0       PLAC8    
+ 2 2.53e-70       2.07 0.336 0.095  1.26e-66 0       S1PR1    
+ 3 4.46e-63       1.75 0.401 0.143  2.23e-59 0       SORL1    
+ 4 3.79e-49       1.24 0.49  0.236  1.90e-45 0       IL7R     
+ 5 3.19e-47       2.14 0.235 0.066  1.59e-43 0       DHRS3    
+ 6 3.28e-44       1.36 0.418 0.194  1.64e-40 0       MGAT4A   
+ 7 1.88e-40       1.17 0.462 0.236  9.41e-37 0       TCF7     
+ 8 5.79e-40       1.16 0.49  0.276  2.89e-36 0       FAM65B   
+ 9 2.41e-32       1.18 0.419 0.231  1.21e-28 0       A2M      
+10 8.97e-30       1.16 0.39  0.221  4.48e-26 0       LINC00861
+# ℹ 567 more rows
+[1] "generating figure for  ./plots/GSE120575_prepare_cluster_markers_heatmap"
+[1] "Cluster: 0"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1 1.33e-80       2.27 0.326 0.077  6.63e-77 0       PLAC8    
+ 2 2.53e-70       2.07 0.336 0.095  1.26e-66 0       S1PR1    
+ 3 4.46e-63       1.75 0.401 0.143  2.23e-59 0       SORL1    
+ 4 3.79e-49       1.24 0.49  0.236  1.90e-45 0       IL7R     
+ 5 3.19e-47       2.14 0.235 0.066  1.59e-43 0       DHRS3    
+ 6 3.28e-44       1.36 0.418 0.194  1.64e-40 0       MGAT4A   
+ 7 1.88e-40       1.17 0.462 0.236  9.41e-37 0       TCF7     
+ 8 5.79e-40       1.16 0.49  0.276  2.89e-36 0       FAM65B   
+ 9 2.41e-32       1.18 0.419 0.231  1.21e-28 0       A2M      
+10 8.97e-30       1.16 0.39  0.221  4.48e-26 0       LINC00861
+[1] "Cluster: 1"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1 3.48e-54       1.07 0.581 0.313  1.74e-50 1       CCL3      
+ 2 7.30e-54       1.28 0.487 0.211  3.65e-50 1       AC069363.1
+ 3 1.71e-53       1.14 0.564 0.293  8.57e-50 1       EPSTI1    
+ 4 4.30e-50       1.49 0.393 0.156  2.15e-46 1       IFI44L    
+ 5 1.85e-43       1.07 0.527 0.295  9.27e-40 1       MIR155HG  
+ 6 2.78e-41       1.17 0.455 0.231  1.39e-37 1       FASLG     
+ 7 2.45e-33       1.05 0.444 0.245  1.22e-29 1       TRAFD1    
+ 8 6.35e-30       1.08 0.404 0.211  3.18e-26 1       DDX60     
+ 9 1.10e-24       1.01 0.392 0.226  5.49e-21 1       OAS3      
+10 4.48e-24       1.21 0.28  0.133  2.24e-20 1       IFI44     
+[1] "Cluster: 2"
+# A tibble: 5 × 7
+     p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene 
+     <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>
+1 5.43e-48       1.46 0.335 0.107  2.71e-44 2       ITGAX
+2 4.81e-25       1.12 0.241 0.091  2.40e-21 2       CD72 
+3 3.97e-24       1.01 0.289 0.123  1.98e-20 2       ETHE1
+4 3.81e-15       1.61 0.114 0.04   1.91e-11 2       IGHM 
+5 1.75e-12       1.33 0.095 0.033  8.74e- 9 2       CD79A
+[1] "Cluster: 3"
+# A tibble: 1 × 7
+     p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+     <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+1 0.000143       1.10 0.072 0.038     0.716 3       ADAM28
+[1] "Cluster: 4"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 1.48e-114       1.95 0.636 0.214 7.41e-111 4       NR4A3 
+ 2 1.96e-113       2.27 0.53  0.147 9.79e-110 4       LMNA  
+ 3 1.91e- 84       1.03 0.808 0.489 9.57e- 81 4       ANXA1 
+ 4 4.27e- 79       2.14 0.424 0.121 2.14e- 75 4       GPR183
+ 5 5.20e- 79       1.16 0.804 0.459 2.60e- 75 4       FOSL2 
+ 6 1.30e- 70       1.29 0.672 0.34  6.48e- 67 4       CD55  
+ 7 5.91e- 68       1.01 0.758 0.473 2.95e- 64 4       MYADM 
+ 8 7.54e- 68       1.42 0.592 0.233 3.77e- 64 4       IL7R  
+ 9 1.97e- 66       1.25 0.692 0.393 9.83e- 63 4       REL   
+10 3.83e- 53       1.29 0.57  0.292 1.92e- 49 4       CSRNP1
+[1] "Cluster: 5"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1 0               2.67 0.976 0.11  0         5       STMN1   
+ 2 0               2.86 0.754 0.068 0         5       CKS1B   
+ 3 5.98e-240       2.30 0.681 0.08  2.99e-236 5       LIG1    
+ 4 4.87e-230       2.18 0.801 0.12  2.43e-226 5       NUSAP1  
+ 5 6.27e-230       2.29 0.693 0.088 3.14e-226 5       TMEM106C
+ 6 3.73e-226       2.09 0.825 0.127 1.87e-222 5       PCNA    
+ 7 1.13e-212       2.48 0.565 0.061 5.63e-209 5       NUDT1   
+ 8 1.28e-212       1.98 0.833 0.138 6.38e-209 5       DUT     
+ 9 1.94e-209       1.94 0.843 0.145 9.72e-206 5       MCM7    
+10 1.99e-197       2.22 0.618 0.082 9.97e-194 5       DTYMK   
+[1] "Cluster: 6"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1 3.17e-103       1.05 0.846 0.659  1.58e-99 6       TMEM2    
+ 2 3.92e- 70       1.08 0.71  0.496  1.96e-66 6       CREM     
+ 3 1.39e- 49       1.38 0.571 0.344  6.95e-46 6       PFKFB3   
+ 4 1.47e- 48       1.18 0.604 0.403  7.36e-45 6       TSPYL2   
+ 5 6.03e- 40       1.12 0.604 0.419  3.01e-36 6       PER1     
+ 6 1.20e- 38       1.12 0.583 0.419  5.98e-35 6       FKBP5    
+ 7 4.89e- 32       1.27 0.495 0.321  2.44e-28 6       SMAP2    
+ 8 2.22e- 31       1.00 0.539 0.407  1.11e-27 6       GABARAPL1
+ 9 3.60e- 27       1.07 0.599 0.481  1.80e-23 6       TTN      
+10 6.90e- 27       1.19 0.479 0.331  3.45e-23 6       DTHD1    
+[1] "Cluster: 7"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene   
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>  
+ 1 7.47e-87       1.58 0.714 0.302  3.73e-83 7       HSPB1  
+ 2 1.15e-75       1.38 0.759 0.368  5.74e-72 7       HSPH1  
+ 3 6.02e-71       1.28 0.772 0.385  3.01e-67 7       HSPA1A 
+ 4 8.65e-71       2.11 0.462 0.133  4.33e-67 7       FKBP4  
+ 5 8.95e-68       1.49 0.645 0.286  4.47e-64 7       VCAM1  
+ 6 6.78e-60       1.05 0.793 0.459  3.39e-56 7       HSPD1  
+ 7 1.80e-54       1.26 0.666 0.326  9.00e-51 7       AHSA1  
+ 8 3.75e-54       1.90 0.44  0.148  1.88e-50 7       DNAJA4 
+ 9 1.99e-53       1.17 0.687 0.373  9.94e-50 7       CACYBP 
+10 7.27e-53       1.22 0.676 0.348  3.64e-49 7       CHORDC1
+[1] "Cluster: 8"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1 3.87e-19       1.54 0.392 0.13   1.94e-15 8       CALHM2  
+ 2 1.30e-13       1.18 0.446 0.192  6.50e-10 8       RGS19   
+ 3 2.59e-13       1.03 0.514 0.235  1.30e- 9 8       ADAM19  
+ 4 9.25e-13       1.48 0.25  0.078  4.62e- 9 8       CD300A  
+ 5 8.97e-12       1.06 0.459 0.23   4.48e- 8 8       ITGB1BP1
+ 6 1.38e- 9       1.20 0.277 0.11   6.92e- 6 8       CAPG    
+ 7 9.29e- 8       1.50 0.128 0.038  4.64e- 4 8       TIMP1   
+ 8 3.13e- 6       1.05 0.209 0.092  1.57e- 2 8       TPD52   
+ 9 1.67e- 5       1.23 0.135 0.051  8.33e- 2 8       LAIR1   
+10 2.36e- 5       1.15 0.135 0.053  1.18e- 1 8       FGR     
+[1] "Cluster: 9"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 8.20e-130       3.19 0.786 0.107 4.10e-126 9       CCR7  
+ 2 1.65e- 94       2.94 0.656 0.096 8.23e- 91 9       PLAC8 
+ 3 7.45e- 88       2.76 0.756 0.155 3.73e- 84 9       SELL  
+ 4 8.65e- 88       2.25 0.931 0.249 4.33e- 84 9       TCF7  
+ 5 5.17e- 68       2.01 0.885 0.254 2.58e- 64 9       IL7R  
+ 6 7.71e- 55       1.68 0.893 0.361 3.85e- 51 9       CD55  
+ 7 7.85e- 44       2.34 0.511 0.117 3.92e- 40 9       S1PR1 
+ 8 1.75e- 42       2.13 0.603 0.167 8.77e- 39 9       SORL1 
+ 9 3.50e- 37       4.20 0.16  0.013 1.75e- 33 9       IFNGR2
+10 1.34e- 36       1.93 0.641 0.221 6.70e- 33 9       SATB1 
+[1] "Cluster: 10"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1 1.86e-21       1.70 0.452 0.136  9.29e-18 10      GEM       
+ 2 1.75e-18       1.06 0.87  0.375  8.76e-15 10      HSPA1B    
+ 3 2.07e-18       1.54 0.435 0.138  1.03e-14 10      TIAM1     
+ 4 6.33e-18       1.47 0.435 0.134  3.16e-14 10      ATF3      
+ 5 4.56e-17       1.17 0.626 0.254  2.28e-13 10      NAMPTL    
+ 6 5.99e-17       1.62 0.383 0.117  3.00e-13 10      TNFRSF18  
+ 7 8.92e-17       1.04 0.765 0.325  4.46e-13 10      HSPB1     
+ 8 3.29e-16       1.04 0.739 0.322  1.65e-12 10      PMAIP1    
+ 9 8.05e-16       1.26 0.53  0.2    4.02e-12 10      AC017002.1
+10 1.02e-15       1.17 0.609 0.253  5.09e-12 10      MYO7A     
+[1] "Cluster: 0"
+[1] "PLAC8, S1PR1, SORL1, IL7R, DHRS3, MGAT4A, TCF7, FAM65B, A2M, LINC00861"
+
+[1] "Cluster: 1"
+[1] "CCL3, AC069363.1, EPSTI1, IFI44L, MIR155HG, FASLG, TRAFD1, DDX60, OAS3, IFI44"
+
+[1] "Cluster: 2"
+[1] "ITGAX, CD72, ETHE1, IGHM, CD79A"
+
+[1] "Cluster: 3"
+[1] "ADAM28"
+
+[1] "Cluster: 4"
+[1] "NR4A3, LMNA, ANXA1, GPR183, FOSL2, CD55, MYADM, IL7R, REL, CSRNP1"
+
+[1] "Cluster: 5"
+[1] "STMN1, CKS1B, LIG1, NUSAP1, TMEM106C, PCNA, NUDT1, DUT, MCM7, DTYMK"
+
+[1] "Cluster: 6"
+[1] "TMEM2, CREM, PFKFB3, TSPYL2, PER1, FKBP5, SMAP2, GABARAPL1, TTN, DTHD1"
+
+[1] "Cluster: 7"
+[1] "HSPB1, HSPH1, HSPA1A, FKBP4, VCAM1, HSPD1, AHSA1, DNAJA4, CACYBP, CHORDC1"
+
+[1] "Cluster: 8"
+[1] "CALHM2, RGS19, ADAM19, CD300A, ITGB1BP1, CAPG, TIMP1, TPD52, LAIR1, FGR"
+
+[1] "Cluster: 9"
+[1] "CCR7, PLAC8, SELL, TCF7, IL7R, CD55, S1PR1, SORL1, IFNGR2, SATB1"
+
+[1] "Cluster: 10"
+[1] "GEM, HSPA1B, TIAM1, ATF3, NAMPTL, TNFRSF18, HSPB1, PMAIP1, AC017002.1, MYO7A"
+
+[1] "The script has completed..."
+   user  system elapsed 
+533.624  32.572 635.582 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] ca_0.71.1                   ComplexHeatmap_2.14.0      
+ [3] ComplexUpset_1.3.3          ggbeeswarm_0.7.2           
+ [5] glmGamPoi_1.10.2            ROGUE_1.0                  
+ [7] clustree_0.5.1              ggraph_2.1.0               
+ [9] EnhancedVolcano_1.16.0      ggrepel_0.9.5              
+[11] patchwork_1.2.0             data.table_1.15.0          
+[13] destiny_3.12.0              scuttle_1.11.3             
+[15] SingleCellExperiment_1.20.1 SingleR_2.0.0              
+[17] SummarizedExperiment_1.28.0 Biobase_2.58.0             
+[19] GenomicRanges_1.50.2        GenomeInfoDb_1.34.9        
+[21] IRanges_2.32.0              S4Vectors_0.36.2           
+[23] BiocGenerics_0.44.0         MatrixGenerics_1.10.0      
+[25] matrixStats_1.1.0           dplyr_1.1.4                
+[27] stringr_1.5.1               ggplotify_0.1.2            
+[29] ggpubr_0.6.0                ggplot2_3.4.4              
+[31] Seurat_5.0.1                SeuratObject_5.0.1         
+[33] sp_2.1-3                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             limma_3.54.2             
+ [17] smoother_1.1              BiocParallel_1.32.6      
+ [19] rjson_0.2.21              glue_1.7.0               
+ [21] sctransform_0.4.1         parallel_4.2.0           
+ [23] vipor_0.4.7               spatstat.sparse_3.0-3    
+ [25] dotCall64_1.1-1           spatstat.geom_3.2-8      
+ [27] tidyselect_1.2.0          fitdistrplus_1.1-11      
+ [29] tidyr_1.3.1               zoo_1.8-12               
+ [31] xtable_1.8-4              RcppHNSW_0.6.0           
+ [33] magrittr_2.0.3            cli_3.6.2                
+ [35] zlibbioc_1.44.0           miniUI_0.1.1.1           
+ [37] RcppEigen_0.3.3.9.4       fastDummies_1.7.3        
+ [39] shiny_1.8.0               BiocSingular_1.14.0      
+ [41] clue_0.3-65               cluster_2.1.6            
+ [43] tidygraph_1.3.0           pcaMethods_1.90.0        
+ [45] tibble_3.2.1              listenv_0.9.1            
+ [47] png_0.1-8                 future_1.33.1            
+ [49] withr_3.0.0               bitops_1.0-7             
+ [51] ggforce_0.4.1             ranger_0.16.0            
+ [53] plyr_1.8.9                e1071_1.7-14             
+ [55] pillar_1.9.0              GlobalOptions_0.1.2      
+ [57] cachem_1.0.8              fs_1.6.3                 
+ [59] scatterplot3d_0.3-44      TTR_0.24.4               
+ [61] GetoptLong_1.0.5          DelayedMatrixStats_1.20.0
+ [63] xts_0.13.2                vctrs_0.6.5              
+ [65] ellipsis_0.3.2            generics_0.1.3           
+ [67] tools_4.2.0               beeswarm_0.4.0           
+ [69] munsell_0.5.0             tweenr_2.0.2             
+ [71] proxy_0.4-27              DelayedArray_0.24.0      
+ [73] fastmap_1.1.1             compiler_4.2.0           
+ [75] abind_1.4-5               httpuv_1.6.14            
+ [77] plotly_4.10.4             GenomeInfoDbData_1.2.9   
+ [79] gridExtra_2.3             lattice_0.22-5           
+ [81] deldir_2.0-2              utf8_1.2.3               
+ [83] later_1.3.2               jsonlite_1.8.8           
+ [85] ggplot.multistats_1.0.0   scales_1.3.0             
+ [87] ScaledMatrix_1.6.0        pbapply_1.7-2            
+ [89] carData_3.0-5             sparseMatrixStats_1.10.0 
+ [91] lazyeval_0.2.2            promises_1.2.1           
+ [93] car_3.1-2                 doParallel_1.0.17        
+ [95] goftest_1.2-3             spatstat.utils_3.0-4     
+ [97] reticulate_1.35.0         checkmate_2.3.1          
+ [99] cowplot_1.1.3             Rtsne_0.17               
+[101] uwot_0.1.16               igraph_1.6.0             
+[103] survival_3.5-8            systemfonts_1.0.5        
+[105] htmltools_0.5.7           memoise_2.0.1            
+[107] graphlayouts_1.1.0        viridisLite_0.4.2        
+[109] digest_0.6.34             mime_0.12                
+[111] spam_2.10-0               yulab.utils_0.1.4        
+[113] future.apply_1.11.1       splines_4.2.0            
+[115] labeling_0.4.3            RCurl_1.98-1.14          
+[117] broom_1.0.5               colorspace_2.1-0         
+[119] shape_1.4.6               ggrastr_1.0.2            
+[121] nnet_7.3-19               Rcpp_1.0.12              
+[123] RANN_2.6.1                circlize_0.4.15          
+[125] fansi_1.0.4               VIM_6.2.2                
+[127] parallelly_1.37.0         R6_2.5.1                 
+[129] ggridges_0.5.6            lifecycle_1.0.4          
+[131] curl_5.2.0                ggsignif_0.6.4           
+[133] leiden_0.4.3.1            robustbase_0.99-2        
+[135] Matrix_1.6-5              RcppAnnoy_0.0.22         
+[137] RColorBrewer_1.1-3        iterators_1.0.14         
+[139] spatstat.explore_3.2-6    htmlwidgets_1.6.4        
+[141] beachmat_2.14.2           polyclip_1.10-6          
+[143] purrr_1.0.2               gridGraphics_0.5-1       
+[145] globals_0.16.2            spatstat.random_3.2-2    
+[147] progressr_0.14.0          codetools_0.2-19         
+[149] RSpectra_0.16-1           gtable_0.3.4             
+[151] tensor_1.5                httr_1.4.7               
+[153] KernSmooth_2.23-20        presto_1.0.0             
+[155] stringi_1.7.8             reshape2_1.4.4           
+[157] farver_2.1.1              viridis_0.6.5            
+[159] ggthemes_5.1.0            hexbin_1.28.3            
+[161] boot_1.3-28.1             scattermore_1.2          
+[163] DEoptimR_1.1-3            spatstat.data_3.0-4      
+[165] pkgconfig_2.0.3           knn.covertree_1.0        
+[167] rstatix_0.7.2            
