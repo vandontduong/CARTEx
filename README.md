@@ -79,6 +79,8 @@ General procedure for scRNAseq analyses:
 | scRNAseq | [GSE255850](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE255850) | Phase 1 study of CAR T cells for glioma | [Brown et al. 2024 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/38454126/) |
 | scRNAseq | [GSE139555](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139555) | Peripheral T cell and TILs | |
 | scRNAseq | [GSE126030](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE126030) | T cell activation | [Szabo et al. 2019 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/31624246/) |
+| scRNAseq | [GSE214231](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE214231) | SpeedingCARs: engineering CAR T cells by signaling domain shuffling | [Castellanos-Rueda et al. 2022 Nature Communications](https://pubmed.ncbi.nlm.nih.gov/36323661/) |
+| scRNAseq | [GSE179994](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE179994) | PD-1 blockade in lung cancer patients | [Liu et al. 2022 Nature Cancer](https://pubmed.ncbi.nlm.nih.gov/35121991/) | 
 
 [More notes](REF.md)
 
