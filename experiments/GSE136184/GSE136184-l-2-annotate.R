@@ -155,7 +155,7 @@ umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monac
 generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_l_prepare_umap_predicted_monaco', sep = ''), c(7.5,5))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_l_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
+generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_l_prepare_umap_predicted_monaco_highlight', sep = ''), c(11, 10))
 
 
 dice.predictions <- SingleR(test = test_assay, assay.type.test = 1, ref = dice.obj, labels = dice.obj$label.fine)
