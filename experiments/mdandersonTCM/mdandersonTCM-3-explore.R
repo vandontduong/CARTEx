@@ -21,7 +21,7 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 ###################################### Gene expression heatmaps ####################################
 ####################################################################################################
 
-expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
+expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)

@@ -264,11 +264,11 @@ expt.obj@meta.data$seurat_clusters <- factor(expt.obj@meta.data$seurat_clusters,
 print("Calculating UMAPs...")
 expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 
-print("Calculating diffusion maps...")
-diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
-expt.obj <- diffusion_map$atlas
-saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
-rm(diffusion_map)
+# ("Calculating diffusion maps...")
+# diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
+# expt.obj <- diffusion_map$atlas
+# saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
+# rm(diffusion_map)
 
 print("Saving Seurat object...")
 saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
@@ -304,5 +304,62 @@ generate_figs(umap_CAR_Control_highlight, paste('./plots/', experiment, '_prepar
 
 
 
+####################################################################################################
+###################################### Seurat cluster analysis #####################################
+####################################################################################################
+
+# examine metadata split by Seurat clusters
+
+barplot_CAR_Domain_A_seurat_clusters <- BarPlotStackSplit(expt.obj, 'CAR_Domain_A', 'seurat_clusters')
+generate_figs(barplot_CAR_Domain_A_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_CAR_Domain_A_seurat_clusters', sep = ''), c(8,4))
+
+barplot_CAR_Domain_B_seurat_clusters <- BarPlotStackSplit(expt.obj, 'CAR_Domain_B', 'seurat_clusters')
+generate_figs(barplot_CAR_Domain_B_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_CAR_Domain_B_seurat_clusters', sep = ''), c(8,4))
+
+barplot_CAR_Control_seurat_clusters <- BarPlotStackSplit(expt.obj, 'CAR_Control', 'seurat_clusters')
+generate_figs(barplot_CAR_Control_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_CAR_Control_seurat_clusters', sep = ''), c(8,4))
+
+
+# identify markers for each Seurat cluster
+# https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
+
+expt.markers <- FindAllMarkers(expt.obj, only.pos = TRUE)
+saveRDS(expt.markers, paste(file='./data/', experiment, '_seurat_markers.rds', sep = ''))
+write.csv(expt.markers, paste(file='./data/', experiment, '_seurat_markers.csv', sep = ''))
+# expt.markers <- readRDS(paste('./data/', experiment, '_seurat_markers.rds', sep = ''))
+
+expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
+
+# visualize; downsampling is necessary for DoHeatmap()
+# https://github.com/satijalab/seurat/issues/2724
+expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
+cluster_markers_heatmap <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
+generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
+
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  print(expt.markers.top10[expt.markers.top10$cluster == i,])
+}
+
+# extract markers
+cluster_markers <- data.frame()
+for (i in unique(expt.markers$cluster)){
+  print(paste("Cluster:", i))
+  putative_markers = expt.markers.top10[expt.markers.top10$cluster == i,]$gene
+  print(paste(unlist(putative_markers), collapse=', '))
+  cluster_markers <- rbind(cluster_markers, cbind(i, paste(unlist(putative_markers), collapse=', ')))
+  cat("\n")
+}
+colnames(cluster_markers) <- c('Cluster', 'Markers')
+write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
+
+# https://www.nature.com/articles/s12276-023-01105-x
+
+
+# report time
+print("The script has completed...")
+proc.time() - ptm
+
+sessionInfo()
 
 
