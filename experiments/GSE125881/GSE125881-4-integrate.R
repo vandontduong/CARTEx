@@ -39,6 +39,10 @@ expt.obj@meta.data[['identifier3']] <- expt.obj@meta.data$TimePoint
 aging.obj@meta.data[['identifier3']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier3']] <- ref.obj@meta.data$monaco
 
+expt.obj@meta.data[['identifier4']] <- expt.obj@meta.data$Group2
+aging.obj@meta.data[['identifier4']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier4']] <- ref.obj@meta.data$monaco
+
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"
 ref.obj@meta.data[["split.ident"]] <- "Reference"
@@ -81,6 +85,9 @@ table(integration.obj$identifier2)
 
 integration.obj$identifier3 <- factor(integration.obj$identifier3, levels = c(names(table(expt.obj$identifier3)), names(table(aging.obj$identifier3)), names(table(ref.obj$identifier3))))
 table(integration.obj$identifier3)
+
+integration.obj$identifier4 <- factor(integration.obj$identifier4, levels = c(names(table(expt.obj$identifier4)), names(table(aging.obj$identifier4)), names(table(ref.obj$identifier4))))
+table(integration.obj$identifier4)
 
 unique(integration.obj$azimuth)
 integration.obj$azimuth <- factor(integration.obj$azimuth, levels = c("CD8 Naive", "CD8 Proliferating", "CD8 TCM", "CD8 TEM"))

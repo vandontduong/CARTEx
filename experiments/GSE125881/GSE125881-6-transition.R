@@ -37,6 +37,14 @@ transitplot_group_CARTEx_200 <- ggplot(md, aes(x = DC1rank, y = Group, colour = 
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc
 generate_figs(transitplot_group_CARTEx_200, paste('./plots/', experiment, '_transition_transitplot_group_CARTEx_200', sep = ''), c(8, 5))
 
+transitplot_group2_CARTEx_84 <- ggplot(md, aes(x = DC1rank, y = Group2, colour = CARTEx_84)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc
+generate_figs(transitplot_group2_CARTEx_84, paste('./plots/', experiment, '_transition_transitplot_group2_CARTEx_84', sep = ''), c(8, 5))
+
+transitplot_group2_CARTEx_200 <- ggplot(md, aes(x = DC1rank, y = Group2, colour = CARTEx_200)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc
+generate_figs(transitplot_group2_CARTEx_200, paste('./plots/', experiment, '_transition_transitplot_group2_CARTEx_200', sep = ''), c(8, 5))
+
 transitplot_timepoint_CARTEx_200 <- ggplot(md, aes(x = DC1rank, y = TimePoint, colour = CARTEx_200)) +
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc
 generate_figs(transitplot_timepoint_CARTEx_200, paste('./plots/', experiment, '_transition_transitplot_timepoint_CARTEx_200', sep = ''), c(8, 5))
@@ -56,6 +64,10 @@ generate_figs(transitplot_patient_timepoint, paste('./plots/', experiment, '_tra
 transitplot_patient_group <- ggplot(md, aes(x = DC1rank, y = Patient, colour = Group)) +
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + scale_color_manual(values = c("red", "violetred", "violet", "purple"))
 generate_figs(transitplot_patient_group, paste('./plots/', experiment, '_transition_transitplot_patient_group', sep = ''), c(8, 5))
+
+transitplot_patient_group2 <- ggplot(md, aes(x = DC1rank, y = Patient, colour = Group2)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + scale_color_manual(values = c("red", "violetred", "violet", "purple"))
+generate_figs(transitplot_patient_group2, paste('./plots/', experiment, '_transition_transitplot_patient_group', sep = ''), c(8, 5))
 
 
 transitplot_timepoint_patient <- ggplot(md, aes(x = DC1rank, y = TimePoint, colour = Patient)) +

@@ -61,7 +61,7 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_cellcycle.rds', sep = ''
 # ANALYZE CELL CYCLE DATA FROM SEURAT OBJECT
 md <- expt.obj@meta.data %>% as.data.table
 # md <- setDT(expt.obj@meta.data, keep.rownames = TRUE)
-md[, .N, by = c("orig.ident", "Phase")]
+# md[, .N, by = c("orig.ident", "Phase")]
 phase_data <- md[, .N, by = c("Phase")]
 setorder(phase_data, cols = "Phase")
 phase_data$percent <- round(100*phase_data$N / sum(phase_data$N), digits = 1)

@@ -266,6 +266,9 @@ generate_figs(dmap_disease_highlight, paste('./plots/', experiment, '_prepare_dm
 barplot_group_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Group', 'seurat_clusters')
 generate_figs(barplot_group_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_group_seurat_clusters', sep = ''), c(8,4))
 
+barplot_group2_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Group2', 'seurat_clusters')
+generate_figs(barplot_group2_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_group2_seurat_clusters', sep = ''), c(8,4))
+
 barplot_timepoint_seurat_clusters <- BarPlotStackSplit(expt.obj, 'TimePoint', 'seurat_clusters')
 generate_figs(barplot_timepoint_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_timepoint_seurat_clusters', sep = ''), c(8,4))
 

@@ -379,38 +379,6 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 
 head(expt.obj)
 
-# PDCD1 corresponds to PD-1
-# HAVCR2 corresponds to TIM-3
-# LAG3
-# CTLA4
-# NT5E corresponds to CD73
-
-vlnplot_CAR_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'CAR', ncol = 3, cols = c('dodgerblue', 'indianred'), y.max = 3)
-
-vlnplot_CAR_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                            VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                            VlnPlot(expt.obj, features=c('LAG3'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                            VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                            VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                            VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
-
-
-generate_figs(vlnplot_CAR_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_CAR_exhaustion_markers', sep = ''), c(6,5))
-
-
-
-# percentage of CARTEx detected
-
-featplot_CARTEx_630_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 35)) + ylim(c(-3, 5))
-featplot_CARTEx_200_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 35)) + ylim(c(-3, 5))
-featplot_CARTEx_84_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 35)) + ylim(c(-3, 5))
-
-featplot_CARTEx_combined_CAR <- (featplot_CARTEx_630_CAR | featplot_CARTEx_200_CAR | featplot_CARTEx_84_CAR)
-generate_figs(featplot_CARTEx_combined_CAR, paste('./plots/', experiment, '_featplot_CARTEx_combined_CAR', sep = ''), c(10,5))
-
-
-
-
 
 
 # report time
