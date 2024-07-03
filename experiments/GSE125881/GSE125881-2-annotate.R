@@ -211,6 +211,13 @@ generate_figs(barplot_dice_group, paste('./plots/', experiment, '_prepare_barplo
 barplot_phase_group <- BarPlotStackSplit(expt.obj, 'Phase', 'Group', color_set = hcl.colors(3, palette = "Temps"))
 generate_figs(barplot_phase_group, paste('./plots/', experiment, '_prepare_barplot_phase_group', sep = ''), c(5,4))
 
+barplot_monaco_group2 <- BarPlotStackSplit(expt.obj, 'monaco', 'Group2', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(barplot_monaco_group2, paste('./plots/', experiment, '_prepare_barplot_monaco_group2', sep = ''), c(6,4))
+
+barplot_phase_group2 <- BarPlotStackSplit(expt.obj, 'Phase', 'Group2', color_set = hcl.colors(3, palette = "Temps"))
+generate_figs(barplot_phase_group2, paste('./plots/', experiment, '_prepare_barplot_phase_group2', sep = ''), c(5,4))
+
+
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
