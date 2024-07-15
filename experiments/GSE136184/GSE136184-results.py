@@ -74,6 +74,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_cs_prepare_umap_NKlik
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_cs_prepare_umap_BBD_Tex.jpeg", left = Inches(10.5), top = Inches(4.5), height = Inches(3))
 
+pic = slide.shapes.add_picture("./plots/" + experiment + "_cs_prepare_umap_PD1_Tex.jpeg", left = Inches(12.5), top = Inches(4.5), height = Inches(3))
 
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustion markers")
