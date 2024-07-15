@@ -97,6 +97,21 @@ plot_volcano_STAT3GOF_stim <- EnhancedVolcano(de_genes, lab = rownames(de_genes)
 generate_figs(plot_volcano_STAT3GOF_stim, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_stim', sep = ''), c(10, 8))
 
 
+# Compare STAT3 GOF (stim)
+de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF_Rested", ident.2 = "Control_Rested", group.by = "AffstatStim", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_STAT3GOF_rest <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                              pCutoff = 10e-6, FCcutoff = 1, 
+                                              selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
+                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+
+generate_figs(plot_volcano_STAT3GOF_rest, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_rest', sep = ''), c(10, 8))
+
 
 
 # Compare STAT3 GOF vs control
@@ -113,6 +128,10 @@ plot_volcano_STAT3GOF_control <- EnhancedVolcano(de_genes, lab = rownames(de_gen
                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
 generate_figs(plot_volcano_STAT3GOF_control, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control', sep = ''), c(10, 8))
+
+
+
+
 
 
 
@@ -184,6 +203,20 @@ aggplot_CARTEx_200_affstatstim_monaco_split <- md %>% ggplot(aes(x = AffstatStim
 generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split', sep = ''), c(6,5)) 
 
 
+# incorporate size
+# md_count <- expt.obj@meta.data %>% group_by(monaco, AffstatStim, pblabels) %>% summarize(count = n(), .groups = 'drop')
+# md_count$pblabels <- as.character(md_count$pblabels)
+
+# replace affstatestim
+# expt.obj@meta.data$AffstatStim
+
+# md <- md %>% left_join(md_count, by = c("monaco", "AffstatStim", "pblabels"))
+
+# aggplot_CARTEx_200_affstatstim_monaco_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = monaco, size = count)) +
+  # geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  # scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  # theme_bw() + theme(axis.title.x = element_blank()) + scale_x_discrete(labels = custom_labels)
+# generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split_countsized', sep = ''), c(6,5)) 
 
 
 

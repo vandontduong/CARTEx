@@ -108,8 +108,17 @@ generate_figs(aggplot_CARTEx_200_CAR_monaco_split, paste('./plots/', experiment,
 
 
 
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, CAR, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "CAR", "pblabels"))
 
 
+aggplot_CARTEx_200_CAR_monaco_split_countsized <- md %>% ggplot(aes(x = CAR, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_bw() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_CAR_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CAR_monaco_split_countsized', sep = ''), c(6,5)) 
 
 
 

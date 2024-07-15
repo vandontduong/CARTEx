@@ -184,6 +184,8 @@ head(query.obj)
 ########################################### CARTEx scoring #########################################
 ####################################################################################################
 
+query.obj <- ScoreSubroutine(query.obj)
+
 # CARTEx with weights // 630 genes
 cartex_630_weights <- read.csv("../../weights/cartex-630-weights.csv", header = TRUE, row.names = 1)
 common <- intersect(rownames(cartex_630_weights), rownames(query.obj))

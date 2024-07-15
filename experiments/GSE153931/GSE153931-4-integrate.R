@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-### Script name: GSE207935-3-integrate.R
+### Script name: GSE207935-4-integrate.R
 ### Description: integrate seurat object for GSE207935
 ### Author: Vandon Duong
 

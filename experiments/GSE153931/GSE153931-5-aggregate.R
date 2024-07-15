@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-### Script name: GSE125881-4-aggregate.R
+### Script name: GSE125881-5-aggregate.R
 ### Description: aggregate seurat object for GSE125881
 ### Author: Vandon Duong
 

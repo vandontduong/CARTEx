@@ -127,6 +127,7 @@ generate_figs(swarmplot_CARTEx_group2_monaco, paste('./plots/', experiment, '_pr
 # aggregate without controls
 
 expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
 expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('Group2', 'monaco', 'pblabels'), return.seurat = TRUE)
 
 expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
@@ -142,6 +143,26 @@ aggplot_CARTEx_200_group2_monaco_split <- md %>% ggplot(aes(x = Group2, y = CART
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_bw() + theme(axis.title.x = element_blank())
 generate_figs(aggplot_CARTEx_200_group2_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_group2_monaco_split', sep = ''), c(6,5)) 
+
+
+
+# incorporate size
+table(md$pblabels, md$monaco)
+agg.ref <- table(expt.obj@meta.data$monaco, expt.obj@meta.data$Group2, expt.obj@meta.data$pblabels)
+prop.table(agg.ref)
+
+md_count <- expt.obj@meta.data %>% group_by(monaco, Group2, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "Group2", "pblabels"))
+
+
+
+aggplot_CARTEx_200_group2_monaco_split_countsized <- md %>% ggplot(aes(x = Group2, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_bw() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_group2_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group2_monaco_split_countsized', sep = ''), c(6,5)) 
+
 
 
 
