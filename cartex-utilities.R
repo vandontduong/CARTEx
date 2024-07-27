@@ -347,7 +347,7 @@ BarPlotStackSplit <- function(atlas, x_identity, y_identity, color_set = NULL){
   }
   else {
     barplot <- ggplot(md, aes_string(x = y_identity, y = 'N', fill = x_identity)) + geom_col(position = "fill") +
-      scale_fill_manual(values=color_set)
+      scale_fill_manual(values=color_set) + theme_classic() + theme(axis.title.x = element_blank()) + ylab('Fraction')
   }
   return(barplot)
 }
