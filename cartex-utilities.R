@@ -501,7 +501,21 @@ ScoreSubroutine <- function(atlas) {
   return(atlas)
 }
 
-
+CustomKeyValPairsVolcanoPlot <- function(de_genes, select_genes) {
+  keyvals <- list()
+  keyvals$shape <- ifelse(rownames(de_genes) %in% select_genes, 17, 1)
+  names(keyvals$shape)[keyvals$shape == 17] <- 'CARTEx'
+  names(keyvals$shape)[keyvals$shape == 1] <- 'Normal'
+  
+  keyvals$color <- ifelse(rownames(de_genes) %in% select_genes, 'darkgoldenrod', 'black')
+  names(keyvals$color)[keyvals$color == 'darkgoldenrod'] <- 'CARTEx'
+  names(keyvals$color)[keyvals$color == 'black'] <- 'Normal'
+  
+  keyvals$ptsize <- ifelse(rownames(de_genes) %in% select_genes, 2, 1)
+  names(keyvals$ptsize)[keyvals$ptsize == 2] <- 'CARTEx'
+  names(keyvals$ptsize)[keyvals$ptsize == 1] <- 'Normal'
+  return(keyvals)
+  }
 
 
 
