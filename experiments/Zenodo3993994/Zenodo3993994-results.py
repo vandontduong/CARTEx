@@ -90,7 +90,6 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_blood_prepare_swarmpl
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_blood_aggplot_CARTEx_200_disease_monaco_split_countsized.png", left = Inches(8.25), top = Inches(1), height = Inches(5))
 
-
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustion markers")
 

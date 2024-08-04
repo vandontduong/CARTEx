@@ -111,7 +111,7 @@ featplot_CARTEx_200_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx
 featplot_CARTEx_84_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 20)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_response <- (featplot_CARTEx_630_response | featplot_CARTEx_200_response | featplot_CARTEx_84_response)
-generate_figs(featplot_CARTEx_combined_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_response', sep = ''), c(10,5))
+generate_figs(featplot_CARTEx_combined_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_response', sep = ''), c(10,4))
 
 
 
@@ -144,19 +144,23 @@ generate_figs(vlnplot_response_exhaustion_markers_baseline, paste('./plots/', ex
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
 # Compare Pre-R vs Pre-NR
-de_genes <- FindMarkers(expt.obj, ident.1 = "Pre-R", ident.2 = "Pre-NR", group.by = "Timepoint_Response", min.pct = 0.25)
+de_genes <- FindMarkers(expt.obj, ident.1 = "Pre-NR", ident.2 = "Pre-R", group.by = "Timepoint_Response", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights))
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_baseline_response <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                                  pCutoff = 10e-6, FCcutoff = 1, 
-                                                  selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                  pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
+                                                  selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                  shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(10, 8))
+generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(6, 5))
 
 
 # percentage of CARTEx detected
@@ -166,7 +170,7 @@ featplot_CARTEx_200_baseline_response <- FeatureScatter(expt.obj, feature1 = 'PF
 featplot_CARTEx_84_baseline_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 20)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_baseline_response <- (featplot_CARTEx_630_baseline_response | featplot_CARTEx_200_baseline_response | featplot_CARTEx_84_baseline_response)
-generate_figs(featplot_CARTEx_combined_baseline_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_baseline_response', sep = ''), c(10,5))
+generate_figs(featplot_CARTEx_combined_baseline_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_baseline_response', sep = ''), c(10,4))
 
 
 # examine differentiation
@@ -183,7 +187,7 @@ vlnplot_CARTEx_response_monaco_baseline_response <- plot_grid(VlnPlot(expt.obj, 
                                            theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + 
                                            ylab("CARTEx 200") + ylim(-2,4) + scale_x_discrete(labels = custom_labels))
 
-generate_figs(vlnplot_CARTEx_response_monaco_baseline_response, paste('./plots/', experiment, '_prepare_vlnplot_CARTEx_response_monaco_response', sep = ''), c(12,5)) 
+generate_figs(vlnplot_CARTEx_response_monaco_baseline_response, paste('./plots/', experiment, '_prepare_vlnplot_CARTEx_response_monaco_baseline_response', sep = ''), c(12,5)) 
 
 
 md <- expt.obj@meta.data %>% as.data.table
@@ -192,7 +196,7 @@ swarmplot_CARTEx_response_monaco_baseline_response <- ggplot(md, aes(x = charact
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + ylim(-2,4) +
   labs(y = "CARTEx 200", color = "Cell Type") +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank(), legend.position="none")
+  theme_classic() + theme(axis.title.x = element_blank(), legend.position="none")
 generate_figs(swarmplot_CARTEx_response_monaco_baseline_response, paste('./plots/', experiment, '_prepare_swarmplot_CARTEx_response_monaco_baseline_response', sep = ''), c(6,5)) 
 
 
@@ -215,11 +219,19 @@ table(md$monaco)
 aggplot_CARTEx_200_response_monaco_split_baseline_response <- md %>% ggplot(aes(x = characteristics_response, y = CARTEx_200, color = monaco)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank())
+  theme_classic() + theme(axis.title.x = element_blank())
 generate_figs(aggplot_CARTEx_200_response_monaco_split_baseline_response, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_baseline_response', sep = ''), c(6,5)) 
 
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, characteristics_response, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "characteristics_response", "pblabels"))
 
-
+aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized <- md %>% ggplot(aes(x = characteristics_response, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized', sep = ''), c(6,5)) 
 
 
 

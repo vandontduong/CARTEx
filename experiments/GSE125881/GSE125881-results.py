@@ -70,7 +70,7 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_CARTEx_8
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_LCMV_Tex.png", left = Inches(0.25), top = Inches(4.5), height = Inches(3))
 
-pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_Tex.jpeg", left = Inches(4.25), top = Inches(4.5), height = Inches(3))
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_NKlike_Tex.png", left = Inches(4.25), top = Inches(4.5), height = Inches(3))
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_umap_BBD_Tex.png", left = Inches(8.25), top = Inches(4.5), height = Inches(3))
 
@@ -107,6 +107,22 @@ pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_CTL
 pic = slide.shapes.add_picture("./plots/" + experiment + "_query_agg_aggplot_NT5E.png", left = Inches(5.5), top = Inches(4.5), height = Inches(3))
 
 # new slide
+slide = add_slide(prs, blank_slide_layout, "Percentage of CARTEx detected")
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_explore_featplot_CARTEx_combined_group2.png", left = Inches(0.25), top = Inches(1), height = Inches(4))
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Cell type differentiation")
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_vlnplot_CARTEx_group2_monaco.png", left = Inches(0.25), top = Inches(1), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_prepare_swarmplot_CARTEx_group2_monaco.png", left = Inches(0.25), top = Inches(4.5), height = Inches(3))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_aggplot_CARTEx_200_group2_monaco_split_countsized.png", left = Inches(8.25), top = Inches(1), height = Inches(5))
+
+
+# new slide
 slide = add_slide(prs, blank_slide_layout, "Violin plots for canonical exhaustion markers")
 
 pic = slide.shapes.add_picture("./plots/" + experiment + "_explore_vlnplot_group2_exhaustion_markers.png", left = Inches(0.5), top = Inches(1), height = Inches(8))
@@ -123,9 +139,23 @@ p.text = "LAG3 encodes LAG-3"
 p = tf.add_paragraph()
 p.text = "CTLA4 encodes CTLA-4"
 p = tf.add_paragraph()
-p.text = "NT5E encodes CD73"
+p.text = "TIGIT encodes TIGIT"
 p = tf.add_paragraph()
 p.text = "ENTPD1 encodes CD39"
 
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Differentially expressed genes")
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_explore_plot_volcano_Early_VeryLate.png", left = Inches(0.5), top = Inches(1), height = Inches(5))
+
+pic = slide.shapes.add_picture("./plots/" + experiment + "_explore_plot_volcano_Early_IP.png", left = Inches(4.5), top = Inches(1), height = Inches(5))
+
+
+
+
 prs.save(experiment + '_results.pptx')
+
+
+
 

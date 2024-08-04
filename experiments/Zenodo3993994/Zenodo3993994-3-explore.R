@@ -126,11 +126,15 @@ head(de_genes)
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights))
+
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_Parkinson_blood <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                                   pCutoff = 10e-6, FCcutoff = 0.5, 
-                                                   selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                   xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
+                                                selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
 generate_figs(plot_volcano_Parkinson_blood, paste('./plots/', experiment, '_explore_plot_volcano_Parkinson_blood', sep = ''), c(10, 8))
 
