@@ -50,7 +50,7 @@ featplot_CARTEx_200_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx
 featplot_CARTEx_84_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 50)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_exposure <- (featplot_CARTEx_630_exposure | featplot_CARTEx_200_exposure | featplot_CARTEx_84_exposure)
-generate_figs(featplot_CARTEx_combined_exposure, paste('./plots/', experiment, '_featplot_CARTEx_combined_exposure', sep = ''), c(10,5))
+generate_figs(featplot_CARTEx_combined_exposure, paste('./plots/', experiment, '_featplot_CARTEx_combined_exposure', sep = ''), c(10,4))
 
 
 
@@ -78,7 +78,7 @@ swarmplot_CARTEx_exposure_monaco <- ggplot(md, aes(x = exposure, y = CARTEx_200,
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + ylim(-2,4) +
   labs(y = "CARTEx 200", color = "Cell Type") +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank(), legend.position="none")
+  theme_classic() + theme(axis.title.x = element_blank(), legend.position="none")
 generate_figs(swarmplot_CARTEx_exposure_monaco, paste('./plots/', experiment, '_prepare_swarmplot_CARTEx_exposure_monaco', sep = ''), c(6,5)) 
 
 
@@ -101,7 +101,7 @@ table(md$monaco)
 aggplot_CARTEx_200_exposure_monaco_split <- md %>% ggplot(aes(x = exposure, y = CARTEx_200, color = monaco)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank())
+  theme_classic() + theme(axis.title.x = element_blank())
 generate_figs(aggplot_CARTEx_200_exposure_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_exposure_monaco_split', sep = ''), c(6,5)) 
 
 
@@ -114,12 +114,133 @@ md <- md %>% left_join(md_count, by = c("monaco", "exposure", "pblabels"))
 aggplot_CARTEx_200_exposure_monaco_split_countsized <- md %>% ggplot(aes(x = exposure, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank())
+  theme_classic() + theme(axis.title.x = element_blank())
 generate_figs(aggplot_CARTEx_200_exposure_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_exposure_monaco_split_countsized', sep = ''), c(6,5)) 
 
 
 
 
+# differentially expressed genes
+
+# Compare CAE to day0
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+de_genes <- FindMarkers(expt.obj, ident.1 = "day20", ident.2 = "day0", group.by = "exposure", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals.shape <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 17, 1)
+names(keyvals.shape)[keyvals.shape == 17] <- 'CARTEx'
+names(keyvals.shape)[keyvals.shape == 1] <- 'Normal'
+
+keyvals.color <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 'darkgoldenrod', 'black')
+names(keyvals.color)[keyvals.color == 'darkgoldenrod'] <- 'CARTEx'
+names(keyvals.color)[keyvals.color == 'black'] <- 'Normal'
+
+keyvals.ptsize <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 2, 1)
+names(keyvals.ptsize)[keyvals.ptsize == 2] <- 'CARTEx'
+names(keyvals.ptsize)[keyvals.ptsize == 1] <- 'Normal'
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_CAEvday0 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                         selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                         shapeCustom = keyvals.shape, colAlpha = 0.75, pointSize = keyvals.ptsize,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_CAEvday0, paste('./plots/', experiment, '_explore_volcano_CAEvday0', sep = ''), c(6, 5))
+
+
+FeaturePlot(expt.obj, features = c('CCL3', 'CCL4', 'PPARG', 'METRNL', 'IFNG', 'IL2RA', 'PMCH', 'EPAS1', 'RDH10'))
+
+
+# Compare CAE exhausted to CAE not exhausted
+# 3, 1, 8, 0 vs 6, 9, 7
+
+de_genes <- FindMarkers(expt.obj, ident.1 = c(0,1,3,8), ident.2 = c(6,7,9), group.by = "seurat_clusters", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals.shape <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 17, 1)
+names(keyvals.shape)[keyvals.shape == 17] <- 'CARTEx'
+names(keyvals.shape)[keyvals.shape == 1] <- 'Normal'
+
+keyvals.color <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 'darkgoldenrod', 'black')
+names(keyvals.color)[keyvals.color == 'darkgoldenrod'] <- 'CARTEx'
+names(keyvals.color)[keyvals.color == 'black'] <- 'Normal'
+
+keyvals.ptsize <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 2, 1)
+names(keyvals.ptsize)[keyvals.ptsize == 2] <- 'CARTEx'
+names(keyvals.ptsize)[keyvals.ptsize == 1] <- 'Normal'
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_CAE2groups <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                           pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                           selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                           shapeCustom = keyvals.shape, colAlpha = 0.75, pointSize = keyvals.ptsize,
+                                           xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_CAE2groups, paste('./plots/', experiment, '_explore_volcano_CAE2groups', sep = ''), c(6, 5))
+
+de_genes_sorted_CAE2groups <- arrange(filter(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5), avg_log2FC)
+write.csv(de_genes_sorted_CAE2groups, "data/de_genes_sorted_CAE2groups.csv")
+
+
+FeaturePlot(expt.obj, features = rownames(filter(de_genes_sorted_CAE2groups, avg_log2FC < 0)))
+
+
+# gene expression heatmaps
+
+
+cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+TSG <- rownames(read.csv(paste0(PATH_SIGNATURES, "tumor-suppressor-genes.csv"), row.names = 1, header = TRUE))
+
+allgenes_exCARTEx <- rownames(expt.obj)[!(rownames(expt.obj) %in% rownames(cartex_630_weights))]
+
+expt.obj.downsample <- subset(expt.obj, downsample = 100)
+
+heatmap_allgenes_exposure <- DoHeatmap(expt.obj.downsample, group.by = "exposure")
+heatmap_allgenes_exCARTEx630_exposure <- DoHeatmap(expt.obj.downsample, features = allgenes_exCARTEx, group.by = "exposure")
+heatmap_CARTEx630_exposure <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_630_weights), group.by = "exposure")
+heatmap_CARTEx200_exposure <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_200_weights), group.by = "exposure")
+heatmap_CARTEx84_exposure <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_84_weights), group.by = "exposure")
+heatmap_TSG_exposure <- DoHeatmap(expt.obj.downsample, features = TSG, group.by = "exposure")
+
+generate_figs(heatmap_allgenes_exposure, paste0('./plots/', experiment, '_explore_heatmap_allgenes_exposure'), c(15, 12))
+generate_figs(heatmap_allgenes_exCARTEx630_exposure, paste0('./plots/', experiment, '_explore_heatmap_allgenes_exCARTEx630_exposure'), c(15, 12))
+generate_figs(heatmap_CARTEx630_exposure, paste0('./plots/', experiment, '_explore_heatmap_CARTEx630_exposure'), c(15, 12))
+generate_figs(heatmap_CARTEx200_exposure, paste0('./plots/', experiment, '_explore_heatmap_CARTEx200_exposure'), c(15, 12))
+generate_figs(heatmap_CARTEx84_exposure, paste0('./plots/', experiment, '_explore_heatmap_CARTEx84_exposure'), c(15, 12))
+generate_figs(heatmap_TSG_exposure, paste0('./plots/', experiment, '_explore_heatmap_TSG_exposure'), c(15, 12))
+
+heatmap_CARTEx630_monaco <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_630_weights), group.by = "monaco")
+heatmap_CARTEx200_monaco <- DoHeatmap(expt.obj.downsample, features = rownames(cartex_200_weights), group.by = "monaco")
+generate_figs(heatmap_CARTEx630_monaco, paste0('./plots/', experiment, '_explore_heatmap_CARTEx630_monaco'), c(15, 12))
+generate_figs(heatmap_CARTEx200_monaco, paste0('./plots/', experiment, '_explore_heatmap_CARTEx200_monaco'), c(15, 12))
+
+
+
+
+DimPlot(expt.obj, group.by = 'exposure')
+FeaturePlot(expt.obj, features = c('HNF1A'))
+FeaturePlot(expt.obj, features = c('HNF1B'))
+
+# https://www.mcponline.org/article/S1535-9476(20)30681-2/fulltext
+SYK_substrates <- FeaturePlot(expt.obj, features = c('SYK', 'ARHGDIA', 'BTK', 'DBNL', 'DCTN2', 'FKBP8', 'GCET2', 'HCA59', 'HCLS1', 'HIRIP3', 'MAP1B', 'NFYA', 'PAG1', 'PIH1D1', 'PLCG2', 'PTPN11', 'RTN4', 'SF3A3', 'SFPQ', 'SMAP', 'STIP1', 'TBCB', 'TOMM34', 'TUBB', 'TUBB4B', 'UBA1'))
+generate_figs(SYK_substrates, paste0('./plots/', experiment, '_explore_SYK_substrates'), c(15, 15))
+
+vlnplot_SYK_substrates <- VlnPlot(expt.obj, features = c('SYK', 'ARHGDIA', 'BTK', 'DBNL', 'DCTN2', 'FKBP8', 'GCET2', 'HCA59', 'HCLS1', 'HIRIP3', 'MAP1B', 'NFYA', 'PAG1', 'PIH1D1', 'PLCG2', 'PTPN11', 'RTN4', 'SF3A3', 'SFPQ', 'SMAP', 'STIP1', 'TBCB', 'TOMM34', 'TUBB', 'TUBB4B', 'UBA1'), group.by = 'exposure')
+generate_figs(vlnplot_SYK_substrates, paste0('./plots/', experiment, '_explore_vlnplot_SYK_substrates'), c(15, 15))
 
 
 
