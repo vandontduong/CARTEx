@@ -166,7 +166,27 @@ colAnn <- HeatmapAnnotation(
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
 # select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
-select_genes <- c('STAT1', 'STAT3', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2')
+select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT1', 'STAT3', 'STAT4', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'NFKB1', 'NFKB2', 'REL', 'TNFRSF11A')
+# select_genes <- c('MYC', 'BRD4', 'BRD3', 'BRD2', 'BRDT', 'CDK9', 'CCNT1', 'HIF1A', 'HIF2A', 'HIF1B', 'NFKB1', 'NFKB2', 'RELA', 'RELB', 'REL', 'CD137', 'TNFRSF11A', 'TNFRSF11B', 'MAP3K14', 'ICOSLG', 'NFKBIA', 'NFKBIB', 'NFKBIE', 'EP300', 'CREBBP', 'TET2')
+
+# examine NFKB pathways
+# https://www.sciencedirect.com/science/article/pii/S1074761323002649
+# Pichler, Andrea C., et al. "TCR-independent CD137 (4-1BB) signaling promotes CD8+-exhausted T cell proliferation and terminal differentiation." Immunity 56.7 (2023): 1631-1648.
+# select_genes <-c('NFKB1', 'NFKB2', 'RELA', 'RELB', 'REL', 'CD137', 'TNFRSF11A', 'TNFRSF11B', 'MAP3K14', 'ICOSLG', 'NFKBIA', 'NFKBIB', 'NFKBIE', 'TOX', 'NFATC1', 'TRAF1', 'TRAF2', 'TRAF3', 'TNFRSF9')
+
+
+# https://link.springer.com/article/10.1007/s13277-016-5331-4
+# Slemc, Lucija, and Tanja Kunej. "Transcription factor HIF1A: downstream targets, associated pathways, polymorphic hypoxia response element (HRE) sites, and initiative for standardization of reporting in scientific literature." Tumor Biology 37 (2016): 14851-14861.
+# HIF1A target genes
+# select_genes <- c('HIF1A', 'VEGFA', 'ACAN', 'ADM', 'ALDOA', 'ALDOC', 'ANGPT2', 'ANKRD37', 'BHLHE40', 'BNIP3', 'CA9', 'COL2A1', 'ENO1', 'GAPDH', 'LDHA', 'LRP1', 'PFKFB4', 'PFKL', 'PGK1', 'PKM', 'SLC2A1', 'SLC2A3')
+
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4342852/
+# https://en.wikipedia.org/wiki/Aryl_hydrocarbon_receptor_nuclear_translocator
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7182078/
+# genes interacting with HIF1B or AhR
+# select_genes <- c('HIF1B', 'ARNT', 'ARNT1', 'ARNT2', 'TRIP230', 'TACC3', 'AIP', 'EPAS1', 'NCOA2', 'SIM1', 'SIM2', 'AHR', 'IDO1', 'TDO2', 'HSP90AA1', 'HSP90AA2', 'HSP90AB1', 'HSP90B1', 'TRAP1')
+
+
 index_select_genes <- which(rownames(mat) %in% select_genes)
 select_genes_ordered <- rownames(mat)[index_select_genes]
 
@@ -187,8 +207,8 @@ gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT3"]
 
 # list genes in a specific cluster
 gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C2"]
-
-
+write.csv(gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C2"], file = './data/cartex-cluster-2.csv', row.names = F)
+# cartex_C2 <- rownames(read.csv('./data/cartex-cluster-2.csv', header = TRUE, row.names = 1))
 
 hmap <- Heatmap(mat, 
                 name = 'Zscore',
@@ -210,6 +230,9 @@ hmap <- Heatmap(mat,
                 right_annotation = rightAnn,
                 use_raster=FALSE)
 
+# cluster 2 is enriched with adhesion receptor CD44 (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3038050/), enriched in activated T cells and T cell migration
+# cluster 3 is enriched with stimulatory ligands IL2, IL3, ICOSLG; C3 also has T-bet (TBX21) and SOX2
+# SOX2 and STAT3 are elevated
 
 # draw(hmap,  annotation_legend_side = 'left', heatmap_legend_side = 'left')
 plot_heatmap_all_clusters <- as.grob(hmap)
@@ -219,6 +242,15 @@ generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(
 #png(filename = "./plots/plot_heatmap_all_clusters.png", width = 480, height = 480, units = "px", pointsize = 12)
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html
+
+
+
+
+
+
+
+
+
 
 hmap_CARTEx_630 <- Heatmap(mat_CARTEx_630, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                        row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_CARTEx_630], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
