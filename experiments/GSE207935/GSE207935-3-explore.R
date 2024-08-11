@@ -85,32 +85,40 @@ cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep
 de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF_Stimulated", ident.2 = "Control_Stimulated", group.by = "AffstatStim", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_STAT3GOF_stim <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                              pCutoff = 10e-6, FCcutoff = 1, 
-                                              selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                              pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                              selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                              shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_STAT3GOF_stim, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_stim', sep = ''), c(10, 8))
+generate_figs(plot_volcano_STAT3GOF_stim, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_stim', sep = ''), c(6, 5))
 
 
 # Compare STAT3 GOF (stim)
 de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF_Rested", ident.2 = "Control_Rested", group.by = "AffstatStim", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_STAT3GOF_rest <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                              pCutoff = 10e-6, FCcutoff = 1, 
-                                              selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                              pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                              selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                              shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_STAT3GOF_rest, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_rest', sep = ''), c(10, 8))
+generate_figs(plot_volcano_STAT3GOF_rest, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_rest', sep = ''), c(6, 5))
 
 
 
@@ -118,16 +126,87 @@ generate_figs(plot_volcano_STAT3GOF_rest, paste('./plots/', experiment, '_plot_v
 de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF", ident.2 = "Control", group.by = "Affstat", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_STAT3GOF_control <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                                 pCutoff = 10e-6, FCcutoff = 1, 
-                                                 selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                 pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                                 selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                 shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_STAT3GOF_control, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control', sep = ''), c(10, 8))
+generate_figs(plot_volcano_STAT3GOF_control, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control', sep = ''), c(6, 5))
+
+
+
+# examine CARTEx C2 genes
+cartex_C2 <- rownames(read.csv(paste(PATH_CONSTRUCTION, "./data/cartex-cluster-2.csv", sep = ''), header = TRUE, row.names = 1))
+
+
+# Compare STAT3 GOF (stim)
+de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF_Stimulated", ident.2 = "Control_Stimulated", group.by = "AffstatStim", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% cartex_C2,]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, cartex_C2, 'C2')
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_STAT3GOF_stim_C2genes <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                              pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                              selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                              shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_STAT3GOF_stim_C2genes, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_stim_C2genes', sep = ''), c(6, 5))
+
+
+# Compare STAT3 GOF (stim)
+de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF_Rested", ident.2 = "Control_Rested", group.by = "AffstatStim", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% cartex_C2,]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, cartex_C2, 'C2')
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_STAT3GOF_rest_C2genes <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                              pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                              selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                              shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_STAT3GOF_rest_C2genes, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_rest_C2genes', sep = ''), c(6, 5))
+
+
+
+# Compare STAT3 GOF vs control
+de_genes <- FindMarkers(expt.obj, ident.1 = "STAT3_GOF", ident.2 = "Control", group.by = "Affstat", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% cartex_C2,]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, cartex_C2, 'C2')
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_STAT3GOF_control_C2genes <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                                 pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                                 selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                 shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_STAT3GOF_control_C2genes, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control_C2genes', sep = ''), c(6, 5))
+
 
 
 
@@ -142,7 +221,7 @@ featplot_CARTEx_200_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CAR
 featplot_CARTEx_84_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-1, 8))
 
 featplot_CARTEx_combined_affstatstim <- (featplot_CARTEx_630_affstatstim | featplot_CARTEx_200_affstatstim | featplot_CARTEx_84_affstatstim)
-generate_figs(featplot_CARTEx_combined_affstatstim, paste('./plots/', experiment, '_featplot_CARTEx_combined_affstatstim', sep = ''), c(10,5))
+generate_figs(featplot_CARTEx_combined_affstatstim, paste('./plots/', experiment, '_featplot_CARTEx_combined_affstatstim', sep = ''), c(10,4))
 
 
 
@@ -172,7 +251,7 @@ swarmplot_CARTEx_affstatstim_monaco <- ggplot(md, aes(x = AffstatStim, y = CARTE
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + ylim(-2,4) +
   labs(y = "CARTEx 200", color = "Cell Type") +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank(), legend.position="none")
+  theme_classic() + theme(axis.title.x = element_blank(), legend.position="none")
 generate_figs(swarmplot_CARTEx_affstatstim_monaco, paste('./plots/', experiment, '_prepare_swarmplot_CARTEx_affstatstim_monaco', sep = ''), c(6,5)) 
 
 
@@ -199,26 +278,22 @@ custom_labels <- c('Control (R)', 'Control (S)', 'STAT3_GOF (R)', 'STAT3_GOF (S)
 aggplot_CARTEx_200_affstatstim_monaco_split <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = monaco)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank()) + scale_x_discrete(labels = custom_labels)
+  theme_classic() + theme(axis.title.x = element_blank()) + scale_x_discrete(labels = custom_labels)
 generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split', sep = ''), c(6,5)) 
 
 
 # incorporate size
-# md_count <- expt.obj@meta.data %>% group_by(monaco, AffstatStim, pblabels) %>% summarize(count = n(), .groups = 'drop')
-# md_count$pblabels <- as.character(md_count$pblabels)
+md_count <- expt.obj@meta.data %>% group_by(monaco, AffstatStim, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
 
-# replace affstatestim
-# expt.obj@meta.data$AffstatStim
+md <- md %>% left_join(md_count, by = c("monaco", "AffstatStim", "pblabels"))
+md$count <- md_count$count # some issue where the fix is to re-import
 
-# md <- md %>% left_join(md_count, by = c("monaco", "AffstatStim", "pblabels"))
-
-# aggplot_CARTEx_200_affstatstim_monaco_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = monaco, size = count)) +
-  # geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
-  # scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  # theme_bw() + theme(axis.title.x = element_blank()) + scale_x_discrete(labels = custom_labels)
-# generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split_countsized', sep = ''), c(6,5)) 
-
-
+aggplot_CARTEx_200_affstatstim_monaco_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank()) + scale_x_discrete(labels = custom_labels)
+generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split_countsized', sep = ''), c(6,5)) 
 
 
 
