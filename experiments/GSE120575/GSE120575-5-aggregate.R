@@ -181,94 +181,94 @@ generate_figs(aggplot_qk_CARTEx_84_baseline, paste('./plots/', experiment, '_que
 
 
 aggplot_CARTEx_84_baseline <- md %>% ggplot(aes(identifier5, CARTEx_84)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_84_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_baseline', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_200_baseline <- md %>% ggplot(aes(identifier5, CARTEx_200)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_200_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200_baseline', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_630_baseline <- md %>% ggplot(aes(identifier5, CARTEx_630)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_630_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630_baseline', sep = ''), c(5.5,5))
 
 
 
 aggplot_activation_baseline <- md %>% ggplot(aes(identifier5, Activation)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme(legend.position="none")
+  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_activation_baseline, paste('./plots/', experiment, '_query_agg_aggplot_activation_baseline', sep = ''), c(6,5))
 
 aggplot_anergy_baseline <- md %>% ggplot(aes(identifier5, Anergy)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme(legend.position="none")
+  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_anergy_baseline, paste('./plots/', experiment, '_query_agg_aggplot_anergy_baseline', sep = ''), c(6,5))
 
 aggplot_senescence_baseline <- md %>% ggplot(aes(identifier5, Senescence)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme(legend.position="none")
+  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_senescence_baseline, paste('./plots/', experiment, '_query_agg_aggplot_senescence_baseline', sep = ''), c(6,5))
 
 aggplot_stemness_baseline <- md %>% ggplot(aes(identifier5, Stemness)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme(legend.position="none")
+  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_stemness_baseline, paste('./plots/', experiment, '_query_agg_aggplot_stemness_baseline', sep = ''), c(6,5))
 
 
 
 aggplot_NKlike_Tex_baseline <- md %>% ggplot(aes(identifier5, NKlike_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_NKlike_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex_baseline', sep = ''), c(5.5,5))
 
 aggplot_LCMV_Tex_baseline <- md %>% ggplot(aes(identifier5, LCMV_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_LCMV_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex_baseline', sep = ''), c(5.5,5))
 
 aggplot_BBD_Tex_baseline <- md %>% ggplot(aes(identifier5, BBD_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_BBD_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex_baseline', sep = ''), c(5.5,5))
 
 aggplot_PD1_Tex_baseline <- md %>% ggplot(aes(identifier5, PD1_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_PD1_Tex_baseline, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex_baseline', sep = ''), c(5.5,5))
 
 

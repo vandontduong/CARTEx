@@ -143,7 +143,7 @@ generate_figs(vlnplot_response_exhaustion_markers_baseline, paste('./plots/', ex
 ### exploded volcano
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
-# Compare Pre-R vs Pre-NR
+# Compare Pre-NR vs Pre-R
 de_genes <- FindMarkers(expt.obj, ident.1 = "Pre-NR", ident.2 = "Pre-R", group.by = "Timepoint_Response", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
@@ -151,7 +151,7 @@ signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # create custom key-value pairs for CARTEx genes
-keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights))
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), "C5")
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_baseline_response <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
@@ -161,6 +161,32 @@ plot_volcano_baseline_response <- EnhancedVolcano(de_genes, lab = rownames(de_ge
                                                   xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
 generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(6, 5))
+
+
+# examine CARTEx C2 genes
+cartex_C2 <- rownames(read.csv(paste(PATH_WEIGHTS, "cartex-cluster-2.csv", sep = ''), header = TRUE, row.names = 1))
+
+
+# Compare Pre-NR vs Pre-R
+de_genes <- FindMarkers(expt.obj, ident.1 = "Pre-NR", ident.2 = "Pre-R", group.by = "Timepoint_Response", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% cartex_C2,]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, cartex_C2, "C2")
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_baseline_response_C2genes <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                                  pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
+                                                  selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                  shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_baseline_response_C2genes, paste('./plots/', experiment, '_plot_volcano_baseline_response_C2genes', sep = ''), c(6, 5))
+
+
 
 
 # percentage of CARTEx detected
