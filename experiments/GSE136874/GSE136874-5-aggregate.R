@@ -140,31 +140,31 @@ generate_figs(aggplot_qk_CARTEx_84, paste('./plots/', experiment, '_query_agg_ag
 
 
 aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
-  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 0.8) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.4) +
-  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(5.5,5))
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") +
+  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) + geom_hline(yintercept=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(5,5))
 
 aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.3) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.6) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(5.5,5))
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(5,5))
 
 aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.3) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.6) +
-  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(5.5,5))
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(5,5))
 
 
 
@@ -172,63 +172,63 @@ aggplot_activation <- md %>% ggplot(aes(identifier2, Activation)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(5.5,5))
+generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(5,5))
 
 aggplot_anergy <- md %>% ggplot(aes(identifier2, Anergy)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(5.5,5))
+generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(5,5))
 
 aggplot_senescence <- md %>% ggplot(aes(identifier2, Senescence)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(5.5,5))
+generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(5,5))
 
 
 aggplot_stemness <- md %>% ggplot(aes(identifier2, Stemness)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(5.5,5))
+generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(5,5))
 
 
 aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
-  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.3) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.6) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(5.5,5))
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") +
+  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) + geom_hline(yintercept=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(5,5))
 
 aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.3) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.6) +
-  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(5.5,5))
-
-aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.3) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.6) +
-  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(5.5,5))
-
-aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
-generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(5.5,5))
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(5,5))
+
+aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(5,5))
+
+aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
+  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
+generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(5,5))
 
 
 
@@ -237,7 +237,7 @@ md$PDCD1 <- query.obj.agg@assays$RNA$data['PDCD1',]
 
 aggplot_PDCD1 <- md %>% ggplot(aes(identifier2, PDCD1)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
-  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
+  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid"), color = "black") + geom_hline(yintercept=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 0.15) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 0.18) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 0.21) +

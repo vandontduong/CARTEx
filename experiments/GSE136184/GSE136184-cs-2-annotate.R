@@ -424,41 +424,6 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_scored.rds', sep = ''
 
 head(expt.obj)
 
-umap_gene_ADGRG1 <- FeaturePlot(expt.obj, features = "ADGRG1")
-generate_figs(umap_gene_ADGRG1, paste('./plots/', experiment, '_cs_prepare_umap_gene_ADGRG1', sep = ''), c(6,5) )
-
-umap_gene_MT2A <- FeaturePlot(expt.obj, features = "MT2A")
-generate_figs(umap_gene_MT2A, paste('./plots/', experiment, '_cs_prepare_umap_gene_MT2A', sep = ''), c(6,5) )
-
-# PDCD1 corresponds to PD-1
-# HAVCR2 corresponds to TIM-3
-# LAG3
-# CTLA4
-# NT5E corresponds to CD73
-
-vlnplot_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
-vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'AgeGroup2', ncol = 3, cols = vlnplot_age_group_2_cols, y.max = 4)
-# generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
-
-# ENTPD1 not detected
-vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
-
-vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
-
-
-generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(6,5)) 
-
-
-
-
 
 
 # report time

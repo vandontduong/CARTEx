@@ -226,6 +226,11 @@ barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'ClinicalResponse
 generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(5,4))
 
 
+barplot_monaco_responder + theme(legend.position = "none")
+
+barplot_phase_responder + theme(legend.position = "none")
+
+
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 

@@ -39,9 +39,10 @@ vlnplot_exposure_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('P
                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
                                                  VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
 
-generate_figs(vlnplot_exposure_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_exposure_exhaustion_markers', sep = ''), c(8,6))
+generate_figs(vlnplot_exposure_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_exposure_exhaustion_markers', sep = ''), c(6, 5))
 
-
+# examine BET signaling / transcription genes
+VlnPlot(expt.obj, features = c('MYC', 'BRD4', 'BRD3', 'BRD2', 'BRDT', 'CDK9', 'CCNT1', 'HIF1A', 'HIF1B'), group.by = 'exposure', ncol = 3, cols = c('skyblue', 'cadetblue'), y.max = 3)
 
 # percentage of CARTEx detected
 
@@ -51,6 +52,10 @@ featplot_CARTEx_84_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_
 
 featplot_CARTEx_combined_exposure <- (featplot_CARTEx_630_exposure | featplot_CARTEx_200_exposure | featplot_CARTEx_84_exposure)
 generate_figs(featplot_CARTEx_combined_exposure, paste('./plots/', experiment, '_featplot_CARTEx_combined_exposure', sep = ''), c(10,4))
+
+generate_figs(featplot_CARTEx_200_exposure, paste('./plots/', experiment, '_featplot_CARTEx_200_exposure', sep = ''), c(2,4))
+
+
 
 
 
@@ -133,20 +138,7 @@ signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # create custom key-value pairs for CARTEx genes
-keyvals.shape <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 17, 1)
-names(keyvals.shape)[keyvals.shape == 17] <- 'CARTEx'
-names(keyvals.shape)[keyvals.shape == 1] <- 'Normal'
-
-keyvals.color <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 'darkgoldenrod', 'black')
-names(keyvals.color)[keyvals.color == 'darkgoldenrod'] <- 'CARTEx'
-names(keyvals.color)[keyvals.color == 'black'] <- 'Normal'
-
-keyvals.ptsize <- ifelse(rownames(de_genes) %in% rownames(cartex_630_weights), 2, 1)
-names(keyvals.ptsize)[keyvals.ptsize == 2] <- 'CARTEx'
-names(keyvals.ptsize)[keyvals.ptsize == 1] <- 'Normal'
-
-# create custom key-value pairs for CARTEx genes
-keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights))
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_CAEvday0 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
@@ -159,6 +151,39 @@ generate_figs(plot_volcano_CAEvday0, paste('./plots/', experiment, '_explore_vol
 
 
 FeaturePlot(expt.obj, features = c('CCL3', 'CCL4', 'PPARG', 'METRNL', 'IFNG', 'IL2RA', 'PMCH', 'EPAS1', 'RDH10'))
+
+
+
+# examine CARTEx C2 genes
+cartex_C2 <- rownames(read.csv(paste(PATH_CONSTRUCTION, "./data/cartex-cluster-2.csv", sep = ''), header = TRUE, row.names = 1))
+
+de_genes <- FindMarkers(expt.obj, ident.1 = "day20", ident.2 = "day0", group.by = "exposure", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% cartex_C2,]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, cartex_C2, 'C2')
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_CAEvday0_CARTEx_C2genes <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                         selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                         shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_CAEvday0_CARTEx_C2genes, paste('./plots/', experiment, '_explore_volcano_CAEvday0_CARTEx_C2genes', sep = ''), c(6, 5))
+
+
+
+
+
+
+
+
+
+
 
 
 # Compare CAE exhausted to CAE not exhausted

@@ -24,6 +24,128 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 # expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 expt.obj <- readRDS(paste('./data/', experiment, '_cs_scored.rds', sep = ''))
 
+
+umap_gene_ADGRG1 <- FeaturePlot(expt.obj, features = "ADGRG1")
+generate_figs(umap_gene_ADGRG1, paste('./plots/', experiment, '_cs_prepare_umap_gene_ADGRG1', sep = ''), c(6,5) )
+
+umap_gene_MT2A <- FeaturePlot(expt.obj, features = "MT2A")
+generate_figs(umap_gene_MT2A, paste('./plots/', experiment, '_cs_prepare_umap_gene_MT2A', sep = ''), c(6,5) )
+
+
+# PDCD1 corresponds to PD-1
+# HAVCR2 corresponds to TIM-3
+# LAG3
+# CTLA4
+# TIGIT
+# ENTPD1 corresponds to CD39
+
+vlnplot_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'AgeGroup2', ncol = 3, cols = vlnplot_age_group_2_cols, y.max = 4)
+# generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
+
+# ENTPD1 not detected
+vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+
+vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
+
+
+generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(6,5)) 
+
+
+# percentage of CARTEx detected
+
+featplot_CARTEx_630_group <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'AgeGroup2', cols=vlnplot_age_group_2_cols, shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 15)) + ylim(c(-3, 5))
+featplot_CARTEx_200_group <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'AgeGroup2', cols=vlnplot_age_group_2_cols, shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 15)) + ylim(c(-3, 5))
+featplot_CARTEx_84_group <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'AgeGroup2', cols=vlnplot_age_group_2_cols, shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 15)) + ylim(c(-3, 5))
+
+featplot_CARTEx_combined_group <- (featplot_CARTEx_630_group | featplot_CARTEx_200_group | featplot_CARTEx_84_group)
+generate_figs(featplot_CARTEx_combined_group, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_group', sep = ''), c(10,4))
+
+
+# examine differentiation
+
+vlnplot_CARTEx_group_monaco_split <- VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'AgeGroup2', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)
+
+generate_figs(vlnplot_CARTEx_group_monaco_split, paste('./plots/', experiment, '_prepare_vlnplot_CARTEx_group_monaco_split', sep = ''), c(12,5)) 
+
+vlnplt_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+custom_labels <- c("Naive", "Central memory", "Effector memory", "Terminal effector")
+vlnplot_CARTEx_group_monaco <- plot_grid(VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'AgeGroup2', pt.size = 0, cols = vlnplt_age_group_2_cols) +
+                                           theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + 
+                                           ylab("CARTEx 200") + ylim(-2,4),
+                                         VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) + 
+                                           theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + 
+                                           ylab("CARTEx 200") + ylim(-2,4) + scale_x_discrete(labels = custom_labels))
+
+generate_figs(vlnplot_CARTEx_group_monaco, paste('./plots/', experiment, '_prepare_vlnplot_CARTEx_group_monaco', sep = ''), c(12,5)) 
+
+
+md <- expt.obj@meta.data %>% as.data.table
+
+swarmplot_CARTEx_group_monaco <- ggplot(md, aes(x = AgeGroup2, y = CARTEx_200, color = monaco)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + ylim(-2,4) +
+  labs(y = "CARTEx 200", color = "Cell Type") +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank(), legend.position="none")
+generate_figs(swarmplot_CARTEx_group_monaco, paste('./plots/', experiment, '_prepare_swarmplot_CARTEx_group_monaco', sep = ''), c(6,5)) 
+
+
+# aggregate without controls
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('AgeGroup2', 'monaco', 'pblabels'), return.seurat = TRUE)
+
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+
+expt.obj.agg$AgeGroup2 <- factor(expt.obj.agg$AgeGroup2, levels = c("Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+expt.obj.agg$monaco <- factor(expt.obj.agg$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+
+aggplot_CARTEx_200_group_monaco_split <- md %>% ggplot(aes(x = AgeGroup2, y = CARTEx_200, color = monaco)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_group_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_group_monaco_split', sep = ''), c(6,5)) 
+
+
+
+# incorporate size
+
+md_count <- expt.obj@meta.data %>% group_by(monaco, AgeGroup2, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "AgeGroup2", "pblabels"))
+
+
+
+aggplot_CARTEx_200_group_monaco_split_countsized <- md %>% ggplot(aes(x = AgeGroup2, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group_monaco_split_countsized', sep = ''), c(5, 4)) 
+
+aggplot_activation_group_monaco_split_countsized <- md %>% ggplot(aes(x = AgeGroup2, y = Activation, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_activation_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_activation_group_monaco_split_countsized', sep = ''), c(5, 4)) 
+
+
+
+
+
+# heatmap
+
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)

@@ -190,6 +190,12 @@ umap_exposure <- DimPlot(expt.obj, reduction = "umap", group.by = "exposure", sh
 generate_figs(umap_exposure, paste('./plots/', experiment, '_prepare_umap_exposure', sep = ''), c(6,5))
 
 
+# Generate diffusion maps for metadata
+
+dmap_exposure <- DimPlot(expt.obj, reduction = "dm", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue')) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
+generate_figs(dmap_exposure, paste('./plots/', experiment, '_prepare_dmap_exposure', sep = ''), c(6,5))
+
+
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################

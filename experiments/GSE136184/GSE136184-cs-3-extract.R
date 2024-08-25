@@ -161,7 +161,11 @@ vlnplot_CARTEx_200_extract_ident <- VlnPlot(expt.obj, c("CARTEx_200"), group.by 
 vlnplot_CARTEx_84_extract_ident <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 84') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
 
 vlnplot_CARTEx_combined_extract_ident <- (vlnplot_CARTEx_630_extract_ident | vlnplot_CARTEx_200_extract_ident | vlnplot_CARTEx_84_extract_ident)
-generate_figs(vlnplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_combined_extract_ident', sep = ''), c(10,5))
+generate_figs(vlnplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_combined_extract_ident', sep = ''), c(10,4))
+
+vlnplot_CARTEx_200_extract_ident <- vlnplot_CARTEx_200_extract_ident + scale_x_discrete(label = c("YN", "OT"))
+
+generate_figs(vlnplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_vlnplot_CARTEx_200_extract_ident', sep = ''), c(2,4))
 
 
 featplot_CARTEx_630_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
@@ -169,7 +173,10 @@ featplot_CARTEx_200_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.C
 featplot_CARTEx_84_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_extract_ident <- (featplot_CARTEx_630_extract_ident | featplot_CARTEx_200_extract_ident | featplot_CARTEx_84_extract_ident)
-generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(10,5))
+generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(10,4))
+
+generate_figs(featplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_featplot_CARTEx_200_extract_ident', sep = ''), c(2,4))
+
 
 
 ####################################################################################################
@@ -185,40 +192,40 @@ cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep =
 de_genes <- FindMarkers(expt.obj, ident.1 = "OldTerminal", ident.2 = "YoungNaive", group.by = "extract.ident", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_OTvYN_CARTEx_630 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val',
-                                                 pCutoff = 10e-6, FCcutoff = 1, 
+                                                 pCutoff = 10e-6, FCcutoff = 0.5, 
                                                  selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_OTvYN_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_630', sep = ''), c(12, 8))
+generate_figs(plot_volcano_OTvYN_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_630', sep = ''), c(6, 5))
 
 
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_OTvYN_CARTEx_200 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                                 pCutoff = 10e-6, FCcutoff = 1, 
+                                                 pCutoff = 10e-6, FCcutoff = 0.5, 
                                                  selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_OTvYN_CARTEx_200, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_200', sep = ''), c(12, 8))
+generate_figs(plot_volcano_OTvYN_CARTEx_200, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_200', sep = ''), c(6, 5))
 
 
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_84_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_OTvYN_CARTEx_84 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                                pCutoff = 10e-6, FCcutoff = 1, 
+                                                pCutoff = 10e-6, FCcutoff = 0.5, 
                                                 selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_OTvYN_CARTEx_84, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_84', sep = ''), c(12, 8))
+generate_figs(plot_volcano_OTvYN_CARTEx_84, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_84', sep = ''), c(6, 5))
 
 
 
@@ -229,16 +236,16 @@ table(expt.obj$extract.ident, expt.obj$AgeGroup2)
 de_genes <- FindMarkers(expt.obj, ident.1 = "Under 30", ident.2 = "Newborn", group.by = "AgeGroup2", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
-signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 1)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_YNcomp_CARTEx_630 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val',
-                                                 pCutoff = 10e-6, FCcutoff = 1, 
+                                                 pCutoff = 10e-6, FCcutoff = 0.5, 
                                                  selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_YNcomp_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_YNcomp_CARTEx_630', sep = ''), c(12, 8))
+generate_figs(plot_volcano_YNcomp_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_YNcomp_CARTEx_630', sep = ''), c(6, 5))
 
 
 vlnplot_CARTEx_200_YNcomp <- VlnPlot(expt.obj, c("CARTEx_200"), group.by = "AgeGroup2", pt.size = 0, cols=c("royalblue", "royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 200') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
