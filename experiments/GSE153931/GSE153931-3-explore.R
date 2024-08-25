@@ -23,6 +23,13 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
+table(expt.obj@meta.data$orig.severity, expt.obj@meta.data$orig.severity_x)
+
+table(expt.obj@meta.data$orig.severity, expt.obj@meta.data$orig.severity_score)
+
+table(expt.obj@meta.data$orig.severity_x, expt.obj@meta.data$orig.severity_score)
+
+
 # PDCD1 corresponds to PD-1
 # HAVCR2 corresponds to TIM-3
 # LAG3
@@ -54,6 +61,10 @@ vlnplot_severity_score_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, feature
                                                         cols = c('cadetblue', 'violetred', 'indianred', 'firebrick'), y.max = 5)
 generate_figs(vlnplot_severity_score_CV_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_severity_score_CV_exhaustion_markers', sep = ''), c(8,6))
 
+vlnplot_severity_mod_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'severity_mod', ncol = 3, 
+                                                        cols = c('cadetblue', 'indianred'), y.max = 5)
+generate_figs(vlnplot_severity_mod_CV_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_severity_mod_CV_exhaustion_markers', sep = ''), c(8,6))
+
 
 # percentage of CARTEx detected
 
@@ -64,6 +75,12 @@ featplot_CARTEx_84_severity_x <- FeatureScatter(expt.obj.subset, feature1 = 'PFS
 featplot_CARTEx_combined_severity_x <- (featplot_CARTEx_630_severity_x | featplot_CARTEx_200_severity_x | featplot_CARTEx_84_severity_x)
 generate_figs(featplot_CARTEx_combined_severity_x, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_severity_x', sep = ''), c(10,5))
 
+featplot_CARTEx_630_severity_mod <- FeatureScatter(expt.obj.subset, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'orig.severity_mod', cols=c('cadetblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 30)) + ylim(c(-3, 5))
+featplot_CARTEx_200_severity_mod <- FeatureScatter(expt.obj.subset, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'orig.severity_mod', cols=c('cadetblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 30)) + ylim(c(-3, 5))
+featplot_CARTEx_84_severity_mod <- FeatureScatter(expt.obj.subset, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'orig.severity_mod', cols=c('cadetblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-3, 5))
+
+featplot_CARTEx_combined_severity_mod <- (featplot_CARTEx_630_severity_mod | featplot_CARTEx_200_severity_mod | featplot_CARTEx_84_severity_mod)
+generate_figs(featplot_CARTEx_combined_severity_mod, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_severity_mod', sep = ''), c(10,5))
 
 
 # examine differentiation
@@ -101,7 +118,7 @@ expt.obj.agg <- AggregateExpression(expt.obj.subset, group.by = c('orig.severity
 
 expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
 
-expt.obj.agg$orig.severity_x <- factor(expt.obj.agg$orig.severity_x, levels = c("Mild", "Moderate", "Severe"))
+expt.obj.agg$orig.severity_x <- factor(expt.obj.agg$orig.severity_x, levels = c("Mild", "Moderate", "Severe", "Critical"))
 expt.obj.agg$monaco <- factor(expt.obj.agg$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
 
 

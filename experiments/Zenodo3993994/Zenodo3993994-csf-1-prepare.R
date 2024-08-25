@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
-### Script name: GSE153931-1-prepare.R
-### Description: prepare seurat object for GSE153931
+### Script name: Zenodo3993994-csf-1-prepare.R
+### Description: prepare seurat object for Zenodo3993994
 ### Author: Vandon Duong
 
 # track time
@@ -14,63 +14,18 @@ print("The script is starting...")
 
 set.seed(123)
 source("/oak/stanford/groups/cmackall/vandon/CARTEx/cartex-utilities.R")
-experiment = 'GSE153931'
+experiment = 'Zenodo3993994'
 setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 
 ####################################################################################################
 ######################################## Load data and filter ######################################
 ####################################################################################################
 
-countsData <- read.csv(file = "./data/GSE153931_cd8_t24_processed_data_umi_counts.txt", header = TRUE, row.names = 1, sep = ',')
-annotatedData <- read.csv(file = "./data/GSE153931_cd8_t24_processed_data_annotations.txt", header = TRUE, row.names = 1, sep = '\t')
+counts_data <- readRDS("./data/counts.rds")
+meta_data <- read.table("./data/metadata.txt", header = TRUE, sep="\t")
 
-# assemble metadata
-
-expt.obj <- CreateSeuratObject(counts = countsData, min.cells = 3, min.features = 200)
-expt.obj@meta.data$orig.ident <- annotatedData$orig.ident
-expt.obj@meta.data$origlib <- annotatedData$origlib
-expt.obj@meta.data$orig.project_id <- annotatedData$orig.project_id
-expt.obj@meta.data$orig.n_donors <- annotatedData$orig.n_donors
-expt.obj@meta.data$percent.mt <- annotatedData$percent.mt
-expt.obj@meta.data$orig.project_group <- annotatedData$orig.project_group
-expt.obj@meta.data$orig.virus <- annotatedData$orig.virus
-expt.obj@meta.data$orig.virus2 <- annotatedData$orig.virus2
-expt.obj@meta.data$orig.asthma <- annotatedData$orig.asthma
-expt.obj@meta.data$orig.peptide <- annotatedData$orig.peptide
-expt.obj@meta.data$orig.donor <- annotatedData$orig.donor
-expt.obj@meta.data$orig.donors <- annotatedData$orig.donors
-expt.obj@meta.data$orig.severity <- annotatedData$orig.severity
-expt.obj@meta.data$orig.severity_score <- annotatedData$orig.severity_score
-expt.obj@meta.data$orig.severity_score <- factor(expt.obj@meta.data$orig.severity_score, levels = c('Mild', 'Moderate', 'Severe', 'Critical', 'void'))
-expt.obj@meta.data$orig.severity_x <- annotatedData$orig.severity_x
-expt.obj@meta.data$orig.severity_x <- factor(expt.obj@meta.data$orig.severity_x, levels = c('Mild', 'Moderate', 'Severe', 'void'))
-expt.obj@meta.data$drug <- annotatedData$drug
-expt.obj@meta.data$orig.diabetes <- annotatedData$orig.diabetes
-expt.obj@meta.data$age <- annotatedData$age
-expt.obj@meta.data$orig.sex <- annotatedData$orig.sex
-expt.obj@meta.data$cardiovascular <- annotatedData$cardiovascular
-expt.obj@meta.data$tumour <- annotatedData$tumour
-expt.obj@meta.data$orig.hospital <- annotatedData$orig.hospital
-expt.obj@meta.data$orig.unit <- annotatedData$orig.unit
-
-expt.obj@meta.data$severity_mod <- plyr::mapvalues(x = expt.obj@meta.data$severity_x,
-                                              from = c('Mild', 'Moderate', 'Severe', 'void'),
-                                              to = c('Mild', 'Severe', 'Severe', 'void'))
-expt.obj@meta.data$severity_mod <- factor(expt.obj@meta.data$severity_mod, levels = c('Mild', 'Severe', 'void'))
-
-
-# eliminate void donors
-expt.obj <- SetIdent(expt.obj, value = "orig.donor")
-expt.obj <- subset(expt.obj,cells=colnames(expt.obj)[Idents(expt.obj) !="void"])
-
-
-# contingency tables
-table(expt.obj@meta.data$orig.virus, expt.obj@meta.data$orig.virus2)
-
-
-
+expt.obj <- CreateSeuratObject(counts = counts_data, meta.data = meta_data)
 class(expt.obj@assays$RNA$counts)
-
 
 expt.obj <- NormalizeData(expt.obj)
 
@@ -79,7 +34,7 @@ expt.obj[["percent.mt"]] <- PercentageFeatureSet(expt.obj, pattern = "^MT-")
 expt.obj[['identifier']] <- experiment
 
 vlnplot_quality_control_standard_original <- ViolinPlotQC(expt.obj, c('nFeature_RNA','nCount_RNA', "percent.mt"), c(200, NA, NA), c(6000, NA, 10), 'identifier', 3)
-generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
+generate_figs(vlnplot_quality_control_standard_original, paste('./plots/', experiment, '_csf_prepare_vlnplot_quality_control_standard_original', sep = ''), c(8, 5))
 
 
 # extract genes
@@ -114,6 +69,22 @@ pos_ids <- names(which(CD8A_expression > 0 & CD8B_expression > 0 & CD4_expressio
 neg_ids <- names(which(CD8A_expression == 0 & CD8B_expression == 0 & CD4_expression > 0))
 expt.obj <- subset(expt.obj,cells=pos_ids)
 
+#- Add meta.data
+
+expt.obj@meta.data$Disease <- plyr::mapvalues(x = expt.obj@meta.data$sampleType,
+                                              from = c('Alzheimer(CSF)', 'Control(Blood)', 'Control(CSF)', 'MCI(CSF)', 'Parkinson(Blood)'),
+                                              to = c('Alzheimer (C)', 'Control (B)', 'Control (C)', 'MCI (C)', 'Parkinson (B)'))
+expt.obj@meta.data$Disease <- factor(expt.obj@meta.data$Disease, levels = c('Parkinson (B)', 'Control (B)', 'Alzheimer (C)', 'MCI (C)', 'Control (C)'))
+
+expt.obj@meta.data$sampleSource <- plyr::mapvalues(x = expt.obj@meta.data$sampleType,
+                                                   from = c('Alzheimer(CSF)', 'Control(Blood)', 'Control(CSF)', 'MCI(CSF)', 'Parkinson(Blood)'),
+                                                   to = c('CSF', 'Blood', 'CSF', 'CSF', 'Blood'))
+expt.obj@meta.data$sampleSource <- factor(expt.obj@meta.data$sampleSource, levels = c('Blood', 'CSF'))
+
+expt.obj@meta.data$sampleType <- factor(expt.obj@meta.data$sampleType, levels = c('Parkinson(Blood)', 'Control(Blood)', 'Alzheimer(CSF)', 'MCI(CSF)', 'Control(CSF)'))
+
+Idents(expt.obj) <- "sampleSource"
+expt.obj <- subset(expt.obj, idents = c("CSF"))
 
 # check levels() for metadata
 # check anything NULL: unique(expt.obj@meta.data[['identity']])
@@ -121,7 +92,7 @@ check_levels(expt.obj)
 
 # Examine features before quality control
 vlnplot_quality_control_standard_pre <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
-generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
+generate_figs(vlnplot_quality_control_standard_pre, paste('./plots/', experiment, '_csf_prepare_vlnplot_quality_control_standard_pre', sep = ''))
 
 vlnplot_quality_control_CARTEx_pre <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
 #### generate_figs(vlnplot_quality_control_CARTEx_pre, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_pre', sep = ''))
@@ -134,7 +105,7 @@ expt.obj <- subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 &
 
 # Examine features after quality control
 vlnplot_quality_control_standard_post <- VlnPlot(object = expt.obj, features = c('nFeature_RNA','nCount_RNA', "percent.mt"), group.by = 'identifier', ncol=3)
-generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_prepare_vlnplot_quality_control_standard_post', sep = ''))
+generate_figs(vlnplot_quality_control_standard_post, paste('./plots/', experiment, '_csf_prepare_vlnplot_quality_control_standard_post', sep = ''))
 
 vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('percent.CARTEx_630','percent.CARTEx_200', 'percent.CARTEx_84', 'PFSD.CARTEx_630', 'PFSD.CARTEx_200', 'PFSD.CARTEx_84'), group.by = 'identifier', ncol=3)
 
@@ -142,20 +113,20 @@ vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('
 qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
 rownames(qc_review) <- c("All", "preQC", "preQC")
 colnames(qc_review) <- c("genes", "cells")
-write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
+write.csv(qc_review, paste('./data/', experiment, '_csf_prepare_qc_review.csv', sep = ''))
 
 # Variable features and initial UMAP analysis
 expt.obj <- FindVariableFeatures(expt.obj, selection.method = "vst", nfeatures = 2000)
 top10_varfeats <- head(VariableFeatures(expt.obj), 10)
 varplt <- VariableFeaturePlot(expt.obj)
 varplt_labeled <- LabelPoints(plot = varplt, points = top10_varfeats, repel = TRUE)
-generate_figs(varplt_labeled, paste('./plots/', experiment, '_prepare_varplt_labeled', sep = ''))
+generate_figs(varplt_labeled, paste('./plots/', experiment, '_csf_prepare_varplt_labeled', sep = ''))
 
 expt.obj <- ScaleData(expt.obj, features = all.genes)
 expt.obj <- RunPCA(expt.obj, features = VariableFeatures(object = expt.obj), npcs = 30)
 
 inspect_elbow <- ElbowPlot(expt.obj)
-generate_figs(inspect_elbow, paste('./plots/', experiment, '_prepare_inspect_elbow', sep = ''), c(5, 4))
+generate_figs(inspect_elbow, paste('./plots/', experiment, '_csf_prepare_inspect_elbow', sep = ''), c(5, 4))
 
 # select dimensionality based on elbowplot analysis
 dim.max <- ChoosePC(expt.obj)
@@ -166,10 +137,10 @@ resolution.range <- seq(from = 0, to = 1, by = 0.2)
 expt.obj <- FindClusters(expt.obj, resolution = resolution.range)
 
 inspect_clustering <- clustree(expt.obj, prefix = "RNA_snn_res.")
-generate_figs(inspect_clustering, paste('./plots/', experiment, '_prepare_inspect_clustering', sep = ''), c(12, 8))
+generate_figs(inspect_clustering, paste('./plots/', experiment, '_csf_prepare_inspect_clustering', sep = ''), c(12, 8))
 
 # Select clustering resolution based on clustree analysis
-expt.obj@meta.data$seurat_clusters <- expt.obj@meta.data$RNA_snn_res.0.4
+expt.obj@meta.data$seurat_clusters <- expt.obj@meta.data$RNA_snn_res.0.6
 expt.obj@meta.data$seurat_clusters <- factor(expt.obj@meta.data$seurat_clusters, levels = SortNumStrList(unique(expt.obj@meta.data$seurat_clusters), shift = TRUE))
 
 print("Calculating UMAPs...")
@@ -178,11 +149,11 @@ expt.obj <- RunUMAP(expt.obj, dims = 1:dim.max)
 print("Calculating diffusion maps...")
 diffusion_map <- RunDiffusion(expt.obj, k_int = 10)
 expt.obj <- diffusion_map$atlas
-saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_dmap.rds', sep = ''))
+saveRDS(diffusion_map$dmap, file = paste('./data/', experiment, '_csf_dmap.rds', sep = ''))
 rm(diffusion_map)
 
 print("Saving Seurat object...")
-saveRDS(expt.obj, file = paste('./data/', experiment, '.rds', sep = ''))
+saveRDS(expt.obj, file = paste('./data/', experiment, '_csf.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '.rds', sep = ''))
 
@@ -192,65 +163,55 @@ head(expt.obj)
 # Generate UMAPs for metadata
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_csf_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
-generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
+generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_csf_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
-umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.donor", shuffle = TRUE, seed = 123)
-generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''), c(6.5, 5))
+umap_disease_cols <- c('Parkinson (B)' = 'violet', 'Control (B)' = 'cadetblue', 'Alzheimer (C)' = 'firebrick', 'MCI (C)' = 'indianred', 'Control (C)' = 'lightsalmon')
+umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123, cols = umap_disease_cols)
+generate_figs(umap_disease, paste('./plots/', experiment, '_csf_prepare_umap_disease', sep = ''), c(6.5, 5))
 
-umap_orig_virus <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_virus, paste('./plots/', experiment, '_prepare_umap_orig_virus', sep = ''), c(6.5, 5))
+umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 3)
+generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_csf_prepare_umap_disease_highlight', sep = ''), c(12, 10))
 
-umap_orig_virus2 <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_orig_virus2', sep = ''), c(6.5, 5))
+umap_sample_source <- DimPlot(expt.obj, reduction = "umap", group.by = "sampleSource", shuffle = TRUE, seed = 123)
+generate_figs(umap_sample_source, paste('./plots/', experiment, '_csf_prepare_umap_sample_source', sep = ''), c(6, 5))
 
-umap_orig_severity <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_severity, paste('./plots/', experiment, '_prepare_umap_orig_severity', sep = ''), c(6.5, 5))
+umap_sample_type_cols <- c('Parkinson(Blood)' = 'violet', 'Control(Blood)' = 'cadetblue', 'Alzheimer(CSF)' = 'firebrick', 'MCI(CSF)' = 'indianred', 'Control(CSF)' = 'lightsalmon')
+umap_sample_type <- DimPlot(expt.obj, reduction = "umap", group.by = "sampleType", shuffle = TRUE, seed = 123, cols = umap_sample_type_cols)
+generate_figs(umap_sample_type, paste('./plots/', experiment, '_csf_prepare_umap_sample_type', sep = ''), c(6.5, 5))
 
-umap_orig_severity_score <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'steelblue', 'indianred', 'firebrick', 'grey'))
-generate_figs(umap_orig_severity_score, paste('./plots/', experiment, '_prepare_umap_orig_severity_score', sep = ''), c(6.5, 5))
+# generate diffusion maps for metadata
 
-umap_orig_severity_x <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_x", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'steelblue', 'indianred', 'grey'))
-generate_figs(umap_orig_severity_x, paste('./plots/', experiment, '_prepare_umap_orig_severity_x', sep = ''), c(6.5, 5))
+dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
+generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_csf_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
 
-umap_orig_peptide <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_peptide, paste('./plots/', experiment, '_prepare_umap_orig_peptide', sep = ''), c(6.5, 5))
-
-umap_orig_hospital <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.hospital", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_hospital, paste('./plots/', experiment, '_prepare_umap_orig_hospital', sep = ''), c(6.5, 5))
-
-umap_orig_unit <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.unit", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_unit, paste('./plots/', experiment, '_prepare_umap_orig_unit', sep = ''), c(6.5, 5))
-
-umap_orig_diabetes <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.diabetes", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_diabetes, paste('./plots/', experiment, '_prepare_umap_orig_diabetes', sep = ''), c(6.5, 5))
-
-umap_orig_asthma <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.asthma", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_asthma, paste('./plots/', experiment, '_prepare_umap_orig_asthma', sep = ''), c(6.5, 5))
-
-umap_cardiovascular <- DimPlot(expt.obj, reduction = "umap", group.by = "cardiovascular", shuffle = TRUE, seed = 123)
-generate_figs(umap_cardiovascular, paste('./plots/', experiment, '_prepare_umap_cardiovascular', sep = ''), c(6.5, 5))
-
-umap_tumour <- DimPlot(expt.obj, reduction = "umap", group.by = "tumour", shuffle = TRUE, seed = 123)
-generate_figs(umap_tumour, paste('./plots/', experiment, '_prepare_umap_tumour', sep = ''), c(6.5, 5))
+dmap_disease_cols <- c('Parkinson (B)' = 'violet', 'Control (B)' = 'cadetblue', 'Alzheimer (C)' = 'firebrick', 'MCI (C)' = 'indianred', 'Control (C)' = 'lightsalmon')
+dmap_disease <- DimPlot(expt.obj, reduction = "dm", group.by = "Disease", shuffle = TRUE, seed = 123, cols = dmap_disease_cols) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
+generate_figs(dmap_disease, paste('./plots/', experiment, '_csf_prepare_dmap_disease', sep = ''), c(6.5, 5))
 
 
-umap_severity_mod <- DimPlot(expt.obj, reduction = "umap", group.by = "severity_mod", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'indianred', 'grey'))
-generate_figs(umap_severity_mod, paste('./plots/', experiment, '_prepare_umap_severity_mod', sep = ''), c(6.5, 5))
 
 
 ####################################################################################################
 ###################################### Seurat cluster analysis #####################################
 ####################################################################################################
 
+# examine metadata split by Seurat clusters
+
+barplot_disease_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Disease', 'seurat_clusters')
+generate_figs(barplot_disease_seurat_clusters, paste('./plots/', experiment, '_csf_prepare_barplot_disease_seurat_clusters', sep = ''), c(8,4))
+
+barplot_sample_source_seurat_clusters <- BarPlotStackSplit(expt.obj, 'sampleSource', 'seurat_clusters')
+generate_figs(barplot_sample_source_seurat_clusters, paste('./plots/', experiment, '_csf_prepare_barplot_sample_source_seurat_clusters', sep = ''), c(8,4))
+
 # identify markers for each Seurat cluster
 # https://satijalab.org/seurat/articles/pbmc3k_tutorial#finding-differentially-expressed-features-cluster-biomarkers
 
 expt.markers <- FindAllMarkers(expt.obj, only.pos = TRUE)
-saveRDS(expt.markers, paste(file='./data/', experiment, '_seurat_markers.rds', sep = ''))
-write.csv(expt.markers, paste(file='./data/', experiment, '_seurat_markers.csv', sep = ''))
+saveRDS(expt.markers, paste(file='./data/', experiment, '_csf_seurat_markers.rds', sep = ''))
+write.csv(expt.markers, paste(file='./data/', experiment, '_csf_seurat_markers.csv', sep = ''))
 # expt.markers <- readRDS(paste('./data/', experiment, '_seurat_markers.rds', sep = ''))
 
 expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
@@ -259,7 +220,7 @@ expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1)
 # https://github.com/satijalab/seurat/issues/2724
 expt.markers.top10 <- expt.markers %>% group_by(cluster) %>% dplyr::filter(avg_log2FC > 1) %>% slice_head(n = 10) %>% ungroup()
 cluster_markers_heatmap <- DoHeatmap(subset(expt.obj, downsample = 100), features = expt.markers.top10$gene) + NoLegend()
-generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
+generate_figs(cluster_markers_heatmap, paste('./plots/', experiment, '_csf_prepare_cluster_markers_heatmap', sep = ''), c(25, 20))
 
 for (i in unique(expt.markers$cluster)){
   print(paste("Cluster:", i))
@@ -276,21 +237,14 @@ for (i in unique(expt.markers$cluster)){
   cat("\n")
 }
 colnames(cluster_markers) <- c('Cluster', 'Markers')
-write.csv(cluster_markers, paste('./data/', experiment, '_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
+write.csv(cluster_markers, paste('./data/', experiment, '_csf_prepare_cluster_markers.csv', sep = ''), row.names=FALSE)
 
 # https://www.nature.com/articles/s12276-023-01105-x
+
 
 # report time
 print("The script has completed...")
 proc.time() - ptm
 
 sessionInfo()
-
-
-
-
-
-
-
-
 
