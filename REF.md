@@ -1,4 +1,71 @@
 
+## Color schemes
+
+### Construction of CARTEx using bulk RNAseq on sorted CD8 T cells
+
+| CAR | Color |
+|:---:|:-----:|
+| Control | `#darkgoldenrod` |
+| CD19 | `#dodgerblue` |
+| HA | `#indianred` |
+
+### Cell cycle phase
+
+| Phase | Color |
+|:-----:|:-----:|
+| G1 | `#089392` |
+| S | `#EAE29C` |
+| G2M | `#CF597E` |
+
+Use this code: `hcl.colors(n = 3, palette = "Temps")`
+
+### Monaco cell type differentiation
+
+| Type | Color |
+|:----:|:-----:|
+| Naive CD8 T cells | `deepskyblue` |
+| Central memory CD8 T cells | `seagreen` |
+| Effector memory CD8 T cells | `darkgoldenrod` |
+| Terminal effector CD8 T cells | `plum3` |
+
+### GSE136184 aging T cells
+
+| Age Group | Color |
+|:---------:|:-----:|
+| Newborn | `#D3D3D3` |
+| Under 30 | `#C0D5DC` |
+| Under 50 | `#ADD8E6` |
+| Under 70 | `#566CD9` |
+| Elderly | `#0000CD` |
+
+Use this code: `colorRampPalette(c("lightgrey","lightblue","mediumblue"))(5)`
+
+| Control | Color |
+|:-------:|:-----:|
+| YoungNaive | `#royalblue` |
+| OldTerminal | `#orchid` |
+
+### GSE136874 CD19 vs GD2 CAR T cells at day 10 of cell culture
+
+| CAR | Color |
+|:---:|:-----:|
+| CD19 | `dodgerblue` |
+| GD2 | `indianred` |
+
+
+### GSE120575 Cancer TILs receiving checkpoint inhibitor
+
+| Response | Color |
+|:---:|:-----:|
+| NR | `firebrick` |
+| R | `seagreen` |
+
+
+
+
+
+
+
 ## CD8+ subtype notes
 
 [Lückel et al. 2020](https://pubmed.ncbi.nlm.nih.gov/32697883/)
@@ -57,4 +124,9 @@ https://support.posit.co/hc/en-us/articles/200488488-Configuring-R-to-Use-an-HTT
 https://stackoverflow.com/questions/6467277/proxy-setting-for-r
 
 https://stackoverflow.com/questions/38276457/error-in-curlcurl-fetch-memoryurl-handle-handle-failure-when-receiving
+
+
+
+
+
 
