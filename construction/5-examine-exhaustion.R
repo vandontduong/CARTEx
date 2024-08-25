@@ -166,14 +166,13 @@ colAnn <- HeatmapAnnotation(
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
 # select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
-select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT1', 'STAT3', 'STAT4', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'NFKB1', 'NFKB2', 'REL', 'TNFRSF11A')
+select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT1', 'STAT3', 'STAT4', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'NFKB1', 'NFKB2', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69')
 # select_genes <- c('MYC', 'BRD4', 'BRD3', 'BRD2', 'BRDT', 'CDK9', 'CCNT1', 'HIF1A', 'HIF2A', 'HIF1B', 'NFKB1', 'NFKB2', 'RELA', 'RELB', 'REL', 'CD137', 'TNFRSF11A', 'TNFRSF11B', 'MAP3K14', 'ICOSLG', 'NFKBIA', 'NFKBIB', 'NFKBIE', 'EP300', 'CREBBP', 'TET2')
 
 # examine NFKB pathways
 # https://www.sciencedirect.com/science/article/pii/S1074761323002649
 # Pichler, Andrea C., et al. "TCR-independent CD137 (4-1BB) signaling promotes CD8+-exhausted T cell proliferation and terminal differentiation." Immunity 56.7 (2023): 1631-1648.
 # select_genes <-c('NFKB1', 'NFKB2', 'RELA', 'RELB', 'REL', 'CD137', 'TNFRSF11A', 'TNFRSF11B', 'MAP3K14', 'ICOSLG', 'NFKBIA', 'NFKBIB', 'NFKBIE', 'TOX', 'NFATC1', 'TRAF1', 'TRAF2', 'TRAF3', 'TNFRSF9')
-
 
 # https://link.springer.com/article/10.1007/s13277-016-5331-4
 # Slemc, Lucija, and Tanja Kunej. "Transcription factor HIF1A: downstream targets, associated pathways, polymorphic hypoxia response element (HRE) sites, and initiative for standardization of reporting in scientific literature." Tumor Biology 37 (2016): 14851-14861.
@@ -203,12 +202,17 @@ select_gene_cluster_pairs[order(select_gene_cluster_pairs$cluster),]
 table(gene_cluster_pairs$cluster)
 
 # search a specific gene for its corresponding cluster
-gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT3"]
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT3"] # C5
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SLAMF6"] # C1
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "CD69"] # C1
+
 
 # list genes in a specific cluster
 gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C2"]
 write.csv(gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C2"], file = './data/cartex-cluster-2.csv', row.names = F)
 # cartex_C2 <- rownames(read.csv('./data/cartex-cluster-2.csv', header = TRUE, row.names = 1))
+
+write.csv(gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C3"], file = './data/cartex-cluster-3.csv', row.names = F)
 
 hmap <- Heatmap(mat, 
                 name = 'Zscore',
