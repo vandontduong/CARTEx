@@ -43,12 +43,12 @@ vlnplot_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD
 
 generate_figs(vlnplot_group_exhaustion_markers, paste('./plots/', experiment, '_explore_vlnplot_group_exhaustion_markers', sep = ''), c(8,6))
 
-vlnplot_group2_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Group2', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                              VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Group2', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                              VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Group2', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                              VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Group2', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                              VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Group2', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                              VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Group2', cols = c('red', 'violetred', 'violet', 'purple'), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
+vlnplot_group2_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Group2', cols = colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                              VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Group2', cols = colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                              VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Group2', cols = colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                              VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Group2', cols = colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                              VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Group2', cols = colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
+                                              VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Group2', cols = colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
 
 generate_figs(vlnplot_group2_exhaustion_markers, paste('./plots/', experiment, '_explore_vlnplot_group2_exhaustion_markers', sep = ''), c(8,6))
 
@@ -62,12 +62,16 @@ featplot_CARTEx_84_group <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84'
 featplot_CARTEx_combined_group <- (featplot_CARTEx_630_group | featplot_CARTEx_200_group | featplot_CARTEx_84_group)
 generate_figs(featplot_CARTEx_combined_group, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_group', sep = ''), c(10,4))
 
-featplot_CARTEx_630_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'Group2', cols=c('red', 'violetred', 'violet', 'purple'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 30)) + ylim(c(-4, 6))
-featplot_CARTEx_200_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Group2', cols=c('red', 'violetred', 'violet', 'purple'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 30)) + ylim(c(-4, 6))
-featplot_CARTEx_84_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'Group2', cols=c('red', 'violetred', 'violet', 'purple'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-4, 6))
+featplot_CARTEx_630_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'Group2', cols=colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 30)) + ylim(c(-4, 6))
+featplot_CARTEx_200_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Group2', cols=colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 30)) + ylim(c(-4, 6))
+featplot_CARTEx_84_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'Group2', cols=colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2))), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-4, 6))
 
 featplot_CARTEx_combined_group2 <- (featplot_CARTEx_630_group2 | featplot_CARTEx_200_group2 | featplot_CARTEx_84_group2)
 generate_figs(featplot_CARTEx_combined_group2, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_group2', sep = ''), c(10,4))
+
+generate_figs(featplot_CARTEx_200_group2, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_group2', sep = ''), c(2,4))
+
+
 
 
 
@@ -211,7 +215,7 @@ keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_ExpansionPeak_IP <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
                                                  pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
-                                                 selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                 selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
                                                  shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
@@ -266,6 +270,26 @@ plot_volcano_Early_IP <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x =
                                          xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
 generate_figs(plot_volcano_Early_IP, paste('./plots/', experiment, '_explore_plot_volcano_Early_IP', sep = ''), c(6, 5))
+
+
+# Compare Early, Late, Very Late vs IP
+de_genes <- FindMarkers(expt.obj, ident.1 = c("Early", "Late", "Very Late"), ident.2 = "IP", group.by = "Group2", min.pct = 0.25)
+log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
+head(de_genes)
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), "C5")
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_InVivo_IP <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
+                                         selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                         shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_InVivo_IP, paste('./plots/', experiment, '_explore_plot_volcano_InVivo_IP', sep = ''), c(6, 5))
 
 
 

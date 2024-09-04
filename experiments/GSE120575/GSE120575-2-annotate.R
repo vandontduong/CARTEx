@@ -203,6 +203,16 @@ generate_figs(barplot_dice_response, paste('./plots/', experiment, '_prepare_bar
 barplot_phase_response <- BarPlotStackSplit(expt.obj, 'Phase', 'characteristics_response', color_set = hcl.colors(3, palette = "Temps"))
 generate_figs(barplot_phase_response, paste('./plots/', experiment, '_prepare_barplot_phase_response', sep = ''), c(5,4))
 
+barplot_monaco_response_slim <- barplot_monaco_response + theme(legend.position = "none")
+generate_figs(barplot_monaco_response_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_response_slim', sep = ''), c(2,4))
+
+barplot_phase_response_slim <- barplot_phase_response + theme(legend.position = "none")
+generate_figs(barplot_phase_response_slim, paste('./plots/', experiment, '_prepare_barplot_phase_response_slim', sep = ''), c(2,4))
+
+
+
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))

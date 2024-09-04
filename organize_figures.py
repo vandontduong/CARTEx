@@ -138,31 +138,159 @@ slide = add_slide(prs, blank_slide_layout, "Figure 6. CARTEx applied to clinical
 
 experiment = "GSE120575" # Sade-Feldman
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_timepoint.png", left = Inches(0), top = Inches(0.75), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(1.75), top = Inches(0.75), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_response_slim.png", left = Inches(6), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4.25), top = Inches(0.75), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(7), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_response_slim.png", left = Inches(6.25), top = Inches(0.75), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_response_slim.png", left = Inches(9), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(7.25), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_response_slim.png", left = Inches(9.25), top = Inches(0.75), height = Inches(2))
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", left = Inches(0.25), top = Inches(3), height = Inches(2))
 
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_timepoint.png", left = Inches(0.25), top = Inches(3), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_timepoint.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_baseline_response.png", left = Inches(0.25), top = Inches(3), height = Inches(2))
+
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_baseline.png", left = Inches(1.25), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_response.png", left = Inches(0.25), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.25), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200_baseline.png", left = Inches(6), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized.png", left = Inches(8.25), top = Inches(3), height = Inches(2))
 
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_baseline_response.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+experiment = "GSE151511" # CAR T cell infusion product
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_baseline.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_responder.png", left = Inches(0.25), top = Inches(5.25), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(2.5), top = Inches(5.25), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200_baseline.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_responder_slim_noNA.png", left = Inches(4.5), top = Inches(5.25), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized.png", left = Inches(1.5), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(5.5), top = Inches(5.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_responder_slim_noNA.png", left = Inches(7.5), top = Inches(5.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_responder.png", left = Inches(0.25), top = Inches(7.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.25), top = Inches(7.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(7.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(6), top = Inches(7.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_response_monaco_split_countsized.png", left = Inches(8.25), top = Inches(7.5), height = Inches(2))
+
+
+experiment = "GSE125881" # CAR T cell kinetics over 16 weeks
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_group2.png", left = Inches(0.25), top = Inches(9.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(2.5), top = Inches(9.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_group2_slim.png", left = Inches(4.5), top = Inches(9.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(5.5), top = Inches(9.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group2_slim.png", left = Inches(7.5), top = Inches(9.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_group2.png", left = Inches(0.25), top = Inches(12), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.25), top = Inches(12), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_plot_volcano_InVivo_IP.png", left = Inches(3.5), top = Inches(12), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(6), top = Inches(12), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_group2_monaco_split_countsized.png", left = Inches(8.25), top = Inches(12), height = Inches(2))
+
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figures for CARTEx applied to clinical oncology")
+
+experiment = "GSE120575" # Sade-Feldman
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", top = Inches(0.75), left = Inches(0.25), height = Inches(2))
+
+experiment = "GSE151511" # CAR T cell infusion product
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", top = Inches(0.75), left = Inches(3.25), height = Inches(2))
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Figure 7. CARTEx applied to CD8 T cells in autoimmune disorders")
+
+experiment = "GSE207935" # STAT3 GOF
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_affstatstim.png", left = Inches(1), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(3), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_affstatstim_slim.png", left = Inches(5), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(6.5), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_affstatstim_slim.png", left = Inches(8.5), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_affstatstim_exhaustion_markers.png", top = Inches(3), left = Inches(0.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_affstatstim.png", left = Inches(3.0), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", top = Inches(3), left = Inches(4), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(3), left = Inches(6), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_affstatstim_monaco_split_countsized.png", top = Inches(3), left = Inches(8.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_stim.png", top = Inches(5.25), left = Inches(0.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_control.png", top = Inches(5.25), left = Inches(2.75), height = Inches(2))
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure. Severe psoriasis is distinct from T cell exhaustion")
+
+experiment = "GSE146264" # Severe psoriasis
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Severity.png", left = Inches(1), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(3), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_severity_slim.png", left = Inches(5), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(6.5), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_severity_slim.png", left = Inches(8.5), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_severity_exhaustion_markers.png", top = Inches(3), left = Inches(0.25), height = Inches(2))
+
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_affstatstim.png", left = Inches(3.0), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", top = Inches(3), left = Inches(4), height = Inches(2))
+
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(3), left = Inches(6), height = Inches(2))
+
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_affstatstim_monaco_split_countsized.png", top = Inches(3), left = Inches(8.25), height = Inches(2))
+
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_stim.png", top = Inches(5.25), left = Inches(0.25), height = Inches(2))
+
+
+
 
 
 

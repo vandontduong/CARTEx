@@ -199,6 +199,8 @@ generate_figs(dmap_stim, paste('./plots/', experiment, '_prepare_dmap_stim', sep
 dmap_affstatstim <- DimPlot(expt.obj, reduction = "dm", group.by = "AffstatStim", shuffle = TRUE, seed = 123, cols = c("lightsteelblue", "steelblue", "palevioletred", "violetred"))
 generate_figs(dmap_affstatstim, paste('./plots/', experiment, '_prepare_dmap_affstatstim', sep = ''), c(7.5, 5))
 
+dmap_affstatstim_highlight <- DimPlotHighlightIdents(expt.obj, AffstatStim, 'dm', 'blue', 0.1, 4)
+generate_figs(dmap_affstatstim_highlight, paste('./plots/', experiment, '_prepare_dmap_affstatstim_highlight', sep = ''), c(12, 10))
 
 
 

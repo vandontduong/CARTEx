@@ -132,23 +132,24 @@ md_mean_values <- md %>% group_by(identifier4) %>% summarise(avg = mean(CARTEx_8
 aggplot_qk_CARTEx_84 <- md_mean_values %>% ggplot(aes(identifier4, avg)) +
   geom_col(aes(fill = identifier4), color = "black", width = 0.85) +
   geom_errorbar(aes(ymin = avg - stdev, ymax = avg + stdev), color = "#22292F", width = 0.1) +
-  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) + theme_classic()
+  scale_fill_manual(values = c(colorRampPalette(c("lightgrey","lightblue","violet"))(4), c("royalblue", "orchid"))) + theme_classic()
 generate_figs(aggplot_qk_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_qk_CARTEx_84', sep = ''), c(6,5))
 
 # scale_fill_manual(c("IP" = "red", "Early" = "violetred", "Late" = "violet", "Very Late" = "purple", "YoungNaive" = "royalblue", "oldterminal" = "orchid")
 
 aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier4, CARTEx_84)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
-  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) +
+  scale_fill_manual(values = c(colorRampPalette(c("lightgrey","lightblue","violet"))(4), c("royalblue", "orchid"))) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
   ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-3, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(5.5,5))
 
+
 aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier4, CARTEx_200)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
-  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) +
+  scale_fill_manual(values = c(colorRampPalette(c("lightgrey","lightblue","violet"))(4), c("royalblue", "orchid"))) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
@@ -157,7 +158,7 @@ generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggp
 
 aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier4, CARTEx_630)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
-  scale_fill_manual(values = c("red", "violetred", "violet", "purple", "royalblue", "orchid")) +
+  scale_fill_manual(values = c(colorRampPalette(c("lightgrey","lightblue","violet"))(4), c("royalblue", "orchid"))) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +

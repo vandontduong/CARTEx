@@ -128,67 +128,67 @@ glimpse(md)
 
 
 aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(5.5,5))
 
 
 aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(5.5,5))
 
 aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(5.5,5))
 
 aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(5.5,5))
 
 aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
-  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(5.5,5))
 
 
@@ -290,7 +290,7 @@ md[, .N, by = c("identifier3_clinical")]
 glimpse(md)
 
 aggplot_CARTEx_84_clinical <- md %>% ggplot(aes(identifier3_clinical, CARTEx_84)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_clinical)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_clinical), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("seagreen", "slateblue", "firebrick", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CR','PD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('PD','OldTerminal')), label = "p.signif", label.y = 1.7) +
@@ -299,7 +299,7 @@ aggplot_CARTEx_84_clinical <- md %>% ggplot(aes(identifier3_clinical, CARTEx_84)
 generate_figs(aggplot_CARTEx_84_clinical, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_clinical', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_200_clinical <- md %>% ggplot(aes(identifier3_clinical, CARTEx_200)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_clinical)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_clinical), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("seagreen", "slateblue", "firebrick", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CR','PD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('PD','OldTerminal')), label = "p.signif", label.y = 1.7) +
@@ -308,7 +308,7 @@ aggplot_CARTEx_200_clinical <- md %>% ggplot(aes(identifier3_clinical, CARTEx_20
 generate_figs(aggplot_CARTEx_200_clinical, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200_clinical', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_630_clinical <- md %>% ggplot(aes(identifier3_clinical, CARTEx_630)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_clinical)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_clinical), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("seagreen", "slateblue", "firebrick", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CR','PD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('PD','OldTerminal')), label = "p.signif", label.y = 1.7) +
@@ -417,66 +417,66 @@ md[, .N, by = c("identifier3_EMR")]
 glimpse(md)
 
 aggplot_CARTEx_84_EMR <- md %>% ggplot(aes(identifier3_EMR, CARTEx_84)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_84_EMR, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84_EMR', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_200_EMR <- md %>% ggplot(aes(identifier3_EMR, CARTEx_200)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_200_EMR, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200_EMR', sep = ''), c(5.5,5))
 
 aggplot_CARTEx_630_EMR <- md %>% ggplot(aes(identifier3_EMR, CARTEx_630)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_CARTEx_630_EMR, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630_EMR', sep = ''), c(5.5,5))
 
 aggplot_LCMV_Tex_EMR <- md %>% ggplot(aes(identifier3_EMR, LCMV_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_LCMV_Tex_EMR, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex_EMR', sep = ''), c(5.5,5))
 
 aggplot_NKlike_Tex_EMR <- md %>% ggplot(aes(identifier3_EMR, NKlike_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_NKlike_Tex_EMR, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex_EMR', sep = ''), c(5.5,5))
 
 aggplot_BBD_Tex_EMR <- md %>% ggplot(aes(identifier3_EMR, BBD_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_BBD_Tex_EMR, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex_EMR', sep = ''), c(5.5,5))
 
 aggplot_PD1_Tex_EMR <- md %>% ggplot(aes(identifier3_EMR, PD1_Tex)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier3_EMR), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','BAD')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('BAD','OldTerminal')), label = "p.signif", label.y = 1.7) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GOOD','YoungNaive')), label = "p.signif", label.y = 1.4) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme(legend.position="none")
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
 generate_figs(aggplot_PD1_Tex_EMR, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex_EMR', sep = ''), c(5.5,5))
 
 

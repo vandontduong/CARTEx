@@ -132,13 +132,13 @@ aggplot_CARTEx_200_group_monaco_split_countsized <- md %>% ggplot(aes(x = AgeGro
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group_monaco_split_countsized', sep = ''), c(5, 4)) 
+generate_figs(aggplot_CARTEx_200_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group_monaco_split_countsized', sep = ''), c(6, 4)) 
 
 aggplot_activation_group_monaco_split_countsized <- md %>% ggplot(aes(x = AgeGroup2, y = Activation, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_activation_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_activation_group_monaco_split_countsized', sep = ''), c(5, 4)) 
+generate_figs(aggplot_activation_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_activation_group_monaco_split_countsized', sep = ''), c(6, 4)) 
 
 
 

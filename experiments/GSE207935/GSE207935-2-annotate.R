@@ -217,13 +217,23 @@ generate_figs(barplot_phase_affstat, paste('./plots/', experiment, '_prepare_bar
 
 
 
-custom_labels <- c('Control\nRested', 'Control\nStimulated', 'STAT3_GOF\nRested', 'STAT3_GOF\nStimulated')
+custom_labels <- c('Control\n(R)', 'Control\n(S)', 'GOF\n(R)', 'GOF\n(S)')
 
 barplot_monaco_affstatstim <- BarPlotStackSplit(expt.obj, 'monaco', 'AffstatStim', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3')) + scale_x_discrete(labels = custom_labels)
 generate_figs(barplot_monaco_affstatstim, paste('./plots/', experiment, '_prepare_barplot_monaco_affstatstim', sep = ''), c(6,4))
 
 barplot_phase_affstatstim <- BarPlotStackSplit(expt.obj, 'Phase', 'AffstatStim', color_set = hcl.colors(3, palette = "Temps")) + scale_x_discrete(labels = custom_labels)
 generate_figs(barplot_phase_affstatstim, paste('./plots/', experiment, '_prepare_barplot_phase_affstatstim', sep = ''), c(5,4))
+
+
+
+barplot_monaco_affstatstim_slim <- barplot_monaco_affstatstim + theme(legend.position = "none")
+generate_figs(barplot_monaco_affstatstim_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_affstatstim_slim', sep = ''), c(3,4))
+
+barplot_phase_affstatstim_slim <- barplot_phase_affstatstim + theme(legend.position = "none")
+generate_figs(barplot_phase_affstatstim_slim, paste('./plots/', experiment, '_prepare_barplot_phase_affstatstim_slim', sep = ''), c(3,4))
+
+
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -364,6 +374,23 @@ generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_T
 generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
 generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(5.5,5))
 
+
+
+dmap_CARTEx_84 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_84"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+dmap_CARTEx_200 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_200"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+dmap_CARTEx_630 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_630"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+dmap_sig_activation <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Activation"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+dmap_sig_anergy <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Anergy"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+dmap_sig_stemness <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Stemness"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+dmap_sig_senescence <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Senescence"), order = TRUE) + fix.sc + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))
+
+generate_figs(dmap_CARTEx_84, paste('./plots/', experiment, '_prepare_dmap_CARTEx_84', sep = ''), c(5.5, 5))
+generate_figs(dmap_CARTEx_200, paste('./plots/', experiment, '_prepare_dmap_CARTEx_200', sep = ''), c(5.5, 5))
+generate_figs(dmap_CARTEx_630, paste('./plots/', experiment, '_prepare_dmap_CARTEx_630', sep = ''), c(5.5, 5))
+generate_figs(dmap_sig_activation, paste('./plots/', experiment, '_prepare_dmap_sig_activation', sep = ''), c(5.5, 5))
+generate_figs(dmap_sig_anergy, paste('./plots/', experiment, '_prepare_dmap_sig_anergy', sep = ''), c(5.5, 5))
+generate_figs(dmap_sig_stemness, paste('./plots/', experiment, '_prepare_dmap_sig_stemness', sep = ''), c(5.5, 5))
+generate_figs(dmap_sig_senescence, paste('./plots/', experiment, '_prepare_dmap_sig_senescence', sep = ''), c(5.5, 5))
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))
 

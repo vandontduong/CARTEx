@@ -256,11 +256,23 @@ umap_clinicalresponse <- DimPlot(expt.obj, reduction = "umap", group.by = "Clini
 generate_figs(umap_clinicalresponse, paste('./plots/', experiment, '_prepare_umap_clinicalresponse', sep = ''), c(6,5))
 
 umap_responder <- DimPlot(expt.obj, reduction = "umap", group.by = "Responder", shuffle = TRUE, seed = 123, cols = c("seagreen", "firebrick", "lightgrey"))
-generate_figs(umap_responder, paste('./plots/', experiment, '_prepare_umap_responder', sep = ''), c(5.5,5))
+generate_figs(umap_responder, paste('./plots/', experiment, '_prepare_umap_responder', sep = ''), c(6,5))
 
 umap_EMR <- DimPlot(expt.obj, reduction = "umap", group.by = "EMR", shuffle = TRUE, seed = 123, cols = c("seagreen", "firebrick", "lightgrey"))
 generate_figs(umap_EMR, paste('./plots/', experiment, '_prepare_umap_EMR', sep = ''), c(6,5))
 
+
+umap_CRS <- DimPlot(expt.obj, reduction = "umap", group.by = "CRS", shuffle = TRUE, seed = 123, cols = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$CRS))))
+generate_figs(umap_CRS, paste('./plots/', experiment, '_prepareumap_CRS', sep = ''), c(5.5,5))
+
+umap_ICANS <- DimPlot(expt.obj, reduction = "umap", group.by = "ICANS", shuffle = TRUE, seed = 123, cols = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$ICANS))))
+generate_figs(umap_ICANS, paste('./plots/', experiment, '_prepare_umap_ICANS', sep = ''), c(5.5,5))
+
+
+# metadata split by other meta data
+
+barplot_responder_seurat_CRS <- BarPlotStackSplit(expt.obj, 'Responder', 'CRS', color_set = c("seagreen", "firebrick", "lightgrey"))
+generate_figs(barplot_responder_seurat_CRS, paste('./plots/', experiment, '_prepare_barplot_responder_seurat_CRS', sep = ''), c(8,4))
 
 
 ####################################################################################################
@@ -275,14 +287,20 @@ generate_figs(barplot_patient_seurat_clusters, paste('./plots/', experiment, '_p
 barplot_clinical_response_seurat_clusters <- BarPlotStackSplit(expt.obj, 'ClinicalResponse', 'seurat_clusters')
 generate_figs(barplot_clinical_response_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_clinical_response_seurat_clusters', sep = ''), c(8,4))
 
+barplot_responder_seurat_clusters <- BarPlotStackSplit(expt.obj, 'Responder', 'seurat_clusters', color_set = c("seagreen", "firebrick", "lightgrey"))
+generate_figs(barplot_responder_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_responder_seurat_clusters', sep = ''), c(8,4))
+
 barplot_EMR_seurat_clusters <- BarPlotStackSplit(expt.obj, 'EMR', 'seurat_clusters')
 generate_figs(barplot_EMR_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_EMR_seurat_clusters', sep = ''), c(8,4))
 
-barplot_CRS_seurat_clusters <- BarPlotStackSplit(expt.obj, 'CRS', 'seurat_clusters')
+barplot_CRS_seurat_clusters <- BarPlotStackSplit(expt.obj, 'CRS', 'seurat_clusters', color_set = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$CRS))))
 generate_figs(barplot_CRS_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_CRS_seurat_clusters', sep = ''), c(8,4))
 
-barplot_ICANS_seurat_clusters <- BarPlotStackSplit(expt.obj, 'ICANS', 'seurat_clusters')
+barplot_ICANS_seurat_clusters <- BarPlotStackSplit(expt.obj, 'ICANS', 'seurat_clusters', color_set = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$ICANS))))
 generate_figs(barplot_ICANS_seurat_clusters, paste('./plots/', experiment, '_prepare_barplot_ICANS_seurat_clusters', sep = ''), c(8,4))
+
+
+
 
 
 # identify markers for each Seurat cluster

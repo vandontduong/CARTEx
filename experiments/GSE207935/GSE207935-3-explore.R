@@ -135,7 +135,7 @@ keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_STAT3GOF_control <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
                                                  pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
-                                                 selectLab = rownames(signif), drawConnectors = FALSE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                 selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
                                                  shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
@@ -222,6 +222,9 @@ featplot_CARTEx_84_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CART
 
 featplot_CARTEx_combined_affstatstim <- (featplot_CARTEx_630_affstatstim | featplot_CARTEx_200_affstatstim | featplot_CARTEx_84_affstatstim)
 generate_figs(featplot_CARTEx_combined_affstatstim, paste('./plots/', experiment, '_featplot_CARTEx_combined_affstatstim', sep = ''), c(10,4))
+
+
+generate_figs(featplot_CARTEx_200_affstatstim, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_affstatstim', sep = ''), c(2,4))
 
 
 

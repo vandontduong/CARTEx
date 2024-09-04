@@ -188,29 +188,30 @@ head(expt.obj)
 
 # Generate UMAPs for metadata
 
-umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
+umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(3, 2))
 
-umap_orig_ident <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.ident", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_ident, paste('./plots/', experiment, '_prepare_umap_orig_ident', sep = ''), c(6, 5))
+umap_orig_ident <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.ident", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_orig_ident, paste('./plots/', experiment, '_prepare_umap_orig_ident', sep = ''), c(3, 2))
 
-umap_subject <- DimPlot(expt.obj, reduction = "umap", group.by = "subject", shuffle = TRUE, seed = 123)
-generate_figs(umap_subject, paste('./plots/', experiment, '_prepare_umap_subject', sep = ''), c(6, 5))
+umap_subject <- DimPlot(expt.obj, reduction = "umap", group.by = "subject", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_subject, paste('./plots/', experiment, '_prepare_umap_subject', sep = ''), c(3, 2))
 
-umap_PASI <- DimPlot(expt.obj, reduction = "umap", group.by = "PASI", shuffle = TRUE, seed = 123)
-generate_figs(umap_PASI, paste('./plots/', experiment, '_prepare_umap_PASI', sep = ''), c(6, 5))
+umap_PASI <- DimPlot(expt.obj, reduction = "umap", group.by = "PASI", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_PASI, paste('./plots/', experiment, '_prepare_umap_PASI', sep = ''), c(3, 2))
 
-umap_PGA <- DimPlot(expt.obj, reduction = "umap", group.by = "PGA", shuffle = TRUE, seed = 123)
-generate_figs(umap_PGA, paste('./plots/', experiment, '_prepare_umap_PGA', sep = ''), c(6, 5))
+umap_PGA <- DimPlot(expt.obj, reduction = "umap", group.by = "PGA", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_PGA, paste('./plots/', experiment, '_prepare_umap_PGA', sep = ''), c(3, 2))
 
-umap_Onset <- DimPlot(expt.obj, reduction = "umap", group.by = "Onset", shuffle = TRUE, seed = 123)
-generate_figs(umap_Onset, paste('./plots/', experiment, '_prepare_umap_Onset', sep = ''), c(6, 5))
+umap_Onset <- DimPlot(expt.obj, reduction = "umap", group.by = "Onset", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_Onset, paste('./plots/', experiment, '_prepare_umap_Onset', sep = ''), c(3, 2))
 
-umap_Duration <- DimPlot(expt.obj, reduction = "umap", group.by = "Duration", shuffle = TRUE, seed = 123)
-generate_figs(umap_Duration, paste('./plots/', experiment, '_prepare_umap_Duration', sep = ''), c(6, 5))
+umap_Duration <- DimPlot(expt.obj, reduction = "umap", group.by = "Duration", shuffle = TRUE, seed = 123) + theme(plot.title = element_blank())
+generate_figs(umap_Duration, paste('./plots/', experiment, '_prepare_umap_Duration', sep = ''), c(3, 2))
 
-umap_Severity <- DimPlot(expt.obj, reduction = "umap", group.by = "Severity", shuffle = TRUE, seed = 123, cols = c('seagreen', 'steelblue', 'firebrick'))
-generate_figs(umap_Severity, paste('./plots/', experiment, '_prepare_umap_Severity', sep = ''), c(6, 5))
+umap_Severity <- DimPlot(expt.obj, reduction = "umap", group.by = "Severity", shuffle = TRUE, seed = 123, cols = c('seagreen', 'steelblue', 'firebrick'), pt.size = 0.1) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("H", "M", "E"), values = c('seagreen', 'steelblue', 'firebrick'))
+generate_figs(umap_Severity, paste('./plots/', experiment, '_prepare_umap_Severity', sep = ''), c(3, 2))
 
 
 ####################################################################################################

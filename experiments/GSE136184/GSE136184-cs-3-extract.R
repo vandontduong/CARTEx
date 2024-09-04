@@ -73,8 +73,8 @@ saveRDS(cellIDs_ET_high, file="./data/cellIDs_ET_high.RData")
 
 # expt.obj <- merge(expt.obj.young_naive, y = expt.obj.elderly_terminal, project = "aging_extract")
 
-umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "blue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from young naive CD8+ T cells") + theme(legend.position="none")
-umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "blue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from elderly terminal effector CD8+ T cells") + theme(legend.position="none")
+umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from young naive CD8+ T cells") + theme(legend.position="none")
+umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from elderly terminal effector CD8+ T cells") + theme(legend.position="none")
 generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(5,5))
 generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(5,5))
 
@@ -195,13 +195,21 @@ head(de_genes)
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
+
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_OTvYN_CARTEx_630 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val',
-                                                 pCutoff = 10e-6, FCcutoff = 0.5, 
-                                                 selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+                                                 pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                                 selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                 shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                 xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) + ylim(0, 320) # + coord_flip()
 
 generate_figs(plot_volcano_OTvYN_CARTEx_630, paste('./plots/', experiment, '_transition_volcano_OTvYN_CARTEx_630', sep = ''), c(6, 5))
+
+
+
+
 
 
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)

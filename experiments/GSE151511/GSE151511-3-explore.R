@@ -56,26 +56,41 @@ featplot_CARTEx_84_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx
 featplot_CARTEx_combined_responder <- (featplot_CARTEx_630_responder | featplot_CARTEx_200_responder | featplot_CARTEx_84_responder)
 generate_figs(featplot_CARTEx_combined_responder, paste('./plots/', experiment, '_prepare_featplot_CARTEx_combined_responder', sep = ''), c(10,5))
 
+generate_figs(featplot_CARTEx_200_responder, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_responder', sep = ''), c(2,4))
+
+
+# recreate the slim bar plots without the NA (NE)
+
+barplot_monaco_response_slim_noNA <- BarPlotStackSplit(expt.obj, 'monaco', 'Responder', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3')) + theme(legend.position = "none")
+generate_figs(barplot_monaco_response_slim_noNA, paste('./plots/', experiment, '_prepare_barplot_monaco_responder_slim_noNA', sep = ''), c(2,4))
+
+barplot_phase_response_slim_noNA <- BarPlotStackSplit(expt.obj, 'Phase', 'Responder', color_set = hcl.colors(3, palette = "Temps")) + theme(legend.position = "none")
+generate_figs(barplot_phase_response_slim_noNA, paste('./plots/', experiment, '_prepare_barplot_phase_responder_slim_noNA', sep = ''), c(2,4))
+
 
 
 
 ### exploded volcano
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
-# Compare R vs NR
-de_genes <- FindMarkers(expt.obj, ident.1 = "R", ident.2 = "NR", group.by = "Responder", min.pct = 0.25)
+# Compare NR vs R
+de_genes <- FindMarkers(expt.obj, ident.1 = "NR", ident.2 = "R", group.by = "Responder", min.pct = 0.25)
 log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_genes$avg_log2FC))]))), 10)
 head(de_genes)
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), "C5")
+
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_baseline_response <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
-                                                  pCutoff = 10e-6, FCcutoff = 0.5, 
-                                                  selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
-                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
+                                                  pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
+                                                  selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 15, 
+                                                  shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
-generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(10, 8))
+generate_figs(plot_volcano_baseline_response, paste('./plots/', experiment, '_plot_volcano_baseline_response', sep = ''), c(6, 5))
 
 
 
@@ -129,6 +144,85 @@ aggplot_CARTEx_200_response_monaco_split <- md %>% ggplot(aes(x = Responder, y =
 generate_figs(aggplot_CARTEx_200_response_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split', sep = ''), c(6,5)) 
 
 
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, Responder, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "Responder", "pblabels"))
+
+aggplot_CARTEx_200_response_monaco_split_countsized <- md %>% ggplot(aes(x = Responder, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_response_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_countsized', sep = ''), c(6,5)) 
+
+
+
+# EXAMINE CRS cell type differentiation
+
+# aggregate without controls
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('CRS', 'monaco', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+
+# AggregateExpression relabeled numbers to "g1" "g2" etc
+table(expt.obj.agg@meta.data$CRS)
+expt.obj.agg@meta.data$CRS <- plyr::mapvalues(x = expt.obj.agg@meta.data$CRS,
+                                                               from = c('g1', 'g2', 'g3', 'g4'),
+                                                               to = c(1,2,3,4))
+expt.obj.agg$CRS <- factor(expt.obj.agg$CRS, levels = c(1,2,3,4))
+expt.obj.agg$monaco <- factor(expt.obj.agg$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+
+table(md$monaco)
+
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, CRS, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "CRS", "pblabels"))
+
+aggplot_CARTEx_200_CRS_monaco_split_countsized <- md %>% ggplot(aes(x = CRS, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_CRS_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CRS_monaco_split_countsized', sep = ''), c(6,5)) 
+
+
+# EXAMINE ICANS cell type differentiation
+
+# aggregate without controls
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('ICANS', 'monaco', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+
+# AggregateExpression relabeled numbers to "g1" "g2" etc
+table(expt.obj.agg@meta.data$ICANS)
+expt.obj.agg@meta.data$ICANS <- plyr::mapvalues(x = expt.obj.agg@meta.data$ICANS,
+                                              from = c('g0', 'g1', 'g2', 'g3', 'g4'),
+                                              to = c(0,1,2,3,4))
+expt.obj.agg$ICANS <- factor(expt.obj.agg$ICANS, levels = c(0,1,2,3,4))
+expt.obj.agg$monaco <- factor(expt.obj.agg$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+
+table(md$monaco)
+
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, ICANS, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "ICANS", "pblabels"))
+
+aggplot_CARTEx_200_ICANS_monaco_split_countsized <- md %>% ggplot(aes(x = ICANS, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_ICANS_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_ICANS_monaco_split_countsized', sep = ''), c(6,5)) 
+
+
+
+
 
 
 
@@ -166,7 +260,7 @@ plot_volcano_baseline_EMR <- EnhancedVolcano(de_genes, lab = rownames(de_genes),
                                              selectLab = rownames(signif), drawConnectors = TRUE, title = NULL, subtitle = NULL, 
                                              xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) # + coord_flip()
 
-generate_figs(plot_volcano_baseline_EMR, paste('./plots/', experiment, '_plot_volcano_baseline_EMR', sep = ''), c(10, 8))
+generate_figs(plot_volcano_baseline_EMR, paste('./plots/', experiment, '_plot_volcano_baseline_EMR', sep = ''), c(6, 5))
 
 
 md <- expt.obj@meta.data %>% as.data.table

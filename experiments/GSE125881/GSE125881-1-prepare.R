@@ -200,7 +200,8 @@ umap_group_cols <- c('IP' = 'red', 'ExpansionPeak' = 'violetred', 'Contraction' 
 umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle = TRUE, seed = 123, cols = umap_group_cols)
 generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''), c(6.5, 5))
 
-umap_group2_cols <- c('IP' = 'red', 'Early' = 'violetred', 'Late' = 'violet', 'Very Late' = 'purple')
+# umap_group2_cols <- c('IP' = 'red', 'Early' = 'violetred', 'Late' = 'violet', 'Very Late' = 'purple')
+umap_group2_cols <- colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2)))
 umap_group2 <- DimPlot(expt.obj, reduction = "umap", group.by = "Group2", shuffle = TRUE, seed = 123, cols = umap_group2_cols)
 generate_figs(umap_group2, paste('./plots/', experiment, '_prepare_umap_group2', sep = ''), c(6.5, 5))
 

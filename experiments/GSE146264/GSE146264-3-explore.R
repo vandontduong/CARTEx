@@ -32,18 +32,15 @@ expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 # NT5E corresponds to CD73
 # ENTPD1 corresponds to CD39
 
-vlnplot_severity_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'Severity', ncol = 3, cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)
 
-vlnplot_severity_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
+vlnplot_severity_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5) + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5)) + guides(fill=FALSE) + scale_x_discrete(labels = c('H', 'M', 'E')),
+                                                 VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5) + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5)) + guides(fill=FALSE) + scale_x_discrete(labels = c('H', 'M', 'E')),
+                                                 VlnPlot(expt.obj, features=c('LAG3'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5) + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5)) + guides(fill=FALSE) + scale_x_discrete(labels = c('H', 'M', 'E')),
+                                                 VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5) + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5)) + guides(fill=FALSE) + scale_x_discrete(labels = c('H', 'M', 'E')),
+                                                 VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5) + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5)) + guides(fill=FALSE) + scale_x_discrete(labels = c('H', 'M', 'E')),
+                                                 VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'Severity', cols = c('seagreen', 'steelblue', 'firebrick'), y.max = 5) + theme(axis.title.x = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5)) + guides(fill=FALSE) + scale_x_discrete(labels = c('H', 'M', 'E')))
 
-
-generate_figs(vlnplot_severity_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_severity_exhaustion_markers', sep = ''), c(8,6))
-
+generate_figs(vlnplot_severity_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_severity_exhaustion_markers', sep = ''), c(5,4))
 
 
 
