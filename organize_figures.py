@@ -24,6 +24,28 @@ def add_slide(prs, layout, subtitle):
 
 
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Figure 1. Bulk RNA sequencing of functional and exhausted CAR T cells across 21 days")
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_initial_pca.png", top = Inches(0.75), left = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_canonical_exhaustion_markers.png", top = Inches(0.75), left = Inches(6), height = Inches(3))
+
+# manually replace heatmap with gene expression; use placeholder for now
+
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster1.png", left = Inches(3), top = Inches(3), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster2.png", left = Inches(3), top = Inches(4.5), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster3.png", left = Inches(3), top = Inches(6), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster4.png", left = Inches(3), top = Inches(7.5), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster5.png", left = Inches(3), top = Inches(9), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(6), top = Inches(3), height = Inches(2.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(6), height = Inches(2.5))
 
 
 # new slide
