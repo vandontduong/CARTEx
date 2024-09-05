@@ -204,15 +204,16 @@ ggplot(pcaData, aes(x = PC1, y = PC2, color = Timepoint, shape = CAR)) +
 initial_pca <- ggplot(pcaData, aes(x = PC1, y = PC2, fill = CAR, alpha = Timepoint)) + 
   geom_point(size=5, shape = 21, color = 'black') + scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred')) +
   scale_alpha_manual(values = c('11' = 0.5, '15' = 0.75, '21' = 1)) +
-  theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=14), 
-                          legend.position="bottom", legend.text = element_text(colour="black", size = 9), 
-                          legend.title = element_text(colour="black", size = 8, face="bold"), text = element_text(size=15), 
+  theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=12), 
+                          legend.position="right", legend.text = element_text(colour="black", size = 12), 
+                          legend.title = element_text(colour="black", size = 12, face="bold"), text = element_text(size=12), 
                           # panel.border = element_rect(colour = "black", fill=NA, size=0.5)) +
                           panel.border = element_rect(colour = "black", fill=NA, linewidth=1)) +
   xlab(paste0("PC1 (", percentVar[1], "% variance)")) + 
-  ylab(paste0("PC2 (", percentVar[2], "% variance)"))
+  ylab(paste0("PC2 (", percentVar[2], "% variance)")) + 
+  xlim(c(-25, 25)) + ylim(c(-15,15))
 
-generate_figs(initial_pca, './plots/plot_initial_pca', c(5,5))
+generate_figs(initial_pca, './plots/plot_initial_pca', c(3.1,2))
 
 
 

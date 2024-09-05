@@ -56,10 +56,10 @@ plot_canonical_exhaustion_markers <- ggplot(melted_df, aes(x = Days, y = name, f
   facet_wrap(~variable, scales = "free_y") +
   geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
   labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
-  scale_fill_manual(values = custom_colors) + theme_bw()
+  scale_fill_manual(values = custom_colors) + theme_classic()
 
 # log2-transformed TPM values
-generate_figs(plot_canonical_exhaustion_markers, './plots/plot_canonical_exhaustion_markers', c(5,3))
+generate_figs(plot_canonical_exhaustion_markers, './plots/plot_canonical_exhaustion_markers', c(4,2))
 
 
 
