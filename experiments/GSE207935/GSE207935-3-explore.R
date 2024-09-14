@@ -301,3 +301,76 @@ generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./p
 
 
 
+# heatmap
+
+C5_genes <- rownames(read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1))
+C2_genes <- rownames(read.csv(paste(PATH_CONSTRUCTION, "./data/cartex-cluster-2.csv", sep = ''), header = TRUE, row.names = 1))
+fix.sc <- scale_fill_gradientn(colours = c("blue","lightgrey","red"), limits = c(-2,2))
+
+expt.obj.subset <- subset(expt.obj, downsample = 100)
+Idents(expt.obj.subset) <- "AffstatStim"
+expt.obj.subset@meta.data$AffstatStim2 <- plyr::mapvalues(x = expt.obj.subset@meta.data$AffstatStim,
+                                            from = c('Control_Rested', 'Control_Stimulated', 'STAT3_GOF_Rested', 'STAT3_GOF_Stimulated'),
+                                            to = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"))
+expt.obj.subset@meta.data$AffstatStim2 <- factor(expt.obj.subset@meta.data$AffstatStim2, levels = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"))
+
+
+heatmap_all <- DoHeatmap(expt.obj.subset, group.by = 'AffstatStim2', group.colors = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), angle = 0, vjust = 1, hjust = 0.5) + fix.sc
+heatmap_C5 <- DoHeatmap(expt.obj.subset, group.by = 'AffstatStim2', group.colors = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), angle = 0, vjust = 1, hjust = 0.5, features = C5_genes) + fix.sc
+heatmap_C2 <- DoHeatmap(expt.obj.subset, group.by = 'AffstatStim2', group.colors = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), angle = 0, vjust = 1, hjust = 0.5, features = C2_genes) + fix.sc
+
+heatmap_C5 + heatmap_C2
+
+
+
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = 'AffstatStim2', return.seurat = TRUE)
+# expt.obj.agg@assays$RNA$scale.data
+
+# exhaustion genes
+pb_heatmap_C5 <- DoHeatmap(expt.obj.agg, group.by = 'AffstatStim2', group.colors = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), draw.lines = FALSE, features = C5_genes) + fix.sc + labs(title="C5")
+
+# fitness genes
+pb_heatmap_C2 <- DoHeatmap(expt.obj.agg, group.by = 'AffstatStim2', group.colors = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), draw.lines = FALSE, features = C2_genes) + fix.sc + labs(title="C2")
+
+pb_heatmap_C5 + pb_heatmap_C2
+generate_figs(pb_heatmap_C5 + pb_heatmap_C2, paste('./plots/', experiment, '_aggplot_heatmap_C5_C2', sep = ''), c(7,5)) 
+
+
+
+gene_expression_long <- melt(expt.obj.agg@assays$RNA$scale.data)
+
+pb_vlnplot_all <- ggplot(gene_expression_long, aes(x = Var2, y = value, fill = Var2)) + 
+  geom_violin(trim = FALSE) + scale_fill_manual(values = c("lightsteelblue", "steelblue", "palevioletred", "violetred")) +
+  stat_summary(fun = median, geom = "crossbar", width = 0.15, color = "black") +
+  theme_classic() + labs(y = "Expression Levels") + ylim(-2,2) + theme(legend.position = "none", axis.title.x = element_blank()) + labs(title="All")
+
+pb_vlnplot_C5 <- ggplot(subset(gene_expression_long, Var1 %in% C5_genes), aes(x = Var2, y = value, fill = Var2)) + 
+  geom_violin(trim = FALSE) + scale_fill_manual(values = c("lightsteelblue", "steelblue", "palevioletred", "violetred")) + 
+  stat_summary(fun = median, geom = "crossbar", width = 0.15, color = "black") +
+  theme_classic() + labs(y = "Expression Levels") + ylim(-2,2) + theme(legend.position = "none", axis.title.x = element_blank()) + labs(title="C5")
+
+pb_vlnplot_C2 <- ggplot(subset(gene_expression_long, Var1 %in% C2_genes), aes(x = Var2, y = value, fill = Var2)) + 
+  geom_violin(trim = FALSE) + scale_fill_manual(values = c("lightsteelblue", "steelblue", "palevioletred", "violetred")) +
+  stat_summary(fun = median, geom = "crossbar", width = 0.15, color = "black") +
+  theme_classic() + labs(y = "Expression Levels") + ylim(-2,2) + theme(legend.position = "none", axis.title.x = element_blank()) + labs(title="C2")
+
+pb_vlnplot_C5 + pb_vlnplot_C2
+generate_figs(pb_vlnplot_C5 + pb_vlnplot_C2, paste('./plots/', experiment, '_aggplot_vlnplot_C5_C2', sep = ''), c(5,2)) 
+
+
+# geom_quasirandom(groupOnX = FALSE, size = 0.1) +
+
+
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+pb_vlnplot_CARTEx_200 <- ggplot(subset(gene_expression_long, Var1 %in% rownames(cartex_200_weights)), aes(x = Var2, y = value, fill = Var2)) + 
+  geom_violin(trim = FALSE) + scale_fill_manual(values = c("lightsteelblue", "steelblue", "palevioletred", "violetred")) +
+  stat_summary(fun = median, geom = "crossbar", width = 0.15, color = "black") +
+  theme_classic() + labs(y = "Expression Levels") + ylim(-2,2) + theme(legend.position = "none", axis.title.x = element_blank()) + labs(title="CARTEx 200")
+
+pb_vlnplot_all + pb_vlnplot_CARTEx_200
+generate_figs(pb_vlnplot_all + pb_vlnplot_CARTEx_200, paste('./plots/', experiment, '_aggplot_vlnplot_all_CARTEx_200', sep = ''), c(5,2)) 
+
+
+
