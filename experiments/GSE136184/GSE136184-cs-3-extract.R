@@ -73,13 +73,13 @@ saveRDS(cellIDs_ET_high, file="./data/cellIDs_ET_high.RData")
 
 # expt.obj <- merge(expt.obj.young_naive, y = expt.obj.elderly_terminal, project = "aging_extract")
 
-umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from young naive CD8+ T cells") + theme(legend.position="none")
-umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("Selected from elderly terminal effector CD8+ T cells") + theme(legend.position="none")
-generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(5,5))
-generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(5,5))
+umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("YN") + theme(legend.position="none")
+umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("OT") + theme(legend.position="none")
+generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(2,2))
+generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(2,2))
 
 umap_extract_highlight_combined <- umap_extract_highlight_YN_low + umap_extract_highlight_ET_high
-generate_figs(umap_extract_highlight_combined, paste('./plots/', experiment, '_cs_extract_umap_highlight_combined', sep = ''), c(10,5))
+generate_figs(umap_extract_highlight_combined, paste('./plots/', experiment, '_cs_extract_umap_highlight_combined', sep = ''), c(4,2))
 
 
 expt.obj <- expt.obj[,(colnames(expt.obj) %in% union(cellIDs_YN_low, cellIDs_ET_high))]
@@ -156,26 +156,26 @@ generate_figs(vlnplot_CARTEx_84_extract_ident, paste('./plots/', experiment, '_e
 vlnplot_CARTEx_84_age_group_2 <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "AgeGroup2", pt.size = 1)
 generate_figs(vlnplot_CARTEx_84_age_group_2, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_84_age_group_2', sep = ''), c(6,5))
 
-vlnplot_CARTEx_630_extract_ident <- VlnPlot(expt.obj, c("CARTEx_630"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 630') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
-vlnplot_CARTEx_200_extract_ident <- VlnPlot(expt.obj, c("CARTEx_200"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 200') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
-vlnplot_CARTEx_84_extract_ident <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 84') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_630_extract_ident <- VlnPlot(expt.obj, c("CARTEx_630"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', plot.title = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 630') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_200_extract_ident <- VlnPlot(expt.obj, c("CARTEx_200"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', plot.title = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 200') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
+vlnplot_CARTEx_84_extract_ident <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = "extract.ident", pt.size = 0, cols=c("royalblue", "orchid")) + theme(legend.position = 'none', plot.title = element_blank(), axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + ylab('CARTEx 84') + ylim(c(-3, 5)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)
 
 vlnplot_CARTEx_combined_extract_ident <- (vlnplot_CARTEx_630_extract_ident | vlnplot_CARTEx_200_extract_ident | vlnplot_CARTEx_84_extract_ident)
 generate_figs(vlnplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_combined_extract_ident', sep = ''), c(10,4))
 
 vlnplot_CARTEx_200_extract_ident <- vlnplot_CARTEx_200_extract_ident + scale_x_discrete(label = c("YN", "OT"))
 
-generate_figs(vlnplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_vlnplot_CARTEx_200_extract_ident', sep = ''), c(2,4))
+generate_figs(vlnplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_vlnplot_CARTEx_200_extract_ident', sep = ''), c(1.5,2))
 
 
-featplot_CARTEx_630_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
-featplot_CARTEx_200_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
-featplot_CARTEx_84_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
+featplot_CARTEx_630_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
+featplot_CARTEx_200_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
+featplot_CARTEx_84_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_extract_ident <- (featplot_CARTEx_630_extract_ident | featplot_CARTEx_200_extract_ident | featplot_CARTEx_84_extract_ident)
 generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(10,4))
 
-generate_figs(featplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_featplot_CARTEx_200_extract_ident', sep = ''), c(2,4))
+generate_figs(featplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_featplot_CARTEx_200_extract_ident', sep = ''), c(1.5,2))
 
 
 

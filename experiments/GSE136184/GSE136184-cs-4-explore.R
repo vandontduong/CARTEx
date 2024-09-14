@@ -44,20 +44,13 @@ vlnplot_age_group_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 
 # generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(8,6))
 
 # ENTPD1 not detected
-vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("N", "U30", "U50", "U70", "E")),
+                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("N", "U30", "U50", "U70", "E")),
+                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("N", "U30", "U50", "U70", "E")),
+                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("N", "U30", "U50", "U70", "E")),
+                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("N", "U30", "U50", "U70", "E")))
 
-vlnplot_age_group_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('LAG3'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                  VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'AgeGroup2', cols = vlnplot_age_group_2_cols, y.max = 4)+theme(axis.title.x = element_blank()) + guides(fill=FALSE))
-
-
-generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(6,5)) 
+generate_figs(vlnplot_age_group_exhaustion_markers, paste('./plots/', experiment, '_cs_prepare_vlnplot_age_group_exhaustion_markers', sep = ''), c(7,4)) 
 
 
 # percentage of CARTEx detected

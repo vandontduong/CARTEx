@@ -204,60 +204,68 @@ head(expt.obj)
 # Generate UMAPs for metadata
 
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_umap_seurat_clusters', sep = ''), c(6,5))
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_umap_seurat_clusters', sep = ''), c(2.8, 2))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_cs_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_age_group <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
-generate_figs(umap_age_group, paste('./plots/', experiment, '_cs_prepare_umap_age_group', sep = ''), c(6,5))
+generate_figs(umap_age_group, paste('./plots/', experiment, '_cs_prepare_umap_age_group', sep = ''), c(2.8, 2))
+
+# umap_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+# umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123, cols = umap_age_group_2_cols) + 
+#   theme(plot.title = element_blank()) + scale_color_manual(values = umap_age_group_2_cols)
+# generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(3.1, 2))
+
 
 umap_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
-umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123, cols = umap_age_group_2_cols)
-generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(6,5))
+umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = umap_age_group_2_cols) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("N", "U30", "U50", "U70", "E"), values = umap_age_group_2_cols)
+generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(3, 2))
+
 
 umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))
 
 umap_sex <- DimPlot(expt.obj, reduction = "umap", group.by = "Sex", shuffle = TRUE, seed = 123)
-generate_figs(umap_sex, paste('./plots/', experiment, '_cs_prepare_umap_sex', sep = ''), c(6,5))
+generate_figs(umap_sex, paste('./plots/', experiment, '_cs_prepare_umap_sex', sep = ''), c(2.8, 2))
 
 umap_sex_highlight <- DimPlotHighlightIdents(expt.obj, Sex, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_sex_highlight, paste('./plots/', experiment, '_cs_prepare_umap_sex_highlight', sep = ''), c(6, 5))
+generate_figs(umap_sex_highlight, paste('./plots/', experiment, '_cs_prepare_umap_sex_highlight', sep = ''), c(2.8, 2))
 
 umap_visit <- DimPlot(expt.obj, reduction = "umap", group.by = "visit", shuffle = TRUE, seed = 123)
-generate_figs(umap_visit, paste('./plots/', experiment, '_cs_prepare_umap_visit', sep = ''), c(6,5))
+generate_figs(umap_visit, paste('./plots/', experiment, '_cs_prepare_umap_visit', sep = ''), c(2.8, 2))
 
 umap_code <- DimPlot(expt.obj, reduction = "umap", group.by = "Code", shuffle = TRUE, seed = 123)
-generate_figs(umap_code, paste('./plots/', experiment, '_cs_prepare_umap_code', sep = ''), c(6,5))
+generate_figs(umap_code, paste('./plots/', experiment, '_cs_prepare_umap_code', sep = ''), c(2.8, 2))
 
 umap_cohort <- DimPlot(expt.obj, reduction = "umap", group.by = "Cohort", shuffle = TRUE, seed = 123)
-generate_figs(umap_cohort, paste('./plots/', experiment, '_cs_prepare_umap_cohort', sep = ''), c(6,5))
+generate_figs(umap_cohort, paste('./plots/', experiment, '_cs_prepare_umap_cohort', sep = ''), c(2.8, 2))
 
 umap_cohort_highlight <- DimPlotHighlightIdents(expt.obj, Cohort, 'umap', 'blue', 0.1, 2)
-generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_cs_prepare_umap_cohort_highlight', sep = ''), c(6, 5))
+generate_figs(umap_cohort_highlight, paste('./plots/', experiment, '_cs_prepare_umap_cohort_highlight', sep = ''), c(2.8, 2))
 
 
 # examine UMAP of age as a scalar
 age.sc <- scale_color_gradientn(colours = c("lightgrey","lightblue", "mediumblue"), limits = c(0, 100))
-umap_age <- FeaturePlot(expt.obj, features = c("Age"), order = TRUE) + age.sc
-generate_figs(umap_age, paste('./plots/', experiment, '_cs_prepare_umap_age', sep = ''), c(6,5))
+umap_age <- FeaturePlot(expt.obj, features = c("Age"), order = TRUE, pt.size = 0.1) + age.sc + theme(plot.title = element_blank())
+generate_figs(umap_age, paste('./plots/', experiment, '_cs_prepare_umap_age', sep = ''), c(3, 2))
 
 
 
 # generate diffusion maps for metadata
 
 dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
+generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_cs_prepare_dmap_seurat_clusters', sep = ''), c(2.8, 2))
 
 dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 4)
 generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_cs_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 dmap_age_group <- DimPlot(expt.obj, reduction = "dm", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
-generate_figs(dmap_age_group, paste('./plots/', experiment, '_cs_prepare_dmap_age_group', sep = ''), c(6, 5))
+generate_figs(dmap_age_group, paste('./plots/', experiment, '_cs_prepare_dmap_age_group', sep = ''), c(2.8, 2))
 
 dmap_visit <- DimPlot(expt.obj, reduction = "dm", group.by = "visit", shuffle = TRUE, seed = 123)
-generate_figs(dmap_visit, paste('./plots/', experiment, '_cs_prepare_dmap_visit', sep = ''), c(6, 5))
+generate_figs(dmap_visit, paste('./plots/', experiment, '_cs_prepare_dmap_visit', sep = ''), c(2.8, 2))
 
 
 
