@@ -27,29 +27,32 @@ def add_slide(prs, layout, subtitle):
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Figure 1. Bulk RNA sequencing of functional and exhausted CAR T cells across 21 days")
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_initial_pca.png", top = Inches(0.75), left = Inches(3), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_initial_pca.png", top = Inches(0.75), left = Inches(3.5), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_canonical_exhaustion_markers.png", top = Inches(0.75), left = Inches(6), height = Inches(3))
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_canonical_exhaustion_markers.png", top = Inches(0.75), left = Inches(6.5), height = Inches(2))
 
 # manually replace heatmap with gene expression; use placeholder for now
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster1.png", left = Inches(3), top = Inches(3), height = Inches(1.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster1.png", left = Inches(3.5), top = Inches(3), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster2.png", left = Inches(3), top = Inches(4.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster2.png", left = Inches(3.5), top = Inches(4.65), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster3.png", left = Inches(3), top = Inches(6), height = Inches(1.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster3.png", left = Inches(3.5), top = Inches(6.3), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster4.png", left = Inches(3), top = Inches(7.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster4.png", left = Inches(3.5), top = Inches(7.95), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster5.png", left = Inches(3), top = Inches(9), height = Inches(1.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster5.png", left = Inches(3.5), top = Inches(9.6), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(6), top = Inches(3), height = Inches(2.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(7), top = Inches(3), height = Inches(2.5))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(6), height = Inches(2.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(6), height = Inches(3))
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 4. Deriving relative controls for scRNAseq analyses")
+slide = add_slide(prs, blank_slide_layout, "Figure 4. T cell exhaustion is distinct from T cell differentiation and aging")
+# Naive and terminal effector T cells have age-invariant CARTEx scores
+# Central memory and effector memory T cells have age-dependent CARTEx scores
+# We derived relative controls for scRNAseq analyses
 
 experiment = "GSE136184" # Cross-sectional aging experiment
 
@@ -59,11 +62,11 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_predicted_monaco.png", top = Inches(0.75), left = Inches(5.25), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_vlnplot_age_group_exhaustion_markers.png", top = Inches(3), left = Inches(0.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_vlnplot_age_group_exhaustion_markers.png", top = Inches(3), left = Inches(0), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_barplot_phase_age_group.png",  top = Inches(3), left = Inches(2.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_barplot_phase_age_group_slim.png",  top = Inches(3), left = Inches(3), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_barplot_monaco_age_group.png", top = Inches(3), left = Inches(5.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_barplot_monaco_age_group_slim.png", top = Inches(3), left = Inches(5.5), height = Inches(2))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200.png", top = Inches(0.75), left = Inches(8), height = Inches(2))
 
@@ -73,9 +76,9 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_extract_ident.png", top = Inches(5.25), left = Inches(4.5), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_vlnplot_CARTEx_200_extract_ident.png", top = Inches(5.25), left = Inches(5.5), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_vlnplot_CARTEx_200_extract_ident.png", top = Inches(5.25), left = Inches(6), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_630.png", top = Inches(5.25), left = Inches(7), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_630.png", top = Inches(5.25), left = Inches(7.5), height = Inches(2))
 
 
 
@@ -282,6 +285,36 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_stim.png", top = Inches(5.25), left = Inches(0.25), height = Inches(2))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_control.png", top = Inches(5.25), left = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_heatmap_C5_C2.png", top = Inches(5.25), left = Inches(5.5), height = Inches(2))
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure. More STAT3 GOF")
+
+experiment = "GSE207935" # STAT3 GOF
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_vlnplot_all_C5_C2.png", left = Inches(0.25), top = Inches(0.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_activation.png", left = Inches(0), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_anergy.png", left = Inches(2), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_senescence.png", left = Inches(4), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_stemness.png", left = Inches(6), top = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_splitby_affstatstim.png", left = Inches(0), top = Inches(5.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_activation_splitby_affstatstim.png", left = Inches(0), top = Inches(7.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_anergy_splitby_affstatstim.png", left = Inches(0), top = Inches(9.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_senescence_splitby_affstatstim.png", left = Inches(0), top = Inches(12), height = Inches(2))
+
+
+
+
 
 
 # new slide
