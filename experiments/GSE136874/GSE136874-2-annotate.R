@@ -67,8 +67,8 @@ phase_data$cols <- hcl.colors(n = nrow(phase_data), palette = "Temps")
 barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(stat="identity", fill = phase_data$cols)
 generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
 
-umap_phase <- DimPlot(expt.obj, reduction = 'umap', group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
-generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''), c(6, 5))
+umap_phase <- DimPlot(expt.obj, reduction = 'umap', group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(plot.title = element_blank())
+generate_figs(umap_phase, paste('./plots/', experiment, '_cs_prepare_umap_phase', sep = ''), c(3, 2))
 
 umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
@@ -154,8 +154,9 @@ unique(expt.obj[["monaco"]])
 expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(7.5, 5))
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'), pt.size = 0.1) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_cs_prepare_umap_predicted_monaco', sep = ''), c(2.9, 2))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -209,12 +210,12 @@ barplot_phase_CAR <- BarPlotStackSplit(expt.obj, 'Phase', 'CAR', color_set = hcl
 generate_figs(barplot_phase_CAR, paste('./plots/', experiment, '_prepare_barplot_phase_CAR', sep = ''), c(5,4))
 
 barplot_monaco_CAR_slim <- barplot_monaco_CAR + theme(legend.position = "none")
-generate_figs(barplot_monaco_CAR_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_CAR_slim', sep = ''), c(2,4))
+generate_figs(barplot_monaco_CAR_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_CAR_slim', sep = ''), c(2,2))
 
 barplot_phase_CAR_slim <- barplot_phase_CAR + theme(legend.position = "none")
-generate_figs(barplot_phase_CAR_slim, paste('./plots/', experiment, '_prepare_barplot_phase_CAR_slim', sep = ''), c(2,4))
+generate_figs(barplot_phase_CAR_slim, paste('./plots/', experiment, '_prepare_barplot_phase_CAR_slim', sep = ''), c(2,2))
 
-
+# 
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -335,25 +336,25 @@ generate_figs(umap_sig_senescencei, paste('./plots/', experiment, '_umap_sig_sen
 # better way to generate UMAPs for scored cells
 
 fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
-umap_CARTEx_84 <- FeaturePlot(expt.obj, features = c("CARTEx_84"), order = TRUE) + fix.sc
-umap_CARTEx_200 <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE) + fix.sc
-umap_CARTEx_630 <- FeaturePlot(expt.obj, features = c("CARTEx_630"), order = TRUE) + fix.sc
-umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE) + fix.sc
-umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE) + fix.sc
-umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE) + fix.sc
-umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE) + fix.sc
-umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE) + fix.sc
-umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE) + fix.sc
-umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE) + fix.sc
-umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE) + fix.sc
+umap_CARTEx_84 <- FeaturePlot(expt.obj, features = c("CARTEx_84"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_CARTEx_200 <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_CARTEx_630 <- FeaturePlot(expt.obj, features = c("CARTEx_630"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 
-generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(5.5, 5))
-generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(5.5, 5))
-generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(5.5, 5))
-generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(5.5, 5))
-generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(5.5, 5))
-generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(5.5, 5))
-generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(5.5, 5))
+generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(2.8, 2))
+generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(2.8, 2))
+generate_figs(umap_CARTEx_630, paste('./plots/', experiment, '_prepare_umap_CARTEx_630', sep = ''), c(2.8, 2))
+generate_figs(umap_sig_activation, paste('./plots/', experiment, '_prepare_umap_sig_activation', sep = ''), c(2.8, 2))
+generate_figs(umap_sig_anergy, paste('./plots/', experiment, '_prepare_umap_sig_anergy', sep = ''), c(2.8, 2))
+generate_figs(umap_sig_stemness, paste('./plots/', experiment, '_prepare_umap_sig_stemness', sep = ''), c(2.8, 2))
+generate_figs(umap_sig_senescence, paste('./plots/', experiment, '_prepare_umap_sig_senescence', sep = ''), c(2.8, 2))
 generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_prepare_umap_NKlike_Tex', sep = ''), c(5.5,5))
 generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_Tex', sep = ''), c(5.5,5))
 generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(5.5,5))
@@ -362,21 +363,21 @@ generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex
 
 
 
-dmap_CARTEx_84 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_84"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
-dmap_CARTEx_200 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_200"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
-dmap_CARTEx_630 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_630"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
-dmap_sig_activation <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Activation"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
-dmap_sig_anergy <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Anergy"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
-dmap_sig_stemness <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Stemness"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
-dmap_sig_senescence <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Senescence"), order = TRUE) + fix.sc + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_CARTEx_84 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_84"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_CARTEx_200 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_200"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_CARTEx_630 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_630"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_sig_activation <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Activation"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_sig_anergy <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Anergy"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_sig_stemness <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Stemness"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
+dmap_sig_senescence <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Senescence"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.2, 0.2)) + ylim(c(-0.15, 0.2))
 
-generate_figs(dmap_CARTEx_84, paste('./plots/', experiment, '_prepare_dmap_CARTEx_84', sep = ''), c(5.5, 5))
-generate_figs(dmap_CARTEx_200, paste('./plots/', experiment, '_prepare_dmap_CARTEx_200', sep = ''), c(5.5, 5))
-generate_figs(dmap_CARTEx_630, paste('./plots/', experiment, '_prepare_dmap_CARTEx_630', sep = ''), c(5.5, 5))
-generate_figs(dmap_sig_activation, paste('./plots/', experiment, '_prepare_dmap_sig_activation', sep = ''), c(5.5, 5))
-generate_figs(dmap_sig_anergy, paste('./plots/', experiment, '_prepare_dmap_sig_anergy', sep = ''), c(5.5, 5))
-generate_figs(dmap_sig_stemness, paste('./plots/', experiment, '_prepare_dmap_sig_stemness', sep = ''), c(5.5, 5))
-generate_figs(dmap_sig_senescence, paste('./plots/', experiment, '_prepare_dmap_sig_senescence', sep = ''), c(5.5, 5))
+generate_figs(dmap_CARTEx_84, paste('./plots/', experiment, '_prepare_dmap_CARTEx_84', sep = ''), c(2.8, 2))
+generate_figs(dmap_CARTEx_200, paste('./plots/', experiment, '_prepare_dmap_CARTEx_200', sep = ''), c(2.8, 2))
+generate_figs(dmap_CARTEx_630, paste('./plots/', experiment, '_prepare_dmap_CARTEx_630', sep = ''), c(2.8, 2))
+generate_figs(dmap_sig_activation, paste('./plots/', experiment, '_prepare_dmap_sig_activation', sep = ''), c(2.8, 2))
+generate_figs(dmap_sig_anergy, paste('./plots/', experiment, '_prepare_dmap_sig_anergy', sep = ''), c(2.8, 2))
+generate_figs(dmap_sig_stemness, paste('./plots/', experiment, '_prepare_dmap_sig_stemness', sep = ''), c(2.8, 2))
+generate_figs(dmap_sig_senescence, paste('./plots/', experiment, '_prepare_dmap_sig_senescence', sep = ''), c(2.8, 2))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))

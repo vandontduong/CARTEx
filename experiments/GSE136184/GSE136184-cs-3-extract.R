@@ -73,8 +73,8 @@ saveRDS(cellIDs_ET_high, file="./data/cellIDs_ET_high.RData")
 
 # expt.obj <- merge(expt.obj.young_naive, y = expt.obj.elderly_terminal, project = "aging_extract")
 
-umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("YN") + theme(legend.position="none")
-umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + ggtitle("OT") + theme(legend.position="none")
+umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + theme(legend.position="none") # + ggtitle("YN")
+umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + theme(legend.position="none") # + ggtitle("OT")
 generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(2,2))
 generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(2,2))
 

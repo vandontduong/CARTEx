@@ -149,8 +149,9 @@ generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(10, 8))
 
-umap_CAR <- DimPlot(expt.obj, reduction = "umap", group.by = "CAR", shuffle = TRUE, seed = 123, cols = c('dodgerblue', 'indianred'))
-generate_figs(umap_CAR, paste('./plots/', experiment, '_prepare_umap_CAR', sep = ''), c(6, 5))
+umap_CAR <- DimPlot(expt.obj, reduction = "umap", group.by = "CAR", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('dodgerblue', 'indianred')) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("CD19", "GD2"), values = c('dodgerblue', 'indianred'))
+generate_figs(umap_CAR, paste('./plots/', experiment, '_prepare_umap_CAR', sep = ''), c(3, 2))
 
 umap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_CAR_highlight, paste('./plots/', experiment, '_prepare_umap_CAR_highlight', sep = ''), c(6,4))
@@ -163,7 +164,8 @@ generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_prepare_dmap
 dmap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'dm', 'blue', 0.1, 3)
 generate_figs(dmap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_dmap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
-dmap_CAR <- DimPlot(expt.obj, reduction = "dm", group.by = "CAR", shuffle = TRUE, seed = 123, cols = c('dodgerblue', 'indianred')) + xlim(c(-0.2, 0.2)) + ylim(c(-0.2, 0.2))
+dmap_CAR <- DimPlot(expt.obj, reduction = "dm", group.by = "CAR", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('dodgerblue', 'indianred')) + xlim(c(-0.2, 0.2)) + ylim(c(-0.2, 0.2)) +
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("CD19", "GD2"), values = c('dodgerblue', 'indianred'))
 generate_figs(dmap_CAR, paste('./plots/', experiment, '_prepare_dmap_CAR', sep = ''), c(6, 5))
 
 dmap_CAR_highlight <- DimPlotHighlightIdents(expt.obj, CAR, 'dm', 'blue', 0.1, 2)
