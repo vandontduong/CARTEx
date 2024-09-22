@@ -133,7 +133,7 @@ aggplot_qk_CARTEx_84 <- md_mean_values %>% ggplot(aes(identifier2, avg)) +
   geom_col(aes(fill = identifier2), color = "black", width = 0.85) +
   geom_errorbar(aes(ymin = avg - stdev, ymax = avg + stdev), color = "#22292F", width = 0.1) +
   scale_fill_manual(values = c("skyblue", "cadetblue", "royalblue", "orchid"))
-generate_figs(aggplot_qk_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_qk_CARTEx_84', sep = ''), c(5,5))
+generate_figs(aggplot_qk_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_qk_CARTEx_84', sep = ''), c(3,3))
 
 
 aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
@@ -142,8 +142,9 @@ aggplot_CARTEx_84 <- md %>% ggplot(aes(identifier2, CARTEx_84)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(5,5))
+  ylab("CARTEx 84") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(3,3))
 
 
 aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
@@ -152,8 +153,9 @@ aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(5,5))
+  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(3,3))
 
 
 aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
@@ -162,8 +164,9 @@ aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(5,5))
+  ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(3,3))
 
 
 
@@ -172,26 +175,26 @@ aggplot_activation <- md %>% ggplot(aes(identifier2, Activation)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("skyblue", "cadetblue", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(5,5))
+generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(3,3))
 
 aggplot_anergy <- md %>% ggplot(aes(identifier2, Anergy)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("skyblue", "cadetblue", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(5,5))
+generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(3,3))
 
 aggplot_senescence <- md %>% ggplot(aes(identifier2, Senescence)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("skyblue", "cadetblue", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(5,5))
+generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(3,3))
 
 
 aggplot_stemness <- md %>% ggplot(aes(identifier2, Stemness)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
   scale_fill_manual(values=c("skyblue", "cadetblue", "royalblue", "orchid")) +
   xlab("CAR T cells and controls") + geom_point()
-generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(5,5))
+generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(3,3))
 
 
 aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
@@ -200,8 +203,9 @@ aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(5,5))
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(3,3))
 
 aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
@@ -209,8 +213,9 @@ aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(5,5))
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(3,3))
 
 aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
@@ -218,8 +223,9 @@ aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(5,5))
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(3,3))
 
 aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
@@ -227,8 +233,9 @@ aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16)) 
-generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(5,5))
+  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
+generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(3,3))
 
 
 

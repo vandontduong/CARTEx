@@ -42,7 +42,7 @@ vlnplot_CAR_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'
                                             VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'CAR', cols = c('dodgerblue', 'indianred'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
 
 
-generate_figs(vlnplot_CAR_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_CAR_exhaustion_markers', sep = ''), c(6,5))
+generate_figs(vlnplot_CAR_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_CAR_exhaustion_markers', sep = ''), c(5,3.5))
 
 
 VlnPlot(expt.obj, features = c('SLAMF6', 'CD69'), group.by = 'monaco', ncol = 2, y.max = 3, cols = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3'))
@@ -50,15 +50,14 @@ VlnPlot(expt.obj, features = c('SLAMF6', 'CD69'), group.by = 'monaco', ncol = 2,
 
 # percentage of CARTEx detected
 
-featplot_CARTEx_630_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 35)) + ylim(c(-3, 5))
-featplot_CARTEx_200_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 35)) + ylim(c(-3, 5))
-featplot_CARTEx_84_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 35)) + ylim(c(-3, 5))
+featplot_CARTEx_630_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 35)) + ylim(c(-3, 5))
+featplot_CARTEx_200_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 35)) + ylim(c(-3, 5))
+featplot_CARTEx_84_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 35)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_CAR <- (featplot_CARTEx_630_CAR | featplot_CARTEx_200_CAR | featplot_CARTEx_84_CAR)
 generate_figs(featplot_CARTEx_combined_CAR, paste('./plots/', experiment, '_featplot_CARTEx_combined_CAR', sep = ''), c(10,4))
 
-generate_figs(featplot_CARTEx_200_CAR, paste('./plots/', experiment, '_featplot_CARTEx_200_CAR', sep = ''), c(2,4))
-
+generate_figs(featplot_CARTEx_200_CAR, paste('./plots/', experiment, '_featplot_CARTEx_200_CAR', sep = ''), c(1.5,2))
 
 
 # examine differentiation
@@ -122,8 +121,10 @@ md <- md %>% left_join(md_count, by = c("monaco", "CAR", "pblabels"))
 aggplot_CARTEx_200_CAR_monaco_split_countsized <- md %>% ggplot(aes(x = CAR, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_CAR_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CAR_monaco_split_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = c('CD19', 'GD2')) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_CAR_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CAR_monaco_split_countsized', sep = ''), c(3,3)) 
 
 
 

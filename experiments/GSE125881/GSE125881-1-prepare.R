@@ -190,8 +190,8 @@ generate_figs(umap_patient_highlight, paste('./plots/', experiment, '_prepare_um
 # https://stackoverflow.com/questions/13353213/gradient-of-n-colors-ranging-from-color-1-and-color-2
 # umap_timepoint_cols <- colorRampPalette(c("red","violetred","violet","purple"))(length(unique(expt.obj@meta.data$TimePoint)))
 umap_timepoint_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$TimePoint)))
-umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123, cols = umap_timepoint_cols)
-generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(6, 5))
+umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "TimePoint", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = umap_timepoint_cols) + theme(plot.title = element_blank())
+generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(3,2))
 
 umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, TimePoint, 'umap', 'blue', 0.1, 5)
 generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(25, 14))
@@ -201,9 +201,11 @@ umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "Group", shuffle 
 generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''), c(6.5, 5))
 
 # umap_group2_cols <- c('IP' = 'red', 'Early' = 'violetred', 'Late' = 'violet', 'Very Late' = 'purple')
-umap_group2_cols <- colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2)))
-umap_group2 <- DimPlot(expt.obj, reduction = "umap", group.by = "Group2", shuffle = TRUE, seed = 123, cols = umap_group2_cols)
-generate_figs(umap_group2, paste('./plots/', experiment, '_prepare_umap_group2', sep = ''), c(6.5, 5))
+# umap_group2_cols <- colorRampPalette(c("lightgrey","lightblue","violet"))(length(unique(expt.obj@meta.data$Group2)))
+umap_group2_cols <- colorRampPalette(c("cadetblue", "violet", "darkorchid"))(length(unique(expt.obj@meta.data$Group2)))
+umap_group2 <- DimPlot(expt.obj, reduction = "umap", group.by = "Group2", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = umap_group2_cols) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("IP", "E", "L", "VL"), values = umap_group2_cols)
+generate_figs(umap_group2, paste('./plots/', experiment, '_prepare_umap_group2', sep = ''), c(3.,2))
 
 umap_group_highlight <- DimPlotHighlightIdents(expt.obj, Group, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_group_highlight, paste('./plots/', experiment, '_prepare_umap_group_highlight', sep = ''), c(14, 14))

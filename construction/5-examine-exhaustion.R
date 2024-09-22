@@ -64,6 +64,29 @@ generate_figs(plot_canonical_exhaustion_markers, './plots/plot_canonical_exhaust
 
 
 
+# check literature-identified markers
+expression_literature_exhaustion_markers <- data[c("RGS16", "METRNL", "EBI3", "CXCL10", "SNX9", "TNFRSF9"),]
+expression_literature_exhaustion_markers <- expression_literature_exhaustion_markers[,c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
+
+df_literature_exhaustion_markers <- data.frame(t(expression_literature_exhaustion_markers), CAR, Days, Donor)
+
+melted_df <- reshape2::melt(df_literature_exhaustion_markers, id.vars = c("Days", "CAR", "Donor"))
+melted_df <- melted_df %>% group_by(CAR, Days, variable) %>% summarise_at(vars(value), list(name = mean, sd))
+
+custom_colors <- c("CD19" = "dodgerblue", "HA" = "indianred", "Control" = "darkgoldenrod")
+
+plot_literature_exhaustion_markers <- ggplot(melted_df, aes(x = Days, y = name, fill = CAR)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~variable, scales = "free_y") +
+  geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
+  scale_fill_manual(values = custom_colors) + theme_classic()
+
+
+
+
+
+
 #------------
 # Heatmap
 #------------
@@ -246,6 +269,10 @@ generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(
 #png(filename = "./plots/plot_heatmap_all_clusters.png", width = 480, height = 480, units = "px", pointsize = 12)
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html
+
+
+
+
 
 
 

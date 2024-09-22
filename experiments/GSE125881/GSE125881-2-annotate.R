@@ -70,8 +70,8 @@ phase_data$cols <- hcl.colors(n = nrow(phase_data), palette = "Temps")
 barplot_phase <- ggplot(data= phase_data, aes(x=Phase, y=percent)) + geom_bar(stat="identity", fill = phase_data$cols)
 generate_figs(barplot_phase, paste('./plots/', experiment, '_prepare_barplot_phase', sep = ''))
 
-umap_phase <- DimPlot(expt.obj, reduction = 'umap', group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123)
-generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''), c(6, 5))
+umap_phase <- DimPlot(expt.obj, reduction = 'umap', group.by = "Phase", cols = phase_data$cols, shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(plot.title = element_blank())
+generate_figs(umap_phase, paste('./plots/', experiment, '_prepare_umap_phase', sep = ''), c(3, 2))
 
 umap_phase_highlight <- DimPlotHighlightIdents(expt.obj, Phase, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_phase_highlight, paste('./plots/', experiment, '_prepare_umap_phase_highlight', sep = ''), c(15, 6))
@@ -157,8 +157,9 @@ unique(expt.obj[["monaco"]])
 expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'))
 
 # umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", label = TRUE, label.size = 3, repel = TRUE) + NoLegend()
-umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
-generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(7.5, 5))
+umap_predicted_monaco <- DimPlot(expt.obj, reduction = "umap", group.by = "monaco", shuffle = TRUE, seed = 123, cols = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'), pt.size = 0.1) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(umap_predicted_monaco, paste('./plots/', experiment, '_prepare_umap_predicted_monaco', sep = ''), c(2.9, 2))
 
 umap_predicted_monaco_highlight <- DimPlotHighlightIdents(expt.obj, monaco, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_predicted_monaco_highlight, paste('./plots/', experiment, '_prepare_umap_predicted_monaco_highlight', sep = ''), c(22, 20))
@@ -220,13 +221,11 @@ generate_figs(barplot_phase_group2, paste('./plots/', experiment, '_prepare_barp
 
 
 
-barplot_monaco_group2_slim <- barplot_monaco_group2 + theme(legend.position = "none")
-generate_figs(barplot_monaco_group2_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_group2_slim', sep = ''), c(2,4))
+barplot_monaco_group2_slim <- barplot_monaco_group2 + theme(legend.position = "none") + scale_x_discrete(labels = c('IP', 'E', 'L', 'VL'))
+generate_figs(barplot_monaco_group2_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_group2_slim', sep = ''), c(1.5,3))
 
-barplot_phase_group2_slim <- barplot_phase_group2 + theme(legend.position = "none")
-generate_figs(barplot_phase_group2_slim, paste('./plots/', experiment, '_prepare_barplot_phase_group2_slim', sep = ''), c(2,4))
-
-
+barplot_phase_group2_slim <- barplot_phase_group2 + theme(legend.position = "none") + scale_x_discrete(labels = c('IP', 'E', 'L', 'VL'))
+generate_figs(barplot_phase_group2_slim, paste('./plots/', experiment, '_prepare_barplot_phase_group2_slim', sep = ''), c(1.5,3))
 
 
 
