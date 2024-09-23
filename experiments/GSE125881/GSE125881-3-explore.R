@@ -164,8 +164,10 @@ md <- md %>% left_join(md_count, by = c("monaco", "Group2", "pblabels"))
 aggplot_CARTEx_200_group2_monaco_split_countsized <- md %>% ggplot(aes(x = Group2, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_group2_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group2_monaco_split_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = c('IP', 'E', 'L', 'VL')) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_group2_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group2_monaco_split_countsized', sep = ''), c(4,3)) 
 
 
 

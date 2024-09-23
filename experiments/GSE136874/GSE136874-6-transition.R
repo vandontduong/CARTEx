@@ -24,48 +24,48 @@ fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = 
 
 
 transitplot_CAR_CARTEx_84 <- ggplot(md, aes(x = DC1rank, y = CAR, colour = CARTEx_84)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_CARTEx_84, paste('./plots/', experiment, '_transition_transitplot_CAR_CARTEx_84', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_CARTEx_84, paste('./plots/', experiment, '_transition_transitplot_CAR_CARTEx_84', sep = ''), c(3.5,2))
 
 transitplot_CAR_CARTEx_200 <- ggplot(md, aes(x = DC1rank, y = CAR, colour = CARTEx_200)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_CARTEx_200, paste('./plots/', experiment, '_transition_transitplot_CAR_CARTEx_200', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_CARTEx_200, paste('./plots/', experiment, '_transition_transitplot_CAR_CARTEx_200', sep = ''), c(3.5,2))
 
 transitplot_CAR_CARTEx_630 <- ggplot(md, aes(x = DC1rank, y = CAR, colour = CARTEx_630)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_CARTEx_630, paste('./plots/', experiment, '_transition_transitplot_CAR_CARTEx_630', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_CARTEx_630, paste('./plots/', experiment, '_transition_transitplot_CAR_CARTEx_630', sep = ''), c(3.5,2))
 
 transitplot_CAR_activation <- ggplot(md, aes(x = DC1rank, y = CAR, colour = Activation)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_activation, paste('./plots/', experiment, '_transition_transitplot_CAR_activation', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_activation, paste('./plots/', experiment, '_transition_transitplot_CAR_activation', sep = ''), c(3.5,2))
 
 transitplot_CAR_anergy <- ggplot(md, aes(x = DC1rank, y = CAR, colour = Anergy)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_anergy, paste('./plots/', experiment, '_transition_transitplot_CAR_anergy', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_anergy, paste('./plots/', experiment, '_transition_transitplot_CAR_anergy', sep = ''), c(3.5,2))
 
 transitplot_CAR_senescence <- ggplot(md, aes(x = DC1rank, y = CAR, colour = Senescence)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_senescence, paste('./plots/', experiment, '_transition_transitplot_CAR_senescence', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_senescence, paste('./plots/', experiment, '_transition_transitplot_CAR_senescence', sep = ''), c(3.5,2))
 
 transitplot_CAR_stemness <- ggplot(md, aes(x = DC1rank, y = CAR, colour = Stemness)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_stemness, paste('./plots/', experiment, '_transition_transitplot_CAR_stemness', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_stemness, paste('./plots/', experiment, '_transition_transitplot_CAR_stemness', sep = ''), c(3.5,2))
 
 transitplot_CAR_LCMV_Tex <- ggplot(md, aes(x = DC1rank, y = CAR, colour = LCMV_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_LCMV_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_LCMV_Tex', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_LCMV_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_LCMV_Tex', sep = ''), c(3.5,2))
 
 transitplot_CAR_NKlike_Tex <- ggplot(md, aes(x = DC1rank, y = CAR, colour = NKlike_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_NKlike_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_NKlike_Tex', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_NKlike_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_NKlike_Tex', sep = ''), c(3.5,2))
 
 transitplot_CAR_BBD_Tex <- ggplot(md, aes(x = DC1rank, y = CAR, colour = BBD_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_BBD_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_BBD_Tex', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_BBD_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_BBD_Tex', sep = ''), c(3.5,2))
 
 transitplot_CAR_PD1_Tex <- ggplot(md, aes(x = DC1rank, y = CAR, colour = PD1_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic() + xlim(0, 1500)
-generate_figs(transitplot_CAR_PD1_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_PD1_Tex', sep = ''), c(10, 5))
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + xlim(0, 1500)
+generate_figs(transitplot_CAR_PD1_Tex, paste('./plots/', experiment, '_transition_transitplot_CAR_PD1_Tex', sep = ''), c(3.5,2))
 
 
 ###

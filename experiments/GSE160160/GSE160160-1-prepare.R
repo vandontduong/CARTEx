@@ -186,14 +186,16 @@ generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_pr
 umap_donor <- DimPlot(expt.obj, reduction = "umap", group.by = "donor", shuffle = TRUE, seed = 123)
 generate_figs(umap_donor, paste('./plots/', experiment, '_prepare_umap_donor', sep = ''), c(6.5,5))
 
-umap_exposure <- DimPlot(expt.obj, reduction = "umap", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue'))
-generate_figs(umap_exposure, paste('./plots/', experiment, '_prepare_umap_exposure', sep = ''), c(6,5))
+umap_exposure <- DimPlot(expt.obj, reduction = "umap", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue')) +
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("D0", "D20"), values = c('skyblue', 'cadetblue'))
+generate_figs(umap_exposure, paste('./plots/', experiment, '_prepare_umap_exposure', sep = ''), c(3,2))
 
 
 # Generate diffusion maps for metadata
 
-dmap_exposure <- DimPlot(expt.obj, reduction = "dm", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue')) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
-generate_figs(dmap_exposure, paste('./plots/', experiment, '_prepare_dmap_exposure', sep = ''), c(6,5))
+dmap_exposure <- DimPlot(expt.obj, reduction = "dm", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue')) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06)) +
+  theme(plot.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + scale_color_manual(labels=c("D0", "D20"), values = c('skyblue', 'cadetblue'))
+generate_figs(dmap_exposure, paste('./plots/', experiment, '_prepare_dmap_exposure', sep = ''), c(3,2))
 
 
 ####################################################################################################

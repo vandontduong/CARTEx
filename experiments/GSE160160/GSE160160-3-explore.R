@@ -32,28 +32,28 @@ expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
 
 vlnplot_exposure_exhaustion_markers <- VlnPlot(expt.obj, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'exposure', ncol = 3, cols = c('skyblue', 'cadetblue'), y.max = 3)
 
-vlnplot_exposure_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('LAG3'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
-                                                 VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE))
+vlnplot_exposure_exhaustion_markers <- plot_grid(VlnPlot(expt.obj, features=c('PDCD1'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("D0", "D20")),
+                                                 VlnPlot(expt.obj, features=c('HAVCR2'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("D0", "D20")),
+                                                 VlnPlot(expt.obj, features=c('LAG3'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("D0", "D20")),
+                                                 VlnPlot(expt.obj, features=c('CTLA4'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("D0", "D20")),
+                                                 VlnPlot(expt.obj, features=c('TIGIT'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("D0", "D20")),
+                                                 VlnPlot(expt.obj, features=c('ENTPD1'), group.by = 'exposure', cols = c('skyblue', 'cadetblue'), y.max = 3)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE) + scale_x_discrete(labels=c("D0", "D20")))
 
-generate_figs(vlnplot_exposure_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_exposure_exhaustion_markers', sep = ''), c(6, 5))
+generate_figs(vlnplot_exposure_exhaustion_markers, paste('./plots/', experiment, '_prepare_vlnplot_exposure_exhaustion_markers', sep = ''), c(5,3.5))
 
 # examine BET signaling / transcription genes
 VlnPlot(expt.obj, features = c('MYC', 'BRD4', 'BRD3', 'BRD2', 'BRDT', 'CDK9', 'CCNT1', 'HIF1A', 'HIF1B'), group.by = 'exposure', ncol = 3, cols = c('skyblue', 'cadetblue'), y.max = 3)
 
 # percentage of CARTEx detected
 
-featplot_CARTEx_630_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 50)) + ylim(c(-3, 5))
-featplot_CARTEx_200_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 50)) + ylim(c(-3, 5))
-featplot_CARTEx_84_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 50)) + ylim(c(-3, 5))
+featplot_CARTEx_630_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 50)) + ylim(c(-3, 5)) + scale_x_continuous(n.breaks = 4)
+featplot_CARTEx_200_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 50)) + ylim(c(-3, 5)) + scale_x_continuous(n.breaks = 4)
+featplot_CARTEx_84_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 50)) + ylim(c(-3, 5)) + scale_x_continuous(n.breaks = 4)
 
 featplot_CARTEx_combined_exposure <- (featplot_CARTEx_630_exposure | featplot_CARTEx_200_exposure | featplot_CARTEx_84_exposure)
 generate_figs(featplot_CARTEx_combined_exposure, paste('./plots/', experiment, '_featplot_CARTEx_combined_exposure', sep = ''), c(10,4))
 
-generate_figs(featplot_CARTEx_200_exposure, paste('./plots/', experiment, '_featplot_CARTEx_200_exposure', sep = ''), c(2,4))
+generate_figs(featplot_CARTEx_200_exposure, paste('./plots/', experiment, '_featplot_CARTEx_200_exposure', sep = ''), c(1.5,2))
 
 
 
@@ -119,8 +119,10 @@ md <- md %>% left_join(md_count, by = c("monaco", "exposure", "pblabels"))
 aggplot_CARTEx_200_exposure_monaco_split_countsized <- md %>% ggplot(aes(x = exposure, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_exposure_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_exposure_monaco_split_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = c('D0', 'D20')) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_exposure_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_exposure_monaco_split_countsized', sep = ''), c(3,3)) 
 
 
 
