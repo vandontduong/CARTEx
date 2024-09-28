@@ -88,6 +88,8 @@ head(de_genes)
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
+write.csv(rownames(subset(de_genes, p_val < 10e-6 & avg_log2FC > 0.5)), "./data/GSE207935_STAT3_GOF_stim.csv", row.names=FALSE)
+
 # create custom key-value pairs for CARTEx genes
 keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
@@ -107,6 +109,8 @@ log2fc_lim <- min(ceiling(max(abs(de_genes$avg_log2FC[which(!is.infinite(de_gene
 head(de_genes)
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
+
+write.csv(rownames(subset(de_genes, p_val < 10e-6 & avg_log2FC > 0.5)), "./data/GSE207935_STAT3_GOF_rest.csv", row.names=FALSE)
 
 # create custom key-value pairs for CARTEx genes
 keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
@@ -129,6 +133,8 @@ head(de_genes)
 signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
+write.csv(rownames(subset(de_genes, p_val < 10e-6 & avg_log2FC > 0.5)), "./data/GSE207935_STAT3_GOF_combined.csv", row.names=FALSE)
+
 # create custom key-value pairs for CARTEx genes
 keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
@@ -140,6 +146,32 @@ plot_volcano_STAT3GOF_control <- EnhancedVolcano(de_genes, lab = rownames(de_gen
                                                  xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
 generate_figs(plot_volcano_STAT3GOF_control, paste('./plots/', experiment, '_plot_volcano_STAT3GOF_control', sep = ''), c(6, 5))
+
+
+
+
+
+# analyze STAT3 GOF signatures
+
+STAT3_GOF_sig_stim <- rownames(read.csv("./data/GSE207935_STAT3_GOF_stim.csv", header = TRUE, row.names = 1))
+STAT3_GOF_sig_rest <- rownames(read.csv("./data/GSE207935_STAT3_GOF_rest.csv", header = TRUE, row.names = 1))
+STAT3_GOF_sig_combined <- rownames(read.csv("./data/GSE207935_STAT3_GOF_combined.csv", header = TRUE, row.names = 1))
+
+STAT3_GOF_sig_venn <- list(
+  Stim = STAT3_GOF_sig_stim, 
+  Rest = STAT3_GOF_sig_rest, 
+  Combined = STAT3_GOF_sig_combined
+)
+
+library(ggvenn)
+plot_STAT3_GOF_sig_venn <- ggvenn(STAT3_GOF_sig_venn, fill_color = c("violetred", "steelblue", "orange"), stroke_size = 0.5, set_name_size = 4)
+generate_figs(plot_STAT3_GOF_sig_venn, paste('./plots/', experiment, '_plot_STAT3_GOF_sig_venn', sep = ''), c(3.5,3.5))
+
+
+
+
+
+
 
 
 
@@ -216,15 +248,15 @@ generate_figs(plot_volcano_STAT3GOF_control_C2genes, paste('./plots/', experimen
 
 # percentage of CARTEx detected
 
-featplot_CARTEx_630_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 30)) + ylim(c(-1, 8))
-featplot_CARTEx_200_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 30)) + ylim(c(-1, 8))
-featplot_CARTEx_84_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-1, 8))
+featplot_CARTEx_630_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-1, 8))
+featplot_CARTEx_200_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-1, 8))
+featplot_CARTEx_84_affstatstim <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'AffstatStim', cols=c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-1, 8))
 
 featplot_CARTEx_combined_affstatstim <- (featplot_CARTEx_630_affstatstim | featplot_CARTEx_200_affstatstim | featplot_CARTEx_84_affstatstim)
 generate_figs(featplot_CARTEx_combined_affstatstim, paste('./plots/', experiment, '_featplot_CARTEx_combined_affstatstim', sep = ''), c(10,4))
 
 
-generate_figs(featplot_CARTEx_200_affstatstim, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_affstatstim', sep = ''), c(2,4))
+generate_figs(featplot_CARTEx_200_affstatstim, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_affstatstim', sep = ''), c(1.5,2))
 
 
 
@@ -292,11 +324,15 @@ md_count$pblabels <- as.character(md_count$pblabels)
 md <- md %>% left_join(md_count, by = c("monaco", "AffstatStim", "pblabels"))
 md$count <- md_count$count # some issue where the fix is to re-import
 
+custom_labels <- c('CTRL\n(R)', 'CTRL\n(S)', 'GOF\n(R)', 'GOF\n(S)')
+
 aggplot_CARTEx_200_affstatstim_monaco_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank()) + scale_x_discrete(labels = custom_labels)
-generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = custom_labels) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split_countsized', sep = ''), c(4,3)) 
 
 
 

@@ -48,6 +48,20 @@ pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", lef
 pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(6), height = Inches(3))
 
 
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Figure 2. Biological context / Evaluation with other exhaustion and cell state signatures")
+
+
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_mean_zscore_by_signature.png", top = Inches(5), left = Inches(3.5), height = Inches(2))
+
+
+
+
+
+
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Figure 4. T cell exhaustion is distinct from T cell differentiation and aging")
 # Naive and terminal effector T cells have age-invariant CARTEx scores
@@ -79,6 +93,23 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_vlnplot_CARTEx_200_extract_ident.png", top = Inches(5.25), left = Inches(6), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_630.png", top = Inches(5.25), left = Inches(7.5), height = Inches(2))
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figures for aging dataset")
+
+experiment = "GSE136184" # Cross-sectional aging experiment
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200_phase.png", top = Inches(0.75), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200_monaco.png", top = Inches(2.5), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200_group.png", top = Inches(5), left = Inches(0.25), height = Inches(1.5))
+
+
+
 
 
 
@@ -153,9 +184,19 @@ experiment = "GSE136874" # CD19 vs GD2 experiment
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_GD2vCD19_C2genes.png", top = Inches(0.75), left = Inches(0.25), height = Inches(2))
 
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(3), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_CAR.png", top = Inches(8), left = Inches(0.25), height = Inches(1.5))
+
 experiment = "GSE160160" # Continuous antigen exposure experiment
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_volcano_CAEvday0_CARTEx_C2genes.png", top = Inches(0.75), left = Inches(3.25), height = Inches(2))
+
+
+
+
 
 
 # new slide
@@ -165,7 +206,7 @@ experiment = "GSE120575" # Sade-Feldman
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_timepoint.png", left = Inches(0), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(1.75), top = Inches(0.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(2), top = Inches(0.75), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4.25), top = Inches(0.75), height = Inches(1.5))
 
@@ -185,7 +226,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_response.png", left = Inches(0.25), top = Inches(3), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.25), top = Inches(3), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(3), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(3), height = Inches(2))
 
@@ -208,7 +249,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_responder.png", left = Inches(0.25), top = Inches(7.5), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.25), top = Inches(7.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(7.5), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(7.5), height = Inches(2))
 
@@ -231,7 +272,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_group2.png", left = Inches(0.25), top = Inches(12), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.25), top = Inches(12), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(12), height = Inches(1.5))
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_plot_volcano_InVivo_IP.png", left = Inches(3.5), top = Inches(12), height = Inches(2))
 
@@ -254,8 +295,15 @@ experiment = "GSE151511" # CAR T cell infusion product
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", top = Inches(0.75), left = Inches(3.25), height = Inches(2))
 
+experiment = "GSE125881" # CAR T cell kinetics over 16 weeks
 
 
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(3), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_group.png", top = Inches(8), left = Inches(0.25), height = Inches(1.5))
 
 
 

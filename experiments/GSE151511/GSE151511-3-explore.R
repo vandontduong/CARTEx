@@ -49,23 +49,23 @@ generate_figs(vlnplot_response_exhaustion_markers, paste('./plots/', experiment,
 
 
 
-featplot_CARTEx_630_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'Responder', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 30)) + ylim(c(-3, 7))
-featplot_CARTEx_200_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Responder', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 30)) + ylim(c(-3, 7))
-featplot_CARTEx_84_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'Responder', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 30)) + ylim(c(-3, 7))
+featplot_CARTEx_630_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'Responder', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-3, 7))
+featplot_CARTEx_200_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Responder', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-3, 7))
+featplot_CARTEx_84_responder <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'Responder', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-3, 7))
 
 featplot_CARTEx_combined_responder <- (featplot_CARTEx_630_responder | featplot_CARTEx_200_responder | featplot_CARTEx_84_responder)
 generate_figs(featplot_CARTEx_combined_responder, paste('./plots/', experiment, '_prepare_featplot_CARTEx_combined_responder', sep = ''), c(10,5))
 
-generate_figs(featplot_CARTEx_200_responder, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_responder', sep = ''), c(2,4))
+generate_figs(featplot_CARTEx_200_responder, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_responder', sep = ''), c(1.5,2))
 
 
 # recreate the slim bar plots without the NA (NE)
 
 barplot_monaco_response_slim_noNA <- BarPlotStackSplit(expt.obj, 'monaco', 'Responder', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3')) + theme(legend.position = "none")
-generate_figs(barplot_monaco_response_slim_noNA, paste('./plots/', experiment, '_prepare_barplot_monaco_responder_slim_noNA', sep = ''), c(2,4))
+generate_figs(barplot_monaco_response_slim_noNA, paste('./plots/', experiment, '_prepare_barplot_monaco_responder_slim_noNA', sep = ''), c(1.25,1.75))
 
 barplot_phase_response_slim_noNA <- BarPlotStackSplit(expt.obj, 'Phase', 'Responder', color_set = hcl.colors(3, palette = "Temps")) + theme(legend.position = "none")
-generate_figs(barplot_phase_response_slim_noNA, paste('./plots/', experiment, '_prepare_barplot_phase_responder_slim_noNA', sep = ''), c(2,4))
+generate_figs(barplot_phase_response_slim_noNA, paste('./plots/', experiment, '_prepare_barplot_phase_responder_slim_noNA', sep = ''), c(1.25,1.75))
 
 
 
@@ -149,11 +149,22 @@ md_count <- expt.obj@meta.data %>% group_by(monaco, Responder, pblabels) %>% sum
 md_count$pblabels <- as.character(md_count$pblabels)
 md <- md %>% left_join(md_count, by = c("monaco", "Responder", "pblabels"))
 
+# remove rows with NA in Responder column
+# md <- md[!is.na(md$Responder), ]
+table(md$Responder)
+
 aggplot_CARTEx_200_response_monaco_split_countsized <- md %>% ggplot(aes(x = Responder, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_response_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = c('NR', 'R')) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_response_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_countsized', sep = ''), c(3,3)) 
+
+
+
+
+
 
 
 
@@ -185,8 +196,9 @@ md <- md %>% left_join(md_count, by = c("monaco", "CRS", "pblabels"))
 aggplot_CARTEx_200_CRS_monaco_split_countsized <- md %>% ggplot(aes(x = CRS, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_CRS_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CRS_monaco_split_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_CRS_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CRS_monaco_split_countsized', sep = ''), c(4,3)) 
 
 
 # EXAMINE ICANS cell type differentiation

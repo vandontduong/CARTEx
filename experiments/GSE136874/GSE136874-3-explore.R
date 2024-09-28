@@ -134,6 +134,46 @@ generate_figs(aggplot_CARTEx_200_CAR_monaco_split_countsized, paste('./plots/', 
 
 
 ####################################################################################################
+#################################### UMAP score split by metadata ##################################
+####################################################################################################
+
+
+expt.obj@meta.data$monaco <- plyr::mapvalues(x = expt.obj@meta.data$monaco,
+                                             from = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'),
+                                             to = c('N', 'CM', 'EM', 'TE'))
+expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('N', 'CM', 'EM', 'TE'))
+
+fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
+umap_CARTEx_200_monaco <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+generate_figs(umap_CARTEx_200_monaco, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_monaco', sep = ''), c(8,2))
+
+umap_activation_monaco <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+generate_figs(umap_activation_monaco, paste('./plots/', experiment, '_prepare_umap_activation_monaco', sep = ''), c(8,2))
+
+umap_anergy_monaco <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+generate_figs(umap_anergy_monaco, paste('./plots/', experiment, '_prepare_umap_anergy_monaco', sep = ''), c(8,2))
+
+
+
+
+umap_CARTEx_200_phase <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'Phase') + fix.sc
+generate_figs(umap_CARTEx_200_phase, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_phase', sep = ''), c(6,2))
+
+umap_CARTEx_200_CAR <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'CAR') + fix.sc
+generate_figs(umap_CARTEx_200_CAR, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_CAR', sep = ''), c(4,2))
+
+
+### 
+
+
+
+
+
+
+
+
+
+####################################################################################################
 ###################################### Gene expression heatmaps ####################################
 ####################################################################################################
 

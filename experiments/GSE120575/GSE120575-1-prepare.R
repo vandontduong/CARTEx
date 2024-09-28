@@ -182,20 +182,20 @@ generate_figs(umap_orig_ident, paste('./plots/', experiment, '_prepare_umap_orig
 umap_orig_ident_highlight <- DimPlotHighlightIdents(expt.obj, orig.ident, 'umap', 'blue', 0.1, 12)
 generate_figs(umap_orig_ident_highlight, paste('./plots/', experiment, '_prepare_umap_orig_ident_highlight', sep = ''), c(30, 20))
 
-umap_response <- DimPlot(expt.obj, reduction = "umap", group.by = "characteristics_response", shuffle = TRUE, seed = 123, cols = c("firebrick", "seagreen"))
-generate_figs(umap_response, paste('./plots/', experiment, '_prepare_umap_response', sep = ''), c(6,5))
+umap_response <- DimPlot(expt.obj, reduction = "umap", group.by = "characteristics_response", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("firebrick", "seagreen")) + theme(plot.title = element_blank())
+generate_figs(umap_response, paste('./plots/', experiment, '_prepare_umap_response', sep = ''), c(3,2))
 
 umap_response_highlight <- DimPlotHighlightIdents(expt.obj, characteristics_response, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_response_highlight, paste('./plots/', experiment, '_prepare_umap_response_highlight', sep = ''), c(10, 6))
 
-umap_therapy <- DimPlot(expt.obj, reduction = "umap", group.by = "characteristics_therapy", shuffle = TRUE, seed = 123, cols = c("palevioletred", "cadetblue", "mediumpurple"))
-generate_figs(umap_therapy, paste('./plots/', experiment, '_prepare_umap_therapy', sep = ''), c(6,5))
+umap_therapy <- DimPlot(expt.obj, reduction = "umap", group.by = "characteristics_therapy", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("palevioletred", "cadetblue", "mediumpurple")) + theme(plot.title = element_blank())
+generate_figs(umap_therapy, paste('./plots/', experiment, '_prepare_umap_therapy', sep = ''), c(3,2))
 
 umap_therapy_highlight <- DimPlotHighlightIdents(expt.obj, characteristics_therapy, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_therapy_highlight, paste('./plots/', experiment, '_prepare_umap_therapy_highlight', sep = ''), c(8, 8))
 
-umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "Timepoint", shuffle = TRUE, seed = 123, cols = c("lightblue", "steelblue"))
-generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(6,5))
+umap_timepoint <- DimPlot(expt.obj, reduction = "umap", group.by = "Timepoint", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("lightblue", "steelblue")) + theme(plot.title = element_blank())
+generate_figs(umap_timepoint, paste('./plots/', experiment, '_prepare_umap_timepoint', sep = ''), c(3,2))
 
 umap_timepoint_highlight <- DimPlotHighlightIdents(expt.obj, Timepoint, 'umap', 'blue', 0.1, 2)
 generate_figs(umap_timepoint_highlight, paste('./plots/', experiment, '_prepare_umap_timepoint_highlight', sep = ''), c(10, 6))

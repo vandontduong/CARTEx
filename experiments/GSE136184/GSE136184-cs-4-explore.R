@@ -63,6 +63,10 @@ featplot_CARTEx_combined_group <- (featplot_CARTEx_630_group | featplot_CARTEx_2
 generate_figs(featplot_CARTEx_combined_group, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_group', sep = ''), c(10,4))
 
 
+
+
+
+
 # examine differentiation
 
 vlnplot_CARTEx_group_monaco_split <- VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'AgeGroup2', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)
@@ -164,6 +168,37 @@ generate_figs(aggplot_stemness_group_monaco_split_countsized, paste('./plots/', 
 
 
 
+####################################################################################################
+#################################### UMAP score split by metadata ##################################
+####################################################################################################
+
+
+expt.obj@meta.data$monaco <- plyr::mapvalues(x = expt.obj@meta.data$monaco,
+                                          from = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'),
+                                          to = c('N', 'CM', 'EM', 'TE'))
+expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('N', 'CM', 'EM', 'TE'))
+
+fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
+umap_CARTEx_200_monaco <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+generate_figs(umap_CARTEx_200_monaco, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200_monaco', sep = ''), c(8,2))
+
+umap_activation_monaco <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+generate_figs(umap_activation_monaco, paste('./plots/', experiment, '_cs_prepare_umap_activation_monaco', sep = ''), c(8,2))
+
+umap_anergy_monaco <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+generate_figs(umap_anergy_monaco, paste('./plots/', experiment, '_cs_prepare_umap_anergy_monaco', sep = ''), c(8,2))
+
+
+
+
+umap_CARTEx_200_phase <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'Phase') + fix.sc
+generate_figs(umap_CARTEx_200_phase, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200_phase', sep = ''), c(6,2))
+
+umap_CARTEx_200_group <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'AgeGroup2') + fix.sc
+generate_figs(umap_CARTEx_200_group, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200_group', sep = ''), c(10,2))
+
+
+### 
 
 
 

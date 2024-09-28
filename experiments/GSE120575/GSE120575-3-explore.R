@@ -115,14 +115,14 @@ generate_figs(gradient_timepoint_response, paste('./plots/', experiment, '_gradi
 
 # percentage of CARTEx detected
 
-featplot_CARTEx_630_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 20)) + ylim(c(-3, 5))
-featplot_CARTEx_200_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 20)) + ylim(c(-3, 5))
-featplot_CARTEx_84_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_630_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_200_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 20)) + ylim(c(-3, 5))
+featplot_CARTEx_84_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 20)) + ylim(c(-3, 5))
 
 featplot_CARTEx_combined_response <- (featplot_CARTEx_630_response | featplot_CARTEx_200_response | featplot_CARTEx_84_response)
 generate_figs(featplot_CARTEx_combined_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_response', sep = ''), c(10,4))
 
-generate_figs(featplot_CARTEx_200_response, paste('./plots/', experiment, '_featplot_CARTEx_200_response', sep = ''), c(2,4))
+generate_figs(featplot_CARTEx_200_response, paste('./plots/', experiment, '_featplot_CARTEx_200_response', sep = ''), c(1.5,2))
 
 
 
@@ -162,13 +162,13 @@ expt.obj <- subset(expt.obj, idents = c("Post-NR", "Post-R"), invert = TRUE)
 
 
 
-umap_response_baseline <- DimPlot(expt.obj, reduction = "umap", group.by = "characteristics_response", shuffle = TRUE, seed = 123, cols = c("firebrick", "seagreen"))
-generate_figs(umap_response_baseline, paste('./plots/', experiment, '_prepare_umap_response_baseline', sep = ''), c(6,5))
+umap_response_baseline <- DimPlot(expt.obj, reduction = "umap", group.by = "characteristics_response", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("firebrick", "seagreen")) + theme(plot.title = element_blank())
+generate_figs(umap_response_baseline, paste('./plots/', experiment, '_prepare_umap_response_baseline', sep = ''), c(3,2))
 
 
 fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
-umap_CARTEx_200_baseline <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE) + fix.sc
-generate_figs(umap_CARTEx_200_baseline, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_baseline', sep = ''), c(5.5,5))
+umap_CARTEx_200_baseline <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+generate_figs(umap_CARTEx_200_baseline, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_baseline', sep = ''), c(2.8,2))
 
 
 barplot_monaco_timepoint_response_baseline <- BarPlotStackSplit(expt.obj, 'monaco', 'Timepoint_Response', color_set = c('deepskyblue','seagreen','darkgoldenrod','plum3'))
@@ -308,8 +308,8 @@ md <- md %>% left_join(md_count, by = c("monaco", "characteristics_response", "p
 aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized <- md %>% ggplot(aes(x = characteristics_response, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized', sep = ''), c(3,3)) 
 
 
 

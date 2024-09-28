@@ -120,6 +120,14 @@ anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANE
 stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
 senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
 
+
+STAT3_GOF_sig_stim <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_stim.csv"), header = TRUE, row.names = 1))
+STAT3_GOF_sig_rest <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_rest.csv"), header = TRUE, row.names = 1))
+STAT3_GOF_sig_combined <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_combined.csv"), header = TRUE, row.names = 1))
+
+
+
+
 # reorder columns
 mat <- mat[, c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
 
@@ -135,6 +143,9 @@ index_activation <- rownames(mat) %in% activation.sig
 index_anergy <- rownames(mat) %in% anergy.sig
 index_stemness <- rownames(mat) %in% stemness.sig
 index_senescence <- rownames(mat) %in% senescence.sig
+index_STAT3_GOF_sig_stim <- rownames(mat) %in% STAT3_GOF_sig_stim
+index_STAT3_GOF_sig_rest <- rownames(mat) %in% STAT3_GOF_sig_rest
+index_STAT3_GOF_sig_combined <- rownames(mat) %in% STAT3_GOF_sig_combined
 
 intersect_CARTEx_630 <- rownames(mat)[index_CARTEx_630]
 intersect_CARTEx_200 <- rownames(mat)[index_CARTEx_200]
@@ -147,6 +158,10 @@ intersect_activation <- rownames(mat)[index_activation]
 intersect_anergy <- rownames(mat)[index_anergy]
 intersect_stemness <- rownames(mat)[index_stemness]
 intersect_senescence <- rownames(mat)[index_senescence]
+intersect_STAT3_GOF_sig_stim <- rownames(mat)[index_STAT3_GOF_sig_stim]
+intersect_STAT3_GOF_sig_rest <- rownames(mat)[index_STAT3_GOF_sig_rest]
+intersect_STAT3_GOF_sig_combined <- rownames(mat)[index_STAT3_GOF_sig_combined]
+
 
 intersect(intersect_CARTEx_630, intersect_NKlike)
 intersect(intersect_Wherry, intersect_NKlike)
@@ -164,6 +179,9 @@ mat_activation <- mat[intersect_activation,]
 mat_anergy <- mat[intersect_anergy,]
 mat_senescence <- mat[intersect_senescence,]
 mat_stemness <- mat[intersect_stemness,]
+mat_STAT3_GOF_sig_stim <- mat[intersect_STAT3_GOF_sig_stim,]
+mat_STAT3_GOF_sig_rest <- mat[intersect_STAT3_GOF_sig_rest,]
+mat_STAT3_GOF_sig_combined <- mat[intersect_STAT3_GOF_sig_combined,]
 
 # plot
 set.seed(123)
@@ -189,7 +207,8 @@ colAnn <- HeatmapAnnotation(
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
 # select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
-select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT1', 'STAT3', 'STAT4', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'NFKB1', 'NFKB2', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69')
+# select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT1', 'STAT3', 'STAT4', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'NFKB1', 'NFKB2', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69')
+select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT3', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69')
 # select_genes <- c('MYC', 'BRD4', 'BRD3', 'BRD2', 'BRDT', 'CDK9', 'CCNT1', 'HIF1A', 'HIF2A', 'HIF1B', 'NFKB1', 'NFKB2', 'RELA', 'RELB', 'REL', 'CD137', 'TNFRSF11A', 'TNFRSF11B', 'MAP3K14', 'ICOSLG', 'NFKBIA', 'NFKBIB', 'NFKBIE', 'EP300', 'CREBBP', 'TET2')
 
 # examine NFKB pathways
@@ -229,6 +248,14 @@ gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT3"] # C5
 gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SLAMF6"] # C1
 gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "CD69"] # C1
 
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SOCS3"] # C1 and inhibitor of STAT3 pathway
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "PIAS3"] # not present and inhibitor of STAT3 pathway
+
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT1"] # C1
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "IFNG"] # C5
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "TBX21"] # C3 T-Bet
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SOCS3"] # C1
+
 
 # list genes in a specific cluster
 gene_cluster_pairs$gene[gene_cluster_pairs$cluster == "C2"]
@@ -261,17 +288,16 @@ hmap <- Heatmap(mat,
 # cluster 3 is enriched with stimulatory ligands IL2, IL3, ICOSLG; C3 also has T-bet (TBX21) and SOX2
 # SOX2 and STAT3 are elevated
 
+# dev.off()
+
 # draw(hmap,  annotation_legend_side = 'left', heatmap_legend_side = 'left')
 plot_heatmap_all_clusters <- as.grob(hmap)
-generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(6,6)) # due to anno_mark, which is not scalable for some reason, export manually
+generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(6,7)) # due to anno_mark, which is not scalable for some reason, export manually
 
 # pdf(plot_heatmap_all_clusters)
-#png(filename = "./plots/plot_heatmap_all_clusters.png", width = 480, height = 480, units = "px", pointsize = 12)
+# png(filename = "./plots/plot_heatmap_all_clusters.png", width = 480, height = 480, units = "px", pointsize = 12)
 
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html
-
-
-
 
 
 
@@ -361,6 +387,48 @@ hmap_stemness <- Heatmap(mat_stemness, name = 'Zscore', column_split = factor(sp
 generate_figs(as.grob(hmap_stemness), './plots/plot_heatmap_stemness', c(6,6))
 
 
+
+
+
+
+STAT3_GOF_sig_stim <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_stim.csv"), header = TRUE, row.names = 1))
+STAT3_GOF_sig_rest <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_rest.csv"), header = TRUE, row.names = 1))
+STAT3_GOF_sig_combined <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_combined.csv"), header = TRUE, row.names = 1))
+
+
+length(STAT3_GOF_sig_stim) - length(intersect(STAT3_GOF_sig_stim, rownames(mat)))
+length(STAT3_GOF_sig_rest) - length(intersect(STAT3_GOF_sig_rest, rownames(mat)))
+length(STAT3_GOF_sig_combined) - length(intersect(STAT3_GOF_sig_combined, rownames(mat)))
+
+
+
+hmap_STAT3_GOF_sig_stim <- Heatmap(mat_STAT3_GOF_sig_stim, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                         row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_STAT3_GOF_sig_stim], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
+                         cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                         row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                         top_annotation = colAnn, use_raster=FALSE)
+generate_figs(as.grob(hmap_STAT3_GOF_sig_stim), './plots/plot_heatmap_STAT3_GOF_sig_stim', c(6,6))
+
+hmap_STAT3_GOF_sig_rest <- Heatmap(mat_STAT3_GOF_sig_rest, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                                   row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_STAT3_GOF_sig_rest], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
+                                   cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                                   row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                                   top_annotation = colAnn, use_raster=FALSE)
+generate_figs(as.grob(hmap_STAT3_GOF_sig_rest), './plots/plot_heatmap_STAT3_GOF_sig_rest', c(6,6))
+
+hmap_STAT3_GOF_sig_combined <- Heatmap(mat_STAT3_GOF_sig_combined, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                                   row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_STAT3_GOF_sig_combined], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
+                                   cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                                   row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                                   top_annotation = colAnn, use_raster=FALSE)
+generate_figs(as.grob(hmap_STAT3_GOF_sig_combined), './plots/plot_heatmap_STAT3_GOF_sig_combined', c(6,6))
+
+
+
+
+
+
+
 CAR <- split
 Days <- c(0, 0, 0, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21)
 Days <- as.character(Days)
@@ -403,7 +471,7 @@ df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
 df_long_avgbydonor <- subset(df_long_avgbydonor, measurement != "mean_CARTEx_84")
 df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("mean_CARTEx_630", "mean_CARTEx_200", "mean_Wherry", "mean_NKlike", "mean_BBD", "mean_PD1", "mean_activation", "mean_anergy",  "mean_senescence", "mean_stemness"))
 
-measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "CARTEx 630", mean_CARTEx_200 = "CARTEx 200",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
+measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "C5 genes", mean_CARTEx_200 = "CARTEx 200",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
 
 plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = value, group = CAR, color = CAR)) +
   geom_line() + geom_point() +
@@ -411,9 +479,9 @@ plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = va
   labs(x = "Days", y = "Mean z-score") +
   scale_y_continuous(limits = c(-1.5, 1.5)) +
   scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
-  theme(legend.position = "none")
+  theme_classic() + theme(legend.position = "none")
 
-generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(8,3))
+generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(6,2))
 
 
 intersect(rownames(mat), c('HNF1A', 'HNF1B'))

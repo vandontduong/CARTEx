@@ -255,18 +255,19 @@ generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient
 umap_clinicalresponse <- DimPlot(expt.obj, reduction = "umap", group.by = "ClinicalResponse", shuffle = TRUE, seed = 123, cols = c("seagreen", "slateblue", "firebrick", "lightgrey"))
 generate_figs(umap_clinicalresponse, paste('./plots/', experiment, '_prepare_umap_clinicalresponse', sep = ''), c(6,5))
 
-umap_responder <- DimPlot(expt.obj, reduction = "umap", group.by = "Responder", shuffle = TRUE, seed = 123, cols = c("seagreen", "firebrick", "lightgrey"))
-generate_figs(umap_responder, paste('./plots/', experiment, '_prepare_umap_responder', sep = ''), c(6,5))
+umap_responder <- DimPlot(expt.obj, reduction = "umap", group.by = "Responder", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("seagreen", "firebrick", "lightgrey")) + 
+  theme(plot.title = element_blank())
+generate_figs(umap_responder, paste('./plots/', experiment, '_prepare_umap_responder', sep = ''), c(3,2))
 
-umap_EMR <- DimPlot(expt.obj, reduction = "umap", group.by = "EMR", shuffle = TRUE, seed = 123, cols = c("seagreen", "firebrick", "lightgrey"))
-generate_figs(umap_EMR, paste('./plots/', experiment, '_prepare_umap_EMR', sep = ''), c(6,5))
+umap_EMR <- DimPlot(expt.obj, reduction = "umap", group.by = "EMR", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("seagreen", "firebrick", "lightgrey")) + theme(plot.title = element_blank())
+generate_figs(umap_EMR, paste('./plots/', experiment, '_prepare_umap_EMR', sep = ''), c(3.25,2))
 
 
-umap_CRS <- DimPlot(expt.obj, reduction = "umap", group.by = "CRS", shuffle = TRUE, seed = 123, cols = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$CRS))))
-generate_figs(umap_CRS, paste('./plots/', experiment, '_prepareumap_CRS', sep = ''), c(5.5,5))
+umap_CRS <- DimPlot(expt.obj, reduction = "umap", group.by = "CRS", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$CRS)))) + theme(plot.title = element_blank())
+generate_figs(umap_CRS, paste('./plots/', experiment, '_prepareumap_CRS', sep = ''), c(3,2))
 
-umap_ICANS <- DimPlot(expt.obj, reduction = "umap", group.by = "ICANS", shuffle = TRUE, seed = 123, cols = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$ICANS))))
-generate_figs(umap_ICANS, paste('./plots/', experiment, '_prepare_umap_ICANS', sep = ''), c(5.5,5))
+umap_ICANS <- DimPlot(expt.obj, reduction = "umap", group.by = "ICANS", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = colorRampPalette(c("lightblue","orange","firebrick"))(length(unique(expt.obj@meta.data$ICANS)))) + theme(plot.title = element_blank())
+generate_figs(umap_ICANS, paste('./plots/', experiment, '_prepare_umap_ICANS', sep = ''), c(3,2))
 
 
 # metadata split by other meta data
