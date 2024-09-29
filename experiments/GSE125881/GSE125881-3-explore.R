@@ -347,31 +347,32 @@ generate_figs(plot_volcano_Early_IP_C2genes, paste('./plots/', experiment, '_exp
 ####################################################################################################
 
 
-expt.obj@meta.data$monaco <- plyr::mapvalues(x = expt.obj@meta.data$monaco,
-                                             from = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'),
-                                             to = c('N', 'CM', 'EM', 'TE'))
-expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('N', 'CM', 'EM', 'TE'))
+# expt.obj@meta.data$monaco <- plyr::mapvalues(x = expt.obj@meta.data$monaco,
+#                                          from = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'),
+#                                          to = c('N', 'CM', 'EM', 'TE'))
+# expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('N', 'CM', 'EM', 'TE'))
+
 
 fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
-umap_CARTEx_200_monaco <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+umap_CARTEx_200_monaco <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
 generate_figs(umap_CARTEx_200_monaco, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_monaco', sep = ''), c(8,2))
 
-umap_activation_monaco <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+umap_activation_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Activation"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
 generate_figs(umap_activation_monaco, paste('./plots/', experiment, '_prepare_umap_activation_monaco', sep = ''), c(8,2))
 
-umap_anergy_monaco <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE, pt.size = 0.1, split.by = 'monaco') + fix.sc
+umap_anergy_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Anergy"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
 generate_figs(umap_anergy_monaco, paste('./plots/', experiment, '_prepare_umap_anergy_monaco', sep = ''), c(8,2))
 
 
 
 
-umap_CARTEx_200_phase <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'Phase') + fix.sc
+umap_CARTEx_200_phase <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'Phase', split_ids = c("G1", "S", "G2M"), color_scale = fix.sc)
 generate_figs(umap_CARTEx_200_phase, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_phase', sep = ''), c(6,2))
 
-umap_CARTEx_200_group <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1, split.by = 'Group2') + fix.sc
+umap_CARTEx_200_group <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'Group2', split_ids = c("IP", "E", "L", "VL"), color_scale = fix.sc)
 generate_figs(umap_CARTEx_200_group, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_group', sep = ''), c(8,2))
 
-
+# https://divingintogeneticsandgenomics.com/post/customize-featureplot-in-seurat-for-multi-condition-comparisons-using-patchwork/
 ### 
 
 
