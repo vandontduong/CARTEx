@@ -47,6 +47,20 @@ generate_figs(vlnplot_severity_exhaustion_markers, paste('./plots/', experiment,
 VlnPlot(expt.obj, features = "CARTEx_200", group.by = 'Severity')
 
 
+featplot_CARTEx_630_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 630') + xlab('% detected') + xlim(c(0, 40)) + ylim(c(-3, 6))
+featplot_CARTEx_200_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 200') + xlab('% detected') + xlim(c(0, 40)) + ylim(c(-3, 6))
+featplot_CARTEx_84_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx 84') + xlab('% detected') + xlim(c(0, 40)) + ylim(c(-3, 6))
+
+featplot_CARTEx_combined_severity <- (featplot_CARTEx_630_severity | featplot_CARTEx_200_severity | featplot_CARTEx_84_severity)
+generate_figs(featplot_CARTEx_combined_severity, paste('./plots/', experiment, '_prepare_featplot_CARTEx_combined_severity', sep = ''), c(10,5))
+
+generate_figs(featplot_CARTEx_200_severity, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_severity', sep = ''), c(1.5,2))
+
+
+
+
+
+
 ### exploded volcano
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
@@ -67,14 +81,7 @@ generate_figs(plot_volcano_severity_extensive_healthy, paste('./plots/', experim
 
 
 
-# percentage of CARTEx detected
 
-featplot_CARTEx_630_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_630', feature2 = 'CARTEx_630', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 630') + xlab('% detected of CARTEx 630') + xlim(c(0, 50)) + ylim(c(-3, 5))
-featplot_CARTEx_200_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 200') + xlab('% detected of CARTEx 200') + xlim(c(0, 50)) + ylim(c(-3, 5))
-featplot_CARTEx_84_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', feature2 = 'CARTEx_84', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123) + theme(legend.position = 'none') + ylab('CARTEx 84') + xlab('% detected of CARTEx 84') + xlim(c(0, 50)) + ylim(c(-3, 5))
-
-featplot_CARTEx_combined_severity <- (featplot_CARTEx_630_severity | featplot_CARTEx_200_severity | featplot_CARTEx_84_severity)
-generate_figs(featplot_CARTEx_combined_severity, paste('./plots/', experiment, '_featplot_CARTEx_combined_severity', sep = ''), c(10,5))
 
 
 
@@ -122,11 +129,62 @@ md <- expt.obj.agg@meta.data %>% as.data.table
 
 table(md$monaco)
 
-aggplot_CARTEx_200_severity_monaco_split <- md %>% ggplot(aes(x = Severity, y = CARTEx_200, color = monaco)) +
+
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, Severity, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "Severity", "pblabels"))
+
+
+aggplot_CARTEx_200_severity_monaco_split_countsized <- md %>% ggplot(aes(x = Severity, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank())
-generate_figs(aggplot_CARTEx_200_severity_monaco_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_severity_monaco_split', sep = ''), c(6,5)) 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = c('C', 'M', 'S')) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_severity_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_severity_monaco_split_countsized', sep = ''), c(3.5,3)) 
+
+
+
+
+
+
+
+####################################################################################################
+#################################### UMAP score split by metadata ##################################
+####################################################################################################
+
+
+# expt.obj@meta.data$monaco <- plyr::mapvalues(x = expt.obj@meta.data$monaco,
+#                                          from = c('Naive CD8 T cells', 'Central memory CD8 T cells', 'Effector memory CD8 T cells', 'Terminal effector CD8 T cells'),
+#                                          to = c('N', 'CM', 'EM', 'TE'))
+# expt.obj@meta.data$monaco <- factor(expt.obj@meta.data$monaco, levels = c('N', 'CM', 'EM', 'TE'))
+
+
+fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
+umap_CARTEx_200_monaco <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_CARTEx_200_monaco, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_monaco', sep = ''), c(8,2))
+
+umap_activation_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Activation"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_activation_monaco, paste('./plots/', experiment, '_prepare_umap_activation_monaco', sep = ''), c(8,2))
+
+umap_anergy_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Anergy"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_anergy_monaco, paste('./plots/', experiment, '_prepare_umap_anergy_monaco', sep = ''), c(8,2))
+
+
+
+
+umap_CARTEx_200_phase <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'Phase', split_ids = c("G1", "S", "G2M"), color_scale = fix.sc)
+generate_figs(umap_CARTEx_200_phase, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_phase', sep = ''), c(6,2))
+
+umap_CARTEx_200_Severity <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'Severity', split_ids = c('C', 'M', 'S'), color_scale = fix.sc)
+generate_figs(umap_CARTEx_200_Severity, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_Severity', sep = ''), c(6,2))
+
+# https://divingintogeneticsandgenomics.com/post/customize-featureplot-in-seurat-for-multi-condition-comparisons-using-patchwork/
+### 
+
+
+
 
 
 

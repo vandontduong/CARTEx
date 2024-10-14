@@ -203,7 +203,7 @@ aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier2, NKlike_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
-  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-1, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  ylab("NK-like") + xlab(NULL) + geom_point() + ylim(-1.5, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_NKlike_Tex, paste('./plots/', experiment, '_query_agg_aggplot_NKlike_Tex', sep = ''), c(3,3))
 
@@ -213,7 +213,7 @@ aggplot_LCMV_Tex <- md %>% ggplot(aes(identifier2, LCMV_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-1, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
+  ylab("LCMV") + xlab(NULL) + geom_point() + ylim(-1.5, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
   scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_LCMV_Tex, paste('./plots/', experiment, '_query_agg_aggplot_LCMV_Tex', sep = ''), c(3,3))
 
@@ -223,7 +223,7 @@ aggplot_BBD_Tex <- md %>% ggplot(aes(identifier2, BBD_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-1, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  ylab("BBD") + xlab(NULL) + geom_point() + ylim(-1.5, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_BBD_Tex, paste('./plots/', experiment, '_query_agg_aggplot_BBD_Tex', sep = ''), c(3,3))
 
@@ -233,7 +233,7 @@ aggplot_PD1_Tex <- md %>% ggplot(aes(identifier2, PD1_Tex)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-1, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  ylab("PD1") + xlab(NULL) + geom_point() + ylim(-1.5, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot_PD1_Tex', sep = ''), c(3,3))
 

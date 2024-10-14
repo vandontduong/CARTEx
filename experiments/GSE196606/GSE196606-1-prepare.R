@@ -149,8 +149,8 @@ head(expt.obj)
 umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
 generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
 
-umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "group", shuffle = TRUE, seed = 123)
-generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''), c(6, 5))
+umap_group <- DimPlot(expt.obj, reduction = "umap", group.by = "group", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('grey', 'orange', 'seagreen')) + theme(plot.title = element_blank())
+generate_figs(umap_group, paste('./plots/', experiment, '_prepare_umap_group', sep = ''), c(3.2,2))
 
 umap_cell_type <- DimPlot(expt.obj, reduction = "umap", group.by = "cellType_corrected", shuffle = TRUE, seed = 123)
 generate_figs(umap_cell_type, paste('./plots/', experiment, '_prepare_umap_cell_type', sep = ''), c(6, 5))

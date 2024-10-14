@@ -21,6 +21,9 @@ setwd(paste(PATH_EXPERIMENTS, experiment, sep = ''))
 # https://satijalab.org/seurat/articles/integration_rpca.html
 
 expt.obj <- readRDS(paste('./data/', experiment, '_scored.rds', sep = ''))
+
+expt.obj@meta.data$severity_mod <- factor(expt.obj@meta.data$severity_mod, levels = c('Mild', 'Severe'))
+
 # aging.obj <- readRDS("/oak/stanford/groups/cmackall/vandon/CARTEx/experiments/GSE136184/data/GSE136184_scored_cross.rds")
 aging.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE136184/data/GSE136184_aging_extract.rds", sep = ''))
 ref.obj <- readRDS(paste(PATH_EXPERIMENTS, "GSE164378/data/GSE164378_CD8pos_scored.rds", sep = ''))
@@ -42,6 +45,10 @@ ref.obj@meta.data[['identifier3']] <- ref.obj@meta.data$monaco
 expt.obj@meta.data[['identifier4']] <- expt.obj@meta.data$orig.severity_x
 aging.obj@meta.data[['identifier4']] <- aging.obj@meta.data$extract.ident
 ref.obj@meta.data[['identifier4']] <- ref.obj@meta.data$monaco
+
+expt.obj@meta.data[['identifier5']] <- expt.obj@meta.data$severity_mod
+aging.obj@meta.data[['identifier5']] <- aging.obj@meta.data$extract.ident
+ref.obj@meta.data[['identifier5']] <- ref.obj@meta.data$monaco
 
 expt.obj@meta.data[["split.ident"]] <- "Query"
 aging.obj@meta.data[["split.ident"]] <- "Query"

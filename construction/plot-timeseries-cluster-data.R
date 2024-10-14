@@ -1,12 +1,12 @@
 ## Author: Hima Anbunathan
 ## Plot time series data
 
-
-# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C1 -o ./plots/cluster1.pdf
-# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C2 -o ./plots/cluster2.pdf
-# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C3 -o ./plots/cluster3.pdf
-# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C4 -o ./plots/cluster4.pdf
-# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C5 -o ./plots/cluster5.pdf
+# ml R/4.2.0
+# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C1 -o ./plots/cluster1.png
+# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C2 -o ./plots/cluster2.png
+# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C3 -o ./plots/cluster3.png
+# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C4 -o ./plots/cluster4.png
+# Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C5 -o ./plots/cluster5.png
 
 library(optparse)
 library(reshape2)
@@ -62,15 +62,15 @@ if (!is.null(opt$file) && !is.null(opt$cluster_num) && !is.null(opt$output)) {
     scale_color_manual(values = c("dodgerblue", "black", "indianred")) + 
     ggtitle(paste0('Cluster ',cluster_value)) +
     theme_classic() + 
-    theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=12), 
+    theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=0.5, size=12), 
           legend.position="bottom", 
-          legend.text = element_text(colour="black", size = 9), 
-          legend.title = element_text(colour="black", size = 8, face="bold"), 
-          text = element_text(size=15), 
+          legend.text = element_text(colour="black", size = 12), 
+          legend.title = element_text(colour="black", size = 12, face="bold"), 
+          text = element_text(size=12), 
           panel.border = element_rect(colour = "black", fill=NA, linewidth=0.5))
   
   
-  ggsave(opt$output, width = 4, height = 3)
+  ggsave(opt$output, width = 3.5, height = 3)
   
 } else {
   cat("\n")

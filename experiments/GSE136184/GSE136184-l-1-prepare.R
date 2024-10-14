@@ -217,8 +217,10 @@ generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_l_
 umap_age_group <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup", shuffle = TRUE, seed = 123)
 generate_figs(umap_age_group, paste('./plots/', experiment, '_l_prepare_umap_age_group', sep = ''))
 
-umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123)
-generate_figs(umap_age_group_2, paste('./plots/', experiment, '_l_prepare_umap_age_group_2', sep = ''))
+umap_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = umap_age_group_2_cols) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("U50", "U70", "E"), values = umap_age_group_2_cols)
+generate_figs(umap_age_group_2, paste('./plots/', experiment, '_l_prepare_umap_age_group_2', sep = ''), c(2.9, 2))
 
 umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_l_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))

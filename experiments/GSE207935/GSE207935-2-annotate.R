@@ -229,13 +229,15 @@ generate_figs(barplot_phase_affstatstim, paste('./plots/', experiment, '_prepare
 
 
 barplot_monaco_affstatstim_slim <- barplot_monaco_affstatstim + theme(legend.position = "none")
-generate_figs(barplot_monaco_affstatstim_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_affstatstim_slim', sep = ''), c(2,2))
+generate_figs(barplot_monaco_affstatstim_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_affstatstim_slim', sep = ''), c(1.75,1.75))
 
 barplot_phase_affstatstim_slim <- barplot_phase_affstatstim + theme(legend.position = "none")
-generate_figs(barplot_phase_affstatstim_slim, paste('./plots/', experiment, '_prepare_barplot_phase_affstatstim_slim', sep = ''), c(2,2))
+generate_figs(barplot_phase_affstatstim_slim, paste('./plots/', experiment, '_prepare_barplot_phase_affstatstim_slim', sep = ''), c(1.75,1.75))
 
 
-
+###
+###
+###
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 

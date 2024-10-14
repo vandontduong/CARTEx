@@ -148,8 +148,8 @@ head(expt.obj)
 
 # Generate UMAPs for metadata
 
-umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123)
-generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(6, 5))
+umap_seurat_clusters <- DimPlot(expt.obj, reduction = "umap", group.by = "seurat_clusters", shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(plot.title = element_blank())
+generate_figs(umap_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_seurat_clusters', sep = ''), c(2.8,2))
 
 umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_clusters, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
@@ -160,8 +160,9 @@ generate_figs(umap_cancertype, paste('./plots/', experiment, '_prepare_umap_canc
 umap_cancertype_highlight <- DimPlotHighlightIdents(expt.obj, CancerType, 'umap', 'blue', 0.1, 7)
 generate_figs(umap_cancertype_highlight, paste('./plots/', experiment, '_prepare_umap_cancertype_highlight', sep = ''), c(16, 10))
 
-umap_tissuetype <- DimPlot(expt.obj, reduction = "umap", group.by = "TissueType", shuffle = TRUE, seed = 123)
-generate_figs(umap_tissuetype, paste('./plots/', experiment, '_prepare_umap_tissuetype', sep = ''), c(6.5, 5))
+umap_tissuetype <- DimPlot(expt.obj, reduction = "umap", group.by = "TissueType", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("seagreen", "pink", "salmon", "skyblue")) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("H", "P", "M", "U"), values = c("seagreen", "pink", "salmon", "skyblue"))
+generate_figs(umap_tissuetype, paste('./plots/', experiment, '_prepare_umap_tissuetype', sep = ''), c(2.8,2))
 
 umap_tissuetype_highlight <- DimPlotHighlightIdents(expt.obj, TissueType, 'umap', 'blue', 0.1, 4)
 generate_figs(umap_tissuetype_highlight, paste('./plots/', experiment, '_prepare_umap_tissuetype_highlight', sep = ''), c(14, 4))

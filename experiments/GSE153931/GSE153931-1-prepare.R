@@ -53,11 +53,10 @@ expt.obj@meta.data$tumour <- annotatedData$tumour
 expt.obj@meta.data$orig.hospital <- annotatedData$orig.hospital
 expt.obj@meta.data$orig.unit <- annotatedData$orig.unit
 
-expt.obj@meta.data$severity_mod <- plyr::mapvalues(x = expt.obj@meta.data$severity_x,
+expt.obj@meta.data$severity_mod <- plyr::mapvalues(x = expt.obj@meta.data$orig.severity_x,
                                               from = c('Mild', 'Moderate', 'Severe', 'void'),
                                               to = c('Mild', 'Severe', 'Severe', 'void'))
 expt.obj@meta.data$severity_mod <- factor(expt.obj@meta.data$severity_mod, levels = c('Mild', 'Severe', 'void'))
-
 
 # eliminate void donors
 expt.obj <- SetIdent(expt.obj, value = "orig.donor")
@@ -200,20 +199,20 @@ generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_pr
 umap_patient <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.donor", shuffle = TRUE, seed = 123)
 generate_figs(umap_patient, paste('./plots/', experiment, '_prepare_umap_patient', sep = ''), c(6.5, 5))
 
-umap_orig_virus <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_virus, paste('./plots/', experiment, '_prepare_umap_orig_virus', sep = ''), c(6.5, 5))
+umap_orig_virus <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('orangered', 'seagreen', 'darkblue')) + theme(plot.title = element_blank())
+generate_figs(umap_orig_virus, paste('./plots/', experiment, '_prepare_umap_orig_virus', sep = ''), c(2.8,2))
 
-umap_orig_virus2 <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123)
-generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_orig_virus2', sep = ''), c(6.5, 5))
+umap_orig_virus2 <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.virus2", shuffle = TRUE, seed = 123, pt.size = 0.1)
+generate_figs(umap_orig_virus2, paste('./plots/', experiment, '_prepare_umap_orig_virus2', sep = ''), c(3,2))
 
 umap_orig_severity <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_severity, paste('./plots/', experiment, '_prepare_umap_orig_severity', sep = ''), c(6.5, 5))
 
-umap_orig_severity_score <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'steelblue', 'indianred', 'firebrick', 'grey'))
+umap_orig_severity_score <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_score", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('cadetblue', 'steelblue', 'indianred', 'firebrick', 'grey')) + theme(plot.title = element_blank())
 generate_figs(umap_orig_severity_score, paste('./plots/', experiment, '_prepare_umap_orig_severity_score', sep = ''), c(6.5, 5))
 
-umap_orig_severity_x <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_x", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'steelblue', 'indianred', 'grey'))
-generate_figs(umap_orig_severity_x, paste('./plots/', experiment, '_prepare_umap_orig_severity_x', sep = ''), c(6.5, 5))
+umap_orig_severity_x <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.severity_x", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('cadetblue', 'steelblue', 'indianred', 'grey')) + theme(plot.title = element_blank())
+generate_figs(umap_orig_severity_x, paste('./plots/', experiment, '_prepare_umap_orig_severity_x', sep = ''), c(3.2,2))
 
 umap_orig_peptide <- DimPlot(expt.obj, reduction = "umap", group.by = "orig.peptide", shuffle = TRUE, seed = 123)
 generate_figs(umap_orig_peptide, paste('./plots/', experiment, '_prepare_umap_orig_peptide', sep = ''), c(6.5, 5))
@@ -237,8 +236,8 @@ umap_tumour <- DimPlot(expt.obj, reduction = "umap", group.by = "tumour", shuffl
 generate_figs(umap_tumour, paste('./plots/', experiment, '_prepare_umap_tumour', sep = ''), c(6.5, 5))
 
 
-umap_severity_mod <- DimPlot(expt.obj, reduction = "umap", group.by = "severity_mod", shuffle = TRUE, seed = 123, cols = c('cadetblue', 'indianred', 'grey'))
-generate_figs(umap_severity_mod, paste('./plots/', experiment, '_prepare_umap_severity_mod', sep = ''), c(6.5, 5))
+umap_severity_mod <- DimPlot(expt.obj, reduction = "umap", group.by = "severity_mod", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('cadetblue', 'indianred', 'grey')) + theme(plot.title = element_blank())
+generate_figs(umap_severity_mod, paste('./plots/', experiment, '_prepare_umap_severity_mod', sep = ''), c(2.8,2))
 
 
 ####################################################################################################

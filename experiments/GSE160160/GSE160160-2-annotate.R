@@ -215,6 +215,10 @@ barplot_phase_exposure_slim <- barplot_phase_exposure + theme(legend.position = 
 generate_figs(barplot_phase_exposure_slim, paste('./plots/', experiment, '_prepare_barplot_phase_exposure_slim', sep = ''), c(1.25,1.75))
 
 
+###
+###
+###
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
@@ -344,17 +348,17 @@ generate_figs(umap_sig_senescencei_highlight, paste('./plots/', experiment, '_pr
 # better way to generate UMAPs for scored cells
 
 fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = c(-4,4))
-umap_CARTEx_84 <- FeaturePlot(expt.obj, features = c("CARTEx_84"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_CARTEx_200 <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_CARTEx_630 <- FeaturePlot(expt.obj, features = c("CARTEx_630"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
-umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_CARTEx_84 <- FeaturePlot(expt.obj, features = c("CARTEx_84"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_CARTEx_200 <- FeaturePlot(expt.obj, features = c("CARTEx_200"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_CARTEx_630 <- FeaturePlot(expt.obj, features = c("CARTEx_630"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_activation <- FeaturePlot(expt.obj, features = c("Activation"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_anergy <- FeaturePlot(expt.obj, features = c("Anergy"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_stemness <- FeaturePlot(expt.obj, features = c("Stemness"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_sig_senescence <- FeaturePlot(expt.obj, features = c("Senescence"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(2.8, 2))
 generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_prepare_umap_CARTEx_200', sep = ''), c(2.8, 2))

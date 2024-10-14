@@ -166,8 +166,8 @@ umap_seurat_clusters_highlight <- DimPlotHighlightIdents(expt.obj, seurat_cluste
 generate_figs(umap_seurat_clusters_highlight, paste('./plots/', experiment, '_prepare_umap_seurat_clusters_highlight', sep = ''), c(12, 10))
 
 umap_disease_cols <- c('Parkinson (B)' = 'violet', 'Control (B)' = 'cadetblue', 'Alzheimer (C)' = 'firebrick', 'MCI (C)' = 'indianred', 'Control (C)' = 'lightsalmon')
-umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123, cols = umap_disease_cols)
-generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''), c(6.5, 5))
+umap_disease <- DimPlot(expt.obj, reduction = "umap", group.by = "Disease", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = umap_disease_cols)
+generate_figs(umap_disease, paste('./plots/', experiment, '_prepare_umap_disease', sep = ''), c(3,2))
 
 umap_disease_highlight <- DimPlotHighlightIdents(expt.obj, Disease, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_disease_highlight, paste('./plots/', experiment, '_prepare_umap_disease_highlight', sep = ''), c(12, 10))

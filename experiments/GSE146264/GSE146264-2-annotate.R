@@ -213,13 +213,17 @@ barplot_phase_severity <- BarPlotStackSplit(expt.obj, 'Phase', 'Severity', color
 generate_figs(barplot_phase_severity, paste('./plots/', experiment, '_prepare_barplot_phase_severity', sep = ''), c(8,4))
 
 # custom labels for Healthy, Moderate, Extensive
-barplot_monaco_severity_slim <- barplot_monaco_severity + theme(legend.position = "none") + scale_x_discrete(labels = c('H', 'M', 'E'))
-generate_figs(barplot_monaco_severity_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_severity_slim', sep = ''), c(1,2))
+barplot_monaco_severity_slim <- barplot_monaco_severity + theme(legend.position = "none") + scale_x_discrete(labels = c('C', 'M', 'S'))
+generate_figs(barplot_monaco_severity_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_severity_slim', sep = ''), c(1.25,1.75))
 
-barplot_phase_severity_slim <- barplot_phase_severity + theme(legend.position = "none") + scale_x_discrete(labels = c('H', 'M', 'E'))
-generate_figs(barplot_phase_severity_slim, paste('./plots/', experiment, '_prepare_barplot_phase_severity_slim', sep = ''), c(1,2))
+barplot_phase_severity_slim <- barplot_phase_severity + theme(legend.position = "none") + scale_x_discrete(labels = c('C', 'M', 'S'))
+generate_figs(barplot_phase_severity_slim, paste('./plots/', experiment, '_prepare_barplot_phase_severity_slim', sep = ''), c(1.25,1.75))
 
 
+
+
+###
+###
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))

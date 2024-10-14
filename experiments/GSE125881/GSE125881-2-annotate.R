@@ -222,12 +222,14 @@ generate_figs(barplot_phase_group2, paste('./plots/', experiment, '_prepare_barp
 
 
 barplot_monaco_group2_slim <- barplot_monaco_group2 + theme(legend.position = "none") + scale_x_discrete(labels = c('IP', 'E', 'L', 'VL'))
-generate_figs(barplot_monaco_group2_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_group2_slim', sep = ''), c(1.5,2.5))
+generate_figs(barplot_monaco_group2_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_group2_slim', sep = ''), c(1.25,1.75))
 
 barplot_phase_group2_slim <- barplot_phase_group2 + theme(legend.position = "none") + scale_x_discrete(labels = c('IP', 'E', 'L', 'VL'))
-generate_figs(barplot_phase_group2_slim, paste('./plots/', experiment, '_prepare_barplot_phase_group2_slim', sep = ''), c(1.5,2.5))
+generate_figs(barplot_phase_group2_slim, paste('./plots/', experiment, '_prepare_barplot_phase_group2_slim', sep = ''), c(1.25,1.75))
 
 
+###
+### 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 

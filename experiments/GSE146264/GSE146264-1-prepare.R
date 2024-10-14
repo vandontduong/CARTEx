@@ -210,7 +210,7 @@ umap_Duration <- DimPlot(expt.obj, reduction = "umap", group.by = "Duration", sh
 generate_figs(umap_Duration, paste('./plots/', experiment, '_prepare_umap_Duration', sep = ''), c(3, 2))
 
 umap_Severity <- DimPlot(expt.obj, reduction = "umap", group.by = "Severity", shuffle = TRUE, seed = 123, cols = c('seagreen', 'steelblue', 'firebrick'), pt.size = 0.1) + 
-  theme(plot.title = element_blank()) + scale_color_manual(labels=c("H", "M", "E"), values = c('seagreen', 'steelblue', 'firebrick'))
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("C", "M", "S"), values = c('seagreen', 'steelblue', 'firebrick'))
 generate_figs(umap_Severity, paste('./plots/', experiment, '_prepare_umap_Severity', sep = ''), c(3, 2))
 
 
