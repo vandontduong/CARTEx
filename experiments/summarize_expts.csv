@@ -1,0 +1,14 @@
+"Identifier","Description","Study","URL","Genes","Total cells","Pre-QC CD8+ T cells","Post-QC CD8+ T cells"
+"GSE120575","TILs from cancer patients after receiving immune checkpoint blockade","Sade-Feldman et al. 2018 Cell","https://pubmed.ncbi.nlm.nih.gov/30388456/",5000,16291,4619,4619
+"GSE125881","CD19 CAR T cells from cancer patients across 16 weeks","Sheih et al. 2020 Nature Communications","https://pubmed.ncbi.nlm.nih.gov/31924795/",20107,62167,47754,47045
+"GSE126030","T cell activation","Szabo et al. 2019 Nature Communications","https://pubmed.ncbi.nlm.nih.gov/31624246/",60725,63860,5434,5434
+"GSE136184","Aging CD8+ T cells from healthy donors across 9 decades","Lu et al. 2022 Nature Communications","https://pubmed.ncbi.nlm.nih.gov/36050300/",10098,120418,39937,39937
+"GSE136874","Functional CD19 CAR T cells vs exhaustion-prone GD2 CAR T cells","Lynn et al. 2019 Nature","https://pubmed.ncbi.nlm.nih.gov/31802004/",14563,1530,1530,1397
+"GSE146264","CD8+ T cell from autoimmune patients with psoriasis","Liu et al. 2021 Journal of Allergy and Clinical Immunology","https://pubmed.ncbi.nlm.nih.gov/33309739/",31775,6988,3351,3342
+"GSE151511","CD19 CAR T cell infusion product from cancer patients","Deng et al. 2020 Nature Medicine","https://pubmed.ncbi.nlm.nih.gov/33020644/",32740,137326,51881,49962
+"GSE153931","SARS-CoV-2 reactive T cells from COVID-19 patients","Kusnadi et al. 2021 Science Immunology","https://pubmed.ncbi.nlm.nih.gov/33478949/",13816,78897,61583,61583
+"GSE160160","Continuous antigen exposure in CAR T cells","Good et al. 2021 Cell","https://pubmed.ncbi.nlm.nih.gov/34861191/",33538,23317,14901,13039
+"GSE196606","T cells from NBEAL2-deficient patients with thrombocytopenia","Delage et al. 2023 Nature Communications","https://pubmed.ncbi.nlm.nih.gov/37349339/",16475,26539,10806,8118
+"GSE207935","T cells from patients with STAT3 gain-of-function syndrome","Schmitt et al. 2022 JCI Insight","https://pubmed.ncbi.nlm.nih.gov/36136607/",25152,140931,27144,25191
+"mdandersonTCM","Integrated atlas of T cells from numerous cancer types","Chu et al. 2023 Nature Medicine","https://pubmed.ncbi.nlm.nih.gov/37248301/",70777,110218,53780,53757
+"Zenodo3993994","T cells from patients with Parkinson's disease","Wang et al. 2021 Cell Discovery","https://pubmed.ncbi.nlm.nih.gov/34282123/",15776,128903,28281,28105
