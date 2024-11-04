@@ -37,6 +37,10 @@ transitplot_exposure_NKlike_Tex <- ggplot(md, aes(x = DC1rank, y = exposure, col
   geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic() + scale_x_continuous(breaks = seq(0, 14000, by = 4000)) + scale_y_discrete(labels = c('d0', 'd20'))
 generate_figs(transitplot_exposure_NKlike_Tex, paste('./plots/', experiment, '_transition_transitplot_exposure_NKlike_Tex', sep = ''), c(3.5,2))
 
+
+
+
+
 dmap_exposure <- DimPlot(expt.obj, reduction = "dm", group.by = "exposure", shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue'))
 
 

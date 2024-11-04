@@ -137,7 +137,7 @@ vlnplot_quality_control_CARTEx_post <- VlnPlot(object = expt.obj, features = c('
 
 # capture counts after quality filter
 qc_review <- rbind(qc_review, dim(expt.obj)) # [genes, cells]
-rownames(qc_review) <- c("All", "preQC", "preQC")
+rownames(qc_review) <- c("All", "preQC", "postQC")
 colnames(qc_review) <- c("genes", "cells")
 write.csv(qc_review, paste('./data/', experiment, '_prepare_qc_review.csv', sep = ''))
 
