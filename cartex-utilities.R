@@ -447,10 +447,10 @@ ScoreSubroutine <- function(atlas) {
   atlas@meta.data$CARTEx_84i <- integerize(atlas@meta.data$CARTEx_84)
   
   
-  activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
-  anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
-  stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
-  senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
+  activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1))
+  anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1))
+  stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1))
+  senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = FALSE, row.names = 1))
   
   atlas <- AddModuleScore(atlas, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
   
@@ -476,27 +476,31 @@ ScoreSubroutine <- function(atlas) {
   atlas@meta.data$State4 <- NULL
   
   # examine other signatures
-  NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
-  Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
-  BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
+  NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1))
+  Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = FALSE, row.names = 1))
+  BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1))
   PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
+  TSR <- rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1))
   
-  atlas <- AddModuleScore(atlas, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
+  atlas <- AddModuleScore(atlas, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex, TSR), name="Signature", search = TRUE)
   
   atlas@meta.data$NKlike_Tex <- scale(atlas@meta.data$Signature1)
   atlas@meta.data$LCMV_Tex <- scale(atlas@meta.data$Signature2)
   atlas@meta.data$BBD_Tex <- scale(atlas@meta.data$Signature3)
   atlas@meta.data$PD1_Tex <- scale(atlas@meta.data$Signature4)
+  atlas@meta.data$TSR <- scale(atlas@meta.data$Signature5)
   
   atlas@meta.data$NKlike_Texi <- integerize(atlas@meta.data$NKlike_Tex)
   atlas@meta.data$LCMV_Texi <- integerize(atlas@meta.data$LCMV_Tex)
   atlas@meta.data$BBD_Texi <- integerize(atlas@meta.data$BBD_Tex)
   atlas@meta.data$PD1_Texi <- integerize(atlas@meta.data$PD1_Tex)
+  atlas@meta.data$TSRi <- integerize(atlas@meta.data$TSR)
   
   atlas@meta.data$Signature1 <- NULL
   atlas@meta.data$Signature2 <- NULL
   atlas@meta.data$Signature3 <- NULL
   atlas@meta.data$Signature4 <- NULL
+  atlas@meta.data$Signature5 <- NULL
   
   return(atlas)
 }
@@ -545,82 +549,6 @@ FeaturePlotSplitBy <- function(atlas, features, split_identity, split_ids, color
 
 
 
-
-ScoreSubroutine2 <- function(atlas) {
-  
-  # CARTEx with weights // 630 genes
-  cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
-  atlas@meta.data$CARTEx_630 <- Z(SignatureScore(atlas, cartex_630_weights))
-  atlas@meta.data$CARTEx_630i <- integerize(atlas@meta.data$CARTEx_630)
-  
-  # CARTEx with weights // 200 genes
-  cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
-  atlas@meta.data$CARTEx_200 <- Z(SignatureScore(atlas, cartex_200_weights))
-  atlas@meta.data$CARTEx_200i <- integerize(atlas@meta.data$CARTEx_200)
-  
-  # CARTEx with weights // 84 genes
-  cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
-  atlas@meta.data$CARTEx_84 <- Z(SignatureScore(atlas, cartex_84_weights))
-  atlas@meta.data$CARTEx_84i <- integerize(atlas@meta.data$CARTEx_84)
-  
-  
-  activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
-  anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
-  stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
-  senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
-  
-  atlas <- AddModuleScore(atlas, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
-  
-  # z score normalization
-  atlas@meta.data$Activation <- scale(atlas@meta.data$State1)
-  atlas@meta.data$Anergy <- scale(atlas@meta.data$State2)
-  atlas@meta.data$Stemness <- scale(atlas@meta.data$State3)
-  atlas@meta.data$Senescence <- scale(atlas@meta.data$State4)
-  
-  atlas@meta.data$Activationi <- integerize(atlas@meta.data$Activation)
-  atlas@meta.data$Anergyi <- integerize(atlas@meta.data$Anergy)
-  atlas@meta.data$Stemnessi <- integerize(atlas@meta.data$Stemness)
-  atlas@meta.data$Senescencei <- integerize(atlas@meta.data$Senescence)
-  
-  atlas@meta.data$Activationi <- factor(atlas@meta.data$Activationi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-  atlas@meta.data$Anergyi <- factor(atlas@meta.data$Anergyi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-  atlas@meta.data$Stemnessi <- factor(atlas@meta.data$Stemnessi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-  atlas@meta.data$Senescencei <- factor(atlas@meta.data$Senescencei, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-  
-  atlas@meta.data$State1 <- NULL
-  atlas@meta.data$State2 <- NULL
-  atlas@meta.data$State3 <- NULL
-  atlas@meta.data$State4 <- NULL
-  
-  # examine other signatures
-  NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
-  Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
-  BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
-  PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
-  cartex_C2 <- rownames(read.csv(paste(PATH_CONSTRUCTION, "./data/cartex-cluster-2.csv", sep = ''), header = TRUE, row.names = 1))
-  
-  atlas <- AddModuleScore(atlas, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex, cartex_C2), name="Signature", search = TRUE)
-  
-  atlas@meta.data$NKlike_Tex <- scale(atlas@meta.data$Signature1)
-  atlas@meta.data$LCMV_Tex <- scale(atlas@meta.data$Signature2)
-  atlas@meta.data$BBD_Tex <- scale(atlas@meta.data$Signature3)
-  atlas@meta.data$PD1_Tex <- scale(atlas@meta.data$Signature4)
-  atlas@meta.data$CARTEx_C2 <- scale(atlas@meta.data$Signature5)
-  
-  atlas@meta.data$NKlike_Texi <- integerize(atlas@meta.data$NKlike_Tex)
-  atlas@meta.data$LCMV_Texi <- integerize(atlas@meta.data$LCMV_Tex)
-  atlas@meta.data$BBD_Texi <- integerize(atlas@meta.data$BBD_Tex)
-  atlas@meta.data$PD1_Texi <- integerize(atlas@meta.data$PD1_Tex)
-  atlas@meta.data$CARTEx_C2 <- integerize(atlas@meta.data$CARTEx_C2)
-  
-  atlas@meta.data$Signature1 <- NULL
-  atlas@meta.data$Signature2 <- NULL
-  atlas@meta.data$Signature3 <- NULL
-  atlas@meta.data$Signature4 <- NULL
-  atlas@meta.data$Signature5 <- NULL
-  
-  return(atlas)
-}
 
 
 ####################################################################################################
