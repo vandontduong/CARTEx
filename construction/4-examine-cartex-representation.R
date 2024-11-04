@@ -22,18 +22,20 @@ cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
-TSG <- rownames(read.csv(paste0(PATH_SIGNATURES, "tumor-suppressor-genes.csv"), row.names = 1, header = TRUE))
-activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
-anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
-stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
-senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
-NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
+TSG <- rownames(read.csv(paste0(PATH_SIGNATURES, "tumor-suppressor-genes.csv"), row.names = 1, header = FALSE))
+activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1))
+anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1))
+stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1))
+senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = FALSE, row.names = 1))
+NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1))
 Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
-BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
-PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
+BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1))
+PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = FALSE, row.names = 1))
+TSR <- rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1))
 
+expt.list <- c("GSE125881", "GSE136874", "GSE136184", "GSE126030", "GSE120575", "GSE146264", "GSE151511", "GSE153931", "GSE160160", "GSE196606", "GSE207935", "Zenodo3993994", "mdandersonTCM")
 
-expt.list <- c("GSE125881", "GSE136874", "GSE136184", "GSE120575", "GSE235676", "GSE151511", "mdandersonTCM")
+# , "GSE235676"
 
 # create dictionary hash containing all genes for each experiment in expt.list
 expt.allgenes <- c()
@@ -126,6 +128,60 @@ expt.matrix.counts <- do.call("cbind", list(expt.allgenes.counts, expt.CARTEx630
 expt.matrix.counts
 
 write.csv(expt.matrix.counts, paste0(PATH_CONSTRUCTION, "data/expt_matrix_counts.csv"), row.names=TRUE)
+
+
+
+
+####################################################################################################
+################################## Generate gene representation maps ###############################
+####################################################################################################
+
+library(tidyverse)
+# https://stackoverflow.com/questions/47733031/how-to-plot-dataframe-in-r-as-a-heatmap-grid
+
+expt.df.counts <- as.data.frame(expt.matrix.counts)
+colnames(expt.df.counts) <- c('All', 'C5', 'CARTEx', 'CARTEx_84', 'TSG', 'Activation', 'Anergy', 'Stemness', 'Senescence', 'NK-like', 'LCMV', 'BBD', 'PD1')
+
+# store all counts
+expt.df.counts.all <- expt.df.counts['All']
+
+# rearrange and remove CARTEx_84 and TSG
+expt.df.counts <- expt.df.counts[c('C5', 'CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')]
+
+# define a vector with the denominator values and divide each column by the corresponding element in the vector
+divisors <- c(630, 200, length(NK_like), length(Wherry_Tex), length(BBD_Tex), length(PD1_Tex), length(activation.sig), length(anergy.sig), length(senescence.sig), length(stemness.sig))
+expt.df.counts[] <- lapply(expt.df.counts, as.numeric)
+expt.df.scaled <- sweep(expt.df.counts, 2, divisors, "/")
+
+
+expt.heatmap <- expt.df.scaled %>% rownames_to_column() %>% gather(colname, value, -rowname)
+expt.heatmap$colname <- factor(expt.heatmap$colname, ordered=TRUE, levels = c('C5', 'CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness'))
+expt.heatmap$rowname <- factor(expt.heatmap$rowname, ordered=TRUE, levels = c('GSE120575', 'GSE125881', 'GSE126030', 'GSE136184', 'GSE136874', 'GSE146264', 'GSE151511', 'GSE153931', 'GSE160160', 'GSE196606', 'GSE207935', 'Zenodo3993994', 'mdandersonTCM'))
+
+x_labels <- paste0(levels(expt.heatmap$rowname), " (", as.character(unlist(expt.df.counts.all, use.names = FALSE)), ")")
+y_labels <- paste0(levels(expt.heatmap$colname), " (", as.character(divisors), ")")
+
+
+
+all_genes_repmap <- ggplot(expt.heatmap, aes(x = rowname, y = colname, fill = value)) + geom_tile() + 
+  scale_fill_gradientn(colours = c("white", "lightblue"), values = c(0,1)) +
+  geom_text(aes(fill = expt.heatmap$value, label = round(expt.heatmap$value,2))) +
+  theme_classic() + theme(axis.text.x = element_text(angle=25, vjust=1, hjust=1, size = 10, color = 'black'), axis.text.y = element_text(size = 10, color = 'black'), legend.position="none") + 
+  xlab(NULL) + ylab(NULL) + scale_x_discrete(labels = x_labels) + scale_y_discrete(labels = y_labels)
+
+generate_figs(all_genes_repmap, "./plots/all_genes_repmap", c(7, 3.5))
+
+
+
+
+###
+###
+
+
+
+
+
+
 
 
 CARTEx_versions <- list(
@@ -251,5 +307,96 @@ exhaustion_state_sigs <- list(
 upset_exhaustion_state_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_state_sigs), intersect = names(exhaustion_state_sigs),
                                         base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_exhaustion_state_sigs, "./plots/upset_exhaustion_state_sigs", c(12, 3.5))
+
+
+
+
+####################################################################################################
+#################################### Generate representation charts ################################
+####################################################################################################
+
+# progress bar charts?
+
+exhaustion_state_sigs <- list(
+  CARTEx = rownames(cartex_200_weights),
+  NKlike_Tex = NK_like,
+  LCMV_Tex = Wherry_Tex,
+  BBD_Tex = BBD_Tex,
+  PD1_Tex = PD1_Tex,
+  Activation = activation.sig,
+  Anergy = anergy.sig,
+  Senescence = senescence.sig,
+  Stemness = stemness.sig
+)
+
+gene_counts <- sapply(exhaustion_state_sigs, length)
+
+count_intersections <- function(vector, given_vector) {
+  length(intersect(vector, given_vector))
+}
+
+reference_genes <- rownames(cartex_630_weights)
+
+intersection_counts <- sapply(exhaustion_state_sigs, count_intersections, reference_genes)
+
+
+# fraction of signature genes represented in C5
+fraction_signature <- intersection_counts/gene_counts
+fraction_signature_df <- as.data.frame(fraction_signature[-1])
+colnames(fraction_signature_df) <- 'value'
+
+fraction_sig_repchart <- ggplot(fraction_signature_df, aes(x=factor(rownames(fraction_signature_df), levels = rownames(fraction_signature_df)), y=value)) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  scale_x_discrete(labels = c('NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
+  geom_text(aes(label=round(value,2)), vjust=-1)
+generate_figs(fraction_sig_repchart, "./plots/fraction_sig_repchart", c(6,2))
+
+
+# fraction of signature genes represented in CARTEx
+
+fraction_signature <- sapply(exhaustion_state_sigs, count_intersections, rownames(cartex_200_weights))/gene_counts
+fraction_signature_df <- as.data.frame(fraction_signature[-1])
+colnames(fraction_signature_df) <- 'value'
+
+fraction_sig_repchart_CARTEx <- ggplot(fraction_signature_df, aes(x=factor(rownames(fraction_signature_df), levels = rownames(fraction_signature_df)), y=value)) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  scale_x_discrete(labels = c('NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
+  geom_text(aes(label=round(value,2)), vjust=-1)
+generate_figs(fraction_sig_repchart_CARTEx, "./plots/fraction_sig_repchart_CARTEx", c(6,2))
+
+
+# fraction of C5 genes represented by signature
+
+fraction_CARTEx_630 <- intersection_counts/length(reference_genes)
+fraction_CARTEx_630_df <- as.data.frame(fraction_CARTEx_630)
+colnames(fraction_CARTEx_630_df) <- 'value'
+
+fraction_C5_repchart <- ggplot(fraction_CARTEx_630_df, aes(x=factor(rownames(fraction_CARTEx_630_df), levels = rownames(fraction_CARTEx_630_df)), y=value)) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  scale_x_discrete(labels = c('CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
+  geom_text(aes(label=round(value,2)), vjust=-1)
+generate_figs(fraction_C5_repchart, "./plots/fraction_C5_repchart", c(6,2))
+
+
+# fraction of CARTEx genes represented in signature
+
+fraction_CARTEx_200 <- intersection_counts/length(rownames(cartex_200_weights))
+fraction_CARTEx_200_df <- as.data.frame(fraction_CARTEx_200[-1])
+colnames(fraction_CARTEx_200_df) <- 'value'
+
+fraction_CARTEx_repchart <- ggplot(fraction_CARTEx_200_df, aes(x=factor(rownames(fraction_CARTEx_200_df), levels = rownames(fraction_CARTEx_200_df)), y=value)) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  scale_x_discrete(labels = c('NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
+  geom_text(aes(label=round(value,2)), vjust=-1)
+generate_figs(fraction_CARTEx_repchart, "./plots/fraction_CARTEx_repchart", c(6,2))
+
+
+# Increase margin size
+# https://r-graph-gallery.com/210-custom-barplot-layout.html#las
+# par(mar=c(7,5,1,1))
+
+
+
+
 
 
