@@ -16,7 +16,7 @@ This is the github repository for the CAR T cell exhaustion (CARTEx) signature p
 
 # About <a name = "about"></a>
 
-Historically, T cell exhaustion was described based on a few canonical markers. Recent advances in single-cell sequencing has enabled high-resolution of transcriptomics and deeper insights underpinning cellular behavior, but many groups still identified "exhausted" T cells based on simple correlations with canonical markers (e.g. "PDCD1 is highly expressed in this cluster of cells, so these may be exhausted"). Using a robust model of CAR T cell exhaustion, we created a transcriptional signature to quantify T cell exhaustion. This signature was derived from differentially expressed genes between highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. The HA CAR spontaneously aggregates and causes tonic signaling, which has been validated and used as a robust model of exhaustion in numerous studies ([Long et al. 2015 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/25939063/), [Lynn et al. 2019 Nature](https://pubmed.ncbi.nlm.nih.gov/31802004/), [Gennert et al. 2021 PNAS](https://pubmed.ncbi.nlm.nih.gov/34285077/), [Weber et al. 2021 Science](https://pubmed.ncbi.nlm.nih.gov/33795428/), [Klysz et al. 2024 Cancer Cell](https://pubmed.ncbi.nlm.nih.gov/37162847/)).
+Historically, T cell exhaustion was described based on a few canonical markers. Recent advances in single-cell sequencing has enabled high-resolution of transcriptomics and deeper insights underpinning cellular behavior, but many groups still identified "exhausted" T cells based on simple correlations with canonical markers (e.g. "PDCD1 is highly expressed in this cluster of cells, so these may be exhausted"). Using a robust model of CAR T cell exhaustion, we created a transcriptional signature to quantify T cell exhaustion. This signature was derived from differentially expressed genes between highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. The HA CAR spontaneously aggregates and induces tonic signaling, which has been validated and used as a robust model of exhaustion in numerous studies ([Long et al. 2015 Nature Medicine](https://pubmed.ncbi.nlm.nih.gov/25939063/), [Lynn et al. 2019 Nature](https://pubmed.ncbi.nlm.nih.gov/31802004/), [Gennert et al. 2021 PNAS](https://pubmed.ncbi.nlm.nih.gov/34285077/), [Weber et al. 2021 Science](https://pubmed.ncbi.nlm.nih.gov/33795428/), [Klysz et al. 2024 Cancer Cell](https://pubmed.ncbi.nlm.nih.gov/37162847/)).
 
 Preprint: coming soon...
 
@@ -37,12 +37,13 @@ General procedure for scRNAseq analyses:
     - Filtered cell quality (e.g. `subset(expt.obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 10)`)
     - Normalized counts by log transformation
     - Identified highly variable features
-    - Scaled data to prepare for dimensional reduction
+    - Scaled data to prepare for dimensionality reduction
     - Performed principal components analysis
-    - Clustered cells
+    - Clustered cells using k-nearest neighbors (KNN) with edges drawn between cells with similar gene expression patterns
   - Analyzed cell cycle phase using modified pipeline from [Seurat cell cycle tutorial](https://satijalab.org/seurat/articles/cell_cycle_vignette.html)
   - Annotated cell type using reference-based [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
   - Calculated cell state scores using Seurat [`AddModuleScore()`](https://www.rdocumentation.org/packages/Seurat/versions/4.3.0/topics/AddModuleScore)
+  - Visualized annotated cells by embedding into Uniform Manifold Approximation and Projection for Dimension Reduction (UMAP) or diffusion maps
 2. Integrated datasets
   - Integrated with reference-based reciprocal PCA using modified pipeline from [Seurat fast integration tutorial](https://satijalab.org/seurat/articles/integration_rpca.html) and [Seurat reference mapping tutorial](https://satijalab.org/seurat/articles/integration_mapping.html)
     - Increased strength of alignment (e.g. `k.anchor = 20`)
@@ -111,7 +112,8 @@ We installed and used several packages from the [Comprehensive R Archive Network
 - [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html): toolkit for dataframe operations
 - [`data.table`](https://cran.r-project.org/web/packages/data.table/index.html): extension of `data.frame`
 - [`EnhancedVolcano`](https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html): toolkit for differential expression analysis visualization
-- [`glmGamPoi`](https://bioconductor.org/packages/release/bioc/html/glmGamPoi.html) package for fitting Gamma-Poisson distribution to single-cell data
+- [`glmGamPoi`](https://bioconductor.org/packages/release/bioc/html/glmGamPoi.html): package for fitting Gamma-Poisson distribution to single-cell data
+- [`destiny`](https://www.bioconductor.org/packages/release/bioc/html/destiny.html): package for embedding cells into diffusion maps 
 
 We established path variables to enable ease of general use, in which files can be called through `paste(<PATH_NAME>, <FILE_NAME>, sep = '')`:
 - `PATH_CARTEX`: absolute path to where the project directory resides
