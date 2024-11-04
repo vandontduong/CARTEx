@@ -59,6 +59,53 @@ generate_figs(barplot_tissue_type_seurat_clusters, paste('./plots/', experiment,
 
 
 
+
+
+
+
+# examine differentiation
+
+
+# aggregate without controls
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('TissueType', 'monaco', 'pblabels'), return.seurat = TRUE)
+
+
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+
+expt.obj.agg$TissueType <- factor(expt.obj.agg$TissueType, levels = c("Healthy donor", "Primary tumor tissue", "Metastatic tumor tissue", "Uninvolved normal tissue"))
+expt.obj.agg$monaco <- factor(expt.obj.agg$monaco, levels = c("Naive CD8 T cells", "Central memory CD8 T cells", "Effector memory CD8 T cells", "Terminal effector CD8 T cells"))
+
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+
+table(expt.obj.agg$TissueType)
+table(md$monaco)
+
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(monaco, TissueType, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+md <- md %>% left_join(md_count, by = c("monaco", "TissueType", "pblabels"))
+
+
+aggplot_CARTEx_200_TissueType_monaco_split_countsized <- md %>% ggplot(aes(x = TissueType, y = CARTEx_200, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + ylab('CARTEx') + 
+  scale_x_discrete(labels = c('H', 'P', 'M', 'U')) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_CARTEx_200_TissueType_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_TissueType_monaco_split_countsized', sep = ''), c(4.5,3.5)) 
+
+
+
+
+
+
+
+
+
+
 ####################################################################################################
 #################################### UMAP score split by metadata ##################################
 ####################################################################################################
@@ -93,13 +140,22 @@ table(expt.obj$CancerType)
 
 # H, normal tissues from healthy donors; U, tumor-adjacent uninvolved tissues; P, primary tumor tissues; M, metastatic tumor tissues
 
-umap_CARTEx_200_tissue_type <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'TissueType', split_ids = c('Healthy', 'Primary', 'Metastatic', 'Uninvolved'), color_scale = fix.sc)
+umap_CARTEx_200_tissue_type <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'TissueType', split_ids = c('H', 'P', 'M', 'U'), color_scale = fix.sc)
 generate_figs(umap_CARTEx_200_tissue_type, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_tissue_type', sep = ''), c(8,2))
 
 
 
 umap_CARTEx_200_seurat_clusters <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'seurat_clusters', split_ids = seq(0,10,1), color_scale = fix.sc)
 generate_figs(umap_CARTEx_200_seurat_clusters, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_seurat_clusters', sep = ''), c(22,2))
+
+
+
+
+
+
+
+
+
 
 
 

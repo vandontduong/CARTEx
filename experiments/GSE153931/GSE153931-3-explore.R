@@ -147,7 +147,7 @@ md <- md %>% left_join(md_count, by = c("monaco", "orig.severity_x", "pblabels")
 aggplot_CARTEx_200_severity_x_monaco_split_countsized <- md %>% ggplot(aes(x = orig.severity_x, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_bw() + theme(axis.title.x = element_blank())
+  theme_bw() + theme(axis.title.x = element_blank()) + ylab('CARTEx')
 generate_figs(aggplot_CARTEx_200_severity_x_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_severity_x_monaco_split_countsized', sep = ''), c(6,5)) 
 
 
@@ -183,7 +183,7 @@ md <- md %>% left_join(md_count, by = c("monaco", "severity_mod", "pblabels"))
 aggplot_CARTEx_200_severity_mod_monaco_split_countsized <- md %>% ggplot(aes(x = severity_mod, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + ylab('CARTEx')+ 
   scale_x_discrete(labels = c('M', 'S')) + 
   scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_severity_mod_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_severity_mod_monaco_split_countsized', sep = ''), c(3,3)) 
@@ -328,6 +328,49 @@ FeatureScatter(expt.obj, "CARTEx_200", "Activation", group.by = "monaco", split.
 
 
 ### 
+
+
+
+
+
+####################################################################################################
+######################################### Score Correlations #######################################
+####################################################################################################
+
+expt.obj$severity_mod <- factor(expt.obj$severity_mod, levels = c("Mild", "Severe"))
+
+table_monaco_phase <- table(expt.obj@meta.data$monaco, expt.obj@meta.data$Phase)
+corr_monaco_phase <- CorrespondenceAnalysisPlot(table_monaco_phase, "Monaco", "Phase")
+generate_figs(corr_monaco_phase, paste('./plots/', experiment, '_prepare_corr_monaco_phase', sep = ''), c(4,4))
+
+table_CARTEx_200_NKlike <- table(expt.obj@meta.data$CARTEx_200i, expt.obj@meta.data$NKlike_Texi)
+corr_CARTEx_200_NKlike <- CorrespondenceAnalysisPlot(table_CARTEx_200_NKlike, "CARTEx_200i", "NKlike_Texi")
+generate_figs(corr_CARTEx_200_NKlike, paste('./plots/', experiment, '_prepare_corr_CARTEx_200_NKlike', sep = ''), c(4,4))
+
+
+
+# alternative figure with marginal histograms
+md <- expt.obj@meta.data %>% as.data.table
+
+scatter_CARTEx_200_LCMV <- ggscatterhist(md, x = "CARTEx_200", y = "LCMV_Tex", color = "severity_mod", size = 0.1, alpha = 1, palette = c('cadetblue', 'indianred'), shuffle = TRUE,
+                                         margin.params = list(fill = "severity_mod", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_LCMV), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_LCMV', sep = ''), c(2,2))
+
+scatter_CARTEx_200_NKlike <- ggscatterhist(md, x = "CARTEx_200", y = "NKlike_Tex", color = "severity_mod", size = 0.1, alpha = 1, palette = c('cadetblue', 'indianred'), shuffle = TRUE,
+                                           margin.params = list(fill = "severity_mod", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_NKlike), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_NKlike', sep = ''), c(2,2))
+
+scatter_CARTEx_200_BBD <- ggscatterhist(md, x = "CARTEx_200", y = "BBD_Tex", color = "severity_mod", size = 0.1, alpha = 1, palette = c('cadetblue', 'indianred'), shuffle = TRUE,
+                                        margin.params = list(fill = "severity_mod", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_BBD), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_BBD', sep = ''), c(2,2))
+
+scatter_CARTEx_200_PD1 <- ggscatterhist(md, x = "CARTEx_200", y = "PD1_Tex", color = "severity_mod", size = 0.1, alpha = 1, palette = c('cadetblue', 'indianred'), shuffle = TRUE,
+                                        margin.params = list(fill = "severity_mod", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_PD1), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_PD1', sep = ''), c(2,2))
+
+
+
+
 
 
 

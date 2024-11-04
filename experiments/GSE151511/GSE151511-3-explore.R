@@ -101,7 +101,7 @@ vlnplot_CARTEx_response_monaco_split <- VlnPlot(expt.obj, features = 'CARTEx_200
 generate_figs(vlnplot_CARTEx_response_monaco_split, paste('./plots/', experiment, '_prepare_vlnplot_CARTEx_response_monaco_split', sep = ''), c(12,5)) 
 
 custom_labels <- c("Naive", "Central memory", "Effector memory", "Terminal effector")
-vlnplot_CARTEx_response_monaco <- plot_grid(VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'Responder', pt.size = 0, cols = c('dodgerblue', 'indianred')) +
+vlnplot_CARTEx_response_monaco <- plot_grid(VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'Responder', pt.size = 0, cols = c("seagreen", "firebrick")) +
                                               theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + 
                                               ylab("CARTEx 200") + ylim(-2,4),
                                             VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) + 
@@ -211,6 +211,66 @@ generate_figs(umap_stemness_response, paste('./plots/', experiment, '_prepare_um
 
 # https://divingintogeneticsandgenomics.com/post/customize-featureplot-in-seurat-for-multi-condition-comparisons-using-patchwork/
 ### 
+
+
+
+
+####################################################################################################
+######################################### Score Correlations #######################################
+####################################################################################################
+
+
+
+table_monaco_phase <- table(expt.obj@meta.data$monaco, expt.obj@meta.data$Phase)
+corr_monaco_phase <- CorrespondenceAnalysisPlot(table_monaco_phase, "Monaco", "Phase")
+generate_figs(corr_monaco_phase, paste('./plots/', experiment, '_prepare_corr_monaco_phase', sep = ''), c(4,4))
+
+table_CARTEx_200_NKlike <- table(expt.obj@meta.data$CARTEx_200i, expt.obj@meta.data$NKlike_Texi)
+corr_CARTEx_200_NKlike <- CorrespondenceAnalysisPlot(table_CARTEx_200_NKlike, "CARTEx_200i", "NKlike_Texi")
+generate_figs(corr_CARTEx_200_NKlike, paste('./plots/', experiment, '_prepare_corr_CARTEx_200_NKlike', sep = ''), c(4,4))
+
+
+
+
+
+
+scatter_CARTEx_200_LCMV <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'LCMV_Tex', shuffle = TRUE, pt.size = 0.1, group.by = 'Responder', cols =  c("seagreen", "firebrick")) + 
+  theme_classic() + theme(plot.title = element_blank(), legend.position="none") + xlim(c(-3, 6)) + ylim(c(-3, 6))
+generate_figs(scatter_CARTEx_200_LCMV, paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_LCMV', sep = ''), c(2,2))
+
+scatter_CARTEx_200_NKlike <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'NKlike_Tex', shuffle = TRUE, pt.size = 0.1, group.by = 'Responder', cols =  c("seagreen", "firebrick")) + 
+  theme_classic() + theme(plot.title = element_blank(), legend.position="none") + xlim(c(-3, 6)) + ylim(c(-3, 6))
+generate_figs(scatter_CARTEx_200_NKlike, paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_NKlike', sep = ''), c(2,2))
+
+scatter_CARTEx_200_BBD <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'BBD_Tex', shuffle = TRUE, pt.size = 0.1, group.by = 'Responder', cols =  c("seagreen", "firebrick")) + 
+  theme_classic() + theme(plot.title = element_blank(), legend.position="none") + xlim(c(-3, 6)) + ylim(c(-3, 6))
+generate_figs(scatter_CARTEx_200_BBD, paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_BBD', sep = ''), c(2,2))
+
+scatter_CARTEx_200_PD1 <- FeatureScatter(expt.obj, feature1 = 'CARTEx_200', feature2 = 'PD1_Tex', shuffle = TRUE, pt.size = 0.1, group.by = 'Responder', cols =  c("seagreen", "firebrick")) + 
+  theme_classic() + theme(plot.title = element_blank(), legend.position="none") + xlim(c(-3, 6)) + ylim(c(-3, 6))
+generate_figs(scatter_CARTEx_200_PD1, paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_PD1', sep = ''), c(2,2))
+
+
+# alternative figure with marginal histograms
+md <- expt.obj@meta.data %>% as.data.table
+
+scatter_CARTEx_200_LCMV <- ggscatterhist(md, x = "CARTEx_200", y = "LCMV_Tex", color = "Responder", size = 0.1, alpha = 1, palette = c("seagreen", "firebrick"), shuffle = TRUE,
+                                         margin.params = list(fill = "Responder", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_LCMV), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_LCMV', sep = ''), c(2,2))
+
+scatter_CARTEx_200_NKlike <- ggscatterhist(md, x = "CARTEx_200", y = "NKlike_Tex", color = "Responder", size = 0.1, alpha = 1, palette = c("seagreen", "firebrick"), shuffle = TRUE,
+                                           margin.params = list(fill = "Responder", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_NKlike), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_NKlike', sep = ''), c(2,2))
+
+scatter_CARTEx_200_BBD <- ggscatterhist(md, x = "CARTEx_200", y = "BBD_Tex", color = "Responder", size = 0.1, alpha = 1, palette = c("seagreen", "firebrick"), shuffle = TRUE,
+                                        margin.params = list(fill = "Responder", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_BBD), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_BBD', sep = ''), c(2,2))
+
+scatter_CARTEx_200_PD1 <- ggscatterhist(md, x = "CARTEx_200", y = "PD1_Tex", color = "Responder", size = 0.1, alpha = 1, palette = c("seagreen", "firebrick"), shuffle = TRUE,
+                                        margin.params = list(fill = "Responder", color = "black", size = 0.2), xlim = c(-3, 6), ylim = c(-3, 6), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_PD1), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_PD1', sep = ''), c(2,2))
+
+
 
 
 
