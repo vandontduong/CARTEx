@@ -46,7 +46,7 @@ colnames(reformat) <- c('Identifier', 'Genes', 'Total cells', 'Pre-QC CD8+ T cel
 
 summarize_expts <- merge(df_experiments, reformat, by = 'Identifier')
 
-write.csv(summarize_expts, "./summarize_expts.csv", row.names=FALSE)
+write.csv(summarize_expts, "../miscellaneous/summarize_expts.csv", row.names=FALSE)
 
 
 
