@@ -56,6 +56,8 @@ General procedure for scRNAseq analyses:
 
 ## Datasets <a name = "datasets"></a>
 
+Below are the datasets that we explored, from which we selected a subset to do deeper analysis on. In all datasets, we filtered for CD8+ T cells. Gene counts and cell counts before and after quality control filters were recorded in [`summarize_expts.csv`](miscellaneous/summarize_expts.csv).
+
 | Type | Identifier | Experiment | Study |
 |:----:|:----------:|------------|-------|
 | RNAseq | [GSE136891](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136891) | Healthy T cells driven to exhaustion with tonically signaling CAR | [Lynn et al. 2019 Nature](https://pubmed.ncbi.nlm.nih.gov/31802004/) |
