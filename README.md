@@ -103,6 +103,7 @@ We built custom functions and archived these within [`cartex-utilities.R`](carte
 - `SignatureScore()` to score cells using a weighted signature
 - `EntropyScore()` to build an entropy model based on [ROGUE](https://github.com/PaulingLiu/ROGUE)
 - `PseudoBulkLabels()` to construct a metadata vector to assign cells according to pseudo-bulk samples
+- `ScoreSubroutine()` to quickly recompute signature scores for CARTEx, cell states, other dysfunctions, etc.  
 
 We installed and used several packages from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/web/packages/ggpubr/index.html) and [Bioconductor](https://bioconductor.org/), sourced in [`cartex-utilities.R`](cartex-utilities.R), including:
 - [`Seurat`](https://cran.r-project.org/web/packages/Seurat/index.html): toolkit for single-cell RNA sequencing analysis
