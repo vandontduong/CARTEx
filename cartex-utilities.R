@@ -63,6 +63,9 @@ Z <- function(s){
   return(z)
 }
 
+
+
+
 #####
 # function: generate_figs() saves figures in jpeg and pdf formats
 # @ figure_object: an object that visualizes data
@@ -82,6 +85,11 @@ generate_figs <- function(figure_object, file_name, dimensions){
   return (paste("generating figure for ", file_name))
 }
 
+
+
+
+
+
 #####
 # function: round scores to nearest integer; cut-off at +/-4
 # @ score: vector of floats
@@ -92,6 +100,10 @@ integerize <- function(score){
   score_mod[score_mod >= 4] <- 4
   return (score_mod)
 }
+
+
+
+
 
 #####
 # function: check metadata levels() and return "NULL" if levels() does not exist
@@ -109,6 +121,10 @@ check_levels <- function(atlas){
     }
     cat("\n")}
 }
+
+
+
+
 
 #####
 
@@ -153,6 +169,10 @@ ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncol
   combined_plots <- wrap_plots(plot.list, ncol = ncols)
   return(combined_plots)
 }
+
+
+
+
 
 #####
 # function: 
@@ -241,6 +261,12 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 # WhichCells(object = integration.obj, expression = identifier == experiment)
 # Cells(integration.obj[, integration.obj[['identifier']] == experiment])
 
+
+
+
+
+
+
 #####
 # function: correspondence analysis from contingency tables
 # @ Seurat object
@@ -290,6 +316,11 @@ CorrespondenceAnalysisPlot <- function(contingency_table, row_lab, col_lab){
 # https://www.r-bloggers.com/2019/08/correspondence-analysis-visualization-using-ggplot/
 
 
+
+
+
+
+
 #####
 # function: clean up table and remove any rows or columns that are all zero values
 CleanTable <- function(tab){
@@ -333,6 +364,11 @@ HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group)
 # https://bioinformatics.stackexchange.com/questions/4851/how-i-can-reproduce-this-heat-map
 
 
+
+
+
+
+
 #####
 # function: Bar plot stacked and split according to two different identity groups
 # @ atlas: Seurat object
@@ -373,6 +409,10 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 # expt.obj@meta.data$percent.CARTEx_630 <- PercentageFeatureSet(expt.obj, features = intersect(all.genes, rownames(cartex_630_weights)), assay = 'RNA')[1:length(Cells(expt.obj))]
 # expt.obj@meta.data$PFSD_CARTEx_630 <- PercentageFeatureSetDetected(expt.obj, rownames(cartex_630_weights)) 
 
+
+
+
+
 #####
 # score cells using weighted signature
 
@@ -383,6 +423,10 @@ SignatureScore <- function(atlas, sig_weights){
   scores <- expr %*% as.matrix(weights)
   return(scores)
 }
+
+
+
+
 
 #####
 # build entropy model based on ROGUE procedure
@@ -427,7 +471,9 @@ read.tcsv <- function(file, header=TRUE, sep=",", ...) {
 }
 
 
-
+#####
+# function: subroutine for scoring signatures, including CARTEx, cell states, other dysfunction
+# @ Seurat object
 
 ScoreSubroutine <- function(atlas) {
   
