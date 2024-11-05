@@ -38,12 +38,14 @@ General procedure for scRNAseq analyses:
     - Normalized counts by log transformation
     - Identified highly variable features
     - Scaled data to prepare for dimensionality reduction
-    - Performed principal components analysis
-    - Clustered cells using k-nearest neighbors (KNN) with edges drawn between cells with similar gene expression patterns
+    - Performed principal components analysis (PCA), which is a linear dimensional reduction technique, and determine 'dimensionality' of the dataset
+    - Clustered cells using k-nearest neighbors (KNN) with edges drawn between cells with similar gene expression patterns (i.e. euclidian distance in PCA space)
+    - Performed non-linear dimensional reductions, including Uniform Manifold Approximation and Projection for Dimension Reduction (UMAP) and [`destiny`](https://www.bioconductor.org/packages/release/bioc/html/destiny.html) diffusion
   - Analyzed cell cycle phase using modified pipeline from [Seurat cell cycle tutorial](https://satijalab.org/seurat/articles/cell_cycle_vignette.html)
-  - Annotated cell type using reference-based [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
+  - Annotated cell type differentiation using reference-based [SingleR](https://bioconductor.org/packages/release/bioc/html/SingleR.html)
   - Calculated cell state scores using Seurat [`AddModuleScore()`](https://www.rdocumentation.org/packages/Seurat/versions/4.3.0/topics/AddModuleScore)
-  - Visualized annotated cells by embedding into Uniform Manifold Approximation and Projection for Dimension Reduction (UMAP) or diffusion maps
+  - Compute exhaustion using CARTEx scoring procedure
+  - Visualized annotated cells in the context of different embeddings (PCA, UMAP, diffusion)
 2. Integrated datasets
   - Integrated with reference-based reciprocal PCA using modified pipeline from [Seurat fast integration tutorial](https://satijalab.org/seurat/articles/integration_rpca.html) and [Seurat reference mapping tutorial](https://satijalab.org/seurat/articles/integration_mapping.html)
     - Increased strength of alignment (e.g. `k.anchor = 20`)
