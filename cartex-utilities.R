@@ -175,7 +175,8 @@ ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncol
 
 
 ###############
-# function: 
+# function: ChoosePC() to select principal components to capture most of the variation
+# @ atlas: Seurat object
 
 ChoosePC <- function(atlas){
   # Determine percent of variation associated with each PC
@@ -195,6 +196,9 @@ ChoosePC <- function(atlas){
 
 
 ###############
+# function: generate diffusion embeddings and attach to Seurat object
+# @ atlas: Seurat object
+# @ k_int: number of nearest neighbor to consider
 
 RunDiffusion <- function(atlas, k_int){
   sce <- as.SingleCellExperiment(atlas)
@@ -215,7 +219,7 @@ RunDiffusion <- function(atlas, k_int){
 
 ###############
 # function: DimPlot() customized to highlight cells by identity group
-# @ Seurat object
+# @ atlas: Seurat object with features relevant for quality control
 # @ identity: string describing the relevant metadata identity group
 # @ reduction_map: string describing the relevant dimensionality reduction method
 # @ highlight_color: string describing the color of the highlighted datapoints
@@ -332,6 +336,8 @@ CleanTable <- function(tab){
 
 ###############
 # function: heatmap
+# @ atlas: Seurat object
+# @ gene_list: gene list to select for
 
 HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group){
   meta_data <- atlas@meta.data
@@ -394,8 +400,9 @@ BarPlotStackSplit <- function(atlas, x_identity, y_identity, color_set = NULL){
 
 
 ###############
-# PercentageFeatureSet() customized to compute percentage of feature set detected, i.e. expression level is non-zero, rather than what percentage it is of all transcripts
+# function: PercentageFeatureSet() customized to compute percentage of feature set detected, i.e. expression level is non-zero, rather than what percentage it is of all transcripts
 # Examine CARTEx representation at single-cell resolution
+# @ atlas: Seurat object
 
 PercentageFeatureSetDetected <- function(atlas, feature_set){
   all.genes <- rownames(atlas)
@@ -419,7 +426,9 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 
 
 ###############
-# score cells using weighted signature
+# function: score cells using weighted signature
+# @ atlas: Seurat object
+# @ sig_weights: apply weights for scoring
 
 SignatureScore <- function(atlas, sig_weights){
   common <- intersect(rownames(sig_weights), rownames(atlas))
@@ -486,7 +495,7 @@ read.tcsv <- function(file, header=TRUE, sep=",", ...) {
 
 ###############
 # function: subroutine for scoring signatures, including CARTEx, cell states, other dysfunction
-# @ Seurat object
+# @ atlas: Seurat object
 
 ScoreSubroutine <- function(atlas) {
   
