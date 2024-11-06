@@ -54,8 +54,8 @@ PATH_WEIGHTS <- paste(PATH_CARTEX, 'weights/', sep = '')
 ######################################### General functions ########################################
 ####################################################################################################
 
-#####
-# Z score
+###############
+# function: Z score
 
 Z <- function(s){
   s <- as.numeric(s)
@@ -66,7 +66,7 @@ Z <- function(s){
 
 
 
-#####
+###############
 # function: generate_figs() saves figures in jpeg and pdf formats
 # @ figure_object: an object that visualizes data
 # @ file_name: desired output file name (excluding extension)
@@ -90,7 +90,7 @@ generate_figs <- function(figure_object, file_name, dimensions){
 
 
 
-#####
+###############
 # function: round scores to nearest integer; cut-off at +/-4
 # @ score: vector of floats
 
@@ -105,7 +105,7 @@ integerize <- function(score){
 
 
 
-#####
+###############
 # function: check metadata levels() and return "NULL" if levels() does not exist
 # need to update levels() for anything that results in "not NULL"
 # @ atlas: Seurat object with metadata
@@ -126,7 +126,7 @@ check_levels <- function(atlas){
 
 
 
-#####
+###############
 
 SortNumStrList <- function(num_str_list, shift){
   if(shift == TRUE){
@@ -136,7 +136,7 @@ SortNumStrList <- function(num_str_list, shift){
 }
 
 
-#####
+###############
 # function: VlnPlot() customized to show cutoff thresholds for quality control filters
 # only use on original dataset before QC filtering, otherwise it will not display the non-filtered datapoints
 # @ atlas: Seurat object with features relevant for quality control
@@ -174,7 +174,7 @@ ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncol
 
 
 
-#####
+###############
 # function: 
 
 ChoosePC <- function(atlas){
@@ -194,7 +194,7 @@ ChoosePC <- function(atlas){
 # https://hbctraining.github.io/scRNA-seq/lessons/elbow_plot_metric.html
 
 
-#####
+###############
 
 RunDiffusion <- function(atlas, k_int){
   sce <- as.SingleCellExperiment(atlas)
@@ -213,7 +213,7 @@ RunDiffusion <- function(atlas, k_int){
 # https://github.com/satijalab/seurat/issues/1475
 # https://satijalab.org/seurat/archive/v3.0/dim_reduction_vignette.html
 
-#####
+###############
 # function: DimPlot() customized to highlight cells by identity group
 # @ Seurat object
 # @ identity: string describing the relevant metadata identity group
@@ -267,7 +267,7 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 
 
 
-#####
+###############
 # function: correspondence analysis from contingency tables
 # @ Seurat object
 # @ identity: string describing the relevant metadata identity group
@@ -321,7 +321,7 @@ CorrespondenceAnalysisPlot <- function(contingency_table, row_lab, col_lab){
 
 
 
-#####
+###############
 # function: clean up table and remove any rows or columns that are all zero values
 CleanTable <- function(tab){
   tab <- tab[rowSums(tab) > 0, colSums(tab) > 0]
@@ -330,7 +330,7 @@ CleanTable <- function(tab){
 
 
 
-#####
+###############
 # function: heatmap
 
 HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group){
@@ -369,7 +369,7 @@ HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group)
 
 
 
-#####
+###############
 # function: Bar plot stacked and split according to two different identity groups
 # @ atlas: Seurat object
 # @ x_identity: string describing the relevant metadata identity group to stack by
@@ -388,7 +388,12 @@ BarPlotStackSplit <- function(atlas, x_identity, y_identity, color_set = NULL){
   return(barplot)
 }
 
-#####
+
+
+
+
+
+###############
 # PercentageFeatureSet() customized to compute percentage of feature set detected, i.e. expression level is non-zero, rather than what percentage it is of all transcripts
 # Examine CARTEx representation at single-cell resolution
 
@@ -413,7 +418,7 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 
 
 
-#####
+###############
 # score cells using weighted signature
 
 SignatureScore <- function(atlas, sig_weights){
@@ -428,7 +433,7 @@ SignatureScore <- function(atlas, sig_weights){
 
 
 
-#####
+###############
 # build entropy model based on ROGUE procedure
 
 EntropyScore <- function(atlas, col_labels, col_samples){
@@ -441,7 +446,11 @@ EntropyScore <- function(atlas, col_labels, col_samples){
   return(results)
 }
 
-#####
+
+
+
+
+###############
 # construct a metadata vector to assign cells according to pseudo-bulk samples
 
 PseudoBulkLabels <- function(atlas, pseudo_samples){
@@ -450,7 +459,11 @@ PseudoBulkLabels <- function(atlas, pseudo_samples){
   return(labels)
 }
 
-#####
+
+
+
+
+###############
 # read tcsv files, e.g. for GSE120575 pre-processing
 
 read.tcsv <- function(file, header=TRUE, sep=",", ...) {
@@ -471,7 +484,7 @@ read.tcsv <- function(file, header=TRUE, sep=",", ...) {
 }
 
 
-#####
+###############
 # function: subroutine for scoring signatures, including CARTEx, cell states, other dysfunction
 # @ Seurat object
 
@@ -570,7 +583,7 @@ CustomKeyValPairsVolcanoPlot <- function(de_genes, select_genes, select_genes_na
 
 
 
-#####
+###############
 # function: FeaturePlot with improved split.by functionality
 # @ atlas: Seurat object
 # @ features: string describing the relevant feature(s) to map
