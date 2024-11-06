@@ -54,8 +54,10 @@ PATH_WEIGHTS <- paste(PATH_CARTEX, 'weights/', sep = '')
 ######################################### General functions ########################################
 ####################################################################################################
 
-###############
-# function: Z score
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
+# function: Z score normalization
+# @ s: score
 
 Z <- function(s){
   s <- as.numeric(s)
@@ -66,7 +68,8 @@ Z <- function(s){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: generate_figs() saves figures in jpeg and pdf formats
 # @ figure_object: an object that visualizes data
 # @ file_name: desired output file name (excluding extension)
@@ -90,7 +93,8 @@ generate_figs <- function(figure_object, file_name, dimensions){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: round scores to nearest integer; cut-off at +/-4
 # @ score: vector of floats
 
@@ -105,7 +109,8 @@ integerize <- function(score){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: check metadata levels() and return "NULL" if levels() does not exist
 # need to update levels() for anything that results in "not NULL"
 # @ atlas: Seurat object with metadata
@@ -126,7 +131,8 @@ check_levels <- function(atlas){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 
 SortNumStrList <- function(num_str_list, shift){
   if(shift == TRUE){
@@ -136,7 +142,8 @@ SortNumStrList <- function(num_str_list, shift){
 }
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: VlnPlot() customized to show cutoff thresholds for quality control filters
 # only use on original dataset before QC filtering, otherwise it will not display the non-filtered datapoints
 # @ atlas: Seurat object with features relevant for quality control
@@ -174,7 +181,8 @@ ViolinPlotQC <- function(atlas, metrics, low_cutoff, high_cutoff, identity, ncol
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: ChoosePC() to select principal components to capture most of the variation
 # @ atlas: Seurat object
 
@@ -195,7 +203,8 @@ ChoosePC <- function(atlas){
 # https://hbctraining.github.io/scRNA-seq/lessons/elbow_plot_metric.html
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: generate diffusion embeddings and attach to Seurat object
 # @ atlas: Seurat object
 # @ k_int: number of nearest neighbor to consider
@@ -217,7 +226,13 @@ RunDiffusion <- function(atlas, k_int){
 # https://github.com/satijalab/seurat/issues/1475
 # https://satijalab.org/seurat/archive/v3.0/dim_reduction_vignette.html
 
-###############
+
+
+
+
+
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: DimPlot() customized to highlight cells by identity group
 # @ atlas: Seurat object with features relevant for quality control
 # @ identity: string describing the relevant metadata identity group
@@ -225,20 +240,6 @@ RunDiffusion <- function(atlas, k_int){
 # @ highlight_color: string describing the color of the highlighted datapoints
 # @ pt_size: string describing the size of the datapoints
 # @ ncols: number of columns to split the resulting figure into
-
-# DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
-#   plot.list <- list()
-#   for (i in sapply(unique(x = atlas[[deparse(substitute(identity))]]), levels)) {
-#     plot.list[[i]] <- DimPlot(
-#       object = atlas, reduction = reduction_map, raster = FALSE, cols.highlight = highlight_color, pt.size = pt_size, sizes.highlight = pt_size,
-#       cells.highlight = Cells(atlas[, atlas[[deparse(substitute(identity))]] == i])
-#     ) + NoLegend() + ggtitle(i)
-#   }
-#   # combined_plots <- CombinePlots(plots = plot.list, ncol = ncols)
-#   combined_plots <- Reduce(`+`, plot.list) + patchwork::plot_layout(ncol = ncols)
-#   return(combined_plots)
-# }
-
 
 DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_color, pt_size, ncols){
   plot.list <- list()
@@ -271,9 +272,10 @@ DimPlotHighlightIdents <- function(atlas, identity, reduction_map, highlight_col
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: correspondence analysis from contingency tables
-# @ Seurat object
+# @ atlas: Seurat object
 # @ identity: string describing the relevant metadata identity group
 # @ reduction_map: string describing the relevant dimensionality reduction method
 # @ highlight_color: string describing the color of the highlighted datapoints
@@ -325,8 +327,11 @@ CorrespondenceAnalysisPlot <- function(contingency_table, row_lab, col_lab){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: clean up table and remove any rows or columns that are all zero values
+# @ tab: table to clean up
+
 CleanTable <- function(tab){
   tab <- tab[rowSums(tab) > 0, colSums(tab) > 0]
 }
@@ -334,7 +339,8 @@ CleanTable <- function(tab){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: heatmap
 # @ atlas: Seurat object
 # @ gene_list: gene list to select for
@@ -375,7 +381,8 @@ HeatmapWithMultiGroups <- function(atlas, gene_list, anno_colors, sort_by_group)
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: Bar plot stacked and split according to two different identity groups
 # @ atlas: Seurat object
 # @ x_identity: string describing the relevant metadata identity group to stack by
@@ -399,10 +406,12 @@ BarPlotStackSplit <- function(atlas, x_identity, y_identity, color_set = NULL){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: PercentageFeatureSet() customized to compute percentage of feature set detected, i.e. expression level is non-zero, rather than what percentage it is of all transcripts
 # Examine CARTEx representation at single-cell resolution
 # @ atlas: Seurat object
+# @ feature_set: gene set to evaluate on
 
 PercentageFeatureSetDetected <- function(atlas, feature_set){
   all.genes <- rownames(atlas)
@@ -425,7 +434,8 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: score cells using weighted signature
 # @ atlas: Seurat object
 # @ sig_weights: apply weights for scoring
@@ -442,8 +452,12 @@ SignatureScore <- function(atlas, sig_weights){
 
 
 
-###############
-# build entropy model based on ROGUE procedure
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
+# function: build entropy model based on ROGUE procedure
+# @ atlas: Seurat object
+# @ col_labels: 
+# @ col_samples: 
 
 EntropyScore <- function(atlas, col_labels, col_samples){
   expr <- atlas@assays$RNA@layers$data
@@ -459,8 +473,11 @@ EntropyScore <- function(atlas, col_labels, col_samples){
 
 
 
-###############
-# construct a metadata vector to assign cells according to pseudo-bulk samples
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
+# function: construct a metadata vector to assign cells according to pseudo-bulk samples
+# @ atlas: Seurat object
+# @ pseudo_samples: 
 
 PseudoBulkLabels <- function(atlas, pseudo_samples){
   num_cells <- length(Cells(atlas))
@@ -472,8 +489,9 @@ PseudoBulkLabels <- function(atlas, pseudo_samples){
 
 
 
-###############
-# read tcsv files, e.g. for GSE120575 pre-processing
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
+# function: read tcsv files, e.g. for GSE120575 pre-processing
 
 read.tcsv <- function(file, header=TRUE, sep=",", ...) {
   n <- max(count.fields(file, sep=sep), na.rm=TRUE)
@@ -493,7 +511,8 @@ read.tcsv <- function(file, header=TRUE, sep=",", ...) {
 }
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: subroutine for scoring signatures, including CARTEx, cell states, other dysfunction
 # @ atlas: Seurat object
 
@@ -573,6 +592,12 @@ ScoreSubroutine <- function(atlas) {
   return(atlas)
 }
 
+
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
+# function: generate custom annotations
+# @ de_genes: 
+
 CustomKeyValPairsVolcanoPlot <- function(de_genes, select_genes, select_genes_name) {
   keyvals <- list()
   keyvals$shape <- ifelse(rownames(de_genes) %in% select_genes, 17, 1)
@@ -592,7 +617,8 @@ CustomKeyValPairsVolcanoPlot <- function(de_genes, select_genes, select_genes_na
 
 
 
-###############
+############################
+#^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: FeaturePlot with improved split.by functionality
 # @ atlas: Seurat object
 # @ features: string describing the relevant feature(s) to map
