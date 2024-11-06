@@ -133,6 +133,7 @@ check_levels <- function(atlas){
 
 ############################
 #^^^^^^^^^^^^^^^^^^^^^^^^^^#
+# function: sort list
 
 SortNumStrList <- function(num_str_list, shift){
   if(shift == TRUE){
@@ -140,6 +141,9 @@ SortNumStrList <- function(num_str_list, shift){
   }
   return(as.character(sort(as.numeric(num_str_list))))
 }
+
+
+
 
 
 ############################
@@ -597,6 +601,8 @@ ScoreSubroutine <- function(atlas) {
 #^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # function: generate custom annotations
 # @ de_genes: 
+# @ select_genes: 
+# @ select_genes_name: 
 
 CustomKeyValPairsVolcanoPlot <- function(de_genes, select_genes, select_genes_name) {
   keyvals <- list()
