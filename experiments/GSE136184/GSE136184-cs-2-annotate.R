@@ -246,79 +246,12 @@ saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_annotated.rds', sep =
 
 
 ####################################################################################################
-########################################### CARTEx scoring #########################################
+######################################### Signature scoring ########################################
 ####################################################################################################
 
-# CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
-expt.obj@meta.data$CARTEx_630 <- Z(SignatureScore(expt.obj, cartex_630_weights))
-expt.obj@meta.data$CARTEx_630i <- integerize(expt.obj@meta.data$CARTEx_630)
-
-# CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
-expt.obj@meta.data$CARTEx_200 <- Z(SignatureScore(expt.obj, cartex_200_weights))
-expt.obj@meta.data$CARTEx_200i <- integerize(expt.obj@meta.data$CARTEx_200)
-
-# CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
-expt.obj@meta.data$CARTEx_84 <- Z(SignatureScore(expt.obj, cartex_84_weights))
-expt.obj@meta.data$CARTEx_84i <- integerize(expt.obj@meta.data$CARTEx_84)
+expt.obj <- ScoreSubroutine(expt.obj)
 
 
-####################################################################################################
-########################################### Module scoring #########################################
-####################################################################################################
-
-activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
-anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
-stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
-senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
-
-expt.obj <- AddModuleScore(expt.obj, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
-
-# z score normalization
-expt.obj@meta.data$Activation <- scale(expt.obj@meta.data$State1)
-expt.obj@meta.data$Anergy <- scale(expt.obj@meta.data$State2)
-expt.obj@meta.data$Stemness <- scale(expt.obj@meta.data$State3)
-expt.obj@meta.data$Senescence <- scale(expt.obj@meta.data$State4)
-
-expt.obj@meta.data$Activationi <- integerize(expt.obj@meta.data$Activation)
-expt.obj@meta.data$Anergyi <- integerize(expt.obj@meta.data$Anergy)
-expt.obj@meta.data$Stemnessi <- integerize(expt.obj@meta.data$Stemness)
-expt.obj@meta.data$Senescencei <- integerize(expt.obj@meta.data$Senescence)
-
-expt.obj@meta.data$Activationi <- factor(expt.obj@meta.data$Activationi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-expt.obj@meta.data$Anergyi <- factor(expt.obj@meta.data$Anergyi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-expt.obj@meta.data$Stemnessi <- factor(expt.obj@meta.data$Stemnessi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-expt.obj@meta.data$Senescencei <- factor(expt.obj@meta.data$Senescencei, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-
-expt.obj@meta.data$State1 <- NULL
-expt.obj@meta.data$State2 <- NULL
-expt.obj@meta.data$State3 <- NULL
-expt.obj@meta.data$State4 <- NULL
-
-# examine other signatures
-NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
-Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
-BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
-PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
-
-expt.obj <- AddModuleScore(expt.obj, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
-
-expt.obj@meta.data$NKlike_Tex <- scale(expt.obj@meta.data$Signature1)
-expt.obj@meta.data$LCMV_Tex <- scale(expt.obj@meta.data$Signature2)
-expt.obj@meta.data$BBD_Tex <- scale(expt.obj@meta.data$Signature3)
-expt.obj@meta.data$PD1_Tex <- scale(expt.obj@meta.data$Signature4)
-
-expt.obj@meta.data$NKlike_Texi <- integerize(expt.obj@meta.data$NKlike_Tex)
-expt.obj@meta.data$LCMV_Texi <- integerize(expt.obj@meta.data$LCMV_Tex)
-expt.obj@meta.data$BBD_Texi <- integerize(expt.obj@meta.data$BBD_Tex)
-expt.obj@meta.data$PD1_Texi <- integerize(expt.obj@meta.data$PD1_Tex)
-
-expt.obj@meta.data$Signature1 <- NULL
-expt.obj@meta.data$Signature2 <- NULL
-expt.obj@meta.data$Signature3 <- NULL
-expt.obj@meta.data$Signature4 <- NULL
 
 # UMAP of cell state scores
 umap_sig_activationi <- DimPlot(expt.obj, group.by = "Activationi", shuffle = TRUE, seed = 123)
@@ -360,6 +293,7 @@ umap_NKlike_Tex <- FeaturePlot(expt.obj, features = c("NKlike_Tex"), order = FAL
 umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_TSR <- FeaturePlot(expt.obj, features = c("TSR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_84', sep = ''), c(2.8, 2))
 generate_figs(umap_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200', sep = ''), c(2.8, 2))
@@ -372,6 +306,7 @@ generate_figs(umap_NKlike_Tex, paste('./plots/', experiment, '_cs_prepare_umap_N
 generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_cs_prepare_umap_LCMV_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_cs_prepare_umap_BBD_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_cs_prepare_umap_PD1_Tex', sep = ''), c(2.8, 2))
+generate_figs(umap_TSR, paste('./plots/', experiment, '_cs_prepare_umap_TSR', sep = ''), c(2.8, 2))
 
 # Examine CARTEx scores grouped by age group
 vlnplot_CARTEx_630_age_group <- VlnPlot(expt.obj, feature = c("CARTEx_630"), group.by = "AgeGroup2", pt.size = 0) + theme(legend.position = 'none') + ylim(c(-3, 4)) + stat_summary(fun.y = median, geom='point', size = 10, colour = "black", shape = 95)

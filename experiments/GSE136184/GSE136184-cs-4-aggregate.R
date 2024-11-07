@@ -75,80 +75,11 @@ expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('AgeGroup2', 'monaco'
 
 
 
-
 ####################################################################################################
-########################################### CARTEx scoring #########################################
-####################################################################################################
-
-# CARTEx with weights // 630 genes
-cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
-expt.obj.agg@meta.data$CARTEx_630 <- Z(SignatureScore(expt.obj.agg, cartex_630_weights))
-expt.obj.agg@meta.data$CARTEx_630i <- integerize(expt.obj.agg@meta.data$CARTEx_630)
-
-# CARTEx with weights // 200 genes
-cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
-expt.obj.agg@meta.data$CARTEx_200 <- Z(SignatureScore(expt.obj.agg, cartex_200_weights))
-expt.obj.agg@meta.data$CARTEx_200i <- integerize(expt.obj.agg@meta.data$CARTEx_200)
-
-# CARTEx with weights // 84 genes
-cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
-expt.obj.agg@meta.data$CARTEx_84 <- Z(SignatureScore(expt.obj.agg, cartex_84_weights))
-expt.obj.agg@meta.data$CARTEx_84i <- integerize(expt.obj.agg@meta.data$CARTEx_84)
-
-####################################################################################################
-########################################### Module scoring #########################################
+######################################### Signature scoring ########################################
 ####################################################################################################
 
-activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = TRUE, row.names = 1))
-anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = TRUE, row.names = 1))
-stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = TRUE, row.names = 1))
-senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
-
-expt.obj.agg <- AddModuleScore(expt.obj.agg, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
-
-# z score normalization
-expt.obj.agg@meta.data$Activation <- scale(expt.obj.agg@meta.data$State1)
-expt.obj.agg@meta.data$Anergy <- scale(expt.obj.agg@meta.data$State2)
-expt.obj.agg@meta.data$Stemness <- scale(expt.obj.agg@meta.data$State3)
-expt.obj.agg@meta.data$Senescence <- scale(expt.obj.agg@meta.data$State4)
-
-expt.obj.agg@meta.data$Activationi <- integerize(expt.obj.agg@meta.data$Activation)
-expt.obj.agg@meta.data$Anergyi <- integerize(expt.obj.agg@meta.data$Anergy)
-expt.obj.agg@meta.data$Stemnessi <- integerize(expt.obj.agg@meta.data$Stemness)
-expt.obj.agg@meta.data$Senescencei <- integerize(expt.obj.agg@meta.data$Senescence)
-
-expt.obj.agg@meta.data$Activationi <- factor(expt.obj.agg@meta.data$Activationi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-expt.obj.agg@meta.data$Anergyi <- factor(expt.obj.agg@meta.data$Anergyi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-expt.obj.agg@meta.data$Stemnessi <- factor(expt.obj.agg@meta.data$Stemnessi, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-expt.obj.agg@meta.data$Senescencei <- factor(expt.obj.agg@meta.data$Senescencei, levels = c(4,3,2,1,0,-1,-2,-3,-4))
-
-expt.obj.agg@meta.data$State1 <- NULL
-expt.obj.agg@meta.data$State2 <- NULL
-expt.obj.agg@meta.data$State3 <- NULL
-expt.obj.agg@meta.data$State4 <- NULL
-
-# examine other signatures
-NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = TRUE, row.names = 1))
-Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
-BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = TRUE, row.names = 1))
-PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
-
-expt.obj.agg <- AddModuleScore(expt.obj.agg, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex), name="Signature", search = TRUE)
-
-expt.obj.agg@meta.data$NKlike_Tex <- scale(expt.obj.agg@meta.data$Signature1)
-expt.obj.agg@meta.data$LCMV_Tex <- scale(expt.obj.agg@meta.data$Signature2)
-expt.obj.agg@meta.data$BBD_Tex <- scale(expt.obj.agg@meta.data$Signature3)
-expt.obj.agg@meta.data$PD1_Tex <- scale(expt.obj.agg@meta.data$Signature4)
-
-expt.obj.agg@meta.data$NKlike_Texi <- integerize(expt.obj.agg@meta.data$NKlike_Tex)
-expt.obj.agg@meta.data$LCMV_Texi <- integerize(expt.obj.agg@meta.data$LCMV_Tex)
-expt.obj.agg@meta.data$BBD_Texi <- integerize(expt.obj.agg@meta.data$BBD_Tex)
-expt.obj.agg@meta.data$PD1_Texi <- integerize(expt.obj.agg@meta.data$PD1_Tex)
-
-expt.obj.agg@meta.data$Signature1 <- NULL
-expt.obj.agg@meta.data$Signature2 <- NULL
-expt.obj.agg@meta.data$Signature3 <- NULL
-expt.obj.agg@meta.data$Signature4 <- NULL
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
 
 
 expt.obj.agg$AgeGroup2 <- factor(expt.obj.agg$AgeGroup2, levels = c("Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))

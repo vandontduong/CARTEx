@@ -188,6 +188,9 @@ generate_figs(umap_activation_monaco, paste('./plots/', experiment, '_cs_prepare
 umap_anergy_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Anergy"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
 generate_figs(umap_anergy_monaco, paste('./plots/', experiment, '_cs_prepare_umap_anergy_monaco', sep = ''), c(8,2))
 
+umap_TSR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_TSR_monaco, paste('./plots/', experiment, '_cs_prepare_umap_TSR_monaco', sep = ''), c(8,2))
+
 
 
 
@@ -198,8 +201,12 @@ umap_CARTEx_200_group <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200")
 generate_figs(umap_CARTEx_200_group, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200_group', sep = ''), c(10,2))
 
 
-### 
+umap_TSR_group <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'AgeGroup2', split_ids = c("N", "U30", "U50", "U70", "E"), color_scale = fix.sc)
+generate_figs(umap_TSR_group, paste('./plots/', experiment, '_cs_prepare_umap_TSR_group', sep = ''), c(10,2))
 
+
+### 
+### 
 
 
 
