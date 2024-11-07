@@ -1,0 +1,376 @@
+[1] "The script is starting..."
+                            cell.type           TissueType CancerType
+AAGACTAGACCGCTAC_Cell3      CD8_c3_Tn Primary tumor tissue        AML
+CGCTGTAAAGTGAAAA_Cell4      CD8_c3_Tn Primary tumor tissue        AML
+CGGAAGTTAAAAGTAG_Cell6      CD8_c3_Tn Primary tumor tissue        AML
+TATTCGACCTAGGCTT_Cell7  CD8_c0_t-Teff Primary tumor tissue        AML
+CCAGCAAACCAAGGAG_Cell9      CD8_c3_Tn Primary tumor tissue        AML
+TTCGGACGAAATCGCC_Cell10     CD8_c3_Tn Primary tumor tissue        AML
+                                 batch nFeature_RNA nCount_RNA percent.mt
+AAGACTAGACCGCTAC_Cell3  batch_level1_1          379   1134.981          0
+CGCTGTAAAGTGAAAA_Cell4  batch_level1_1          386   1141.753          0
+CGGAAGTTAAAAGTAG_Cell6  batch_level1_1          502   1371.875          0
+TATTCGACCTAGGCTT_Cell7  batch_level1_1          683   1620.578          0
+CCAGCAAACCAAGGAG_Cell9  batch_level1_1          629   1525.074          0
+TTCGGACGAAATCGCC_Cell10 batch_level1_1          545   1414.081          0
+                           identifier percent.CARTEx_630 PFSD.CARTEx_630
+AAGACTAGACCGCTAC_Cell3  mdandersonTCM           1.702815       1.1111111
+CGCTGTAAAGTGAAAA_Cell4  mdandersonTCM           1.699199       0.9523810
+CGGAAGTTAAAAGTAG_Cell6  mdandersonTCM           1.499499       1.2698413
+TATTCGACCTAGGCTT_Cell7  mdandersonTCM           1.805883       2.0634921
+CCAGCAAACCAAGGAG_Cell9  mdandersonTCM           0.826673       0.7936508
+TTCGGACGAAATCGCC_Cell10 mdandersonTCM           2.086385       1.7460317
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+AAGACTAGACCGCTAC_Cell3           0.9730370             2.0         0.2432592
+CGCTGTAAAGTGAAAA_Cell4           0.6870005             1.0         0.0000000
+CGGAAGTTAAAAGTAG_Cell6           0.1815075             0.5         0.1815075
+TATTCGACCTAGGCTT_Cell7           0.3844430             1.5         0.2562954
+CCAGCAAACCAAGGAG_Cell9           0.4977802             1.5         0.3541711
+TTCGGACGAAATCGCC_Cell10          0.8863137             2.0         0.5109366
+                        PFSD.CARTEx_84 RNA_snn_res.0 RNA_snn_res.0.2
+AAGACTAGACCGCTAC_Cell3        1.190476             0               0
+CGCTGTAAAGTGAAAA_Cell4        0.000000             0               1
+CGGAAGTTAAAAGTAG_Cell6        1.190476             0               0
+TATTCGACCTAGGCTT_Cell7        2.380952             0               1
+CCAGCAAACCAAGGAG_Cell9        2.380952             0               0
+TTCGGACGAAATCGCC_Cell10       2.380952             0               1
+                        RNA_snn_res.0.4 RNA_snn_res.0.6 RNA_snn_res.0.8
+AAGACTAGACCGCTAC_Cell3                0               0               0
+CGCTGTAAAGTGAAAA_Cell4                1               1               0
+CGGAAGTTAAAAGTAG_Cell6                0               0               0
+TATTCGACCTAGGCTT_Cell7                1               1               1
+CCAGCAAACCAAGGAG_Cell9                0               0               0
+TTCGGACGAAATCGCC_Cell10               1               1               0
+                        RNA_snn_res.1 seurat_clusters      S.Score    G2M.Score
+AAGACTAGACCGCTAC_Cell3              0               0 -0.047978132 -0.057098097
+CGCTGTAAAGTGAAAA_Cell4              0               1  0.023250747  0.006851225
+CGGAAGTTAAAAGTAG_Cell6              0               0  0.009696274 -0.058442431
+TATTCGACCTAGGCTT_Cell7              9               1  0.051506728 -0.038714180
+CCAGCAAACCAAGGAG_Cell9              0               0 -0.069582338 -0.083641323
+TTCGGACGAAATCGCC_Cell10             0               1  0.007051170 -0.019631039
+                        Phase old.ident
+AAGACTAGACCGCTAC_Cell3     G1         0
+CGCTGTAAAGTGAAAA_Cell4      S         0
+CGGAAGTTAAAAGTAG_Cell6      S         0
+TATTCGACCTAGGCTT_Cell7      S         9
+CCAGCAAACCAAGGAG_Cell9     G1         0
+TTCGGACGAAATCGCC_Cell10     S         0
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_ridgeplt"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_PCAplot"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_PCAplot_regressed"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_barplot_phase"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_phase"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+         <fctr>            <fctr> <int>
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine     N
+             <char>                        <char> <int>
+ 1:    CD8+ T cells             Naive CD8 T cells     4
+ 2:    CD8+ T cells    Central memory CD8 T cells     4
+ 3:    CD8+ T cells   Effector memory CD8 T cells     4
+ 4:    CD8+ T cells Terminal effector CD8 T cells     4
+ 5:         T cells                    MAIT cells     4
+ 6:         T cells                Vd2 gd T cells     4
+ 7:         T cells            Non-Vd2 gd T cells     4
+ 8:    CD4+ T cells     Follicular helper T cells     4
+ 9:    CD4+ T cells            T regulatory cells     4
+10:    CD4+ T cells                     Th1 cells     4
+11:    CD4+ T cells                Th1/Th17 cells     4
+12:    CD4+ T cells                    Th17 cells     4
+13:    CD4+ T cells                     Th2 cells     4
+14:    CD4+ T cells             Naive CD4 T cells     4
+15:     Progenitors              Progenitor cells     4
+16:         B cells                 Naive B cells     4
+17:         B cells   Non-switched memory B cells     4
+18:         B cells             Exhausted B cells     4
+19:         B cells       Switched memory B cells     4
+20:         B cells                  Plasmablasts     4
+21:       Monocytes           Classical monocytes     4
+22:       Monocytes        Intermediate monocytes     4
+23:       Monocytes       Non classical monocytes     4
+24:        NK cells          Natural killer cells     4
+25: Dendritic cells  Plasmacytoid dendritic cells     4
+26: Dendritic cells       Myeloid dendritic cells     4
+27:     Neutrophils       Low-density neutrophils     4
+28:       Basophils         Low-density basophils     4
+29:    CD4+ T cells Terminal effector CD4 T cells     2
+         label.main                    label.fine     N
+[1] "CD8+ T cells"
+       label.main                       label.fine     N
+           <char>                           <char> <int>
+ 1:       B cells                   B cells, naive   106
+ 2:     Monocytes                 Monocytes, CD14+   106
+ 3:     Monocytes                 Monocytes, CD16+   105
+ 4:      NK cells                         NK cells   105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG   104
+ 6: T cells, CD4+             T cells, CD4+, naive   103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated   102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG   104
+ 9: T cells, CD4+               T cells, CD4+, TFH   104
+10: T cells, CD4+               T cells, CD4+, Th1   104
+11: T cells, CD4+            T cells, CD4+, Th1_17   104
+12: T cells, CD4+              T cells, CD4+, Th17   104
+13: T cells, CD4+               T cells, CD4+, Th2   104
+14: T cells, CD8+             T cells, CD8+, naive   104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated   102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+    53757 
+                         azimuth
+AAGACTAGACCGCTAC_Cell3 CD8 Naive
+[1] "generating figure for  ./plots/mdandersonTCM_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                         6430                         37850 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                         2530                          6947 
+                                                 monaco
+AAGACTAGACCGCTAC_Cell3    Terminal effector CD8 T cells
+CGCTGTAAAGTGAAAA_Cell4      Effector memory CD8 T cells
+CGGAAGTTAAAAGTAG_Cell6       Central memory CD8 T cells
+CCCTCCGAGGCGAGTA_Cell1468             Naive CD8 T cells
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_predicted_monaco"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                           51920                             1837 
+                                                   dice
+AAGACTAGACCGCTAC_Cell3 T cells, CD8+, naive, stimulated
+CGCTGTAAAGTGAAAA_Cell4             T cells, CD8+, naive
+[1] "generating figure for  ./plots/mdandersonTCM_umap_predicted_dice"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+2: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+7: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+8: CD8 Naive             Naive CD8 T cells T cells, CD8+, naive, stimulated
+       N
+   <int>
+1:   168
+2: 36269
+3:    80
+4:  6779
+5:  1581
+6:  6350
+7:  2522
+8:     8
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_barplot_dice_seurat_clusters"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_activationi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_activationi_highlight"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_anergyi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_anergyi_highlight"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_stemnessi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_stemnessi_highlight"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_senescencei"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_senescencei_highlight"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_CARTEx_84"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_CARTEx_200"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_CARTEx_630"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_activation"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_anergy"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_stemness"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_sig_senescence"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_NKlike_Tex"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_LCMV_Tex"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_BBD_Tex"
+[1] "generating figure for  ./plots/mdandersonTCM_prepare_umap_PD1_Tex"
+                            cell.type           TissueType CancerType
+AAGACTAGACCGCTAC_Cell3      CD8_c3_Tn Primary tumor tissue        AML
+CGCTGTAAAGTGAAAA_Cell4      CD8_c3_Tn Primary tumor tissue        AML
+CGGAAGTTAAAAGTAG_Cell6      CD8_c3_Tn Primary tumor tissue        AML
+TATTCGACCTAGGCTT_Cell7  CD8_c0_t-Teff Primary tumor tissue        AML
+CCAGCAAACCAAGGAG_Cell9      CD8_c3_Tn Primary tumor tissue        AML
+TTCGGACGAAATCGCC_Cell10     CD8_c3_Tn Primary tumor tissue        AML
+TACACATTTACTTGAA_Cell11     CD8_c3_Tn Primary tumor tissue        AML
+CACACCTTTGCAGATA_Cell14     CD8_c3_Tn Primary tumor tissue        AML
+CAGACGAATATGCCTC_Cell16     CD8_c3_Tn Primary tumor tissue        AML
+CTTTCAGCCTTTGGAA_Cell17   CD8_c2_Teff Primary tumor tissue        AML
+                                 batch nFeature_RNA nCount_RNA percent.mt
+AAGACTAGACCGCTAC_Cell3  batch_level1_1          379   1134.981          0
+CGCTGTAAAGTGAAAA_Cell4  batch_level1_1          386   1141.753          0
+CGGAAGTTAAAAGTAG_Cell6  batch_level1_1          502   1371.875          0
+TATTCGACCTAGGCTT_Cell7  batch_level1_1          683   1620.578          0
+CCAGCAAACCAAGGAG_Cell9  batch_level1_1          629   1525.074          0
+TTCGGACGAAATCGCC_Cell10 batch_level1_1          545   1414.081          0
+TACACATTTACTTGAA_Cell11 batch_level1_1          379   1121.981          0
+CACACCTTTGCAGATA_Cell14 batch_level1_1          700   1613.140          0
+CAGACGAATATGCCTC_Cell16 batch_level1_1          609   1496.293          0
+CTTTCAGCCTTTGGAA_Cell17 batch_level1_1          709   1633.182          0
+                           identifier percent.CARTEx_630 PFSD.CARTEx_630
+AAGACTAGACCGCTAC_Cell3  mdandersonTCM          1.7028147       1.1111111
+CGCTGTAAAGTGAAAA_Cell4  mdandersonTCM          1.6991990       0.9523810
+CGGAAGTTAAAAGTAG_Cell6  mdandersonTCM          1.4994991       1.2698413
+TATTCGACCTAGGCTT_Cell7  mdandersonTCM          1.8058829       2.0634921
+CCAGCAAACCAAGGAG_Cell9  mdandersonTCM          0.8266730       0.7936508
+TTCGGACGAAATCGCC_Cell10 mdandersonTCM          2.0863854       1.7460317
+TACACATTTACTTGAA_Cell11 mdandersonTCM          0.4899449       0.3174603
+CACACCTTTGCAGATA_Cell14 mdandersonTCM          1.5936671       1.9047619
+CAGACGAATATGCCTC_Cell16 mdandersonTCM          2.4547902       2.3809524
+CTTTCAGCCTTTGGAA_Cell17 mdandersonTCM          1.0806701       1.2698413
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+AAGACTAGACCGCTAC_Cell3           0.9730370             2.0         0.2432592
+CGCTGTAAAGTGAAAA_Cell4           0.6870005             1.0         0.0000000
+CGGAAGTTAAAAGTAG_Cell6           0.1815075             0.5         0.1815075
+TATTCGACCTAGGCTT_Cell7           0.3844430             1.5         0.2562954
+CCAGCAAACCAAGGAG_Cell9           0.4977802             1.5         0.3541711
+TTCGGACGAAATCGCC_Cell10          0.8863137             2.0         0.5109366
+TACACATTTACTTGAA_Cell11          0.0000000             0.0         0.0000000
+CACACCTTTGCAGATA_Cell14          0.2526802             1.0         0.0000000
+CAGACGAATATGCCTC_Cell16          0.8832499             2.5         0.4373526
+CTTTCAGCCTTTGGAA_Cell17          0.3291455             1.0         0.2038914
+                        PFSD.CARTEx_84 RNA_snn_res.0 RNA_snn_res.0.2
+AAGACTAGACCGCTAC_Cell3        1.190476             0               0
+CGCTGTAAAGTGAAAA_Cell4        0.000000             0               1
+CGGAAGTTAAAAGTAG_Cell6        1.190476             0               0
+TATTCGACCTAGGCTT_Cell7        2.380952             0               1
+CCAGCAAACCAAGGAG_Cell9        2.380952             0               0
+TTCGGACGAAATCGCC_Cell10       2.380952             0               1
+TACACATTTACTTGAA_Cell11       0.000000             0               0
+CACACCTTTGCAGATA_Cell14       0.000000             0               0
+CAGACGAATATGCCTC_Cell16       2.380952             0               2
+CTTTCAGCCTTTGGAA_Cell17       1.190476             0               0
+                        RNA_snn_res.0.4 RNA_snn_res.0.6 RNA_snn_res.0.8
+AAGACTAGACCGCTAC_Cell3                0               0               0
+CGCTGTAAAGTGAAAA_Cell4                1               1               0
+CGGAAGTTAAAAGTAG_Cell6                0               0               0
+TATTCGACCTAGGCTT_Cell7                1               1               1
+CCAGCAAACCAAGGAG_Cell9                0               0               0
+TTCGGACGAAATCGCC_Cell10               1               1               0
+TACACATTTACTTGAA_Cell11               0               0               0
+CACACCTTTGCAGATA_Cell14               4               4               3
+CAGACGAATATGCCTC_Cell16               0               0              10
+CTTTCAGCCTTTGGAA_Cell17               0               0               0
+                        RNA_snn_res.1 seurat_clusters      S.Score    G2M.Score
+AAGACTAGACCGCTAC_Cell3              0               0 -0.047978132 -0.057098097
+CGCTGTAAAGTGAAAA_Cell4              0               1  0.023250747  0.006851225
+CGGAAGTTAAAAGTAG_Cell6              0               0  0.009696274 -0.058442431
+TATTCGACCTAGGCTT_Cell7              9               1  0.051506728 -0.038714180
+CCAGCAAACCAAGGAG_Cell9              0               0 -0.069582338 -0.083641323
+TTCGGACGAAATCGCC_Cell10             0               1  0.007051170 -0.019631039
+TACACATTTACTTGAA_Cell11             0               0 -0.048690511 -0.054210986
+CACACCTTTGCAGATA_Cell14             2               0 -0.084751687 -0.074399367
+CAGACGAATATGCCTC_Cell16             0               2 -0.081925717 -0.075777168
+CTTTCAGCCTTTGGAA_Cell17             0               0 -0.072831459 -0.095690245
+                        Phase old.ident   azimuth                        monaco
+AAGACTAGACCGCTAC_Cell3     G1         0 CD8 Naive Terminal effector CD8 T cells
+CGCTGTAAAGTGAAAA_Cell4      S         0 CD8 Naive   Effector memory CD8 T cells
+CGGAAGTTAAAAGTAG_Cell6      S         0 CD8 Naive    Central memory CD8 T cells
+TATTCGACCTAGGCTT_Cell7      S         9 CD8 Naive   Effector memory CD8 T cells
+CCAGCAAACCAAGGAG_Cell9     G1         0 CD8 Naive Terminal effector CD8 T cells
+TTCGGACGAAATCGCC_Cell10     S         0 CD8 Naive Terminal effector CD8 T cells
+TACACATTTACTTGAA_Cell11    G1         0 CD8 Naive   Effector memory CD8 T cells
+CACACCTTTGCAGATA_Cell14    G1         2 CD8 Naive    Central memory CD8 T cells
+CAGACGAATATGCCTC_Cell16    G1         0 CD8 Naive Terminal effector CD8 T cells
+CTTTCAGCCTTTGGAA_Cell17    G1         0 CD8 Naive Terminal effector CD8 T cells
+                                                    dice CARTEx_630 CARTEx_630i
+AAGACTAGACCGCTAC_Cell3  T cells, CD8+, naive, stimulated -1.4878986          -1
+CGCTGTAAAGTGAAAA_Cell4              T cells, CD8+, naive -1.6674134          -2
+CGGAAGTTAAAAGTAG_Cell6  T cells, CD8+, naive, stimulated -1.5144221          -2
+TATTCGACCTAGGCTT_Cell7              T cells, CD8+, naive -1.1831661          -1
+CCAGCAAACCAAGGAG_Cell9              T cells, CD8+, naive -1.7910387          -2
+TTCGGACGAAATCGCC_Cell10             T cells, CD8+, naive -1.0785145          -1
+TACACATTTACTTGAA_Cell11 T cells, CD8+, naive, stimulated -2.1145460          -2
+CACACCTTTGCAGATA_Cell14             T cells, CD8+, naive -1.1727253          -1
+CAGACGAATATGCCTC_Cell16             T cells, CD8+, naive -0.8197575          -1
+CTTTCAGCCTTTGGAA_Cell17             T cells, CD8+, naive -1.6925484          -2
+                        CARTEx_200 CARTEx_200i  CARTEx_84 CARTEx_84i Activation
+AAGACTAGACCGCTAC_Cell3  -1.0067668          -1 -0.8640310         -1 -1.2862333
+CGCTGTAAAGTGAAAA_Cell4  -1.5196562          -2 -1.5174309         -2 -1.9662619
+CGGAAGTTAAAAGTAG_Cell6  -1.7017047          -2 -0.9453555         -1  0.2676918
+TATTCGACCTAGGCTT_Cell7  -1.3874504          -1 -0.5168767         -1  0.3292110
+CCAGCAAACCAAGGAG_Cell9  -1.2698722          -1 -0.3649756          0 -0.7726996
+TTCGGACGAAATCGCC_Cell10 -0.9366165          -1 -0.2365710          0 -0.9480937
+TACACATTTACTTGAA_Cell11 -1.9395939          -2 -1.5174309         -2 -0.1158438
+CACACCTTTGCAGATA_Cell14 -1.5397780          -2 -1.5174309         -2 -0.4336945
+CAGACGAATATGCCTC_Cell16 -0.8259918          -1 -0.2988073          0  1.0240269
+CTTTCAGCCTTTGGAA_Cell17 -1.5479158          -2 -0.9239358         -1  0.2928223
+                            Anergy    Stemness  Senescence Activationi Anergyi
+AAGACTAGACCGCTAC_Cell3  -0.7119808  0.49172236 -0.50080851          -1      -1
+CGCTGTAAAGTGAAAA_Cell4  -0.7170290 -0.08133601  2.36928443          -2      -1
+CGGAAGTTAAAAGTAG_Cell6  -0.6878123  1.41312919 -0.38213361           0      -1
+TATTCGACCTAGGCTT_Cell7  -1.4683708  1.61077539  0.05394545           0      -1
+CCAGCAAACCAAGGAG_Cell9  -1.2467038  1.57025697 -1.40232575          -1      -1
+TTCGGACGAAATCGCC_Cell10 -0.3174855 -0.49059553 -0.12935975          -1       0
+TACACATTTACTTGAA_Cell11 -1.2619187 -0.37152636 -1.26562502           0      -1
+CACACCTTTGCAGATA_Cell14 -0.8465118  0.97031015 -1.22475525           0      -1
+CAGACGAATATGCCTC_Cell16 -0.8355732 -0.33948538 -0.25044686           1      -1
+CTTTCAGCCTTTGGAA_Cell17 -1.6299056  0.17093470 -0.16175395           0      -2
+                        Stemnessi Senescencei  NKlike_Tex    LCMV_Tex
+AAGACTAGACCGCTAC_Cell3          0          -1 -0.52649721  0.08293017
+CGCTGTAAAGTGAAAA_Cell4          0           2 -0.44356140 -1.19449181
+CGGAAGTTAAAAGTAG_Cell6          1           0 -0.71206109 -0.11904086
+TATTCGACCTAGGCTT_Cell7          2           0 -0.95789717 -1.08112029
+CCAGCAAACCAAGGAG_Cell9          2          -1  0.02333642 -0.89535391
+TTCGGACGAAATCGCC_Cell10         0           0  0.21310283  0.15530547
+TACACATTTACTTGAA_Cell11         0          -1 -1.00163719 -1.74216608
+CACACCTTTGCAGATA_Cell14         1          -1 -1.32273838 -1.16493962
+CAGACGAATATGCCTC_Cell16         0           0  0.52610296  0.42239055
+CTTTCAGCCTTTGGAA_Cell17         0           0 -0.66981181 -1.16955051
+                           BBD_Tex    PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi
+AAGACTAGACCGCTAC_Cell3  -1.5227375 -0.5732450          -1         0       -2
+CGCTGTAAAGTGAAAA_Cell4  -1.7434809 -0.3392818           0        -1       -2
+CGGAAGTTAAAAGTAG_Cell6  -0.7163082 -0.1820335          -1         0       -1
+TATTCGACCTAGGCTT_Cell7  -1.1454185 -0.7442341          -1        -1       -1
+CCAGCAAACCAAGGAG_Cell9  -1.1645268 -0.4972019           0        -1       -1
+TTCGGACGAAATCGCC_Cell10 -0.6601669 -0.5763076           0         0       -1
+TACACATTTACTTGAA_Cell11 -1.8973290 -0.6320928          -1        -2       -2
+CACACCTTTGCAGATA_Cell14 -1.5144506 -1.0100748          -1        -1       -2
+CAGACGAATATGCCTC_Cell16 -0.9120953 -0.3969287           1         0       -1
+CTTTCAGCCTTTGGAA_Cell17 -0.2888577 -0.5570814          -1        -1        0
+                        PD1_Texi
+AAGACTAGACCGCTAC_Cell3        -1
+CGCTGTAAAGTGAAAA_Cell4         0
+CGGAAGTTAAAAGTAG_Cell6         0
+TATTCGACCTAGGCTT_Cell7        -1
+CCAGCAAACCAAGGAG_Cell9         0
+TTCGGACGAAATCGCC_Cell10       -1
+TACACATTTACTTGAA_Cell11       -1
+CACACCTTTGCAGATA_Cell14       -1
+CAGACGAATATGCCTC_Cell16        0
+CTTTCAGCCTTTGGAA_Cell17       -1

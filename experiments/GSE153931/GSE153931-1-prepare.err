@@ -1,0 +1,386 @@
+Loading required package: SeuratObject
+Loading required package: sp
+‘SeuratObject’ was built with package ‘Matrix’ 1.6.4 but the current
+version is 1.6.5; it is recomended that you reinstall ‘SeuratObject’ as
+the ABI for ‘Matrix’ may have changed
+
+Attaching package: ‘SeuratObject’
+
+The following object is masked from ‘package:base’:
+
+    intersect
+
+Loading required package: ggplot2
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following object is masked from ‘package:dplyr’:
+
+    count
+
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:dplyr’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:SeuratObject’:
+
+    intersect
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:dplyr’:
+
+    first, rename
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: ‘IRanges’
+
+The following objects are masked from ‘package:dplyr’:
+
+    collapse, desc, slice
+
+The following object is masked from ‘package:sp’:
+
+    %over%
+
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+
+Attaching package: ‘SummarizedExperiment’
+
+The following object is masked from ‘package:Seurat’:
+
+    Assays
+
+The following object is masked from ‘package:SeuratObject’:
+
+    Assays
+
+Loading required package: SingleCellExperiment
+
+Attaching package: ‘destiny’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    distance
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    distance
+
+The following object is masked from ‘package:IRanges’:
+
+    distance
+
+
+Attaching package: ‘data.table’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    shift
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    shift
+
+The following object is masked from ‘package:IRanges’:
+
+    shift
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, second
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+Loading required package: ggrepel
+Loading required package: ggraph
+
+Attaching package: ‘ggraph’
+
+The following object is masked from ‘package:sp’:
+
+    geometry
+
+
+Attaching package: ‘glmGamPoi’
+
+The following object is masked from ‘package:dplyr’:
+
+    vars
+
+The following object is masked from ‘package:ggplot2’:
+
+    vars
+
+Loading required package: grid
+========================================
+ComplexHeatmap version 2.14.0
+Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+Github page: https://github.com/jokergoo/ComplexHeatmap
+Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+
+If you use it in published research, please cite either one:
+- Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+- Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+    genomic data. Bioinformatics 2016.
+
+
+The new InteractiveComplexHeatmap package can directly export static 
+complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(ComplexHeatmap))
+========================================
+
+
+Attaching package: ‘cowplot’
+
+The following object is masked from ‘package:patchwork’:
+
+    align_plots
+
+The following object is masked from ‘package:ggpubr’:
+
+    get_legend
+
+Warning: Data is of class data.frame. Coercing to dgCMatrix.
+Normalizing layer: counts
+Performing log-normalization
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.
+Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.
+Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.
+Warning messages:
+1: Removed 2 rows containing non-finite outside the scale range
+(`stat_ydensity()`). 
+2: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+3: Removed 2 rows containing non-finite outside the scale range
+(`stat_ydensity()`). 
+4: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+5: Removed 2 rows containing non-finite outside the scale range
+(`stat_ydensity()`). 
+6: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+Warning message:
+The `slot` argument of `GetAssayData()` is deprecated as of SeuratObject 5.0.0.
+ℹ Please use the `layer` argument instead. 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Finding variable features for layer counts
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+When using repel, set xnudge and ynudge to 0 for optimal results
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning messages:
+1: In scale_x_log10() : log-10 transformation introduced infinite values.
+2: In scale_x_log10() : log-10 transformation introduced infinite values.
+3: In scale_x_log10() : log-10 transformation introduced infinite values.
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |=====                                                                 |   7%  |                                                                              |==========                                                            |  14%  |                                                                              |===============                                                       |  21%  |                                                                              |====================                                                  |  29%  |                                                                              |=========================                                             |  36%  |                                                                              |==============================                                        |  43%  |                                                                              |===================================                                   |  50%  |                                                                              |========================================                              |  57%  |                                                                              |=============================================                         |  64%  |                                                                              |==================================================                    |  71%  |                                                                              |=======================================================               |  79%  |                                                                              |============================================================          |  86%  |                                                                              |=================================================================     |  93%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  HSPD1, HSP90AB1, HSPE1, PAICS, NME1-NME2, C1QBP, FABP5, NPM1, EIF4A1, RAN 
+	   PRDX1, PPA1, ENO1, NHP2, NOP16, MYC, DCTPP1, TUBB, NCL, NME1 
+	   HSPA8, PPIA, CCT5, CCT2, TUBA1B, MIF, IMPDH2, MRTO4, TXN, FKBP4 
+Negative:  CCL5, SPOCK2, BTG1, RARRES3, GNLY, SPTAN1, CD52, ZNF683, LBH, GIMAP4 
+	   PRF1, TXNIP, LY9, HLA-DPB1, FGFBP2, S1PR5, MTSS1, PLEK, CD74, KLRG1 
+	   GPR56, TSC22D3, LINC00861, CLIC3, ZFP36L2, PIK3IP1, S100A4, SLA, ZEB2, KLRB1 
+PC_ 2 
+Positive:  GZMB, GZMH, ACTB, PRF1, GNLY, LAG3, GNPTAB, CCL3, CCL4, CTSW 
+	   CCL5, ACTG1, PTMS, CISH, IVNS1ABP, HOPX, CCND2, LTA, LY6E, IFI6 
+	   AC017002.1, UCP2, IL2RA, TYMP, TPM4, CD38, SOCS2, TUBA1B, CORO1A, BCL7C 
+Negative:  RPS8, RPS18, RPL3, RPL18A, RPL39, RPL35A, RPL5, IL7R, RPS6, RPS5 
+	   RPS28, RPL29, RPL17, GNB2L1, RPL37, CD27, NELL2, RPLP0, RPL8, CD28 
+	   RPS24, RPS21, CCR7, FTL, EEF1G, RPL36, MAL, HILPDA, COTL1, EEF1B2 
+PC_ 3 
+Positive:  TNFRSF9, CRTAM, REL, XCL2, YWHAQ, MIR155HG, BCL2L1, CD83, IL2RA, CD82 
+	   IFNG, UCP2, XCL1, DUSP4, PRF1, EGR2, RBPJ, NR4A1, NFKB1, PIM3 
+	   TNFRSF4, RGS16, RGCC, GNG4, MYO1G, TNFRSF18, IL21R, LDHA, GADD45B, SDC4 
+Negative:  IFITM1, IFI6, LY6E, ISG20, ISG15, MX1, PTPRCAP, IFI44L, XAF1, OAS1 
+	   LTB, BST2, IFIT1, IRF7, IFIT3, RSAD2, IFITM2, EIF2AK2, IL32, CMPK2 
+	   PLSCR1, OAS3, MX2, GIMAP7, RARRES3, OAS2, PARP9, RNF213, STAT1, EPSTI1 
+PC_ 4 
+Positive:  TNFRSF9, MIR155HG, CCL4, CCL3, ISG20, WARS, IFNG, NAMPT, BCL2A1, XCL2 
+	   IFI6, LTA, XCL1, LAG3, RNF19A, PIM3, PRF1, BCL2L1, MIF, IER3 
+	   HILPDA, ISG15, NR4A1, CSF2, TNFRSF4, MX1, SLC2A3, SERPINB9, ALDOA, SNHG15 
+Negative:  KIAA0101, GINS2, MCM7, STMN1, MCM5, CENPU, CDC45, CLSPN, ZWINT, CDT1 
+	   TK1, TYMS, MCM4, PKMYT1, DHFR, MCM2, ASF1B, DTL, MCM6, PCNA 
+	   TCF19, CHEK1, RAD51, MCM10, ORC6, CDC6, MCM3, FEN1, UBE2C, HELLS 
+PC_ 5 
+Positive:  HILPDA, BNIP3, GAPDH, LDHA, AK4, TPI1, MIR210HG, PGK1, ENO2, BNIP3L 
+	   SLC2A3, DDIT4, PGAM1, ALDOA, ALDOC, SLC43A3, P4HA1, SLC16A3, GPI, LAG3 
+	   MIF, ENO1, TYMS, FAM162A, PFKFB4, SCD, GBE1, RGCC, ARG2, PLP2 
+Negative:  UCP2, SESN3, SRSF3, TNFRSF18, AC092580.4, RBM3, CCR4, BCL2L11, HNRNPA1, LINC00944 
+	   EIF5A, DYNLL1, TOMM22, RARG, LBH, LMNA, MAL, CMTM6, NPM1, RRS1 
+	   PPIA, RP11-81H14.2, SATB1, BCL2L1, NOP14, CCT3, PHB, AOAH, TIAM1, TAGAP 
+Computing nearest neighbor graph
+Computing SNN
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+This message will be shown once per session
+13:49:40 UMAP embedding parameters a = 0.9922 b = 1.112
+13:49:40 Read 61583 rows and found 14 numeric columns
+13:49:40 Using Annoy for neighbor search, n_neighbors = 30
+13:49:40 Building Annoy index with metric = cosine, n_trees = 50
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+13:49:47 Writing NN index file to temp file /tmp/RtmpfEj5Gi/filec7f625d87a4
+13:49:47 Searching Annoy index using 1 thread, search_k = 3000
+13:50:13 Annoy recall = 100%
+13:50:13 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+13:50:16 Initializing from normalized Laplacian + noise (using RSpectra)
+13:50:18 Commencing optimization for 200 epochs, with 2623206 positive edges
+Using method 'umap'
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+13:51:29 Optimization finished
+Warning messages:
+1: In DiffusionMap(sce, k = k_int, verbose = TRUE) :
+  You have 13816 genes. Consider passing e.g. n_pcs = 50 to speed up computation.
+2: In (function (data, k, ..., query = NULL, distance = c("euclidean",  :
+  find_knn does not yet support sparse matrices, converting data to a dense matrix.
+3: In asMethod(object) :
+  sparse->dense coercion: allocating vector of size 6.3 GiB
+4: 'as(<dsCMatrix>, "dsTMatrix")' is deprecated.
+Use 'as(., "TsparseMatrix")' instead.
+See help("Deprecated") and help("Matrix-deprecated"). 
+Calculating cluster 0
+Calculating cluster 1
+Calculating cluster 2
+Calculating cluster 3
+Calculating cluster 4
+Calculating cluster 5
+Calculating cluster 6
+Calculating cluster 7
+Calculating cluster 8
+Calculating cluster 9
+Calculating cluster 10
+Calculating cluster 11
+Calculating cluster 12
+Calculating cluster 13
+Calculating cluster 14
+Calculating cluster 15
+Calculating cluster 16
+Error: unexpected symbol in:
+"# report time
+print("The"
+Execution halted

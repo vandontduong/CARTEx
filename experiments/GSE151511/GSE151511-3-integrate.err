@@ -1,0 +1,626 @@
+Loading required package: SeuratObject
+Loading required package: sp
+‘SeuratObject’ was built with package ‘Matrix’ 1.6.4 but the current
+version is 1.6.5; it is recomended that you reinstall ‘SeuratObject’ as
+the ABI for ‘Matrix’ may have changed
+
+Attaching package: ‘SeuratObject’
+
+The following object is masked from ‘package:base’:
+
+    intersect
+
+Loading required package: ggplot2
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following object is masked from ‘package:dplyr’:
+
+    count
+
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:dplyr’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:SeuratObject’:
+
+    intersect
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:dplyr’:
+
+    first, rename
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: ‘IRanges’
+
+The following objects are masked from ‘package:dplyr’:
+
+    collapse, desc, slice
+
+The following object is masked from ‘package:sp’:
+
+    %over%
+
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+
+Attaching package: ‘SummarizedExperiment’
+
+The following object is masked from ‘package:Seurat’:
+
+    Assays
+
+The following object is masked from ‘package:SeuratObject’:
+
+    Assays
+
+Loading required package: SingleCellExperiment
+
+Attaching package: ‘destiny’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    distance
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    distance
+
+The following object is masked from ‘package:IRanges’:
+
+    distance
+
+
+Attaching package: ‘data.table’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    shift
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    shift
+
+The following object is masked from ‘package:IRanges’:
+
+    shift
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, second
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+Loading required package: ggrepel
+Loading required package: ggraph
+
+Attaching package: ‘ggraph’
+
+The following object is masked from ‘package:sp’:
+
+    geometry
+
+
+Attaching package: ‘glmGamPoi’
+
+The following object is masked from ‘package:dplyr’:
+
+    vars
+
+The following object is masked from ‘package:ggplot2’:
+
+    vars
+
+Loading required package: grid
+========================================
+ComplexHeatmap version 2.14.0
+Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+Github page: https://github.com/jokergoo/ComplexHeatmap
+Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+
+If you use it in published research, please cite either one:
+- Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+- Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+    genomic data. Bioinformatics 2016.
+
+
+The new InteractiveComplexHeatmap package can directly export static 
+complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(ComplexHeatmap))
+========================================
+
+Validating object structure
+Updating object slots
+Ensuring keys are in the proper structure
+Updating matrix keys for DimReduc ‘pca’
+Updating matrix keys for DimReduc ‘umap’
+Ensuring keys are in the proper structure
+Ensuring feature names don't have underscores or pipes
+Updating slots in RNA
+Updating slots in RNA_nn
+Setting default assay of RNA_nn to RNA
+Updating slots in RNA_snn
+Setting default assay of RNA_snn to RNA
+Updating slots in pca
+Updating slots in umap
+Setting umap DimReduc to global
+Setting assay used for NormalizeData.RNA to RNA
+Setting assay used for FindVariableFeatures.RNA to RNA
+Setting assay used for FindNeighbors.RNA.pca to RNA
+No assay information could be found for FindClusters
+Setting assay used for RunUMAP.RNA.pca to RNA
+Setting assay used for ScaleData.RNA to RNA
+Setting assay used for RunPCA.RNA to RNA
+Validating object structure for Assay5 ‘RNA’
+Validating object structure for Graph ‘RNA_nn’
+Validating object structure for Graph ‘RNA_snn’
+Validating object structure for DimReduc ‘pca’
+Validating object structure for DimReduc ‘umap’
+Object representation is consistent with the most current Seurat version
+Normalizing layer: counts
+Performing log-normalization
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Finding variable features for layer counts
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Validating object structure
+Updating object slots
+Ensuring keys are in the proper structure
+Updating matrix keys for DimReduc ‘pca’
+Updating matrix keys for DimReduc ‘umap’
+Updating matrix keys for DimReduc ‘dm’
+Ensuring keys are in the proper structure
+Ensuring feature names don't have underscores or pipes
+Updating slots in RNA
+Updating slots in RNA_nn
+Setting default assay of RNA_nn to RNA
+Updating slots in RNA_snn
+Setting default assay of RNA_snn to RNA
+Updating slots in pca
+Updating slots in umap
+Setting umap DimReduc to global
+Updating slots in dm
+Setting assay used for FindVariableFeatures.RNA to RNA
+Setting assay used for ScaleData.RNA to RNA
+Setting assay used for RunPCA.RNA to RNA
+Setting assay used for FindNeighbors.RNA.pca to RNA
+No assay information could be found for FindClusters
+Setting assay used for RunUMAP.RNA.pca to RNA
+Validating object structure for Assay ‘RNA’
+Validating object structure for Graph ‘RNA_nn’
+Validating object structure for Graph ‘RNA_snn’
+Validating object structure for DimReduc ‘pca’
+Validating object structure for DimReduc ‘umap’
+Validating object structure for DimReduc ‘dm’
+Object representation is consistent with the most current Seurat version
+Performing log-normalization
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Validating object structure
+Updating object slots
+Ensuring keys are in the proper structure
+Updating matrix keys for DimReduc ‘pca’
+Updating matrix keys for DimReduc ‘umap’
+Ensuring keys are in the proper structure
+Ensuring feature names don't have underscores or pipes
+Updating slots in RNA
+Updating slots in RNA_nn
+Setting default assay of RNA_nn to RNA
+Updating slots in RNA_snn
+Setting default assay of RNA_snn to RNA
+Updating slots in pca
+Updating slots in umap
+Setting umap DimReduc to global
+Setting assay used for NormalizeData.RNA to RNA
+Setting assay used for FindVariableFeatures.RNA to RNA
+Setting assay used for FindNeighbors.RNA.pca to RNA
+No assay information could be found for FindClusters
+Setting assay used for RunUMAP.RNA.pca to RNA
+Setting assay used for ScaleData.RNA to RNA
+Setting assay used for RunPCA.RNA to RNA
+Validating object structure for Assay ‘RNA’
+Validating object structure for Graph ‘RNA_nn’
+Validating object structure for Graph ‘RNA_snn’
+Validating object structure for DimReduc ‘pca’
+Validating object structure for DimReduc ‘umap’
+Object representation is consistent with the most current Seurat version
+Performing log-normalization
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Warning messages:
+1: Adding a command log without an assay associated with it 
+2: Adding a command log without an assay associated with it 
+3: Adding a command log without an assay associated with it 
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Warning: Different features in new layer data than already exists for scale.data
+Warning: The following 3 features requested have zero variance; running reduction without them: CCT4, APAF1, IDH3A
+PC_ 1 
+Positive:  CD52, B2M, MALAT1, SH3BGRL3, LTB, LIMD2, TXNIP, IFITM1, HCST, IL32 
+	   FXYD5, RPL34, HLA-A, CD7, IFITM2, EVL, CD27, MAL, TPT1, TIMP1 
+	   BTG1, S100A6, ITM2B, CD3D, S100A4, IL10RA, LAPTM5, NEAT1, ARL4C, LIME1 
+Negative:  TUBA1B, H2AFZ, HSP90AA1, RAN, DUT, FABP5, RANBP1, TUBB, PTMA, STMN1 
+	   HSPD1, SNRPD1, UBE2T, LDHA, MCM7, HSPE1, HNRNPAB, YBX1, HMGN2, FEN1 
+	   HMGB1, HSP90AB1, SNRPB, PA2G4, NCL, CDK4, HNRNPA2B1, PCNA, CYCS, PGAM1 
+PC_ 2 
+Positive:  ACTB, ARL6IP1, MXD3, HMGB2, NKG7, GZMA, CFL1, H2AFX, KIF22, CRIP1 
+	   EMP3, STMN1, PRC1, TUBB4B, CKS1B, SMC4, TUBA1B, TUBB, CKS2, KPNA2 
+	   HMGN2, SH3BGRL3, CDKN2D, CD99, PFN1, MYL12A, CALM1, PTTG1, VIM, ANXA2 
+Negative:  RPL13, RPL32, RPL12, RPS8, RPS23, RPS13, RPS18, RPLP1, RPS12, RPL5 
+	   RPLP0, RPS5, EEF1A1, RPS10, RPS3A, RPL9, RPS6, RPL17, RPS4X, RPS2 
+	   EEF1B2, RPL34, RPL6, RPL4, BTF3, RPL22, EEF1G, RPL39, NPM1, EEF2 
+PC_ 3 
+Positive:  CST7, NKG7, CCL5, HOPX, ALOX5AP, GZMB, HLA-DQA1, HLA-DPA1, HLA-DRB5, SRGN 
+	   LAG3, CD74, AOAH, HLA-DPB1, IFNG, PRF1, HLA-DRB1, HLA-DRA, CCL4, MT-CYB 
+	   GZMH, CD63, GZMA, CTSC, HLA-DQA2, KLRD1, GNLY, PHLDA1, ANXA1, CD99 
+Negative:  PTMA, HIST1H4C, LEF1, STMN1, RPL37A, RPS26, CDKN2D, PLAC8, STAT1, HMGB1 
+	   SELL, MXD3, HMGB2, TUBB, TCF7, MAL, IFITM1, CCR7, H2AFV, KIF22 
+	   CKS1B, IFITM3, HMGN2, CD27, CKS2, RPL35, LRRN3, TUBA1B, PRC1, RPL34 
+PC_ 4 
+Positive:  RPS26, RPL37A, RPL35, GZMH, PFN1, NKG7, GZMA, CFL1, HLA-DRB1, MT1E 
+	   SLIRP, SDF2L1, RNF213, GZMB, CCL4, CALR, MYL6, PLEK, RPL23, MT1X 
+	   HLA-DRB5, S100A6, CCL3, CD74, GZMK, SH3BGRL3, S100A11, HCST, ARPC5L, ACTB 
+Negative:  MT-ND4L, EEF1A1, MT-ND5, MT-ND4, CCNI, MT-ATP6, RPS4X, SAT1, RPL9, LDHB 
+	   BTG1, RPL7, CCNG1, RPS3A, EIF3E, MT-CO3, PABPC1, MT-ND2, EEF1G, MT-ATP8 
+	   BTF3, TSC22D3, EEF2, NUCB2, PGK1, DDIT4, UQCRB, MT-ND1, BNIP3L, RAC2 
+PC_ 5 
+Positive:  HLA-DQA1, HLA-DRB5, HLA-DPB1, HLA-DRB1, CD74, HLA-DQA2, IFNG, HLA-DPA1, HLA-DRA, CST7 
+	   GZMH, CCL5, CCL4, PLEK, MALAT1, WDR74, JUN, FGFBP2, CCL3, KLRG1 
+	   EOMES, KLRD1, HLA-C, LAG3, HLA-DQB1, RPLP1, AOAH, BNIP3L, C1orf21, MIR155HG 
+Negative:  S100A11, LTB, CAPG, S100A6, S100A4, TIMP1, PFN1, ACTG1, ACTB, ANXA2 
+	   ITM2C, SH3BGRL3, CFL1, MYL12A, EMP3, LGALS1, DOK2, CALM1, SELL, PRDX1 
+	   TPM4, LGALS3, PRNP, CORO1A, MYL6, OSM, YWHAZ, ARPC1B, ACTN1, CD52 
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  GNLY, NKG7, GZMH, CCL5, CST7, GZMB, S100A4, KLRD1, GZMA, LGALS1 
+	   MYO1F, HOPX, PRF1, CCL4, ZEB2, CLIC1, SRGN, CTSW, FGFBP2, FLNA 
+	   EFHD2, KLRG1, ANXA1, CD99, HLA-DPB1, CRIP1, C12orf75, CMC1, AHNAK, LYAR 
+Negative:  LTB, CCR7, LEF1, AIF1, LDHB, CD27, LRRN3, SELL, IL7R, RCAN3 
+	   RGS10, PASK, TCF7, MYC, TMEM123, NOSIP, PABPC1, HBA2, ACTN1, MAL 
+	   EIF3E, RPS4Y1, NAP1L1, RPL13, CAMK4, NPM1, NELL2, FCER1G, SATB1, RPLP1 
+PC_ 2 
+Positive:  HBA2, HBA1, FCER1G, LRRN3, SMC4, SOX4, PASK, ENO1, MARCKSL1, STMN1 
+	   AQP3, SLC25A5, SYNE2, POU2F2, IFI16, GPR171, ISG15, SERBP1, FOS, ZFP36L1 
+	   CHI3L2, CPNE2, EIF1AY, PLAC8, SH2D1A, JUN, ID3, TPR, GTF3A, EMP3 
+Negative:  MALAT1, EEF1A1, RPS12, MT-CO3, MT-ND2, RPL13, MT-ND4, RPL34, RPL21, MT-ATP6 
+	   RPS2, B2M, MT-ND3, RPS6, RPS18, MT-CYB, RPL32, MT-ND1, RPLP1, RPL17 
+	   RPS3A, RPS4X, RPL9, RPL37A, RPS23, RPL7, RPL39, RPL35, RPL12, RPS8 
+PC_ 3 
+Positive:  MT-ND3, MT-ND4, MT-CO3, B2M, MT-ATP6, MALAT1, HLA-B, MT-CYB, MT-ND2, MT-ND1 
+	   HLA-A, HLA-C, MT-ND5, CCR7, N4BP2L2, FOSB, PTPRC, PDE3B, FOS, VPS39 
+	   ATP7A, CD79A, FUS, CD38, FOXP1, HBA2, SLC16A1-AS1, MTRNR2L8, SOX4, CAMK4 
+Negative:  RPL35, RPS10, RPL6, FTL, RPL23, RPL17, RPS13, RPL22, RPS5, RPL12 
+	   RPL39, BTF3, UQCRB, FTH1, RPL9, RPL7, RPS8, RPS4X, EEF1B2, RPL36AL 
+	   CFL1, RPL32, RPL5, RPL37A, PFN1, COX7C, YBX1, ACTG1, COMMD6, RPS23 
+PC_ 4 
+Positive:  ZNF683, CCL4L2, ITGB1, CD52, PRSS23, FGFBP2, PROK2, LGALS1, S100A11, DSTN 
+	   GZMB, UCP2, TSPAN2, ASCL2, CX3CR1, CD226, POLR2J3, ITGAM, YWHAQ, ANXA1 
+	   OASL, APOBEC3G, C1orf162, ANXA5, MTSS1, SLC1A7, RAB11FIP5, CD3G, CD2, CES1 
+Negative:  CMC1, DUSP2, GZMK, DUSP1, KLRF1, JUNB, CD69, CD74, SBDS, KLRB1 
+	   PIK3R1, MT2A, NR4A2, CD160, ATG2A, TSPYL2, ZNF331, CXCR4, DNAJB1, FOS 
+	   ZFP36, AREG, ZFAS1, PMAIP1, PPP1R15A, MTRNR2L8, JUN, RGS1, PLAC8, SNHG8 
+PC_ 5 
+Positive:  RPS4Y1, KLRF1, KLRC2, KLRC3, FCGR3A, TYROBP, PLAC8, HLA-DRB5, CMC1, NCR1 
+	   CCL3, TIGIT, CTBP2, TTC38, VIPR2, IKZF2, KLRC1, GFOD1, EIF1AY, TPT1 
+	   KIR2DL3, KIFC3, GZMB, KIR3DL2, CD300A, LINC00944, CEP78, DDX3Y, LYST, SOX4 
+Negative:  XIST, RPS26, TNFAIP3, DUSP1, GZMK, IL7R, ZNF683, ANXA5, TSC22D3, ZFP36L2 
+	   MTRNR2L8, CXCR4, CCL4L2, PIK3IP1, ITGB1, PERP, TOB1, RORA, CD226, ANXA1 
+	   HLA-DRB1, ITGA4, TIMP1, COTL1, PROK2, LY6E, MT-ND5, VIM, MYBL1, PRMT2 
+Warning: Number of dimensions changing from 40 to 50
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  NKG7, CST7, CCL5, GZMH, GZMA, B2M, PRF1, GZMB, FGFBP2, KLRD1 
+	   HLA-B, ZEB2, EFHD2, GNLY, PLEK, S100A4, AHNAK, SYNE2, HLA-C, CD99 
+	   ITGB1, CCL4, MYO1F, HLA-A, CLIC1, SRGN, PTPRC, SH3BGRL3, LGALS1, ANXA1 
+Negative:  RPL13, RPL32, RPS12, RPS13, RPS3A, RPL34, RPL9, RPS8, RPS23, RPS6 
+	   RPL39, RPS18, RPLP1, RPL12, RPS5, RPL22, TPT1, RPL23, EEF1A1, RPL5 
+	   RPL21, RPS2, EEF1B2, RPL7, RPL37A, LTB, RPS10, RPS4X, CCR7, LDHB 
+PC_ 2 
+Positive:  RPS4Y1, CX3CR1, GIMAP7, RPS10, CD52, ASCL2, S100A11, GNLY, MYL12A, GZMH 
+	   FGFBP2, PRF1, GZMB, EMP3, CD3D, DYNLL1, RPS3A, IFITM2, APOBEC3G, B2M 
+	   LGALS1, ACTB, EFHD2, SPON2, BATF, SH3BGRL3, CD2, PLEKHF1, SPN, CD3G 
+Negative:  XIST, CXCR4, JUNB, TNFAIP3, PIK3R1, ZFP36L2, ZNF331, DUSP2, NR4A2, BTG1 
+	   CD69, DUSP1, HIST1H1E, HIST1H1D, MT-ND1, HIST1H1C, CREM, FTH1, AREG, DNAJB1 
+	   NFKBIA, SMCHD1, PLCG2, TSPYL2, HIST1H4C, JUND, TSC22D3, ATG2A, BTG2, S100A9 
+PC_ 3 
+Positive:  PRMT2, MTRNR2L8, MTRNR2L12, PLCG2, HIST1H1E, GZMB, FCGR3A, TXK, HIST1H1D, HIST1H4C 
+	   PRSS23, SELL, ACTN1, DIP2A, CCR7, AIF1, S100A9, TYROBP, MT-ATP8, LEF1 
+	   FGFBP2, TRABD2A, MT-ND4L, PDE3B, SATB1, HIST2H2AC, S100B, GNLY, CEP78, LRRN3 
+Negative:  GZMK, CMC1, DUSP2, B2M, GPR183, CCL5, LYAR, JUNB, CD69, COTL1 
+	   RGS1, RPS10, CLDND1, KLRG1, HLA-DQB1, RPS26, CD81, SH2D1A, XCL2, EOMES 
+	   GZMA, GPR171, RPL39, IL32, IL7R, XCL1, ZFP36L2, CKLF, HLA-DRB1, ANXA1 
+PC_ 4 
+Positive:  MT-ATP6, MT-ND4, MT-CYB, MT-CO3, MT-ND3, MT-ND2, GNLY, MT-ND1, TYROBP, KLRC2 
+	   MT-ND5, ZNF683, MALAT1, METRNL, SYTL2, HOPX, NCAM1, ITGB1, IKZF2, KIR3DL1 
+	   NCR3, CD63, IFITM2, GAS7, TXNIP, KIR2DL1, ITGAM, LGALS1, KLRD1, KIR2DL3 
+Negative:  COTL1, CMC1, ACTB, CD160, HLA-DRB1, CHI3L2, ACTG1, TTN, CTSC, FABP5 
+	   HSPA8, SH2D1A, STAT1, CORO1A, GBP1, PFN1, EOMES, CD74, MT2A, HSP90AA1 
+	   HSP90AB1, MT1E, GIMAP7, RPS2, SET, ARPC1B, RAC2, ENO1, CD2, CCDC141 
+PC_ 5 
+Positive:  MALAT1, CMC1, MT-ND3, GZMK, CD160, SRSF5, MT-ATP6, FCRL3, TIGIT, SYNE1 
+	   MTRNR2L8, EOMES, MT-CO3, PLEK, CCL4, MT-CYB, MTRNR2L12, DDX3Y, PYHIN1, MT-ND2 
+	   LYST, TOX, SH2D1A, RPS4Y1, CLEC2D, FYN, CRTAM, MT-ND1, PTPRC, HLA-DPB1 
+Negative:  VIM, CD52, S100A4, S100A10, RPS4X, IFITM2, ACTG1, RPS26, LGALS1, TIMP1 
+	   S100A6, YBX1, ITGB1, ANXA1, HOPX, TPT1, LDHA, RPL35, LTB, FXYD5 
+	   CFL1, ACTB, GATA3, MYL6, XIST, S100A11, TXN, GAPDH, DSTN, CRIP1 
+Warning message:
+In PrepDR(object = object, features = features, verbose = verbose) :
+  The following 2 features requested have zero variance (running reduction without them): PALM2-AKAP2, MEF2B
+Scaling features for provided objects
+Computing within dataset neighborhoods
+Finding anchors between all query and reference datasets
+Projecting new data onto SVD
+Projecting new data onto SVD
+Finding neighborhoods
+Finding anchors
+	Found 490 anchors
+Projecting new data onto SVD
+Projecting new data onto SVD
+Finding neighborhoods
+Finding anchors
+	Found 505 anchors
+
+Integrating dataset 1 with reference dataset
+Finding integration vectors
+Warning: Different cells in new layer data than already exists for scale.data
+Finding integration vector weights
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Integrating data
+
+Integrating dataset 2 with reference dataset
+Finding integration vectors
+Finding integration vector weights
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Integrating data
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  NKG7, GZMH, ZEB2, CCL5, PFN1, CST7, ACTB, CD81, CLIC1, GAPDH 
+	   MYBL1, EFHD2, SYNE2, FGFBP2, KLRD1, PLEK, CX3CR1, CFL1, GZMA, LCP1 
+	   SYNE1, IL32, PPP2R5C, S100A4, ARPC2, CD99, FCGR3A, C1orf21, FCRL6, PYHIN1 
+Negative:  RPL13, RPL32, RPS12, RPS8, IL7R, RPS13, TCF7, RPLP1, RPL34, RPS3A 
+	   RPL12, RPS23, RPS18, LEF1, RPL9, LTB, RPS6, RPL22, RPL39, CCR7 
+	   TPT1, RPS10, RPL23, RPS5, EEF1A1, RCAN3, NELL2, RPL5, SNHG8, RPS4X 
+PC_ 2 
+Positive:  B2M, CD52, MALAT1, NKG7, HLA-A, GNLY, SH3BGRL3, CCL5, HCST, GZMA 
+	   GZMB, PRF1, FGFBP2, KLRD1, ARL4C, S100A4, ADRB2, TXNIP, ANXA1, CST7 
+	   MAF, CAMK2N1, CD3D, LGALS1, ITGB2, MYO1F, GZMH, AHNAK, IL10RA, OPTN 
+Negative:  RPLP0, NPM1, PTMA, HSPD1, PAICS, LDHB, RPS2, RPS5, HSP90AB1, YBX1 
+	   EEF1B2, C1QBP, NME1, SNRPD1, HNRNPAB, RPS6, PPA1, TCP1, FABP5, SLBP 
+	   HSPE1, TUBA1B, MCM4, DUT, IMPDH2, RUVBL1, RANBP1, SET, LDHA, MCM3 
+PC_ 3 
+Positive:  MXD3, STMN1, CKS2, TUBB, CKS1B, HIST1H4C, KIF22, HMGB2, AREG, CDKN2C 
+	   LMNB1, PRC1, H2AFX, TUBA1B, GPSM2, TUBB4B, TMPO, HMGN2, UBE2T, EZH2 
+	   CKAP5, CDKN2D, HMGB1, CENPM, KPNA2, PTMA, MZT1, SMC4, CKAP2, CENPK 
+Negative:  RPL17, HLA-DPA1, CST7, RPL5, HLA-DRB1, IL2RA, HLA-DRB5, RPL7, RPL22L1, HLA-DQB1 
+	   TIMM13, HLA-DRA, DCTPP1, HLA-DPB1, ALOX5AP, HLA-DQA1, RPS10, NKG7, RPL12, MRPL3 
+	   SLC35F2, MRTO4, CD63, SEC11C, RPL6, MFSD10, RPS18, RPS2, NOP16, DDX21 
+PC_ 4 
+Positive:  EEF1A1, MT-ND4L, MT-ND4, BTG1, MT-ND2, MT-ND5, MT-ND1, TNFAIP3, JUNB, MT-ATP6 
+	   ZNF331, ZFP36L2, SAT1, PABPC1, AREG, MT-CYB, FOS, GPI, MT-ATP8, RPL9 
+	   TSC22D3, TNFRSF4, PIK3R1, NR4A2, JUN, EEF2, CCNI, SRGN, DUSP1, MT-CO3 
+Negative:  CFL1, ACTB, SH3BGRL3, PFN1, CD52, RPS26, S100A6, PTMA, MYL6, CRIP1 
+	   RPL35, S100A11, MCM5, GZMA, PCNA, RPL37A, RANBP1, GZMH, HNRNPAB, NASP 
+	   CHAF1A, RPA3, ARPC1B, STMN1, CTSC, S100A4, CORO1A, MCM4, HMGN2, COX7C 
+PC_ 5 
+Positive:  S100A4, S100A11, TIMP1, SH3BGRL3, ACTB, ACTG1, VIM, LGALS1, S100A6, MYL12A 
+	   IL32, EMP3, LTB, CD52, CAPG, ANXA2, FXYD7, ITM2C, GATA3, CD82 
+	   FXYD5, ANXA1, CALM1, PFN1, S100A10, IFITM2, CLIC1, ARPC2, TPT1, C12orf75 
+Negative:  PLAC8, HLA-DRB5, RNF213, PLCG2, ARRDC3, CCR7, HLA-DRB1, HLA-DPB1, SERPINB6, RPL37A 
+	   SYNE1, S100A9, PLEK, FCGR3A, ZEB2, CCL4, HLA-DQA1, REL, CD74, PCNT 
+	   GZMH, C1orf21, FGFBP2, HLA-DRA, MALAT1, CX3CR1, SLAMF7, PRKCE, CMC1, HIST1H4C 
+Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+This message will be shown once per session
+14:59:43 UMAP embedding parameters a = 0.9922 b = 1.112
+Found more than one class "dist" in cache; using the first, from namespace 'spam'
+Also defined by ‘BiocGenerics’
+14:59:43 Read 63666 rows and found 30 numeric columns
+14:59:43 Using Annoy for neighbor search, n_neighbors = 30
+Found more than one class "dist" in cache; using the first, from namespace 'spam'
+Also defined by ‘BiocGenerics’
+14:59:43 Building Annoy index with metric = cosine, n_trees = 50
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+14:59:52 Writing NN index file to temp file /tmp/RtmpRDST3N/file16d7c76bae566
+14:59:52 Searching Annoy index using 1 thread, search_k = 3000
+15:00:30 Annoy recall = 100%
+15:00:31 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+15:00:35 Initializing from normalized Laplacian + noise (using RSpectra)
+15:00:38 Commencing optimization for 200 epochs, with 2814840 positive edges
+Using method 'umap'
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+15:02:19 Optimization finished
+Computing nearest neighbor graph
+Computing SNN
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning messages:
+1: Could not find CD4 in the default search locations, found in ‘RNA’ assay instead 
+2: Removing 6000 cells missing data for features requested 
+3: Could not find CD8A in the default search locations, found in ‘RNA’ assay instead 
+4: Could not find CD8B in the default search locations, found in ‘RNA’ assay instead 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+There were 16 warnings (use warnings() to see them)
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+There were 14 warnings (use warnings() to see them)
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+There were 14 warnings (use warnings() to see them)
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning messages:
+1: Removed 3 rows containing non-finite values (`stat_ydensity()`). 
+2: Removed 3 rows containing non-finite values (`stat_boxplot()`). 
+3: Removed 3 rows containing non-finite values (`stat_ydensity()`). 
+4: Removed 3 rows containing non-finite values (`stat_boxplot()`). 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning messages:
+1: Removed 3 rows containing non-finite values (`stat_ydensity()`). 
+2: Removed 3 rows containing non-finite values (`stat_boxplot()`). 
+3: Removed 3 rows containing non-finite values (`stat_ydensity()`). 
+4: Removed 3 rows containing non-finite values (`stat_boxplot()`). 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning messages:
+1: Removed 3 rows containing non-finite values (`stat_ydensity()`). 
+2: Removed 3 rows containing non-finite values (`stat_boxplot()`). 
+3: Removed 3 rows containing non-finite values (`stat_ydensity()`). 
+4: Removed 3 rows containing non-finite values (`stat_boxplot()`). 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image

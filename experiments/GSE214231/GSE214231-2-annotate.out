@@ -1,0 +1,229 @@
+[1] "The script is starting..."
+                              orig.ident nCount_RNA nFeature_RNA CAR_Variant
+D1_2DomLib_AAACCCACAGCCGTTG-1 D1_2DomLib      37499         5754  TIM1-CD79B
+D1_2DomLib_AAACCCATCCTACAAG-1 D1_2DomLib      11161         3120  TIM1-CD79B
+D1_2DomLib_AAACGAAGTAGGGTAC-1 D1_2DomLib      23892         5291  TIM1-CD79B
+D1_2DomLib_AAACGAAGTTAAACAG-1 D1_2DomLib      24036         4694  TIM1-CD79B
+D1_2DomLib_AAACGAAGTTCGTAAC-1 D1_2DomLib      11654         3361  TIM1-CD79B
+D1_2DomLib_AAACGCTTCCACCTGT-1 D1_2DomLib      33716         5831  TIM1-CD79B
+                              percent.mt identifier percent.CARTEx_630
+D1_2DomLib_AAACCCACAGCCGTTG-1   8.501560  GSE214231          0.5520147
+D1_2DomLib_AAACCCATCCTACAAG-1   9.577995  GSE214231          0.6809426
+D1_2DomLib_AAACGAAGTAGGGTAC-1   9.404822  GSE214231          0.8622133
+D1_2DomLib_AAACGAAGTTAAACAG-1   6.003495  GSE214231          0.7155933
+D1_2DomLib_AAACGAAGTTCGTAAC-1   2.917453  GSE214231          0.8923975
+D1_2DomLib_AAACGCTTCCACCTGT-1   8.473722  GSE214231          0.6910666
+                              PFSD.CARTEx_630 percent.CARTEx_200
+D1_2DomLib_AAACCCACAGCCGTTG-1       15.238095          0.1786714
+D1_2DomLib_AAACCCATCCTACAAG-1        8.730159          0.2329540
+D1_2DomLib_AAACGAAGTAGGGTAC-1       17.460317          0.2553156
+D1_2DomLib_AAACGAAGTTAAACAG-1       14.126984          0.2121817
+D1_2DomLib_AAACGAAGTTCGTAAC-1        9.523810          0.2059379
+D1_2DomLib_AAACGCTTCCACCTGT-1       18.253968          0.2046506
+                              PFSD.CARTEx_200 percent.CARTEx_84 PFSD.CARTEx_84
+D1_2DomLib_AAACCCACAGCCGTTG-1            11.5        0.08000213      11.904762
+D1_2DomLib_AAACCCATCCTACAAG-1            10.5        0.06271839       7.142857
+D1_2DomLib_AAACGAAGTAGGGTAC-1            16.5        0.11300854      14.285714
+D1_2DomLib_AAACGAAGTTAAACAG-1            11.0        0.07488767       7.142857
+D1_2DomLib_AAACGAAGTTCGTAAC-1             7.5        0.05148447       7.142857
+D1_2DomLib_AAACGCTTCCACCTGT-1            15.5        0.08897853      15.476190
+                              CAR_Domain_A CAR_Domain_B CAR_Control
+D1_2DomLib_AAACCCACAGCCGTTG-1         TIM1        CD79B         CAR
+D1_2DomLib_AAACCCATCCTACAAG-1         TIM1        CD79B         CAR
+D1_2DomLib_AAACGAAGTAGGGTAC-1         TIM1        CD79B         CAR
+D1_2DomLib_AAACGAAGTTAAACAG-1         TIM1        CD79B         CAR
+D1_2DomLib_AAACGAAGTTCGTAAC-1         TIM1        CD79B         CAR
+D1_2DomLib_AAACGCTTCCACCTGT-1         TIM1        CD79B         CAR
+                              RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+D1_2DomLib_AAACCCACAGCCGTTG-1             1               2               0
+D1_2DomLib_AAACCCATCCTACAAG-1             1               2               0
+D1_2DomLib_AAACGAAGTAGGGTAC-1             1               2               0
+D1_2DomLib_AAACGAAGTTAAACAG-1             1               2               0
+D1_2DomLib_AAACGAAGTTCGTAAC-1             1               2               0
+D1_2DomLib_AAACGCTTCCACCTGT-1             1               2               0
+                              RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+D1_2DomLib_AAACCCACAGCCGTTG-1               4              10            10
+D1_2DomLib_AAACCCATCCTACAAG-1               4               7            14
+D1_2DomLib_AAACGAAGTAGGGTAC-1               2               3            16
+D1_2DomLib_AAACGAAGTTAAACAG-1               2              10             1
+D1_2DomLib_AAACGAAGTTCGTAAC-1               2               3            16
+D1_2DomLib_AAACGCTTCCACCTGT-1               2              10             1
+                              seurat_clusters    S.Score   G2M.Score Phase
+D1_2DomLib_AAACCCACAGCCGTTG-1               4  0.2227646 -0.06239655     S
+D1_2DomLib_AAACCCATCCTACAAG-1               4  0.1247146 -0.30934138     S
+D1_2DomLib_AAACGAAGTAGGGTAC-1               2 -0.1132747  0.16406667   G2M
+D1_2DomLib_AAACGAAGTTAAACAG-1               2  0.1059988 -0.20037629     S
+D1_2DomLib_AAACGAAGTTCGTAAC-1               2 -0.1227661  0.27869773   G2M
+D1_2DomLib_AAACGCTTCCACCTGT-1               2  0.2117783 -0.04525886     S
+                              old.ident
+D1_2DomLib_AAACCCACAGCCGTTG-1        10
+D1_2DomLib_AAACCCATCCTACAAG-1        14
+D1_2DomLib_AAACGAAGTAGGGTAC-1        16
+D1_2DomLib_AAACGAAGTTAAACAG-1         1
+D1_2DomLib_AAACGAAGTTCGTAAC-1        16
+D1_2DomLib_AAACGCTTCCACCTGT-1         1
+[1] "generating figure for  ./plots/GSE214231_prepare_ridgeplt"
+[1] "generating figure for  ./plots/GSE214231_prepare_PCAplot"
+[1] "generating figure for  ./plots/GSE214231_prepare_PCAplot_regressed"
+       orig.ident  Phase     N
+           <char> <fctr> <int>
+ 1:    D1_2DomLib      S  1053
+ 2:    D1_2DomLib    G2M   801
+ 3:    D1_2DomLib     G1    92
+ 4: D1_2DomLib_WT     G1    17
+ 5: D1_2DomLib_WT      S    13
+ 6: D1_2DomLib_WT    G2M    15
+ 7: D2_2DomLib_WT     G1    88
+ 8: D2_2DomLib_WT    G2M    85
+ 9: D2_2DomLib_WT      S    81
+10:  D3_2DomLib_1    G2M   302
+11:  D3_2DomLib_1     G1   395
+12:  D3_2DomLib_1      S   239
+13:  D3_2DomLib_2      S   166
+14:  D3_2DomLib_2    G2M   202
+15:  D3_2DomLib_2     G1   326
+16: D3_2DomLib_WT      S    99
+17: D3_2DomLib_WT     G1   121
+18: D3_2DomLib_WT    G2M   106
+19: D2_Unstim_28z     G1  1133
+20: D2_Unstim_28z    G2M   315
+21: D2_Unstim_28z      S   213
+22:         D3_hT      S   941
+23:         D3_hT    G2M  1083
+24:         D3_hT     G1  1701
+       orig.ident  Phase     N
+[1] "generating figure for  ./plots/GSE214231_prepare_barplot_phase"
+[1] "generating figure for  ./plots/GSE214231_prepare_umap_phase"
+[1] "generating figure for  ./plots/GSE214231_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+         <fctr>            <fctr> <int>
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine     N
+             <char>                        <char> <int>
+ 1:    CD8+ T cells             Naive CD8 T cells     4
+ 2:    CD8+ T cells    Central memory CD8 T cells     4
+ 3:    CD8+ T cells   Effector memory CD8 T cells     4
+ 4:    CD8+ T cells Terminal effector CD8 T cells     4
+ 5:         T cells                    MAIT cells     4
+ 6:         T cells                Vd2 gd T cells     4
+ 7:         T cells            Non-Vd2 gd T cells     4
+ 8:    CD4+ T cells     Follicular helper T cells     4
+ 9:    CD4+ T cells            T regulatory cells     4
+10:    CD4+ T cells                     Th1 cells     4
+11:    CD4+ T cells                Th1/Th17 cells     4
+12:    CD4+ T cells                    Th17 cells     4
+13:    CD4+ T cells                     Th2 cells     4
+14:    CD4+ T cells             Naive CD4 T cells     4
+15:     Progenitors              Progenitor cells     4
+16:         B cells                 Naive B cells     4
+17:         B cells   Non-switched memory B cells     4
+18:         B cells             Exhausted B cells     4
+19:         B cells       Switched memory B cells     4
+20:         B cells                  Plasmablasts     4
+21:       Monocytes           Classical monocytes     4
+22:       Monocytes        Intermediate monocytes     4
+23:       Monocytes       Non classical monocytes     4
+24:        NK cells          Natural killer cells     4
+25: Dendritic cells  Plasmacytoid dendritic cells     4
+26: Dendritic cells       Myeloid dendritic cells     4
+27:     Neutrophils       Low-density neutrophils     4
+28:       Basophils         Low-density basophils     4
+29:    CD4+ T cells Terminal effector CD4 T cells     2
+         label.main                    label.fine     N
+[1] "CD8+ T cells"
+       label.main                       label.fine     N
+           <char>                           <char> <int>
+ 1:       B cells                   B cells, naive   106
+ 2:     Monocytes                 Monocytes, CD14+   106
+ 3:     Monocytes                 Monocytes, CD16+   105
+ 4:      NK cells                         NK cells   105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG   104
+ 6: T cells, CD4+             T cells, CD4+, naive   103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated   102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG   104
+ 9: T cells, CD4+               T cells, CD4+, TFH   104
+10: T cells, CD4+               T cells, CD4+, Th1   104
+11: T cells, CD4+            T cells, CD4+, Th1_17   104
+12: T cells, CD4+              T cells, CD4+, Th17   104
+13: T cells, CD4+               T cells, CD4+, Th2   104
+14: T cells, CD8+             T cells, CD8+, naive   104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated   102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+     9587 
+                                azimuth
+D1_2DomLib_AAACCCACAGCCGTTG-1 CD8 Naive
+[1] "generating figure for  ./plots/GSE214231_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/GSE214231_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                         2687                          6843 
+Terminal effector CD8 T cells 
+                           57 
+                                                     monaco
+D1_2DomLib_AAACCCACAGCCGTTG-1   Effector memory CD8 T cells
+D1_2DomLib_AGGCTGCGTTGGCTAT-1    Central memory CD8 T cells
+D1_2DomLib_GGGATCCGTAACTAAG-1 Terminal effector CD8 T cells
+[1] "generating figure for  ./plots/GSE214231_prepare_umap_predicted_monaco"
+ERROR : No cells found  for  Naive CD8 T cells 
+[1] "generating figure for  ./plots/GSE214231_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                            9494                               93 
+                                                          dice
+D1_2DomLib_AAACCCACAGCCGTTG-1             T cells, CD8+, naive
+D1_2DomLib_CCGTGAGGTTTCCCAC-1 T cells, CD8+, naive, stimulated
+[1] "generating figure for  ./plots/GSE214231_umap_predicted_dice"
+[1] "generating figure for  ./plots/GSE214231_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/GSE214231_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+       N
+   <int>
+1:  6776
+2:  2663
+3:    67
+4:    55
+5:    24
+6:     2
+[1] "generating figure for  ./plots/GSE214231_prepare_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/GSE214231_prepare_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/GSE214231_prepare_barplot_dice_seurat_clusters"

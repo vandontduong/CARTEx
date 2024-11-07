@@ -1,0 +1,668 @@
+[1] "The script is starting..."
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_vlnplot_quality_control_standard_original"
+[1] "orig.ident levels() is not NULL"
+[1] "SeuratProject"
+
+[1] "nCount_RNA levels() is NULL"
+
+[1] "nFeature_RNA levels() is NULL"
+
+[1] "Code levels() is NULL"
+
+[1] "visit levels() is NULL"
+
+[1] "bc levels() is NULL"
+
+[1] "short_bc levels() is NULL"
+
+[1] "percent.mt levels() is NULL"
+
+[1] "identifier levels() is NULL"
+
+[1] "percent.CARTEx_630 levels() is NULL"
+
+[1] "PFSD.CARTEx_630 levels() is NULL"
+
+[1] "percent.CARTEx_200 levels() is NULL"
+
+[1] "PFSD.CARTEx_200 levels() is NULL"
+
+[1] "percent.CARTEx_84 levels() is NULL"
+
+[1] "PFSD.CARTEx_84 levels() is NULL"
+
+[1] "Sex levels() is not NULL"
+[1] "M" "F"
+
+[1] "Age levels() is NULL"
+
+[1] "AgeGroup levels() is not NULL"
+[1] "Young"  "Middle" "Old"   
+
+[1] "AgeGroup2 levels() is not NULL"
+[1] "Newborn"  "Under 30" "Under 50" "Under 70" "Elderly" 
+
+[1] "Cohort levels() is not NULL"
+[1] "Cross-sectional" "Longitudinal"   
+
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_vlnplot_quality_control_standard_pre"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_vlnplot_quality_control_standard_post"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_varplt_labeled"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_inspect_elbow"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 39937
+Number of edges: 1138195
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 1.0000
+Number of communities: 1
+Elapsed time: 7 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 39937
+Number of edges: 1138195
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9360
+Number of communities: 9
+Elapsed time: 9 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 39937
+Number of edges: 1138195
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9061
+Number of communities: 11
+Elapsed time: 7 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 39937
+Number of edges: 1138195
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8828
+Number of communities: 13
+Elapsed time: 8 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 39937
+Number of edges: 1138195
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8637
+Number of communities: 16
+Elapsed time: 7 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 39937
+Number of edges: 1138195
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8461
+Number of communities: 18
+Elapsed time: 8 seconds
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_inspect_clustering"
+[1] "Calculating UMAPs..."
+[1] "Calculating diffusion maps..."
+finding knns......done. Time: 39866.71s
+Calculating transition probabilities......done. Time: 0.06s
+
+performing eigen decomposition......done. Time: 1.85s
+[1] "Saving Seurat object..."
+                      orig.ident nCount_RNA nFeature_RNA   Code visit
+AAACCTGAGGGTATCG-3 SeuratProject   2781.770         1052 sc_d12     1
+AAACCTGCACGTAAGG-3 SeuratProject   2831.206         1142 sc_d12     1
+AAACCTGGTCAGATAA-3 SeuratProject   2523.990         1198 sc_d12     1
+AAACCTGGTCCAGTGC-3 SeuratProject   1997.249          558 sc_d12     1
+AAACCTGGTCTCACCT-3 SeuratProject   2487.952         1063 sc_d12     1
+AAACCTGTCCAAACAC-3 SeuratProject   2587.168         1282 sc_d12     1
+AAACGGGAGAAACCTA-3 SeuratProject   1922.762          520 sc_d12     1
+AAACGGGAGTTCGATC-3 SeuratProject   2812.107         1154 sc_d12     1
+AAACGGGGTTGGTGGA-3 SeuratProject   2190.267          803 sc_d12     1
+AAACGGGTCCGCTGTT-3 SeuratProject   2609.478         1251 sc_d12     1
+                                   bc         short_bc percent.mt identifier
+AAACCTGAGGGTATCG-3 AAACCTGAGGGTATCG-3 AAACCTGAGGGTATCG   1.539692  GSE136184
+AAACCTGCACGTAAGG-3 AAACCTGCACGTAAGG-3 AAACCTGCACGTAAGG   1.754944  GSE136184
+AAACCTGGTCAGATAA-3 AAACCTGGTCAGATAA-3 AAACCTGGTCAGATAA   1.912533  GSE136184
+AAACCTGGTCCAGTGC-3 AAACCTGGTCCAGTGC-3 AAACCTGGTCCAGTGC   3.044359  GSE136184
+AAACCTGGTCTCACCT-3 AAACCTGGTCTCACCT-3 AAACCTGGTCTCACCT   2.409553  GSE136184
+AAACCTGTCCAAACAC-3 AAACCTGTCCAAACAC-3 AAACCTGTCCAAACAC   2.043949  GSE136184
+AAACGGGAGAAACCTA-3 AAACGGGAGAAACCTA-3 AAACGGGAGAAACCTA   3.442753  GSE136184
+AAACGGGAGTTCGATC-3 AAACGGGAGTTCGATC-3 AAACGGGAGTTCGATC   1.429962  GSE136184
+AAACGGGGTTGGTGGA-3 AAACGGGGTTGGTGGA-3 AAACGGGGTTGGTGGA   2.406927  GSE136184
+AAACGGGTCCGCTGTT-3 AAACGGGTCCGCTGTT-3 AAACGGGTCCGCTGTT   1.868115  GSE136184
+                   percent.CARTEx_630 PFSD.CARTEx_630 percent.CARTEx_200
+AAACCTGAGGGTATCG-3           1.158213        2.222222          0.5380855
+AAACCTGCACGTAAGG-3           1.620719        2.857143          0.7812679
+AAACCTGGTCAGATAA-3           1.195553        2.698413          0.4362091
+AAACCTGGTCCAGTGC-3           2.412452        2.063492          0.7882315
+AAACCTGGTCTCACCT-3           1.303105        2.380952          0.6664846
+AAACCTGTCCAAACAC-3           1.361434        3.333333          0.4126340
+AAACGGGAGAAACCTA-3           2.084469        1.746032          0.5825430
+AAACGGGAGTTCGATC-3           1.161309        2.539683          0.3770316
+AAACGGGGTTGGTGGA-3           1.479174        2.063492          0.4994838
+AAACGGGTCCGCTGTT-3           1.027843        2.539683          0.3449077
+                   PFSD.CARTEx_200 percent.CARTEx_84 PFSD.CARTEx_84 Sex Age
+AAACCTGAGGGTATCG-3             3.5        0.07686936       1.190476   M  83
+AAACCTGCACGTAAGG-3             3.5        0.31290188       2.380952   M  83
+AAACCTGGTCAGATAA-3             2.5        0.23699101       3.571429   M  83
+AAACCTGGTCCAGTGC-3             2.0        0.41812320       2.380952   M  83
+AAACCTGGTCTCACCT-3             3.5        0.23542517       2.380952   M  83
+AAACCTGTCCAAACAC-3             3.0        0.00000000       0.000000   M  83
+AAACGGGAGAAACCTA-3             1.5        0.35607718       2.380952   M  83
+AAACGGGAGTTCGATC-3             2.5        0.13242551       2.380952   M  83
+AAACGGGGTTGGTGGA-3             2.0        0.31052644       2.380952   M  83
+AAACGGGTCCGCTGTT-3             2.5        0.17126486       3.571429   M  83
+                   AgeGroup AgeGroup2          Cohort RNA_snn_res.0
+AAACCTGAGGGTATCG-3      Old   Elderly Cross-sectional             0
+AAACCTGCACGTAAGG-3      Old   Elderly Cross-sectional             0
+AAACCTGGTCAGATAA-3      Old   Elderly Cross-sectional             0
+AAACCTGGTCCAGTGC-3      Old   Elderly Cross-sectional             0
+AAACCTGGTCTCACCT-3      Old   Elderly Cross-sectional             0
+AAACCTGTCCAAACAC-3      Old   Elderly Cross-sectional             0
+AAACGGGAGAAACCTA-3      Old   Elderly Cross-sectional             0
+AAACGGGAGTTCGATC-3      Old   Elderly Cross-sectional             0
+AAACGGGGTTGGTGGA-3      Old   Elderly Cross-sectional             0
+AAACGGGTCCGCTGTT-3      Old   Elderly Cross-sectional             0
+                   RNA_snn_res.0.2 RNA_snn_res.0.4 RNA_snn_res.0.6
+AAACCTGAGGGTATCG-3               0               1               9
+AAACCTGCACGTAAGG-3               1               3               1
+AAACCTGGTCAGATAA-3               4               5               5
+AAACCTGGTCCAGTGC-3               7               9              11
+AAACCTGGTCTCACCT-3               6               8               8
+AAACCTGTCCAAACAC-3               0               4               4
+AAACGGGAGAAACCTA-3               7               9              11
+AAACGGGAGTTCGATC-3               4               5               5
+AAACGGGGTTGGTGGA-3               1               3               3
+AAACGGGTCCGCTGTT-3               2               0               0
+                   RNA_snn_res.0.8 RNA_snn_res.1 seurat_clusters DC1rank
+AAACCTGAGGGTATCG-3              12            13               1   30749
+AAACCTGCACGTAAGG-3               7             8               3   20167
+AAACCTGGTCAGATAA-3               5             4               5     861
+AAACCTGGTCCAGTGC-3              13            14               9   37729
+AAACCTGGTCTCACCT-3               9            10               8    1539
+AAACCTGTCCAAACAC-3               4             3               4   20523
+AAACGGGAGAAACCTA-3              13            14               9   36873
+AAACGGGAGTTCGATC-3               5             4               5    2130
+AAACGGGGTTGGTGGA-3               3             5               3   31189
+AAACGGGTCCGCTGTT-3               1             1               0   19201
+                   DC2rank          dpt
+AAACCTGAGGGTATCG-3   23648 -0.003189136
+AAACCTGCACGTAAGG-3   10927 -0.002257890
+AAACCTGGTCAGATAA-3   31034 -0.001956597
+AAACCTGGTCCAGTGC-3    1523 -0.010359855
+AAACCTGGTCTCACCT-3   29479 -0.001764309
+AAACCTGTCCAAACAC-3   15066 -0.003326938
+AAACGGGAGAAACCTA-3    1575 -0.008236405
+AAACGGGAGTTCGATC-3   38332 -0.001670314
+AAACGGGGTTGGTGGA-3   10169 -0.004510842
+AAACGGGTCCGCTGTT-3   38121 -0.001915603
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_seurat_clusters"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_seurat_clusters_highlight"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_age_group"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_age_group_2"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_age_group_2_highlight"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_sex"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_sex_highlight"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_visit"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_code"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_cohort"
+ERROR : No cells found  for  Longitudinal 
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_cohort_highlight"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_umap_age"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_dmap_seurat_clusters"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_dmap_seurat_clusters_highlight"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_dmap_age_group"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_dmap_visit"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_barplot_age_group_2_seurat_clusters"
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_barplot_cohort_seurat_clusters"
+# A tibble: 6,476 × 7
+# Groups:   cluster [18]
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1     0       5.23 0.839 0.038         0 0       LRRN3    
+ 2     0       5.74 0.796 0.012         0 0       HBA2     
+ 3     0       2.90 0.901 0.184         0 0       CCR7     
+ 4     0       4.52 0.714 0.049         0 0       FCER1G   
+ 5     0       3.86 0.757 0.109         0 0       PASK     
+ 6     0       4.48 0.663 0.016         0 0       HBA1     
+ 7     0       2.46 0.81  0.19          0 0       LEF1     
+ 8     0       1.91 0.911 0.329         0 0       SELL     
+ 9     0       1.89 0.882 0.323         0 0       PRKCQ-AS1
+10     0       1.28 0.987 0.44          0 0       RPS4Y1   
+# ℹ 6,466 more rows
+[1] "generating figure for  ./plots/GSE136184_cs_prepare_cluster_markers_heatmap"
+[1] "Cluster: 0"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1     0       5.23 0.839 0.038         0 0       LRRN3    
+ 2     0       5.74 0.796 0.012         0 0       HBA2     
+ 3     0       2.90 0.901 0.184         0 0       CCR7     
+ 4     0       4.52 0.714 0.049         0 0       FCER1G   
+ 5     0       3.86 0.757 0.109         0 0       PASK     
+ 6     0       4.48 0.663 0.016         0 0       HBA1     
+ 7     0       2.46 0.81  0.19          0 0       LEF1     
+ 8     0       1.91 0.911 0.329         0 0       SELL     
+ 9     0       1.89 0.882 0.323         0 0       PRKCQ-AS1
+10     0       1.28 0.987 0.44          0 0       RPS4Y1   
+[1] "Cluster: 1"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1     0       1.55 0.682 0.297         0 1       LINC02446
+ 2     0       1.80 0.554 0.213         0 1       AIF1     
+ 3     0       1.06 0.672 0.363         0 1       PRKCQ-AS1
+ 4     0       1.14 0.774 0.465         0 1       NOSIP    
+ 5     0       1.05 0.846 0.582         0 1       SNHG32   
+ 6     0       1.13 0.534 0.298         0 1       RCAN3    
+ 7     0       1.87 0.357 0.121         0 1       TRABD2A  
+ 8     0       2.06 0.339 0.111         0 1       SH3YL1   
+ 9     0       1.98 0.329 0.101         0 1       FAM153CP 
+10     0       1.30 0.431 0.207         0 1       TXK      
+[1] "Cluster: 2"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 0               2.02 0.753 0.248 0         2       GZMK  
+ 2 0               2.05 0.778 0.311 0         2       CMC1  
+ 3 0               1.85 0.771 0.359 0         2       DUSP2 
+ 4 0               1.13 0.706 0.449 0         2       LYAR  
+ 5 0               1.31 0.746 0.507 0         2       CD74  
+ 6 0               1.58 0.573 0.339 0         2       PIK3R1
+ 7 0               1.37 0.665 0.448 0         2       DUSP1 
+ 8 0               1.06 0.844 0.688 0         2       CXCR4 
+ 9 6.20e-209       1.43 0.4   0.224 6.26e-205 2       ATG2A 
+10 1.73e-185       2.63 0.195 0.073 1.74e-181 2       RGS1  
+[1] "Cluster: 3"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1 0               1.09 0.759 0.444 0         3       LYAR      
+ 2 0               2.73 0.237 0.056 0         3       FXYD2     
+ 3 1.43e-255       1.15 0.77  0.578 1.44e-251 3       JUNB      
+ 4 2.69e-177       1.82 0.148 0.043 2.72e-173 3       LGALS3    
+ 5 1.01e-143       2.29 0.079 0.017 1.02e-139 3       AC133644.2
+ 6 1.04e-132       1.02 0.33  0.177 1.06e-128 3       CLDND1    
+ 7 1.04e-124       2.08 0.103 0.03  1.05e-120 3       KLRC1     
+ 8 8.94e-104       1.03 0.293 0.165 9.03e-100 3       TRADD     
+ 9 4.89e- 96       1.12 0.185 0.086 4.94e- 92 3       NSG1      
+10 1.03e- 75       1.32 0.119 0.049 1.04e- 71 3       PCSK1N    
+[1] "Cluster: 4"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1     0       1.37 0.688 0.254         0 4       ITGB1     
+ 2     0       1.74 0.704 0.292         0 4       PLP2      
+ 3     0       2.35 0.46  0.116         0 4       GATA3     
+ 4     0       1.29 0.817 0.483         0 4       NOSIP     
+ 5     0       1.46 0.987 0.654         0 4       LTB       
+ 6     0       1.82 0.418 0.126         0 4       BIRC3     
+ 7     0       2.44 0.35  0.067         0 4       AP3M2     
+ 8     0       2.66 0.274 0.048         0 4       AP000787.1
+ 9     0       1.73 0.296 0.074         0 4       GPR183    
+10     0       1.20 0.951 0.736         0 4       FXYD5     
+[1] "Cluster: 5"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1     0       1.99 0.945 0.328         0 5       GZMH  
+ 2     0       2.47 0.853 0.304         0 5       FGFBP2
+ 3     0       2.56 0.952 0.431         0 5       GNLY  
+ 4     0       2.07 0.713 0.212         0 5       GZMB  
+ 5     0       1.80 0.727 0.294         0 5       KLRD1 
+ 6     0       1.44 0.999 0.619         0 5       NKG7  
+ 7     0       1.05 0.83  0.473         0 5       CST7  
+ 8     0       1.52 0.702 0.361         0 5       LGALS1
+ 9     0       1.87 0.583 0.246         0 5       PRF1  
+10     0       1.93 0.519 0.203         0 5       ZEB2  
+[1] "Cluster: 6"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1     0       1.58 0.891 0.342         0 6       GZMH  
+ 2     0       3.82 0.596 0.081         0 6       KLRF1 
+ 3     0       1.75 0.844 0.335         0 6       CMC1  
+ 4     0       1.89 0.711 0.222         0 6       GZMB  
+ 5     0       1.79 0.942 0.473         0 6       CST7  
+ 6     0       3.33 0.51  0.08          0 6       FCGR3A
+ 7     0       1.68 0.722 0.302         0 6       KLRD1 
+ 8     0       1.43 0.828 0.447         0 6       GNLY  
+ 9     0       1.94 0.999 0.626         0 6       NKG7  
+10     0       1.99 0.598 0.257         0 6       TRGC2 
+[1] "Cluster: 7"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1     0       2.25 0.984 0.338         0 7       GZMH  
+ 2     0       2.79 0.94  0.31          0 7       FGFBP2
+ 3     0       2.36 0.819 0.217         0 7       GZMB  
+ 4     0       2.49 0.89  0.358         0 7       LGALS1
+ 5     0       2.33 0.788 0.26          0 7       HOPX  
+ 6     0       2.05 0.946 0.442         0 7       GNLY  
+ 7     0       1.58 0.786 0.299         0 7       KLRD1 
+ 8     0       1.34 0.925 0.475         0 7       CST7  
+ 9     0       1.61 0.915 0.482         0 7       GZMA  
+10     0       1.84 0.68  0.248         0 7       PRF1  
+[1] "Cluster: 8"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1 0               1.39 0.878 0.345 0         8       GZMH    
+ 2 0               1.97 0.844 0.337 0         8       CMC1    
+ 3 0               1.62 0.742 0.265 0         8       CCL4    
+ 4 0               1.03 0.912 0.483 0         8       GZMA    
+ 5 0               1.21 0.998 0.628 0         8       NKG7    
+ 6 0               2.24 0.449 0.111 0         8       MTRNR2L8
+ 7 0               2.10 0.355 0.079 0         8       CD160   
+ 8 0               1.43 0.997 0.924 0         8       RPS26   
+ 9 1.50e-277       1.08 0.873 0.564 1.52e-273 8       CTSW    
+10 6.06e-273       1.09 0.698 0.305 6.12e-269 8       KLRD1   
+[1] "Cluster: 9"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1     0       1.68 0.857 0.236         0 9       KLRB1   
+ 2     0       2.10 0.945 0.338         0 9       CMC1    
+ 3     0       1.85 0.946 0.348         0 9       GZMH    
+ 4     0       2.22 0.837 0.252         0 9       TRGC2   
+ 5     0       2.44 0.799 0.225         0 9       GZMB    
+ 6     0       2.05 0.822 0.267         0 9       CCL4    
+ 7     0       1.54 0.818 0.304         0 9       KLRD1   
+ 8     0       3.29 0.565 0.07          0 9       KLRC3   
+ 9     0       2.95 0.569 0.075         0 9       HLA-DRB5
+10     0       2.21 0.656 0.163         0 9       HLA-DRB1
+[1] "Cluster: 10"
+# A tibble: 10 × 7
+   p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+   <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1     0       4.85 0.986 0.235         0 10      KLRB1     
+ 2     0       1.64 0.856 0.388         0 10      DUSP2     
+ 3     0       2.46 0.918 0.455         0 10      DUSP1     
+ 4     0       3.02 0.557 0.099         0 10      NCR3      
+ 5     0       4.99 0.437 0.021         0 10      ZBTB16    
+ 6     0       2.44 0.634 0.233         0 10      FOS       
+ 7     0       7.47 0.386 0.002         0 10      SLC4A10   
+ 8     0       5.46 0.354 0.01          0 10      CEBPD     
+ 9     0       2.11 0.42  0.099         0 10      TYROBP    
+10     0       2.70 0.378 0.082         0 10      AC020916.1
+[1] "Cluster: 11"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1 6.09e-285       1.26 0.975 0.509 6.15e-281 11      RPS4Y1    
+ 2 2.98e-239       1.46 0.773 0.34  3.01e-235 11      LINC02446 
+ 3 7.91e-156       1.87 0.263 0.064 7.98e-152 11      RUNX2     
+ 4 1.15e-155       1.34 0.45  0.157 1.16e-151 11      FAM118A   
+ 5 4.37e-140       1.36 0.423 0.153 4.42e-136 11      ACTN1     
+ 6 5.13e-126       1.41 0.4   0.147 5.18e-122 11      TRABD2A   
+ 7 5.06e-106       1.03 0.612 0.308 5.11e-102 11      NDFIP1    
+ 8 1.78e-105       2.44 0.112 0.019 1.80e-101 11      AC136475.5
+ 9 2.87e- 98       1.50 0.245 0.077 2.90e- 94 11      EPHX2     
+10 6.40e- 97       1.18 0.309 0.109 6.46e- 93 11      RIC3      
+[1] "Cluster: 12"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1 1.12e-212       2.82 0.148 0.015 1.13e-208 12      TRDC     
+ 2 5.79e-164       1.42 0.379 0.104 5.85e-160 12      TYROBP   
+ 3 3.04e- 92       3.17 0.05  0.004 3.07e- 88 12      IGFBP7   
+ 4 3.76e- 84       1.01 0.219 0.06  3.79e- 80 12      LAIR2    
+ 5 1.71e- 69       3.14 0.031 0.002 1.72e- 65 12      SH2D1B   
+ 6 2.56e- 61       1.85 0.076 0.013 2.58e- 57 12      LINC00299
+ 7 1.49e- 59       1.18 0.101 0.021 1.50e- 55 12      GAS7     
+ 8 2.48e- 59       1.60 0.073 0.012 2.50e- 55 12      B3GAT1   
+ 9 3.01e- 58       2.01 0.106 0.024 3.04e- 54 12      PTGDS    
+10 4.73e- 53       2.25 0.075 0.014 4.78e- 49 12      MYOM2    
+[1] "Cluster: 13"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1 0               3.15 0.276 0.03  0         13      UTS2    
+ 2 2.84e-254       1.84 0.804 0.292 2.87e-250 13      GZMK    
+ 3 9.07e-240       3.03 0.249 0.031 9.15e-236 13      CCL3L1  
+ 4 3.23e-184       1.85 0.398 0.089 3.26e-180 13      HLA-DRB5
+ 5 2.28e-165       1.60 0.885 0.525 2.30e-161 13      CD74    
+ 6 1.53e-134       1.75 0.364 0.097 1.54e-130 13      HLA-DRA 
+ 7 4.54e-120       1.28 0.507 0.176 4.59e-116 13      HLA-DRB1
+ 8 7.77e-114       1.16 0.81  0.47  7.85e-110 13      LYAR    
+ 9 8.37e- 83       1.97 0.157 0.031 8.45e- 79 13      HLA-DQA2
+10 4.20e- 82       1.13 0.607 0.282 4.25e- 78 13      CCL4    
+[1] "Cluster: 14"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 0               2.48 1     0.999 0         14      HLA-B 
+ 2 0               1.96 1     1     0         14      MALAT1
+ 3 3.40e-306       1.90 1     1     3.43e-302 14      MT-CO1
+ 4 1.41e-303       1.99 1     1     1.43e-299 14      MT-CO2
+ 5 7.51e-301       2.42 0.998 0.995 7.58e-297 14      HLA-A 
+ 6 1.20e-292       2.31 1     0.997 1.22e-288 14      HLA-C 
+ 7 4.26e-272       2.00 1     1     4.31e-268 14      MT-CO3
+ 8 2.30e-269       2.26 0.998 0.999 2.32e-265 14      MT-ND1
+ 9 7.18e-256       1.86 0.998 1     7.25e-252 14      MT-ND4
+10 7.64e-253       2.04 1     1     7.72e-249 14      MT-ND2
+[1] "Cluster: 15"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1 0               4.18 0.763 0.096 0         15      HLA-DRA 
+ 2 6.28e-256       4.72 0.199 0.01  6.34e-252 15      DUSP4   
+ 3 3.10e-240       3.45 0.348 0.033 3.13e-236 15      HLA-DQA1
+ 4 2.10e-213       3.03 0.995 0.528 2.12e-209 15      CD74    
+ 5 4.02e-210       2.84 0.751 0.177 4.06e-206 15      HLA-DRB1
+ 6 7.85e-201       3.03 0.443 0.063 7.92e-197 15      HLA-DMA 
+ 7 9.67e-189       4.13 0.176 0.011 9.76e-185 15      PCLAF   
+ 8 2.85e-183       3.09 0.484 0.082 2.88e-179 15      HLA-DQB1
+ 9 7.43e-165       2.37 0.824 0.258 7.50e-161 15      HLA-DPA1
+10 1.58e-161       2.25 0.919 0.375 1.59e-157 15      HLA-DPB1
+[1] "Cluster: 16"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 1.59e-209       3.06 0.831 0.128 1.61e-205 16      HBA2  
+ 2 2.40e-200       4.75 0.324 0.02  2.43e-196 16      CHST2 
+ 3 6.63e-195       2.96 0.758 0.111 6.69e-191 16      HBA1  
+ 4 3.75e-149       3.90 0.512 0.066 3.78e-145 16      CXCR3 
+ 5 1.44e-140       4.58 0.198 0.011 1.45e-136 16      RTKN2 
+ 6 2.83e-121       3.10 0.662 0.132 2.86e-117 16      GPR171
+ 7 6.94e-102       3.75 0.353 0.044 7.01e- 98 16      ID3   
+ 8 5.78e- 95       2.94 0.56  0.113 5.83e- 91 16      NCR3  
+ 9 3.66e- 88       3.69 0.213 0.019 3.70e- 84 16      MGST2 
+10 3.88e- 81       3.19 0.314 0.043 3.92e- 77 16      IKZF2 
+[1] "Cluster: 17"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene   
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>  
+ 1 2.25e-55       2.59 1     1      2.27e-51 17      MT-CO1 
+ 2 1.74e-53       2.17 0.99  1      1.76e-49 17      MT-CO2 
+ 3 3.43e-53       2.34 0.98  1      3.46e-49 17      MT-ND3 
+ 4 4.94e-51       2.09 0.99  1      4.99e-47 17      MT-ATP6
+ 5 2.75e-49       2.17 0.99  1      2.77e-45 17      MT-ND4 
+ 6 2.46e-48       2.02 1     1      2.48e-44 17      MT-CO3 
+ 7 3.78e-48       1.38 1     1      3.82e-44 17      MALAT1 
+ 8 8.20e-45       4.04 0.747 0.292  8.28e-41 17      CCR7   
+ 9 2.59e-41       2.70 0.939 0.826  2.61e-37 17      PTPRC  
+10 6.59e-39       1.71 1     1      6.65e-35 17      CD8A   
+[1] "Cluster: 0"
+[1] "LRRN3, HBA2, CCR7, FCER1G, PASK, HBA1, LEF1, SELL, PRKCQ-AS1, RPS4Y1"
+
+[1] "Cluster: 1"
+[1] "LINC02446, AIF1, PRKCQ-AS1, NOSIP, SNHG32, RCAN3, TRABD2A, SH3YL1, FAM153CP, TXK"
+
+[1] "Cluster: 2"
+[1] "GZMK, CMC1, DUSP2, LYAR, CD74, PIK3R1, DUSP1, CXCR4, ATG2A, RGS1"
+
+[1] "Cluster: 3"
+[1] "LYAR, FXYD2, JUNB, LGALS3, AC133644.2, CLDND1, KLRC1, TRADD, NSG1, PCSK1N"
+
+[1] "Cluster: 4"
+[1] "ITGB1, PLP2, GATA3, NOSIP, LTB, BIRC3, AP3M2, AP000787.1, GPR183, FXYD5"
+
+[1] "Cluster: 5"
+[1] "GZMH, FGFBP2, GNLY, GZMB, KLRD1, NKG7, CST7, LGALS1, PRF1, ZEB2"
+
+[1] "Cluster: 6"
+[1] "GZMH, KLRF1, CMC1, GZMB, CST7, FCGR3A, KLRD1, GNLY, NKG7, TRGC2"
+
+[1] "Cluster: 7"
+[1] "GZMH, FGFBP2, GZMB, LGALS1, HOPX, GNLY, KLRD1, CST7, GZMA, PRF1"
+
+[1] "Cluster: 8"
+[1] "GZMH, CMC1, CCL4, GZMA, NKG7, MTRNR2L8, CD160, RPS26, CTSW, KLRD1"
+
+[1] "Cluster: 9"
+[1] "KLRB1, CMC1, GZMH, TRGC2, GZMB, CCL4, KLRD1, KLRC3, HLA-DRB5, HLA-DRB1"
+
+[1] "Cluster: 10"
+[1] "KLRB1, DUSP2, DUSP1, NCR3, ZBTB16, FOS, SLC4A10, CEBPD, TYROBP, AC020916.1"
+
+[1] "Cluster: 11"
+[1] "RPS4Y1, LINC02446, RUNX2, FAM118A, ACTN1, TRABD2A, NDFIP1, AC136475.5, EPHX2, RIC3"
+
+[1] "Cluster: 12"
+[1] "TRDC, TYROBP, IGFBP7, LAIR2, SH2D1B, LINC00299, GAS7, B3GAT1, PTGDS, MYOM2"
+
+[1] "Cluster: 13"
+[1] "UTS2, GZMK, CCL3L1, HLA-DRB5, CD74, HLA-DRA, HLA-DRB1, LYAR, HLA-DQA2, CCL4"
+
+[1] "Cluster: 14"
+[1] "HLA-B, MALAT1, MT-CO1, MT-CO2, HLA-A, HLA-C, MT-CO3, MT-ND1, MT-ND4, MT-ND2"
+
+[1] "Cluster: 15"
+[1] "HLA-DRA, DUSP4, HLA-DQA1, CD74, HLA-DRB1, HLA-DMA, PCLAF, HLA-DQB1, HLA-DPA1, HLA-DPB1"
+
+[1] "Cluster: 16"
+[1] "HBA2, CHST2, HBA1, CXCR3, RTKN2, GPR171, ID3, NCR3, MGST2, IKZF2"
+
+[1] "Cluster: 17"
+[1] "MT-CO1, MT-CO2, MT-ND3, MT-ATP6, MT-ND4, MT-CO3, MALAT1, CCR7, PTPRC, CD8A"
+
+[1] "The script has completed..."
+     user    system   elapsed 
+41590.587  2818.066 41614.792 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] ca_0.71.1                   ComplexHeatmap_2.14.0      
+ [3] ComplexUpset_1.3.3          ggbeeswarm_0.7.2           
+ [5] glmGamPoi_1.10.2            ROGUE_1.0                  
+ [7] clustree_0.5.1              ggraph_2.1.0               
+ [9] EnhancedVolcano_1.16.0      ggrepel_0.9.5              
+[11] patchwork_1.2.0             data.table_1.15.0          
+[13] destiny_3.12.0              scuttle_1.11.3             
+[15] SingleCellExperiment_1.20.1 SingleR_2.0.0              
+[17] SummarizedExperiment_1.28.0 Biobase_2.58.0             
+[19] GenomicRanges_1.50.2        GenomeInfoDb_1.34.9        
+[21] IRanges_2.32.0              S4Vectors_0.36.2           
+[23] BiocGenerics_0.44.0         MatrixGenerics_1.10.0      
+[25] matrixStats_1.1.0           dplyr_1.1.4                
+[27] stringr_1.5.1               ggplotify_0.1.2            
+[29] ggpubr_0.6.0                ggplot2_3.4.4              
+[31] Seurat_5.0.1                SeuratObject_5.0.1         
+[33] sp_2.1-3                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             limma_3.54.2             
+ [17] smoother_1.1              BiocParallel_1.32.6      
+ [19] rjson_0.2.21              glue_1.7.0               
+ [21] sctransform_0.4.1         parallel_4.2.0           
+ [23] vipor_0.4.7               spatstat.sparse_3.0-3    
+ [25] dotCall64_1.1-1           spatstat.geom_3.2-8      
+ [27] tidyselect_1.2.0          fitdistrplus_1.1-11      
+ [29] tidyr_1.3.1               zoo_1.8-12               
+ [31] xtable_1.8-4              RcppHNSW_0.6.0           
+ [33] magrittr_2.0.3            cli_3.6.2                
+ [35] zlibbioc_1.44.0           miniUI_0.1.1.1           
+ [37] RcppEigen_0.3.3.9.4       fastDummies_1.7.3        
+ [39] shiny_1.8.0               BiocSingular_1.14.0      
+ [41] clue_0.3-65               cluster_2.1.6            
+ [43] tidygraph_1.3.0           pcaMethods_1.90.0        
+ [45] tibble_3.2.1              listenv_0.9.1            
+ [47] png_0.1-8                 future_1.33.1            
+ [49] withr_3.0.0               bitops_1.0-7             
+ [51] ggforce_0.4.1             ranger_0.16.0            
+ [53] plyr_1.8.9                e1071_1.7-14             
+ [55] pillar_1.9.0              GlobalOptions_0.1.2      
+ [57] cachem_1.0.8              fs_1.6.3                 
+ [59] scatterplot3d_0.3-44      TTR_0.24.4               
+ [61] GetoptLong_1.0.5          DelayedMatrixStats_1.20.0
+ [63] xts_0.13.2                vctrs_0.6.5              
+ [65] ellipsis_0.3.2            generics_0.1.3           
+ [67] tools_4.2.0               beeswarm_0.4.0           
+ [69] munsell_0.5.0             tweenr_2.0.2             
+ [71] proxy_0.4-27              DelayedArray_0.24.0      
+ [73] fastmap_1.1.1             compiler_4.2.0           
+ [75] abind_1.4-5               httpuv_1.6.14            
+ [77] plotly_4.10.4             GenomeInfoDbData_1.2.9   
+ [79] gridExtra_2.3             lattice_0.22-5           
+ [81] deldir_2.0-2              utf8_1.2.3               
+ [83] later_1.3.2               jsonlite_1.8.8           
+ [85] ggplot.multistats_1.0.0   scales_1.3.0             
+ [87] ScaledMatrix_1.6.0        pbapply_1.7-2            
+ [89] carData_3.0-5             sparseMatrixStats_1.10.0 
+ [91] lazyeval_0.2.2            promises_1.2.1           
+ [93] car_3.1-2                 doParallel_1.0.17        
+ [95] goftest_1.2-3             spatstat.utils_3.0-4     
+ [97] reticulate_1.35.0         checkmate_2.3.1          
+ [99] cowplot_1.1.3             Rtsne_0.17               
+[101] uwot_0.1.16               igraph_1.6.0             
+[103] survival_3.5-8            systemfonts_1.0.5        
+[105] htmltools_0.5.7           memoise_2.0.1            
+[107] graphlayouts_1.1.0        viridisLite_0.4.2        
+[109] digest_0.6.34             mime_0.12                
+[111] spam_2.10-0               yulab.utils_0.1.4        
+[113] future.apply_1.11.1       splines_4.2.0            
+[115] labeling_0.4.3            Cairo_1.6-2              
+[117] RCurl_1.98-1.14           broom_1.0.5              
+[119] colorspace_2.1-0          shape_1.4.6              
+[121] ggrastr_1.0.2             nnet_7.3-19              
+[123] Rcpp_1.0.12               RANN_2.6.1               
+[125] circlize_0.4.15           fansi_1.0.4              
+[127] VIM_6.2.2                 parallelly_1.37.0        
+[129] R6_2.5.1                  ggridges_0.5.6           
+[131] lifecycle_1.0.4           curl_5.2.0               
+[133] ggsignif_0.6.4            leiden_0.4.3.1           
+[135] robustbase_0.99-2         Matrix_1.6-5             
+[137] RcppAnnoy_0.0.22          RColorBrewer_1.1-3       
+[139] iterators_1.0.14          spatstat.explore_3.2-6   
+[141] htmlwidgets_1.6.4         beachmat_2.14.2          
+[143] polyclip_1.10-6           purrr_1.0.2              
+[145] gridGraphics_0.5-1        globals_0.16.2           
+[147] spatstat.random_3.2-2     progressr_0.14.0         
+[149] codetools_0.2-19          RSpectra_0.16-1          
+[151] gtable_0.3.4              tensor_1.5               
+[153] httr_1.4.7                KernSmooth_2.23-20       
+[155] presto_1.0.0              stringi_1.7.8            
+[157] reshape2_1.4.4            farver_2.1.1             
+[159] viridis_0.6.5             ggthemes_5.1.0           
+[161] hexbin_1.28.3             boot_1.3-28.1            
+[163] scattermore_1.2           DEoptimR_1.1-3           
+[165] spatstat.data_3.0-4       pkgconfig_2.0.3          
+[167] knn.covertree_1.0         rstatix_0.7.2            

@@ -1,0 +1,593 @@
+[1] "The script is starting..."
+                              orig.ident nCount_RNA nFeature_RNA
+AAACCTGAGCTAACTC.1 CD8T24_R1n2n3_sng_20p       2477         1269
+AAACCTGCAAGTAATG.1 CD8T24_R1n2n3_sng_20p       6387         2375
+AAACCTGCAGGACCCT.1 CD8T24_R1n2n3_sng_20p       6268         2117
+AAACCTGCAGTTTACG.1 CD8T24_R1n2n3_sng_20p      13992         3280
+AAACCTGCATGTAGTC.1 CD8T24_R1n2n3_sng_20p      15196         3714
+AAACCTGGTAAATGAC.1 CD8T24_R1n2n3_sng_20p       4442         1910
+                                origlib orig.project_id orig.n_donors
+AAACCTGAGCTAACTC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCAAGTAATG.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCAGGACCCT.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCAGTTTACG.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCATGTAGTC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGGTAAATGAC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+                   percent.mt orig.project_group orig.virus orig.virus2
+AAACCTGAGCTAACTC.1   4.965684                 B1         CV          CV
+AAACCTGCAAGTAATG.1   3.788946                 B1         CV          CV
+AAACCTGCAGGACCCT.1   3.334397                 B1         CV          CV
+AAACCTGCAGTTTACG.1   2.308462                 B1         CV          CV
+AAACCTGCATGTAGTC.1   3.349566                 B1         CV          CV
+AAACCTGGTAAATGAC.1   2.633949                 B1         CV          CV
+                   orig.asthma orig.peptide orig.donor orig.severity
+AAACCTGAGCTAACTC.1        void            M        P10           ITU
+AAACCTGCAAGTAATG.1      Asthma            M        P12          NITU
+AAACCTGCAGGACCCT.1      Asthma            M        P12          NITU
+AAACCTGCAGTTTACG.1        void            M        P10           ITU
+AAACCTGCATGTAGTC.1      Asthma            M        P12          NITU
+AAACCTGGTAAATGAC.1      Asthma            M        P07          NITU
+                   orig.severity_score orig.severity_x              drug
+AAACCTGAGCTAACTC.1              Severe          Severe Antihypertensives
+AAACCTGCAAGTAATG.1            Moderate        Moderate       Antibiotics
+AAACCTGCAGGACCCT.1            Moderate        Moderate       Antibiotics
+AAACCTGCAGTTTACG.1              Severe          Severe Antihypertensives
+AAACCTGCATGTAGTC.1            Moderate        Moderate       Antibiotics
+AAACCTGGTAAATGAC.1              Severe        Moderate       Antibiotics
+                   orig.diabetes age orig.sex cardiovascular tumour
+AAACCTGAGCTAACTC.1         Type2  65     Male            HTN   void
+AAACCTGCAAGTAATG.1          void  82   Female           void   void
+AAACCTGCAGGACCCT.1          void  82   Female           void   void
+AAACCTGCAGTTTACG.1         Type2  65     Male            HTN   void
+AAACCTGCATGTAGTC.1          void  82   Female           void   void
+AAACCTGGTAAATGAC.1          void  52     Male           void   void
+                   orig.hospital orig.unit severity_mod identifier
+AAACCTGAGCTAACTC.1           Yes       ITU       Severe  GSE153931
+AAACCTGCAAGTAATG.1           Yes      Ward       Severe  GSE153931
+AAACCTGCAGGACCCT.1           Yes      Ward       Severe  GSE153931
+AAACCTGCAGTTTACG.1           Yes       ITU       Severe  GSE153931
+AAACCTGCATGTAGTC.1           Yes      Ward       Severe  GSE153931
+AAACCTGGTAAATGAC.1           Yes      Ward       Severe  GSE153931
+                   percent.CARTEx_630 PFSD.CARTEx_630 percent.CARTEx_200
+AAACCTGAGCTAACTC.1           2.260799        4.444444          1.2515139
+AAACCTGCAAGTAATG.1           1.800532        8.571429          0.7828401
+AAACCTGCAGGACCCT.1           2.967454        7.142857          2.3133376
+AAACCTGCAGTTTACG.1           1.257862       10.317460          0.4288165
+AAACCTGCATGTAGTC.1           0.697552        7.301587          0.2105817
+AAACCTGGTAAATGAC.1           3.894642        8.730159          2.7239982
+                   PFSD.CARTEx_200 percent.CARTEx_84 PFSD.CARTEx_84
+AAACCTGAGCTAACTC.1             5.5         0.2018571       2.380952
+AAACCTGCAAGTAATG.1             7.0         0.4853609       4.761905
+AAACCTGCAGGACCCT.1             8.5         0.2712189       8.333333
+AAACCTGCAGTTTACG.1             7.5         0.2644368       8.333333
+AAACCTGCATGTAGTC.1             5.0         0.1118715       4.761905
+AAACCTGGTAAATGAC.1             9.5         0.5853219       8.333333
+                   RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+AAACCTGAGCTAACTC.1             0               0               3
+AAACCTGCAAGTAATG.1             0               4               5
+AAACCTGCAGGACCCT.1             0               2               1
+AAACCTGCAGTTTACG.1             0               4               5
+AAACCTGCATGTAGTC.1             0               4               5
+AAACCTGGTAAATGAC.1             0               2               1
+                   RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+AAACCTGAGCTAACTC.1               8              10             1
+AAACCTGCAAGTAATG.1               5               3             7
+AAACCTGCAGGACCCT.1               1               0             0
+AAACCTGCAGTTTACG.1               5               3             9
+AAACCTGCATGTAGTC.1               5               3             9
+AAACCTGGTAAATGAC.1               1               0             0
+                   seurat_clusters DC1rank DC2rank          dpt     S.Score
+AAACCTGAGCTAACTC.1               3    9262    8579 -0.001178119 -0.06190535
+AAACCTGCAAGTAATG.1               5   58440   58605 -0.005353886 -0.03837350
+AAACCTGCAGGACCCT.1               1   51265   53103 -0.002851843  0.13010537
+AAACCTGCAGTTTACG.1               5   60398   60583 -0.008195816  0.02680598
+AAACCTGCATGTAGTC.1               5   59798   60270 -0.006117519  0.07280137
+AAACCTGGTAAATGAC.1               1   34829   38514 -0.001170467  0.08368895
+                     G2M.Score Phase old.ident
+AAACCTGAGCTAACTC.1 -0.01588386    G1         1
+AAACCTGCAAGTAATG.1  0.04661539   G2M         7
+AAACCTGCAGGACCCT.1  0.02137868     S         0
+AAACCTGCAGTTTACG.1 -0.01178856     S         9
+AAACCTGCATGTAGTC.1 -0.03320066     S         9
+AAACCTGGTAAATGAC.1  0.01107162     S         0
+[1] "generating figure for  ./plots/GSE153931_prepare_ridgeplt"
+[1] "generating figure for  ./plots/GSE153931_prepare_PCAplot"
+[1] "generating figure for  ./plots/GSE153931_prepare_PCAplot_regressed"
+              orig.ident  Phase     N
+                  <char> <fctr> <int>
+1: CD8T24_R1n2n3_sng_20p     G1 26714
+2: CD8T24_R1n2n3_sng_20p    G2M 17183
+3: CD8T24_R1n2n3_sng_20p      S 17686
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_phase"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_phase"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+         <fctr>            <fctr> <int>
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine     N
+             <char>                        <char> <int>
+ 1:    CD8+ T cells             Naive CD8 T cells     4
+ 2:    CD8+ T cells    Central memory CD8 T cells     4
+ 3:    CD8+ T cells   Effector memory CD8 T cells     4
+ 4:    CD8+ T cells Terminal effector CD8 T cells     4
+ 5:         T cells                    MAIT cells     4
+ 6:         T cells                Vd2 gd T cells     4
+ 7:         T cells            Non-Vd2 gd T cells     4
+ 8:    CD4+ T cells     Follicular helper T cells     4
+ 9:    CD4+ T cells            T regulatory cells     4
+10:    CD4+ T cells                     Th1 cells     4
+11:    CD4+ T cells                Th1/Th17 cells     4
+12:    CD4+ T cells                    Th17 cells     4
+13:    CD4+ T cells                     Th2 cells     4
+14:    CD4+ T cells             Naive CD4 T cells     4
+15:     Progenitors              Progenitor cells     4
+16:         B cells                 Naive B cells     4
+17:         B cells   Non-switched memory B cells     4
+18:         B cells             Exhausted B cells     4
+19:         B cells       Switched memory B cells     4
+20:         B cells                  Plasmablasts     4
+21:       Monocytes           Classical monocytes     4
+22:       Monocytes        Intermediate monocytes     4
+23:       Monocytes       Non classical monocytes     4
+24:        NK cells          Natural killer cells     4
+25: Dendritic cells  Plasmacytoid dendritic cells     4
+26: Dendritic cells       Myeloid dendritic cells     4
+27:     Neutrophils       Low-density neutrophils     4
+28:       Basophils         Low-density basophils     4
+29:    CD4+ T cells Terminal effector CD4 T cells     2
+         label.main                    label.fine     N
+[1] "CD8+ T cells"
+       label.main                       label.fine     N
+           <char>                           <char> <int>
+ 1:       B cells                   B cells, naive   106
+ 2:     Monocytes                 Monocytes, CD14+   106
+ 3:     Monocytes                 Monocytes, CD16+   105
+ 4:      NK cells                         NK cells   105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG   104
+ 6: T cells, CD4+             T cells, CD4+, naive   103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated   102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG   104
+ 9: T cells, CD4+               T cells, CD4+, TFH   104
+10: T cells, CD4+               T cells, CD4+, Th1   104
+11: T cells, CD4+            T cells, CD4+, Th1_17   104
+12: T cells, CD4+              T cells, CD4+, Th17   104
+13: T cells, CD4+               T cells, CD4+, Th2   104
+14: T cells, CD8+             T cells, CD8+, naive   104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated   102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+    61583 
+                     azimuth
+AAACCTGAGCTAACTC.1 CD8 Naive
+[1] "generating figure for  ./plots/GSE153931_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                         5881                         26533 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                           91                         29078 
+                                          monaco
+AAACCTGAGCTAACTC.1   Effector memory CD8 T cells
+AAACCTGCAAGTAATG.1    Central memory CD8 T cells
+AAACCTGCATGTAGTC.1             Naive CD8 T cells
+AAACCTGGTAAATGAC.1 Terminal effector CD8 T cells
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_predicted_monaco"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                           61409                              174 
+                                               dice
+AAACCTGAGCTAACTC.1             T cells, CD8+, naive
+AACTCAGGTTCAGCGC.1 T cells, CD8+, naive, stimulated
+[1] "generating figure for  ./plots/GSE153931_umap_predicted_dice"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/GSE153931_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+7: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+       N
+   <int>
+1: 26438
+2:  5877
+3:    91
+4: 29003
+5:    95
+6:    75
+7:     4
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_dice_seurat_clusters"
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_monaco_severity_mod"
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_phase_severity_mod"
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_monaco_severity_mod_slim"
+[1] "generating figure for  ./plots/GSE153931_prepare_barplot_phase_severity_mod_slim"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_activationi"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_activationi_highlight"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_anergyi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_anergyi_highlight"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_stemnessi"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_stemnessi_highlight"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_senescencei"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_senescencei_highlight"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_CARTEx_84"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_CARTEx_200"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_CARTEx_630"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_activation"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_anergy"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_stemness"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_sig_senescence"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_NKlike_Tex"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_LCMV_Tex"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_BBD_Tex"
+[1] "generating figure for  ./plots/GSE153931_prepare_umap_PD1_Tex"
+                              orig.ident nCount_RNA nFeature_RNA
+AAACCTGAGCTAACTC.1 CD8T24_R1n2n3_sng_20p       2477         1269
+AAACCTGCAAGTAATG.1 CD8T24_R1n2n3_sng_20p       6387         2375
+AAACCTGCAGGACCCT.1 CD8T24_R1n2n3_sng_20p       6268         2117
+AAACCTGCAGTTTACG.1 CD8T24_R1n2n3_sng_20p      13992         3280
+AAACCTGCATGTAGTC.1 CD8T24_R1n2n3_sng_20p      15196         3714
+AAACCTGGTAAATGAC.1 CD8T24_R1n2n3_sng_20p       4442         1910
+AAACCTGGTTTGACAC.1 CD8T24_R1n2n3_sng_20p       5614         2118
+AAACCTGTCGATCCCT.1 CD8T24_R1n2n3_sng_20p       7598         2603
+AAACGGGAGTACTTGC.1 CD8T24_R1n2n3_sng_20p       4238         1686
+AAACGGGAGTGGGATC.1 CD8T24_R1n2n3_sng_20p       2601         1273
+                                origlib orig.project_id orig.n_donors
+AAACCTGAGCTAACTC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCAAGTAATG.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCAGGACCCT.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCAGTTTACG.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGCATGTAGTC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGGTAAATGAC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGGTTTGACAC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACCTGTCGATCCCT.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACGGGAGTACTTGC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+AAACGGGAGTGGGATC.1 CoVi03_8_M_24_5P_Gex          CoVi03            5P
+                   percent.mt orig.project_group orig.virus orig.virus2
+AAACCTGAGCTAACTC.1   4.965684                 B1         CV          CV
+AAACCTGCAAGTAATG.1   3.788946                 B1         CV          CV
+AAACCTGCAGGACCCT.1   3.334397                 B1         CV          CV
+AAACCTGCAGTTTACG.1   2.308462                 B1         CV          CV
+AAACCTGCATGTAGTC.1   3.349566                 B1         CV          CV
+AAACCTGGTAAATGAC.1   2.633949                 B1         CV          CV
+AAACCTGGTTTGACAC.1   3.402209                 B1         CV          CV
+AAACCTGTCGATCCCT.1   4.053698                 B1         CV          CV
+AAACGGGAGTACTTGC.1   3.492213                 B1         CV          CV
+AAACGGGAGTGGGATC.1   3.037293                 B1         CV          CV
+                   orig.asthma orig.peptide orig.donor orig.severity
+AAACCTGAGCTAACTC.1        void            M        P10           ITU
+AAACCTGCAAGTAATG.1      Asthma            M        P12          NITU
+AAACCTGCAGGACCCT.1      Asthma            M        P12          NITU
+AAACCTGCAGTTTACG.1        void            M        P10           ITU
+AAACCTGCATGTAGTC.1      Asthma            M        P12          NITU
+AAACCTGGTAAATGAC.1      Asthma            M        P07          NITU
+AAACCTGGTTTGACAC.1        void            M        P10           ITU
+AAACCTGTCGATCCCT.1      Asthma            M        P12          NITU
+AAACGGGAGTACTTGC.1      Asthma            M        P12          NITU
+AAACGGGAGTGGGATC.1      Asthma            M        P05           ITU
+                   orig.severity_score orig.severity_x              drug
+AAACCTGAGCTAACTC.1              Severe          Severe Antihypertensives
+AAACCTGCAAGTAATG.1            Moderate        Moderate       Antibiotics
+AAACCTGCAGGACCCT.1            Moderate        Moderate       Antibiotics
+AAACCTGCAGTTTACG.1              Severe          Severe Antihypertensives
+AAACCTGCATGTAGTC.1            Moderate        Moderate       Antibiotics
+AAACCTGGTAAATGAC.1              Severe        Moderate       Antibiotics
+AAACCTGGTTTGACAC.1              Severe          Severe Antihypertensives
+AAACCTGTCGATCCCT.1            Moderate        Moderate       Antibiotics
+AAACGGGAGTACTTGC.1            Moderate        Moderate       Antibiotics
+AAACGGGAGTGGGATC.1              Severe          Severe       Antibiotics
+                   orig.diabetes age orig.sex cardiovascular tumour
+AAACCTGAGCTAACTC.1         Type2  65     Male            HTN   void
+AAACCTGCAAGTAATG.1          void  82   Female           void   void
+AAACCTGCAGGACCCT.1          void  82   Female           void   void
+AAACCTGCAGTTTACG.1         Type2  65     Male            HTN   void
+AAACCTGCATGTAGTC.1          void  82   Female           void   void
+AAACCTGGTAAATGAC.1          void  52     Male           void   void
+AAACCTGGTTTGACAC.1         Type2  65     Male            HTN   void
+AAACCTGTCGATCCCT.1          void  82   Female           void   void
+AAACGGGAGTACTTGC.1          void  82   Female           void   void
+AAACGGGAGTGGGATC.1         Type1  62   Female            HTN   void
+                   orig.hospital orig.unit severity_mod identifier
+AAACCTGAGCTAACTC.1           Yes       ITU       Severe  GSE153931
+AAACCTGCAAGTAATG.1           Yes      Ward       Severe  GSE153931
+AAACCTGCAGGACCCT.1           Yes      Ward       Severe  GSE153931
+AAACCTGCAGTTTACG.1           Yes       ITU       Severe  GSE153931
+AAACCTGCATGTAGTC.1           Yes      Ward       Severe  GSE153931
+AAACCTGGTAAATGAC.1           Yes      Ward       Severe  GSE153931
+AAACCTGGTTTGACAC.1           Yes       ITU       Severe  GSE153931
+AAACCTGTCGATCCCT.1           Yes      Ward       Severe  GSE153931
+AAACGGGAGTACTTGC.1           Yes      Ward       Severe  GSE153931
+AAACGGGAGTGGGATC.1           Yes       ITU       Severe  GSE153931
+                   percent.CARTEx_630 PFSD.CARTEx_630 percent.CARTEx_200
+AAACCTGAGCTAACTC.1           2.260799        4.444444          1.2515139
+AAACCTGCAAGTAATG.1           1.800532        8.571429          0.7828401
+AAACCTGCAGGACCCT.1           2.967454        7.142857          2.3133376
+AAACCTGCAGTTTACG.1           1.257862       10.317460          0.4288165
+AAACCTGCATGTAGTC.1           0.697552        7.301587          0.2105817
+AAACCTGGTAAATGAC.1           3.894642        8.730159          2.7239982
+AAACCTGGTTTGACAC.1           2.921268        8.253968          1.8881368
+AAACCTGTCGATCCCT.1           1.368781        9.047619          0.6054225
+AAACGGGAGTACTTGC.1           1.793299        6.666667          0.4483247
+AAACGGGAGTGGGATC.1           1.806997        5.396825          0.8842753
+                   PFSD.CARTEx_200 percent.CARTEx_84 PFSD.CARTEx_84
+AAACCTGAGCTAACTC.1             5.5         0.2018571       2.380952
+AAACCTGCAAGTAATG.1             7.0         0.4853609       4.761905
+AAACCTGCAGGACCCT.1             8.5         0.2712189       8.333333
+AAACCTGCAGTTTACG.1             7.5         0.2644368       8.333333
+AAACCTGCATGTAGTC.1             5.0         0.1118715       4.761905
+AAACCTGGTAAATGAC.1             9.5         0.5853219       8.333333
+AAACCTGGTTTGACAC.1             7.5         0.3740648       4.761905
+AAACCTGTCGATCCCT.1            13.0         0.2632272      11.904762
+AAACGGGAGTACTTGC.1             4.0         0.3303445       5.952381
+AAACGGGAGTGGGATC.1             7.5         0.3460208       9.523810
+                   RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+AAACCTGAGCTAACTC.1             0               0               3
+AAACCTGCAAGTAATG.1             0               4               5
+AAACCTGCAGGACCCT.1             0               2               1
+AAACCTGCAGTTTACG.1             0               4               5
+AAACCTGCATGTAGTC.1             0               4               5
+AAACCTGGTAAATGAC.1             0               2               1
+AAACCTGGTTTGACAC.1             0               2               1
+AAACCTGTCGATCCCT.1             0               2               1
+AAACGGGAGTACTTGC.1             0               4               5
+AAACGGGAGTGGGATC.1             0               0               3
+                   RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+AAACCTGAGCTAACTC.1               8              10             1
+AAACCTGCAAGTAATG.1               5               3             7
+AAACCTGCAGGACCCT.1               1               0             0
+AAACCTGCAGTTTACG.1               5               3             9
+AAACCTGCATGTAGTC.1               5               3             9
+AAACCTGGTAAATGAC.1               1               0             0
+AAACCTGGTTTGACAC.1               1               0             0
+AAACCTGTCGATCCCT.1               1               0             0
+AAACGGGAGTACTTGC.1               5               3             9
+AAACGGGAGTGGGATC.1               2               1             1
+                   seurat_clusters DC1rank DC2rank          dpt     S.Score
+AAACCTGAGCTAACTC.1               3    9262    8579 -0.001178119 -0.06190535
+AAACCTGCAAGTAATG.1               5   58440   58605 -0.005353886 -0.03837350
+AAACCTGCAGGACCCT.1               1   51265   53103 -0.002851843  0.13010537
+AAACCTGCAGTTTACG.1               5   60398   60583 -0.008195816  0.02680598
+AAACCTGCATGTAGTC.1               5   59798   60270 -0.006117519  0.07280137
+AAACCTGGTAAATGAC.1               1   34829   38514 -0.001170467  0.08368895
+AAACCTGGTTTGACAC.1               1   44346   47589 -0.001792501 -0.10804087
+AAACCTGTCGATCCCT.1               1   52411   54000 -0.002956826  0.11669635
+AAACGGGAGTACTTGC.1               5   52481   53716 -0.002766116 -0.11994702
+AAACGGGAGTGGGATC.1               3    9652    8892 -0.001048758 -0.01934458
+                     G2M.Score Phase old.ident   azimuth
+AAACCTGAGCTAACTC.1 -0.01588386    G1         1 CD8 Naive
+AAACCTGCAAGTAATG.1  0.04661539   G2M         7 CD8 Naive
+AAACCTGCAGGACCCT.1  0.02137868     S         0 CD8 Naive
+AAACCTGCAGTTTACG.1 -0.01178856     S         9 CD8 Naive
+AAACCTGCATGTAGTC.1 -0.03320066     S         9 CD8 Naive
+AAACCTGGTAAATGAC.1  0.01107162     S         0 CD8 Naive
+AAACCTGGTTTGACAC.1  0.05584004   G2M         0 CD8 Naive
+AAACCTGTCGATCCCT.1  0.09126824     S         0 CD8 Naive
+AAACGGGAGTACTTGC.1 -0.00595486    G1         9 CD8 Naive
+AAACGGGAGTGGGATC.1  0.06155378   G2M         1 CD8 Naive
+                                          monaco                 dice
+AAACCTGAGCTAACTC.1   Effector memory CD8 T cells T cells, CD8+, naive
+AAACCTGCAAGTAATG.1    Central memory CD8 T cells T cells, CD8+, naive
+AAACCTGCAGGACCCT.1   Effector memory CD8 T cells T cells, CD8+, naive
+AAACCTGCAGTTTACG.1    Central memory CD8 T cells T cells, CD8+, naive
+AAACCTGCATGTAGTC.1             Naive CD8 T cells T cells, CD8+, naive
+AAACCTGGTAAATGAC.1 Terminal effector CD8 T cells T cells, CD8+, naive
+AAACCTGGTTTGACAC.1   Effector memory CD8 T cells T cells, CD8+, naive
+AAACCTGTCGATCCCT.1   Effector memory CD8 T cells T cells, CD8+, naive
+AAACGGGAGTACTTGC.1    Central memory CD8 T cells T cells, CD8+, naive
+AAACGGGAGTGGGATC.1 Terminal effector CD8 T cells T cells, CD8+, naive
+                   CARTEx_630 CARTEx_630i CARTEx_200 CARTEx_200i  CARTEx_84
+AAACCTGAGCTAACTC.1 -1.3091588          -1 -0.8648517          -1 -1.6046421
+AAACCTGCAAGTAATG.1 -0.8153436          -1 -1.3366619          -1 -0.6690033
+AAACCTGCAGGACCCT.1 -0.8267033          -1 -0.1809896           0 -0.2203167
+AAACCTGCAGTTTACG.1 -1.0773881          -1 -1.5287755          -2 -0.4757497
+AAACCTGCATGTAGTC.1 -2.2898895          -2 -2.2933272          -2 -1.5814808
+AAACCTGGTAAATGAC.1  0.5523836           1  0.6761287           1  0.4046400
+AAACCTGGTTTGACAC.1 -0.2460172           0 -0.3825911           0 -0.9391171
+AAACCTGTCGATCCCT.1 -0.8248028          -1 -0.4104301           0  0.2228939
+AAACGGGAGTACTTGC.1 -0.9823124          -1 -1.8500485          -2 -0.5515541
+AAACGGGAGTGGGATC.1 -1.0170823          -1 -0.5385659          -1  0.4366748
+                   CARTEx_84i Activation     Anergy    Stemness Senescence
+AAACCTGAGCTAACTC.1         -2 -0.6758013 -0.3709360 -0.09814096  0.2172522
+AAACCTGCAAGTAATG.1         -1 -0.3293085  0.5247393 -0.06819995 -0.1254964
+AAACCTGCAGGACCCT.1          0 -1.3034075 -1.1890663 -1.10429087 -1.4335182
+AAACCTGCAGTTTACG.1          0 -0.6580238 -2.0243205 -0.41036916 -0.7560907
+AAACCTGCATGTAGTC.1         -2 -1.2964958 -2.2249823 -0.10432101 -1.0537023
+AAACCTGGTAAATGAC.1          0 -0.5370038  0.3436911 -0.51346235 -0.9514168
+AAACCTGGTTTGACAC.1         -1 -1.2850495 -0.5955963 -0.96744921  0.2670192
+AAACCTGTCGATCCCT.1          0 -0.6492684 -0.3460645  0.67442266  0.1015935
+AAACGGGAGTACTTGC.1         -1 -0.7937179  0.3091965  1.96769770 -0.1192449
+AAACGGGAGTGGGATC.1          0  1.3506329  0.6826422 -0.73673874  1.4216675
+                   Activationi Anergyi Stemnessi Senescencei NKlike_Tex
+AAACCTGAGCTAACTC.1          -1       0         0           0 -0.2487900
+AAACCTGCAAGTAATG.1           0       1         0           0 -1.8702940
+AAACCTGCAGGACCCT.1          -1      -1        -1          -1  0.3186630
+AAACCTGCAGTTTACG.1          -1      -2         0          -1 -1.9338085
+AAACCTGCATGTAGTC.1          -1      -2         0          -1 -2.5731671
+AAACCTGGTAAATGAC.1          -1       0        -1          -1  0.9872358
+AAACCTGGTTTGACAC.1          -1      -1        -1           0  0.4427886
+AAACCTGTCGATCCCT.1          -1       0         1           0 -0.8170248
+AAACGGGAGTACTTGC.1          -1       0         2           0 -1.5539323
+AAACGGGAGTGGGATC.1           1       1        -1           1 -0.5170413
+                     LCMV_Tex    BBD_Tex     PD1_Tex NKlike_Texi LCMV_Texi
+AAACCTGAGCTAACTC.1 -0.7697822  0.2331587 -0.20604645           0        -1
+AAACCTGCAAGTAATG.1 -1.0670690 -0.7887002 -0.90702259          -2        -1
+AAACCTGCAGGACCCT.1 -0.7898458 -1.4927933  0.02632447           0        -1
+AAACCTGCAGTTTACG.1 -1.7902701 -2.1796455 -1.77964930          -2        -2
+AAACCTGCATGTAGTC.1 -2.3797939 -3.1829411 -2.62672235          -3        -2
+AAACCTGGTAAATGAC.1  1.5246546 -1.0974266  0.09751571           1         2
+AAACCTGGTTTGACAC.1 -0.5777395 -0.6304052  0.27547641           0        -1
+AAACCTGTCGATCCCT.1 -1.5673133 -1.5579577 -0.91303724          -1        -2
+AAACGGGAGTACTTGC.1  0.2841942 -0.9289336 -0.27391620          -2         0
+AAACGGGAGTGGGATC.1 -0.3515130 -0.1401041  0.08671624          -1         0
+                   BBD_Texi PD1_Texi
+AAACCTGAGCTAACTC.1        0        0
+AAACCTGCAAGTAATG.1       -1       -1
+AAACCTGCAGGACCCT.1       -1        0
+AAACCTGCAGTTTACG.1       -2       -2
+AAACCTGCATGTAGTC.1       -3       -3
+AAACCTGGTAAATGAC.1       -1        0
+AAACCTGGTTTGACAC.1       -1        0
+AAACCTGTCGATCCCT.1       -2       -1
+AAACGGGAGTACTTGC.1       -1        0
+AAACGGGAGTGGGATC.1        0        0
+[1] "The script has completed..."
+    user   system  elapsed 
+12302.95 13226.59 10366.38 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] cowplot_1.1.3               ca_0.71.1                  
+ [3] ComplexHeatmap_2.14.0       ComplexUpset_1.3.3         
+ [5] ggbeeswarm_0.7.2            glmGamPoi_1.10.2           
+ [7] ROGUE_1.0                   clustree_0.5.1             
+ [9] ggraph_2.2.1                EnhancedVolcano_1.16.0     
+[11] ggrepel_0.9.5               patchwork_1.2.0            
+[13] data.table_1.15.4           destiny_3.12.0             
+[15] scuttle_1.11.3              SingleCellExperiment_1.20.1
+[17] SingleR_2.0.0               SummarizedExperiment_1.28.0
+[19] Biobase_2.58.0              GenomicRanges_1.50.2       
+[21] GenomeInfoDb_1.34.9         IRanges_2.32.0             
+[23] S4Vectors_0.36.2            BiocGenerics_0.44.0        
+[25] MatrixGenerics_1.10.0       matrixStats_1.1.0          
+[27] dplyr_1.1.4                 stringr_1.5.1              
+[29] ggplotify_0.1.2             ggpubr_0.6.0               
+[31] ggplot2_3.5.1               Seurat_5.0.3               
+[33] SeuratObject_5.0.1          sp_2.1-4                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             smoother_1.3             
+ [17] BiocParallel_1.32.6       rjson_0.2.21             
+ [19] glue_1.7.0                sctransform_0.4.1        
+ [21] parallel_4.2.0            vipor_0.4.7              
+ [23] spatstat.sparse_3.0-3     dotCall64_1.1-1          
+ [25] spatstat.geom_3.2-9       tidyselect_1.2.1         
+ [27] fitdistrplus_1.1-11       tidyr_1.3.1              
+ [29] zoo_1.8-12                xtable_1.8-4             
+ [31] RcppHNSW_0.6.0            magrittr_2.0.3           
+ [33] cli_3.6.2                 zlibbioc_1.44.0          
+ [35] miniUI_0.1.1.1            RcppEigen_0.3.4.0.0      
+ [37] fastDummies_1.7.3         shiny_1.8.1.1            
+ [39] BiocSingular_1.14.0       clue_0.3-65              
+ [41] cluster_2.1.6             tidygraph_1.3.1          
+ [43] pcaMethods_1.90.0         tibble_3.2.1             
+ [45] listenv_0.9.1             png_0.1-8                
+ [47] future_1.33.2             withr_3.0.0              
+ [49] bitops_1.0-7              ggforce_0.4.2            
+ [51] ranger_0.16.0             plyr_1.8.9               
+ [53] e1071_1.7-14              pillar_1.9.0             
+ [55] GlobalOptions_0.1.2       cachem_1.0.8             
+ [57] fs_1.6.4                  scatterplot3d_0.3-44     
+ [59] TTR_0.24.4                GetoptLong_1.0.5         
+ [61] DelayedMatrixStats_1.20.0 xts_0.13.2               
+ [63] vctrs_0.6.5               generics_0.1.3           
+ [65] tools_4.2.0               beeswarm_0.4.0           
+ [67] munsell_0.5.1             tweenr_2.0.3             
+ [69] proxy_0.4-27              DelayedArray_0.24.0      
+ [71] fastmap_1.1.1             compiler_4.2.0           
+ [73] abind_1.4-5               httpuv_1.6.15            
+ [75] plotly_4.10.4             GenomeInfoDbData_1.2.9   
+ [77] gridExtra_2.3             lattice_0.22-6           
+ [79] deldir_2.0-4              utf8_1.2.4               
+ [81] later_1.3.2               jsonlite_1.8.8           
+ [83] ggplot.multistats_1.0.0   scales_1.3.0             
+ [85] ScaledMatrix_1.6.0        pbapply_1.7-2            
+ [87] carData_3.0-5             sparseMatrixStats_1.10.0 
+ [89] lazyeval_0.2.2            promises_1.3.0           
+ [91] car_3.1-2                 doParallel_1.0.17        
+ [93] goftest_1.2-3             spatstat.utils_3.0-4     
+ [95] reticulate_1.36.1         Rtsne_0.17               
+ [97] uwot_0.2.2                igraph_2.0.3             
+ [99] survival_3.6-4            systemfonts_1.0.6        
+[101] htmltools_0.5.8.1         memoise_2.0.1            
+[103] graphlayouts_1.1.1        viridisLite_0.4.2        
+[105] digest_0.6.35             mime_0.12                
+[107] spam_2.10-0               yulab.utils_0.1.4        
+[109] future.apply_1.11.2       splines_4.2.0            
+[111] labeling_0.4.3            RCurl_1.98-1.14          
+[113] broom_1.0.5               colorspace_2.1-0         
+[115] shape_1.4.6.1             ggrastr_1.0.2            
+[117] nnet_7.3-19               Rcpp_1.0.12              
+[119] RANN_2.6.1                circlize_0.4.16          
+[121] fansi_1.0.6               VIM_6.2.2                
+[123] parallelly_1.37.1         R6_2.5.1                 
+[125] ggridges_0.5.6            lifecycle_1.0.4          
+[127] curl_5.2.1                ggsignif_0.6.4           
+[129] leiden_0.4.3.1            robustbase_0.99-2        
+[131] Matrix_1.6-5              RcppAnnoy_0.0.22         
+[133] RColorBrewer_1.1-3        iterators_1.0.14         
+[135] spatstat.explore_3.2-7    htmlwidgets_1.6.4        
+[137] beachmat_2.14.2           polyclip_1.10-6          
+[139] purrr_1.0.2               gridGraphics_0.5-1       
+[141] globals_0.16.3            spatstat.random_3.2-3    
+[143] progressr_0.14.0          codetools_0.2-20         
+[145] RSpectra_0.16-1           gtable_0.3.5             
+[147] tensor_1.5                httr_1.4.7               
+[149] KernSmooth_2.23-20        stringi_1.7.8            
+[151] reshape2_1.4.4            farver_2.1.1             
+[153] viridis_0.6.5             ggthemes_5.1.0           
+[155] hexbin_1.28.3             boot_1.3-30              
+[157] scattermore_1.2           DEoptimR_1.1-3           
+[159] spatstat.data_3.0-4       pkgconfig_2.0.3          
+[161] rstatix_0.7.2            

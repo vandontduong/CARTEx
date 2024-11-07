@@ -1,0 +1,351 @@
+Loading required package: SeuratObject
+Loading required package: sp
+‘SeuratObject’ was built with package ‘Matrix’ 1.6.4 but the current
+version is 1.6.5; it is recomended that you reinstall ‘SeuratObject’ as
+the ABI for ‘Matrix’ may have changed
+
+Attaching package: ‘SeuratObject’
+
+The following object is masked from ‘package:base’:
+
+    intersect
+
+Loading required package: ggplot2
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following object is masked from ‘package:dplyr’:
+
+    count
+
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:dplyr’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:SeuratObject’:
+
+    intersect
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:dplyr’:
+
+    first, rename
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: ‘IRanges’
+
+The following objects are masked from ‘package:dplyr’:
+
+    collapse, desc, slice
+
+The following object is masked from ‘package:sp’:
+
+    %over%
+
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+
+Attaching package: ‘SummarizedExperiment’
+
+The following object is masked from ‘package:Seurat’:
+
+    Assays
+
+The following object is masked from ‘package:SeuratObject’:
+
+    Assays
+
+Loading required package: SingleCellExperiment
+
+Attaching package: ‘destiny’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    distance
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    distance
+
+The following object is masked from ‘package:IRanges’:
+
+    distance
+
+
+Attaching package: ‘data.table’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    shift
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    shift
+
+The following object is masked from ‘package:IRanges’:
+
+    shift
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, second
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+Loading required package: ggrepel
+Loading required package: ggraph
+
+Attaching package: ‘ggraph’
+
+The following object is masked from ‘package:sp’:
+
+    geometry
+
+
+Attaching package: ‘glmGamPoi’
+
+The following object is masked from ‘package:dplyr’:
+
+    vars
+
+The following object is masked from ‘package:ggplot2’:
+
+    vars
+
+Loading required package: grid
+========================================
+ComplexHeatmap version 2.14.0
+Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+Github page: https://github.com/jokergoo/ComplexHeatmap
+Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+
+If you use it in published research, please cite either one:
+- Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+- Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+    genomic data. Bioinformatics 2016.
+
+
+The new InteractiveComplexHeatmap package can directly export static 
+complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(ComplexHeatmap))
+========================================
+
+Warning: The following features are not present in the object: MLF1IP, not searching for symbol synonyms
+Warning: The following features are not present in the object: FAM64A, HN1, not searching for symbol synonyms
+Saving 7 x 7 in image
+Picking joint bandwidth of 2.07e-06
+Picking joint bandwidth of 1.91e-06
+Picking joint bandwidth of 2.04e-06
+Picking joint bandwidth of 1.9e-06
+Saving 7 x 7 in image
+Picking joint bandwidth of 2.07e-06
+Picking joint bandwidth of 1.91e-06
+Picking joint bandwidth of 2.04e-06
+Picking joint bandwidth of 1.9e-06
+Warning in irlba(A = t(x = object), nv = npcs, ...) :
+  You're computing too large a percentage of total singular values, use a standard svd instead.
+PC_ 1 
+Positive:  CBX5, NUF2, TIPIN, KIF2C, E2F8, DLGAP5, HJURP, CDC45, PSRC1, HMMR 
+	   CDC6, KIF23, CDCA3, TACC3, CDC20, NEK2, ANLN, BUB1, GAS2L3, EXO1 
+	   TTK, CENPA, UHRF1, UBE2C, AURKA, BIRC5, DTL, CDCA2, RAD51AP1, RAD51 
+Negative:  SMC4, HELLS, CDCA7, LBR, TPX2, NASP, KIF11, GMNN, HMGB2, KIF20B 
+	   CKS2, CKAP5, CENPE, USP1, SLBP, ANP32E, TUBB4B, CTCF, NDC80, RPA2 
+	   ATAD2, POLA1, CKAP2, UBR7, WDR76, TMPO, NCAPD2, MCM5, G2E3, TOP2A 
+PC_ 2 
+Positive:  HMGB2, TUBB4B, SLBP, CKS2, FEN1, MCM6, RANGAP1, RRM1, KIF20B, PCNA 
+	   POLA1, CKAP2, RFC2, UNG, TOP2A, MCM4, G2E3, NUF2, ATAD2, NASP 
+	   CHAF1B, SMC4, GINS2, ECT2, GMNN, BLM, MCM5, RAD51AP1, DSCC1, CKAP2L 
+Negative:  TMPO, CASP8AP2, CBX5, MSH2, TACC3, NDC80, ANP32E, LBR, PRIM1, KIF11 
+	   CTCF, CKAP5, WDR76, RPA2, HELLS, CKS1B, TIPIN, NCAPD2, POLD3, TPX2 
+	   CDCA7, CENPE, UBR7, RAD51, UHRF1, RRM2, BIRC5, MKI67, PSRC1, GTSE1 
+PC_ 3 
+Positive:  RPA2, TUBB4B, NASP, MCM5, SLBP, PCNA, NCAPD2, WDR76, CKS1B, PRIM1 
+	   USP1, UNG, CASP8AP2, LBR, NDC80, CDCA7, MCM2, GMNN, UBR7, DSCC1 
+	   CKAP5, CLSPN, SMC4, PSRC1, CDCA8, UHRF1, CENPE, KIF2C, RAD51, CDC6 
+Negative:  KIF20B, HMGB2, BLM, ATAD2, CBX5, RFC2, TMPO, G2E3, RRM1, RANGAP1 
+	   HELLS, MCM6, TACC3, MCM4, CENPF, CKAP2, CHAF1B, KIF11, CTCF, FEN1 
+	   TIPIN, TOP2A, TPX2, POLD3, CKAP2L, CKS2, POLA1, BRIP1, ANP32E, AURKA 
+PC_ 4 
+Positive:  USP1, ATAD2, BLM, KIF20B, CENPE, WDR76, TIPIN, NCAPD2, MSH2, POLA1 
+	   TUBB4B, GMNN, SMC4, CASP8AP2, G2E3, NASP, CCNE2, MCM2, GTSE1, CENPF 
+	   CTCF, ECT2, MCM4, UHRF1, POLD3, RFC2, CKAP5, BRIP1, CLSPN, RAD51AP1 
+Negative:  TACC3, CKAP2, UBR7, RRM1, SLBP, FEN1, CBX5, CKS1B, ANP32E, MCM5 
+	   PRIM1, MCM6, CDCA7, CKS2, NDC80, TPX2, PCNA, TMPO, KIF11, CHAF1B 
+	   HELLS, RANGAP1, HMGB2, MKI67, LBR, RPA2, NUSAP1, TOP2A, CDCA8, AURKA 
+PC_ 5 
+Positive:  RANGAP1, POLA1, POLD3, MSH2, TMPO, CKAP2, NCAPD2, MCM6, USP1, TACC3 
+	   TOP2A, CASP8AP2, MCM4, CDCA7, LBR, UNG, CKS2, CHAF1B, ATAD2, CTCF 
+	   TUBB4B, RPA2, RRM1, SLBP, CDCA8, KIF11, KIF20B, PRIM1, ANP32E, CDCA3 
+Negative:  TIPIN, G2E3, TPX2, MCM5, HMGB2, PCNA, RFC2, NDC80, HELLS, CBX5 
+	   CKS1B, GMNN, BLM, CENPE, UBR7, MCM2, NASP, BRIP1, FEN1, MKI67 
+	   CCNE2, NUSAP1, CENPA, RAD51AP1, CCNB2, TYMS, CLSPN, BIRC5, CDC45, UBE2C 
+Warning: Number of dimensions changing from 30 to 50
+Warning messages:
+1: In PrepDR(object = object, features = features, verbose = verbose) :
+  The following 3 features requested have not been scaled (running reduction without them): MLF1IP, FAM64A, HN1
+2: In PrepDR(object = object, features = features, verbose = verbose) :
+  The following 1 features requested have zero variance (running reduction without them): CDC25C
+Regressing out S.Score, G2M.Score
+  |                                                                              |                                                                      |   0%  |                                                                              |                                                                      |   1%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |=======                                                               |  11%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |=========                                                             |  14%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |================                                                      |  24%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |=====================                                                 |  31%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |=======================                                               |  34%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |===================================                                   |  51%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |=============================================                         |  65%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |=================================================                     |  71%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |===================================================                   |  74%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |========================================================              |  81%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |===========================================================           |  85%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |=================================================================     |  94%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================|  99%  |                                                                              |======================================================================| 100%
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |====                                                                  |   6%  |                                                                              |========                                                              |  12%  |                                                                              |============                                                          |  18%  |                                                                              |================                                                      |  24%  |                                                                              |=====================                                                 |  29%  |                                                                              |=========================                                             |  35%  |                                                                              |=============================                                         |  41%  |                                                                              |=================================                                     |  47%  |                                                                              |=====================================                                 |  53%  |                                                                              |=========================================                             |  59%  |                                                                              |=============================================                         |  65%  |                                                                              |=================================================                     |  71%  |                                                                              |======================================================                |  76%  |                                                                              |==========================================================            |  82%  |                                                                              |==============================================================        |  88%  |                                                                              |==================================================================    |  94%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  RPL32, RPS12, RPS3A, RPL34, RPS6, RPS23, RPL9, RPS13, RPS28, RPS8 
+Negative:  NKG7, CCL5, GZMA, CST7, GZMH, S100A4, FGFBP2, SH3BGRL3, KLRD1, EFHD2 
+PC_ 2 
+Positive:  GIMAP7, CORO1A, CD52, TXNIP, GIMAP4, S100A11, ACTG1, NOSIP, LBH, MAL 
+Negative:  PIK3R1, CXCR4, DUSP2, CREM, NR4A2, METRNL, SRGN, TNFAIP3, ZNF331, RGS1 
+PC_ 3 
+Positive:  ETS1, BCL11B, STAT1, CELF2, SMCHD1, CAMK4, ATRX, SAMHD1, SLFN5, RNF213 
+Negative:  FTH1, GNLY, CTSW, DUSP2, EEF1A1, S100A6, METRNL, RPS12, RPL13, RPL21 
+PC_ 4 
+Positive:  MT-ND1, MT-ND3, FOSB, GNLY, KLF6, MT-ND6, GZMB, MYBL1, KLRC1, LGALS1 
+Negative:  PFN1, ACTB, CD74, COTL1, FTH1, RPL13, IFITM1, PSME2, RPS10, STAT1 
+PC_ 5 
+Positive:  KLF2, RPL13, GNLY, ARL4C, IL7R, KLRC1, VIM, FTH1, ZFP36L2, CD52 
+Negative:  HLA-DRA, CD74, PMAIP1, HLA-DRB5, IFIT3, RPS4Y1, HLA-DRB1, HLA-DQA2, CD38, EZH2 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning message:
+useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+Warning messages:
+1: useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+2: useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+3: useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+4: useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+5: useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+Warning message:
+useNames = NA is deprecated. Instead, specify either useNames = TRUE or useNames = FALSE. 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning message:
+`aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information. 
+Warning: The following features are not present in the object: AGT, CCL1, MARCHF2, MYL7, SFRP4, TINAG, attempting to find updated synonyms
+  |                                                                              |                                                                      |   0%  |                                                                              |============                                                          |  17%  |                                                                              |=======================                                               |  33%  |                                                                              |===================================                                   |  50%  |                                                                              |===============================================                       |  67%  |                                                                              |==========================================================            |  83%  |                                                                              |======================================================================| 100%
+Warning: No updated symbols found
+Warning: The following features are still not present in the object: AGT, CCL1, MARCHF2, MYL7, SFRP4, TINAG
+Warning: The following features are not present in the object: ADAM21, ADAM3A, AFP, CDC42EP2, CNTN1, COL21A1, COL4A5, CEP43, GPR50, GPR6, H2AC17, H3C11, H4C9, MAGEA4, MMP10, MT1B, ODF1, SERPINB3, SNAP25, ZRSR2P1, attempting to find updated synonyms
+  |                                                                              |                                                                      |   0%  |                                                                              |====                                                                  |   5%  |                                                                              |=======                                                               |  10%  |                                                                              |==========                                                            |  15%  |                                                                              |==============                                                        |  20%  |                                                                              |==================                                                    |  25%  |                                                                              |=====================                                                 |  30%  |                                                                              |========================                                              |  35%  |                                                                              |============================                                          |  40%  |                                                                              |================================                                      |  45%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================                                |  55%  |                                                                              |==========================================                            |  60%  |                                                                              |==============================================                        |  65%  |                                                                              |=================================================                     |  70%  |                                                                              |====================================================                  |  75%  |                                                                              |========================================================              |  80%  |                                                                              |============================================================          |  85%  |                                                                              |===============================================================       |  90%  |                                                                              |==================================================================    |  95%  |                                                                              |======================================================================| 100%
+Warning: No updated symbols found
+Warning: The following features are still not present in the object: ADAM21, ADAM3A, AFP, CDC42EP2, CNTN1, COL21A1, COL4A5, CEP43, GPR50, GPR6, H2AC17, H3C11, H4C9, MAGEA4, MMP10, MT1B, ODF1, SERPINB3, SNAP25, ZRSR2P1
+Warning: The following features are not present in the object: COL1A2, ALDH1A3, IGFBP1, IGFBP5, attempting to find updated synonyms
+  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
+Warning: No updated symbols found
+Warning: The following features are still not present in the object: COL1A2, ALDH1A3, IGFBP1, IGFBP5
+Warning: The following features are not present in the object: MYH4, KLK6, GDF3, MEOX2, CRYGB, 1110006I15Rik, Tcrb-V13, Gcin, PENK1, SERPINA3, MDA5, C20orf52, ALCAT1, TRBV11-3, C10orf58, attempting to find updated synonyms
+  |                                                                              |                                                                      |   0%  |                                                                              |=====                                                                 |   7%  |                                                                              |=========                                                             |  13%  |                                                                              |==============                                                        |  20%  |                                                                              |===================                                                   |  27%  |                                                                              |=======================                                               |  33%  |                                                                              |============================                                          |  40%  |                                                                              |=================================                                     |  47%  |                                                                              |=====================================                                 |  53%  |                                                                              |==========================================                            |  60%  |                                                                              |===============================================                       |  67%  |                                                                              |===================================================                   |  73%  |                                                                              |========================================================              |  80%  |                                                                              |=============================================================         |  87%  |                                                                              |=================================================================     |  93%  |                                                                              |======================================================================| 100%
+Found updated symbols for 2 symbols
+C20orf52 -> ROMO1
+C10orf58 -> PRXL2A
+Warning: The following features are still not present in the object: MYH4, KLK6, GDF3, MEOX2, CRYGB, 1110006I15Rik, Tcrb-V13, Gcin, PENK1, SERPINA3, MDA5, ALCAT1, TRBV11-3
+Warning: The following features are not present in the object: MIR155HG, attempting to find updated synonyms
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Warning: No updated symbols found
+Warning: The following features are still not present in the object: MIR155HG
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.
+Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.

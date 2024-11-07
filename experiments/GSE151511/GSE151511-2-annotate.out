@@ -1,0 +1,581 @@
+[1] "The script is starting..."
+                        orig.ident nCount_RNA nFeature_RNA percent.mt
+pt01_AAACGGGTCACATACG-1       pt01      10664         3043   2.334959
+pt01_AAACGGGTCTGATTCT-1       pt01      10486         2978   2.126645
+pt01_AAAGATGGTTCACCTC-1       pt01       7138         2271   2.605772
+pt01_AAAGCAAAGCGCTCCA-1       pt01      15906         3702   3.508110
+pt01_AAAGCAAAGCGTCTAT-1       pt01      11434         3011   2.466328
+pt01_AAAGCAAAGGCAAAGA-1       pt01       7234         2382   2.958253
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+pt01_AAACGGGTCACATACG-1  GSE151511          0.7501875        7.777778
+pt01_AAACGGGTCTGATTCT-1  GSE151511          1.1634560        8.888889
+pt01_AAAGATGGTTCACCTC-1  GSE151511          1.1067526        7.301587
+pt01_AAAGCAAAGCGCTCCA-1  GSE151511          0.6852760        8.888889
+pt01_AAAGCAAAGCGTCTAT-1  GSE151511          0.7084135        8.095238
+pt01_AAAGCAAAGGCAAAGA-1  GSE151511          0.4976500        3.809524
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+pt01_AAACGGGTCACATACG-1         0.20630158             6.5        0.06564141
+pt01_AAACGGGTCTGATTCT-1         0.36238795            11.0        0.13351135
+pt01_AAAGATGGTTCACCTC-1         0.25217148             6.0        0.02801905
+pt01_AAAGCAAAGCGCTCCA-1         0.19489501             6.0        0.11316484
+pt01_AAAGCAAAGCGTCTAT-1         0.20115445             7.5        0.04372923
+pt01_AAAGCAAAGGCAAAGA-1         0.06911805             1.5        0.04147083
+                        PFSD.CARTEx_84 ClinicalResponse  EMR Responder CRS
+pt01_AAACGGGTCACATACG-1       5.952381               CR GOOD         R   2
+pt01_AAACGGGTCTGATTCT-1       9.523810               CR GOOD         R   2
+pt01_AAAGATGGTTCACCTC-1       2.380952               CR GOOD         R   2
+pt01_AAAGCAAAGCGCTCCA-1       5.952381               CR GOOD         R   2
+pt01_AAAGCAAAGCGTCTAT-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAAGGCAAAGA-1       1.190476               CR GOOD         R   2
+                        ICANS RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+pt01_AAACGGGTCACATACG-1     3             0               2               0
+pt01_AAACGGGTCTGATTCT-1     3             0               2               0
+pt01_AAAGATGGTTCACCTC-1     3             0               0               3
+pt01_AAAGCAAAGCGCTCCA-1     3             0               2               0
+pt01_AAAGCAAAGCGTCTAT-1     3             0               2               0
+pt01_AAAGCAAAGGCAAAGA-1     3             0               2               0
+                        RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+pt01_AAACGGGTCACATACG-1               0               1             4
+pt01_AAACGGGTCTGATTCT-1               0               1             4
+pt01_AAAGATGGTTCACCTC-1               3               3             2
+pt01_AAAGCAAAGCGCTCCA-1               0               1             4
+pt01_AAAGCAAAGCGTCTAT-1               0               1             4
+pt01_AAAGCAAAGGCAAAGA-1               0               1             4
+                        seurat_clusters     S.Score     G2M.Score Phase
+pt01_AAACGGGTCACATACG-1               0  0.24353872 -0.0007315527     S
+pt01_AAACGGGTCTGATTCT-1               0 -0.08659983  0.3298550747   G2M
+pt01_AAAGATGGTTCACCTC-1               3 -0.22875268 -0.2332156675    G1
+pt01_AAAGCAAAGCGCTCCA-1               0  0.14174293  0.0765411434     S
+pt01_AAAGCAAAGCGTCTAT-1               0 -0.19521133  0.4876359233   G2M
+pt01_AAAGCAAAGGCAAAGA-1               0 -0.03499739  0.1565637103   G2M
+                        old.ident
+pt01_AAACGGGTCACATACG-1         4
+pt01_AAACGGGTCTGATTCT-1         4
+pt01_AAAGATGGTTCACCTC-1         2
+pt01_AAAGCAAAGCGCTCCA-1         4
+pt01_AAAGCAAAGCGTCTAT-1         4
+pt01_AAAGCAAAGGCAAAGA-1         4
+[1] "generating figure for  ./plots/GSE151511_prepare_ridgeplt"
+[1] "generating figure for  ./plots/GSE151511_prepare_PCAplot"
+[1] "generating figure for  ./plots/GSE151511_prepare_PCAplot_regressed"
+    orig.ident  Phase     N
+        <char> <fctr> <int>
+ 1:       pt01      S   400
+ 2:       pt01    G2M   377
+ 3:       pt01     G1   447
+ 4:       pt02     G1  1121
+ 5:       pt02      S   856
+ 6:       pt02    G2M   857
+ 7:       pt03     G1  1007
+ 8:       pt03      S   203
+ 9:       pt03    G2M   344
+10:       pt04     G1   512
+11:       pt04      S   371
+12:       pt04    G2M   351
+13:       pt05      S   204
+14:       pt05     G1   430
+15:       pt05    G2M   223
+16:       pt06     G1  1078
+17:       pt06      S   827
+18:       pt06    G2M   657
+19:       pt07     G1  1877
+20:       pt07      S   681
+21:       pt07    G2M   492
+22:       pt08      S   418
+23:       pt08    G2M   374
+24:       pt08     G1   693
+25:       pt09    G2M   476
+26:       pt09     G1   752
+27:       pt09      S   465
+28:       pt10    G2M   532
+29:       pt10      S   782
+30:       pt10     G1   415
+31:       pt11    G2M   314
+32:       pt11     G1  1328
+33:       pt11      S   321
+34:       pt12     G1  1043
+35:       pt12    G2M   340
+36:       pt12      S   353
+37:       pt13     G1  1702
+38:       pt13      S  1363
+39:       pt13    G2M  1408
+40:       pt14     G1   438
+41:       pt14    G2M   616
+42:       pt14      S  1038
+43:       pt15    G2M  1006
+44:       pt15     G1  2117
+45:       pt15      S  1747
+46:       pt16      S   368
+47:       pt16    G2M   350
+48:       pt16     G1   678
+49:       pt17     G1  1140
+50:       pt17      S   659
+51:       pt17    G2M   504
+52:       pt18      S   811
+53:       pt18     G1   446
+54:       pt18    G2M   481
+55:       pt19     G1   817
+56:       pt19      S  1265
+57:       pt19    G2M   829
+58:       pt20    G2M   750
+59:       pt20      S  1133
+60:       pt20     G1   318
+61:       pt21     G1    71
+62:       pt21      S   113
+63:       pt21    G2M    91
+64:       pt22     G1   360
+65:       pt22      S    78
+66:       pt22    G2M    65
+67:       pt23     G1  2982
+68:       pt23      S   400
+69:       pt23    G2M   344
+70:       pt24      S   747
+71:       pt24    G2M   437
+72:       pt24     G1   369
+    orig.ident  Phase     N
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_phase"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_phase"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+         <fctr>            <fctr> <int>
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine     N
+             <char>                        <char> <int>
+ 1:    CD8+ T cells             Naive CD8 T cells     4
+ 2:    CD8+ T cells    Central memory CD8 T cells     4
+ 3:    CD8+ T cells   Effector memory CD8 T cells     4
+ 4:    CD8+ T cells Terminal effector CD8 T cells     4
+ 5:         T cells                    MAIT cells     4
+ 6:         T cells                Vd2 gd T cells     4
+ 7:         T cells            Non-Vd2 gd T cells     4
+ 8:    CD4+ T cells     Follicular helper T cells     4
+ 9:    CD4+ T cells            T regulatory cells     4
+10:    CD4+ T cells                     Th1 cells     4
+11:    CD4+ T cells                Th1/Th17 cells     4
+12:    CD4+ T cells                    Th17 cells     4
+13:    CD4+ T cells                     Th2 cells     4
+14:    CD4+ T cells             Naive CD4 T cells     4
+15:     Progenitors              Progenitor cells     4
+16:         B cells                 Naive B cells     4
+17:         B cells   Non-switched memory B cells     4
+18:         B cells             Exhausted B cells     4
+19:         B cells       Switched memory B cells     4
+20:         B cells                  Plasmablasts     4
+21:       Monocytes           Classical monocytes     4
+22:       Monocytes        Intermediate monocytes     4
+23:       Monocytes       Non classical monocytes     4
+24:        NK cells          Natural killer cells     4
+25: Dendritic cells  Plasmacytoid dendritic cells     4
+26: Dendritic cells       Myeloid dendritic cells     4
+27:     Neutrophils       Low-density neutrophils     4
+28:       Basophils         Low-density basophils     4
+29:    CD4+ T cells Terminal effector CD4 T cells     2
+         label.main                    label.fine     N
+[1] "CD8+ T cells"
+       label.main                       label.fine     N
+           <char>                           <char> <int>
+ 1:       B cells                   B cells, naive   106
+ 2:     Monocytes                 Monocytes, CD14+   106
+ 3:     Monocytes                 Monocytes, CD16+   105
+ 4:      NK cells                         NK cells   105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG   104
+ 6: T cells, CD4+             T cells, CD4+, naive   103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated   102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG   104
+ 9: T cells, CD4+               T cells, CD4+, TFH   104
+10: T cells, CD4+               T cells, CD4+, Th1   104
+11: T cells, CD4+            T cells, CD4+, Th1_17   104
+12: T cells, CD4+              T cells, CD4+, Th17   104
+13: T cells, CD4+               T cells, CD4+, Th2   104
+14: T cells, CD8+             T cells, CD8+, naive   104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated   102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+    49962 
+                          azimuth
+pt01_AAACGGGTCACATACG-1 CD8 Naive
+[1] "generating figure for  ./plots/GSE151511_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                        13131                         36325 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                           36                           470 
+                                               monaco
+pt01_AAACGGGTCACATACG-1    Central memory CD8 T cells
+pt01_AAACGGGTCTGATTCT-1   Effector memory CD8 T cells
+pt01_ACGGAGATCTAACCGA-1 Terminal effector CD8 T cells
+pt02_AACCATGTCTAACCGA-1             Naive CD8 T cells
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_predicted_monaco"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                           49784                              178 
+                                                    dice
+pt01_AAACGGGTCACATACG-1             T cells, CD8+, naive
+pt01_ACACCCTTCACCTCGT-1 T cells, CD8+, naive, stimulated
+[1] "generating figure for  ./plots/GSE151511_umap_predicted_dice"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/GSE151511_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+7: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+       N
+   <int>
+1: 13103
+2: 36178
+3:   147
+4:   467
+5:    28
+6:     3
+7:    36
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_dice_seurat_clusters"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_azimuth_patient"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_monaco_patient"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_dice_patient"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_phase_patient"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_azimuth_responder"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_monaco_responder"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_dice_responder"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_phase_responder"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_monaco_response"
+[1] "generating figure for  ./plots/GSE151511_prepare_barplot_phase_response"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_activationi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_activationi_highlight"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_anergyi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_anergyi_highlight"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_stemnessi"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_stemnessi_highlight"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_senescencei"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_senescencei_highlight"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_CARTEx_84"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_CARTEx_200"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_CARTEx_630"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_activation"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_anergy"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_stemness"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_sig_senescence"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_NKlike_Tex"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_LCMV_Tex"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_BBD_Tex"
+[1] "generating figure for  ./plots/GSE151511_prepare_umap_PD1_Tex"
+                        orig.ident nCount_RNA nFeature_RNA percent.mt
+pt01_AAACGGGTCACATACG-1       pt01      10664         3043   2.334959
+pt01_AAACGGGTCTGATTCT-1       pt01      10486         2978   2.126645
+pt01_AAAGATGGTTCACCTC-1       pt01       7138         2271   2.605772
+pt01_AAAGCAAAGCGCTCCA-1       pt01      15906         3702   3.508110
+pt01_AAAGCAAAGCGTCTAT-1       pt01      11434         3011   2.466328
+pt01_AAAGCAAAGGCAAAGA-1       pt01       7234         2382   2.958253
+pt01_AAAGCAACAAACAACA-1       pt01       5471         2059   2.942789
+pt01_AAAGCAACACCTATCC-1       pt01       7051         2277   1.474968
+pt01_AAAGCAAGTGAAAGAG-1       pt01       3773         1468   2.040816
+pt01_AAATGCCGTAGGGTAC-1       pt01       7561         2331   3.213861
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+pt01_AAACGGGTCACATACG-1  GSE151511          0.7501875        7.777778
+pt01_AAACGGGTCTGATTCT-1  GSE151511          1.1634560        8.888889
+pt01_AAAGATGGTTCACCTC-1  GSE151511          1.1067526        7.301587
+pt01_AAAGCAAAGCGCTCCA-1  GSE151511          0.6852760        8.888889
+pt01_AAAGCAAAGCGTCTAT-1  GSE151511          0.7084135        8.095238
+pt01_AAAGCAAAGGCAAAGA-1  GSE151511          0.4976500        3.809524
+pt01_AAAGCAACAAACAACA-1  GSE151511          1.0966916        5.555556
+pt01_AAAGCAACACCTATCC-1  GSE151511          1.3756914        6.507937
+pt01_AAAGCAAGTGAAAGAG-1  GSE151511          3.0744765        5.079365
+pt01_AAATGCCGTAGGGTAC-1  GSE151511          1.4548340        8.571429
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+pt01_AAACGGGTCACATACG-1         0.20630158             6.5        0.06564141
+pt01_AAACGGGTCTGATTCT-1         0.36238795            11.0        0.13351135
+pt01_AAAGATGGTTCACCTC-1         0.25217148             6.0        0.02801905
+pt01_AAAGCAAAGCGCTCCA-1         0.19489501             6.0        0.11316484
+pt01_AAAGCAAAGCGTCTAT-1         0.20115445             7.5        0.04372923
+pt01_AAAGCAAAGGCAAAGA-1         0.06911805             1.5        0.04147083
+pt01_AAAGCAACAAACAACA-1         0.12794736             3.5        0.05483458
+pt01_AAAGCAACACCTATCC-1         0.22691817             5.0        0.07091193
+pt01_AAAGCAAGTGAAAGAG-1         2.46488206             7.0        1.88179168
+pt01_AAATGCCGTAGGGTAC-1         0.47612750             7.5        0.13225764
+                        PFSD.CARTEx_84 ClinicalResponse  EMR Responder CRS
+pt01_AAACGGGTCACATACG-1       5.952381               CR GOOD         R   2
+pt01_AAACGGGTCTGATTCT-1       9.523810               CR GOOD         R   2
+pt01_AAAGATGGTTCACCTC-1       2.380952               CR GOOD         R   2
+pt01_AAAGCAAAGCGCTCCA-1       5.952381               CR GOOD         R   2
+pt01_AAAGCAAAGCGTCTAT-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAAGGCAAAGA-1       1.190476               CR GOOD         R   2
+pt01_AAAGCAACAAACAACA-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAACACCTATCC-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAGTGAAAGAG-1       7.142857               CR GOOD         R   2
+pt01_AAATGCCGTAGGGTAC-1       7.142857               CR GOOD         R   2
+                        ICANS RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+pt01_AAACGGGTCACATACG-1     3             0               2               0
+pt01_AAACGGGTCTGATTCT-1     3             0               2               0
+pt01_AAAGATGGTTCACCTC-1     3             0               0               3
+pt01_AAAGCAAAGCGCTCCA-1     3             0               2               0
+pt01_AAAGCAAAGCGTCTAT-1     3             0               2               0
+pt01_AAAGCAAAGGCAAAGA-1     3             0               2               0
+pt01_AAAGCAACAAACAACA-1     3             0               2               0
+pt01_AAAGCAACACCTATCC-1     3             0               2               0
+pt01_AAAGCAAGTGAAAGAG-1     3             0               0               1
+pt01_AAATGCCGTAGGGTAC-1     3             0               0               1
+                        RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+pt01_AAACGGGTCACATACG-1               0               1             4
+pt01_AAACGGGTCTGATTCT-1               0               1             4
+pt01_AAAGATGGTTCACCTC-1               3               3             2
+pt01_AAAGCAAAGCGCTCCA-1               0               1             4
+pt01_AAAGCAAAGCGTCTAT-1               0               1             4
+pt01_AAAGCAAAGGCAAAGA-1               0               1             4
+pt01_AAAGCAACAAACAACA-1               0               1             4
+pt01_AAAGCAACACCTATCC-1               0               1             4
+pt01_AAAGCAAGTGAAAGAG-1               1               0             3
+pt01_AAATGCCGTAGGGTAC-1               1               0             5
+                        seurat_clusters     S.Score     G2M.Score Phase
+pt01_AAACGGGTCACATACG-1               0  0.24353872 -0.0007315527     S
+pt01_AAACGGGTCTGATTCT-1               0 -0.08659983  0.3298550747   G2M
+pt01_AAAGATGGTTCACCTC-1               3 -0.22875268 -0.2332156675    G1
+pt01_AAAGCAAAGCGCTCCA-1               0  0.14174293  0.0765411434     S
+pt01_AAAGCAAAGCGTCTAT-1               0 -0.19521133  0.4876359233   G2M
+pt01_AAAGCAAAGGCAAAGA-1               0 -0.03499739  0.1565637103   G2M
+pt01_AAAGCAACAAACAACA-1               0 -0.05609395  0.5674919031   G2M
+pt01_AAAGCAACACCTATCC-1               0 -0.16896099  0.3971789906   G2M
+pt01_AAAGCAAGTGAAAGAG-1               1 -0.21822718 -0.3517639017    G1
+pt01_AAATGCCGTAGGGTAC-1               1 -0.30299293 -0.3383112139    G1
+                        old.ident   azimuth                      monaco
+pt01_AAACGGGTCACATACG-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAACGGGTCTGATTCT-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGATGGTTCACCTC-1         2 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGCTCCA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGTCTAT-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGGCAAAGA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACAAACAACA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACACCTATCC-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGCAAGTGAAAGAG-1         3 CD8 Naive Effector memory CD8 T cells
+pt01_AAATGCCGTAGGGTAC-1         5 CD8 Naive Effector memory CD8 T cells
+                                        dice  CARTEx_630 CARTEx_630i CARTEx_200
+pt01_AAACGGGTCACATACG-1 T cells, CD8+, naive -0.29451678           0 -0.6666574
+pt01_AAACGGGTCTGATTCT-1 T cells, CD8+, naive  0.37859726           0  0.4680354
+pt01_AAAGATGGTTCACCTC-1 T cells, CD8+, naive  0.06933558           0 -0.5768369
+pt01_AAAGCAAAGCGCTCCA-1 T cells, CD8+, naive -0.40462035           0 -0.7842777
+pt01_AAAGCAAAGCGTCTAT-1 T cells, CD8+, naive -0.38575513           0 -0.5706801
+pt01_AAAGCAAAGGCAAAGA-1 T cells, CD8+, naive -1.45492074          -1 -1.8078827
+pt01_AAAGCAACAAACAACA-1 T cells, CD8+, naive -0.34333026           0 -1.1790131
+pt01_AAAGCAACACCTATCC-1 T cells, CD8+, naive  0.26428773           0 -0.6215653
+pt01_AAAGCAAGTGAAAGAG-1 T cells, CD8+, naive  0.63028384           1  1.7845051
+pt01_AAATGCCGTAGGGTAC-1 T cells, CD8+, naive  1.20916017           1  0.4548768
+                        CARTEx_200i  CARTEx_84 CARTEx_84i Activation
+pt01_AAACGGGTCACATACG-1          -1 -0.5438821         -1  1.0707377
+pt01_AAACGGGTCTGATTCT-1           0  0.4350144          0  0.8120968
+pt01_AAAGATGGTTCACCTC-1          -1 -1.3343633         -1  0.7711588
+pt01_AAAGCAAAGCGCTCCA-1          -1 -0.3356831          0 -0.3128820
+pt01_AAAGCAAAGCGTCTAT-1          -1 -1.0769044         -1  2.2814757
+pt01_AAAGCAAAGGCAAAGA-1          -2 -1.3748891         -1  0.9270644
+pt01_AAAGCAACAAACAACA-1          -1 -0.8832781         -1  1.2437604
+pt01_AAAGCAACACCTATCC-1          -1 -0.8235722         -1  1.4122441
+pt01_AAAGCAAGTGAAAGAG-1           2  2.1683588          2  0.3035121
+pt01_AAATGCCGTAGGGTAC-1           0  0.2968105          0  2.2280054
+                             Anergy    Stemness   Senescence Activationi
+pt01_AAACGGGTCACATACG-1 -1.11906552  1.28327752  0.008863249           1
+pt01_AAACGGGTCTGATTCT-1 -0.08602086 -0.71886754  0.449618488           1
+pt01_AAAGATGGTTCACCTC-1 -0.70594640 -0.44422600  0.026327284           1
+pt01_AAAGCAAAGCGCTCCA-1 -0.43361545 -0.39792976  0.991485268           0
+pt01_AAAGCAAAGCGTCTAT-1  1.00623406  0.38763718  0.654143666           2
+pt01_AAAGCAAAGGCAAAGA-1 -0.36343007  0.33686756 -0.579821803           1
+pt01_AAAGCAACAAACAACA-1  1.20634463 -1.09422202 -0.267153306           1
+pt01_AAAGCAACACCTATCC-1  0.91181882  0.03403512  1.525894314           1
+pt01_AAAGCAAGTGAAAGAG-1  1.05834122  0.42019953  1.225191668           0
+pt01_AAATGCCGTAGGGTAC-1  0.45390704  1.94696997  0.988149688           2
+                        Anergyi Stemnessi Senescencei NKlike_Tex    LCMV_Tex
+pt01_AAACGGGTCACATACG-1      -1         1           0 -1.1710946  0.01486496
+pt01_AAACGGGTCTGATTCT-1       0        -1           0 -0.2536522 -1.82241697
+pt01_AAAGATGGTTCACCTC-1      -1         0           0 -0.6179009 -0.73691570
+pt01_AAAGCAAAGCGCTCCA-1       0         0           1 -1.3251371 -0.31374598
+pt01_AAAGCAAAGCGTCTAT-1       1         0           1 -1.3081637 -0.52277285
+pt01_AAAGCAAAGGCAAAGA-1       0         0          -1 -1.1787957 -0.26085139
+pt01_AAAGCAACAAACAACA-1       1        -1           0 -0.9440337  0.49418941
+pt01_AAAGCAACACCTATCC-1       1         0           2 -0.4034949  0.41865437
+pt01_AAAGCAAGTGAAAGAG-1       1         0           1  1.6879625 -0.11115719
+pt01_AAATGCCGTAGGGTAC-1       0         2           1  0.7980019  1.06007703
+                           BBD_Tex    PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi
+pt01_AAACGGGTCACATACG-1 -0.6436013 -0.5791141          -1         0       -1
+pt01_AAACGGGTCTGATTCT-1  0.9077895 -1.5598691           0        -2        1
+pt01_AAAGATGGTTCACCTC-1  0.2544745  0.2220063          -1        -1        0
+pt01_AAAGCAAAGCGCTCCA-1 -0.8438287 -1.7421175          -1         0       -1
+pt01_AAAGCAAAGCGTCTAT-1 -0.6139471 -1.1031609          -1        -1       -1
+pt01_AAAGCAAAGGCAAAGA-1 -0.3289398 -0.8300969          -1         0        0
+pt01_AAAGCAACAAACAACA-1  0.3739397 -0.8594312          -1         0        0
+pt01_AAAGCAACACCTATCC-1  0.5080484 -1.1529818           0         0        1
+pt01_AAAGCAAGTGAAAGAG-1  1.3121345  0.4671621           2         0        1
+pt01_AAATGCCGTAGGGTAC-1  1.2279131  1.2649197           1         1        1
+                        PD1_Texi
+pt01_AAACGGGTCACATACG-1       -1
+pt01_AAACGGGTCTGATTCT-1       -2
+pt01_AAAGATGGTTCACCTC-1        0
+pt01_AAAGCAAAGCGCTCCA-1       -2
+pt01_AAAGCAAAGCGTCTAT-1       -1
+pt01_AAAGCAAAGGCAAAGA-1       -1
+pt01_AAAGCAACAAACAACA-1       -1
+pt01_AAAGCAACACCTATCC-1       -1
+pt01_AAAGCAAGTGAAAGAG-1        0
+pt01_AAATGCCGTAGGGTAC-1        1
+[1] "generating figure for  ./plots/GSE151511_prepare_vlnplot_response_exhaustion_markers"
+[1] "The script has completed..."
+    user   system  elapsed 
+34734.47 30830.22 33038.96 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] ca_0.71.1                   ComplexHeatmap_2.14.0      
+ [3] ComplexUpset_1.3.3          ggbeeswarm_0.7.2           
+ [5] glmGamPoi_1.10.2            ROGUE_1.0                  
+ [7] clustree_0.5.1              ggraph_2.2.1               
+ [9] EnhancedVolcano_1.16.0      ggrepel_0.9.5              
+[11] patchwork_1.2.0             data.table_1.15.4          
+[13] destiny_3.12.0              scuttle_1.11.3             
+[15] SingleCellExperiment_1.20.1 SingleR_2.0.0              
+[17] SummarizedExperiment_1.28.0 Biobase_2.58.0             
+[19] GenomicRanges_1.50.2        GenomeInfoDb_1.34.9        
+[21] IRanges_2.32.0              S4Vectors_0.36.2           
+[23] BiocGenerics_0.44.0         MatrixGenerics_1.10.0      
+[25] matrixStats_1.1.0           dplyr_1.1.4                
+[27] stringr_1.5.1               ggplotify_0.1.2            
+[29] ggpubr_0.6.0                ggplot2_3.5.1              
+[31] Seurat_5.0.3                SeuratObject_5.0.1         
+[33] sp_2.1-4                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             smoother_1.3             
+ [17] BiocParallel_1.32.6       rjson_0.2.21             
+ [19] glue_1.7.0                sctransform_0.4.1        
+ [21] parallel_4.2.0            vipor_0.4.7              
+ [23] spatstat.sparse_3.0-3     dotCall64_1.1-1          
+ [25] spatstat.geom_3.2-9       tidyselect_1.2.1         
+ [27] fitdistrplus_1.1-11       tidyr_1.3.1              
+ [29] zoo_1.8-12                xtable_1.8-4             
+ [31] RcppHNSW_0.6.0            magrittr_2.0.3           
+ [33] cli_3.6.2                 zlibbioc_1.44.0          
+ [35] miniUI_0.1.1.1            RcppEigen_0.3.4.0.0      
+ [37] fastDummies_1.7.3         shiny_1.8.1.1            
+ [39] BiocSingular_1.14.0       clue_0.3-65              
+ [41] cluster_2.1.6             tidygraph_1.3.1          
+ [43] pcaMethods_1.90.0         tibble_3.2.1             
+ [45] listenv_0.9.1             png_0.1-8                
+ [47] future_1.33.2             withr_3.0.0              
+ [49] bitops_1.0-7              ggforce_0.4.2            
+ [51] ranger_0.16.0             plyr_1.8.9               
+ [53] e1071_1.7-14              pillar_1.9.0             
+ [55] GlobalOptions_0.1.2       cachem_1.0.8             
+ [57] fs_1.6.4                  scatterplot3d_0.3-44     
+ [59] TTR_0.24.4                GetoptLong_1.0.5         
+ [61] DelayedMatrixStats_1.20.0 xts_0.13.2               
+ [63] vctrs_0.6.5               generics_0.1.3           
+ [65] tools_4.2.0               beeswarm_0.4.0           
+ [67] munsell_0.5.1             tweenr_2.0.3             
+ [69] proxy_0.4-27              DelayedArray_0.24.0      
+ [71] fastmap_1.1.1             compiler_4.2.0           
+ [73] abind_1.4-5               httpuv_1.6.15            
+ [75] plotly_4.10.4             GenomeInfoDbData_1.2.9   
+ [77] gridExtra_2.3             lattice_0.22-6           
+ [79] deldir_2.0-4              utf8_1.2.4               
+ [81] later_1.3.2               jsonlite_1.8.8           
+ [83] ggplot.multistats_1.0.0   scales_1.3.0             
+ [85] ScaledMatrix_1.6.0        pbapply_1.7-2            
+ [87] carData_3.0-5             sparseMatrixStats_1.10.0 
+ [89] lazyeval_0.2.2            promises_1.3.0           
+ [91] car_3.1-2                 doParallel_1.0.17        
+ [93] goftest_1.2-3             spatstat.utils_3.0-4     
+ [95] reticulate_1.36.1         cowplot_1.1.3            
+ [97] Rtsne_0.17                uwot_0.2.2               
+ [99] igraph_2.0.3              survival_3.6-4           
+[101] systemfonts_1.0.6         htmltools_0.5.8.1        
+[103] memoise_2.0.1             graphlayouts_1.1.1       
+[105] viridisLite_0.4.2         digest_0.6.35            
+[107] mime_0.12                 spam_2.10-0              
+[109] yulab.utils_0.1.4         future.apply_1.11.2      
+[111] splines_4.2.0             labeling_0.4.3           
+[113] RCurl_1.98-1.14           broom_1.0.5              
+[115] colorspace_2.1-0          shape_1.4.6.1            
+[117] ggrastr_1.0.2             nnet_7.3-19              
+[119] Rcpp_1.0.12               RANN_2.6.1               
+[121] circlize_0.4.16           fansi_1.0.6              
+[123] VIM_6.2.2                 parallelly_1.37.1        
+[125] R6_2.5.1                  ggridges_0.5.6           
+[127] lifecycle_1.0.4           curl_5.2.1               
+[129] ggsignif_0.6.4            leiden_0.4.3.1           
+[131] robustbase_0.99-2         Matrix_1.6-5             
+[133] RcppAnnoy_0.0.22          RColorBrewer_1.1-3       
+[135] iterators_1.0.14          spatstat.explore_3.2-7   
+[137] htmlwidgets_1.6.4         beachmat_2.14.2          
+[139] polyclip_1.10-6           purrr_1.0.2              
+[141] gridGraphics_0.5-1        globals_0.16.3           
+[143] spatstat.random_3.2-3     progressr_0.14.0         
+[145] codetools_0.2-20          RSpectra_0.16-1          
+[147] gtable_0.3.5              tensor_1.5               
+[149] httr_1.4.7                KernSmooth_2.23-20       
+[151] stringi_1.7.8             reshape2_1.4.4           
+[153] farver_2.1.1              viridis_0.6.5            
+[155] ggthemes_5.1.0            hexbin_1.28.3            
+[157] boot_1.3-30               scattermore_1.2          
+[159] DEoptimR_1.1-3            spatstat.data_3.0-4      
+[161] pkgconfig_2.0.3           rstatix_0.7.2            

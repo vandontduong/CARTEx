@@ -1,0 +1,972 @@
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 63666
+Number of edges: 2071141
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9057
+Number of communities: 17
+Elapsed time: 19 seconds
+                        orig.ident nCount_RNA nFeature_RNA percent.mt
+pt01_AAACGGGTCACATACG-1       pt01      10664         3043   2.334959
+pt01_AAACGGGTCTGATTCT-1       pt01      10486         2978   2.126645
+pt01_AAAGATGGTTCACCTC-1       pt01       7138         2271   2.605772
+pt01_AAAGCAAAGCGCTCCA-1       pt01      15906         3702   3.508110
+pt01_AAAGCAAAGCGTCTAT-1       pt01      11434         3011   2.466328
+pt01_AAAGCAAAGGCAAAGA-1       pt01       7234         2382   2.958253
+pt01_AAAGCAACAAACAACA-1       pt01       5471         2059   2.942789
+pt01_AAAGCAACACCTATCC-1       pt01       7051         2277   1.474968
+pt01_AAAGCAAGTGAAAGAG-1       pt01       3773         1468   2.040816
+pt01_AAATGCCGTAGGGTAC-1       pt01       7561         2331   3.213861
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+pt01_AAACGGGTCACATACG-1  GSE151511          0.7501875        7.777778
+pt01_AAACGGGTCTGATTCT-1  GSE151511          1.1634560        8.888889
+pt01_AAAGATGGTTCACCTC-1  GSE151511          1.1067526        7.301587
+pt01_AAAGCAAAGCGCTCCA-1  GSE151511          0.6852760        8.888889
+pt01_AAAGCAAAGCGTCTAT-1  GSE151511          0.7084135        8.095238
+pt01_AAAGCAAAGGCAAAGA-1  GSE151511          0.4976500        3.809524
+pt01_AAAGCAACAAACAACA-1  GSE151511          1.0966916        5.555556
+pt01_AAAGCAACACCTATCC-1  GSE151511          1.3756914        6.507937
+pt01_AAAGCAAGTGAAAGAG-1  GSE151511          3.0744765        5.079365
+pt01_AAATGCCGTAGGGTAC-1  GSE151511          1.4548340        8.571429
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+pt01_AAACGGGTCACATACG-1         0.20630158             6.5        0.06564141
+pt01_AAACGGGTCTGATTCT-1         0.36238795            11.0        0.13351135
+pt01_AAAGATGGTTCACCTC-1         0.25217148             6.0        0.02801905
+pt01_AAAGCAAAGCGCTCCA-1         0.19489501             6.0        0.11316484
+pt01_AAAGCAAAGCGTCTAT-1         0.20115445             7.5        0.04372923
+pt01_AAAGCAAAGGCAAAGA-1         0.06911805             1.5        0.04147083
+pt01_AAAGCAACAAACAACA-1         0.12794736             3.5        0.05483458
+pt01_AAAGCAACACCTATCC-1         0.22691817             5.0        0.07091193
+pt01_AAAGCAAGTGAAAGAG-1         2.46488206             7.0        1.88179168
+pt01_AAATGCCGTAGGGTAC-1         0.47612750             7.5        0.13225764
+                        PFSD.CARTEx_84 ClinicalResponse  EMR Responder CRS
+pt01_AAACGGGTCACATACG-1       5.952381               CR GOOD         R   2
+pt01_AAACGGGTCTGATTCT-1       9.523810               CR GOOD         R   2
+pt01_AAAGATGGTTCACCTC-1       2.380952               CR GOOD         R   2
+pt01_AAAGCAAAGCGCTCCA-1       5.952381               CR GOOD         R   2
+pt01_AAAGCAAAGCGTCTAT-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAAGGCAAAGA-1       1.190476               CR GOOD         R   2
+pt01_AAAGCAACAAACAACA-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAACACCTATCC-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAGTGAAAGAG-1       7.142857               CR GOOD         R   2
+pt01_AAATGCCGTAGGGTAC-1       7.142857               CR GOOD         R   2
+                        ICANS RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+pt01_AAACGGGTCACATACG-1     3             0               2               0
+pt01_AAACGGGTCTGATTCT-1     3             0               2               0
+pt01_AAAGATGGTTCACCTC-1     3             0               0               3
+pt01_AAAGCAAAGCGCTCCA-1     3             0               2               0
+pt01_AAAGCAAAGCGTCTAT-1     3             0               2               0
+pt01_AAAGCAAAGGCAAAGA-1     3             0               2               0
+pt01_AAAGCAACAAACAACA-1     3             0               2               0
+pt01_AAAGCAACACCTATCC-1     3             0               2               0
+pt01_AAAGCAAGTGAAAGAG-1     3             0               0               1
+pt01_AAATGCCGTAGGGTAC-1     3             0               0               1
+                        RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+pt01_AAACGGGTCACATACG-1               0               1             4
+pt01_AAACGGGTCTGATTCT-1               0               1             4
+pt01_AAAGATGGTTCACCTC-1               3               3             2
+pt01_AAAGCAAAGCGCTCCA-1               0               1             4
+pt01_AAAGCAAAGCGTCTAT-1               0               1             4
+pt01_AAAGCAAAGGCAAAGA-1               0               1             4
+pt01_AAAGCAACAAACAACA-1               0               1             4
+pt01_AAAGCAACACCTATCC-1               0               1             4
+pt01_AAAGCAAGTGAAAGAG-1               1               0             3
+pt01_AAATGCCGTAGGGTAC-1               1               0             5
+                        seurat_clusters     S.Score     G2M.Score Phase
+pt01_AAACGGGTCACATACG-1               1  0.24353872 -0.0007315527     S
+pt01_AAACGGGTCTGATTCT-1               4 -0.08659983  0.3298550747   G2M
+pt01_AAAGATGGTTCACCTC-1               1 -0.22875268 -0.2332156675    G1
+pt01_AAAGCAAAGCGCTCCA-1               1  0.14174293  0.0765411434     S
+pt01_AAAGCAAAGCGTCTAT-1               1 -0.19521133  0.4876359233   G2M
+pt01_AAAGCAAAGGCAAAGA-1               1 -0.03499739  0.1565637103   G2M
+pt01_AAAGCAACAAACAACA-1               1 -0.05609395  0.5674919031   G2M
+pt01_AAAGCAACACCTATCC-1               1 -0.16896099  0.3971789906   G2M
+pt01_AAAGCAAGTGAAAGAG-1               0 -0.21822718 -0.3517639017    G1
+pt01_AAATGCCGTAGGGTAC-1               0 -0.30299293 -0.3383112139    G1
+                        old.ident   azimuth                      monaco
+pt01_AAACGGGTCACATACG-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAACGGGTCTGATTCT-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGATGGTTCACCTC-1         2 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGCTCCA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGTCTAT-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGGCAAAGA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACAAACAACA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACACCTATCC-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGCAAGTGAAAGAG-1         3 CD8 Naive Effector memory CD8 T cells
+pt01_AAATGCCGTAGGGTAC-1         5 CD8 Naive Effector memory CD8 T cells
+                                        dice  CARTEx_630 CARTEx_630i CARTEx_200
+pt01_AAACGGGTCACATACG-1 T cells, CD8+, naive -0.29451678           0 -0.6666574
+pt01_AAACGGGTCTGATTCT-1 T cells, CD8+, naive  0.37859726           0  0.4680354
+pt01_AAAGATGGTTCACCTC-1 T cells, CD8+, naive  0.06933558           0 -0.5768369
+pt01_AAAGCAAAGCGCTCCA-1 T cells, CD8+, naive -0.40462035           0 -0.7842777
+pt01_AAAGCAAAGCGTCTAT-1 T cells, CD8+, naive -0.38575513           0 -0.5706801
+pt01_AAAGCAAAGGCAAAGA-1 T cells, CD8+, naive -1.45492074          -1 -1.8078827
+pt01_AAAGCAACAAACAACA-1 T cells, CD8+, naive -0.34333026           0 -1.1790131
+pt01_AAAGCAACACCTATCC-1 T cells, CD8+, naive  0.26428773           0 -0.6215653
+pt01_AAAGCAAGTGAAAGAG-1 T cells, CD8+, naive  0.63028384           1  1.7845051
+pt01_AAATGCCGTAGGGTAC-1 T cells, CD8+, naive  1.20916017           1  0.4548768
+                        CARTEx_200i  CARTEx_84 CARTEx_84i Activation
+pt01_AAACGGGTCACATACG-1          -1 -0.5438821         -1  1.0707377
+pt01_AAACGGGTCTGATTCT-1           0  0.4350144          0  0.8120968
+pt01_AAAGATGGTTCACCTC-1          -1 -1.3343633         -1  0.7711588
+pt01_AAAGCAAAGCGCTCCA-1          -1 -0.3356831          0 -0.3128820
+pt01_AAAGCAAAGCGTCTAT-1          -1 -1.0769044         -1  2.2814757
+pt01_AAAGCAAAGGCAAAGA-1          -2 -1.3748891         -1  0.9270644
+pt01_AAAGCAACAAACAACA-1          -1 -0.8832781         -1  1.2437604
+pt01_AAAGCAACACCTATCC-1          -1 -0.8235722         -1  1.4122441
+pt01_AAAGCAAGTGAAAGAG-1           2  2.1683588          2  0.3035121
+pt01_AAATGCCGTAGGGTAC-1           0  0.2968105          0  2.2280054
+                             Anergy    Stemness   Senescence Activationi
+pt01_AAACGGGTCACATACG-1 -1.11906552  1.28327752  0.008863249           1
+pt01_AAACGGGTCTGATTCT-1 -0.08602086 -0.71886754  0.449618488           1
+pt01_AAAGATGGTTCACCTC-1 -0.70594640 -0.44422600  0.026327284           1
+pt01_AAAGCAAAGCGCTCCA-1 -0.43361545 -0.39792976  0.991485268           0
+pt01_AAAGCAAAGCGTCTAT-1  1.00623406  0.38763718  0.654143666           2
+pt01_AAAGCAAAGGCAAAGA-1 -0.36343007  0.33686756 -0.579821803           1
+pt01_AAAGCAACAAACAACA-1  1.20634463 -1.09422202 -0.267153306           1
+pt01_AAAGCAACACCTATCC-1  0.91181882  0.03403512  1.525894314           1
+pt01_AAAGCAAGTGAAAGAG-1  1.05834122  0.42019953  1.225191668           0
+pt01_AAATGCCGTAGGGTAC-1  0.45390704  1.94696997  0.988149688           2
+                        Anergyi Stemnessi Senescencei NKlike_Tex    LCMV_Tex
+pt01_AAACGGGTCACATACG-1      -1         1           0 -1.1710946  0.01486496
+pt01_AAACGGGTCTGATTCT-1       0        -1           0 -0.2536522 -1.82241697
+pt01_AAAGATGGTTCACCTC-1      -1         0           0 -0.6179009 -0.73691570
+pt01_AAAGCAAAGCGCTCCA-1       0         0           1 -1.3251371 -0.31374598
+pt01_AAAGCAAAGCGTCTAT-1       1         0           1 -1.3081637 -0.52277285
+pt01_AAAGCAAAGGCAAAGA-1       0         0          -1 -1.1787957 -0.26085139
+pt01_AAAGCAACAAACAACA-1       1        -1           0 -0.9440337  0.49418941
+pt01_AAAGCAACACCTATCC-1       1         0           2 -0.4034949  0.41865437
+pt01_AAAGCAAGTGAAAGAG-1       1         0           1  1.6879625 -0.11115719
+pt01_AAATGCCGTAGGGTAC-1       0         2           1  0.7980019  1.06007703
+                           BBD_Tex    PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi
+pt01_AAACGGGTCACATACG-1 -0.6436013 -0.5791141          -1         0       -1
+pt01_AAACGGGTCTGATTCT-1  0.9077895 -1.5598691           0        -2        1
+pt01_AAAGATGGTTCACCTC-1  0.2544745  0.2220063          -1        -1        0
+pt01_AAAGCAAAGCGCTCCA-1 -0.8438287 -1.7421175          -1         0       -1
+pt01_AAAGCAAAGCGTCTAT-1 -0.6139471 -1.1031609          -1        -1       -1
+pt01_AAAGCAAAGGCAAAGA-1 -0.3289398 -0.8300969          -1         0        0
+pt01_AAAGCAACAAACAACA-1  0.3739397 -0.8594312          -1         0        0
+pt01_AAAGCAACACCTATCC-1  0.5080484 -1.1529818           0         0        1
+pt01_AAAGCAAGTGAAAGAG-1  1.3121345  0.4671621           2         0        1
+pt01_AAATGCCGTAGGGTAC-1  1.2279131  1.2649197           1         1        1
+                        PD1_Texi identifier2 identifier2_CRS identifier2_ICANS
+pt01_AAACGGGTCACATACG-1       -1           R               2                 3
+pt01_AAACGGGTCTGATTCT-1       -2           R               2                 3
+pt01_AAAGATGGTTCACCTC-1        0           R               2                 3
+pt01_AAAGCAAAGCGCTCCA-1       -2           R               2                 3
+pt01_AAAGCAAAGCGTCTAT-1       -1           R               2                 3
+pt01_AAAGCAAAGGCAAAGA-1       -1           R               2                 3
+pt01_AAAGCAACAAACAACA-1       -1           R               2                 3
+pt01_AAAGCAACACCTATCC-1       -1           R               2                 3
+pt01_AAAGCAAGTGAAAGAG-1        0           R               2                 3
+pt01_AAATGCCGTAGGGTAC-1        1           R               2                 3
+                        identifier3_clinical identifier3_EMR split.ident Code
+pt01_AAACGGGTCACATACG-1                   CR            GOOD       Query <NA>
+pt01_AAACGGGTCTGATTCT-1                   CR            GOOD       Query <NA>
+pt01_AAAGATGGTTCACCTC-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGCGCTCCA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGCGTCTAT-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGGCAAAGA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAACAAACAACA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAACACCTATCC-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAGTGAAAGAG-1                   CR            GOOD       Query <NA>
+pt01_AAATGCCGTAGGGTAC-1                   CR            GOOD       Query <NA>
+                        visit   bc short_bc  Sex Age AgeGroup AgeGroup2 Cohort
+pt01_AAACGGGTCACATACG-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAACGGGTCTGATTCT-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGATGGTTCACCTC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGCGCTCCA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGCGTCTAT-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGGCAAAGA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAACAAACAACA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAACACCTATCC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAGTGAAAGAG-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAATGCCGTAGGGTAC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+                        DC1rank DC2rank extract.ident lane donor time
+pt01_AAACGGGTCACATACG-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAACGGGTCTGATTCT-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGATGGTTCACCTC-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGCGCTCCA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGCGTCTAT-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGGCAAAGA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAACAAACAACA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAACACCTATCC-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAGTGAAAGAG-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAATGCCGTAGGGTAC-1      NA      NA          <NA> <NA>  <NA>   NA
+                        celltype.l1 celltype.l2 celltype.l3 Phase_ref Batch
+pt01_AAACGGGTCACATACG-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAACGGGTCTGATTCT-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGATGGTTCACCTC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGCGCTCCA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGCGTCTAT-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGGCAAAGA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAACAAACAACA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAACACCTATCC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAGTGAAAGAG-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAATGCCGTAGGGTAC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+                        donor_time RNA_snn_res.0.5 CARTEx_630_countsproportion
+pt01_AAACGGGTCACATACG-1       <NA>            <NA>                          NA
+pt01_AAACGGGTCTGATTCT-1       <NA>            <NA>                          NA
+pt01_AAAGATGGTTCACCTC-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGCGCTCCA-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGCGTCTAT-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGGCAAAGA-1       <NA>            <NA>                          NA
+pt01_AAAGCAACAAACAACA-1       <NA>            <NA>                          NA
+pt01_AAAGCAACACCTATCC-1       <NA>            <NA>                          NA
+pt01_AAAGCAAGTGAAAGAG-1       <NA>            <NA>                          NA
+pt01_AAATGCCGTAGGGTAC-1       <NA>            <NA>                          NA
+                        CARTEx_200_countsproportion CARTEx_84_countsproportion
+pt01_AAACGGGTCACATACG-1                          NA                         NA
+pt01_AAACGGGTCTGATTCT-1                          NA                         NA
+pt01_AAAGATGGTTCACCTC-1                          NA                         NA
+pt01_AAAGCAAAGCGCTCCA-1                          NA                         NA
+pt01_AAAGCAAAGCGTCTAT-1                          NA                         NA
+pt01_AAAGCAAAGGCAAAGA-1                          NA                         NA
+pt01_AAAGCAACAAACAACA-1                          NA                         NA
+pt01_AAAGCAACACCTATCC-1                          NA                         NA
+pt01_AAAGCAAGTGAAAGAG-1                          NA                         NA
+pt01_AAATGCCGTAGGGTAC-1                          NA                         NA
+                        CARTEx_630_repcount CARTEx_630_reppercent
+pt01_AAACGGGTCACATACG-1                  NA                    NA
+pt01_AAACGGGTCTGATTCT-1                  NA                    NA
+pt01_AAAGATGGTTCACCTC-1                  NA                    NA
+pt01_AAAGCAAAGCGCTCCA-1                  NA                    NA
+pt01_AAAGCAAAGCGTCTAT-1                  NA                    NA
+pt01_AAAGCAAAGGCAAAGA-1                  NA                    NA
+pt01_AAAGCAACAAACAACA-1                  NA                    NA
+pt01_AAAGCAACACCTATCC-1                  NA                    NA
+pt01_AAAGCAAGTGAAAGAG-1                  NA                    NA
+pt01_AAATGCCGTAGGGTAC-1                  NA                    NA
+                        CARTEx_200_repcount CARTEx_200_reppercent
+pt01_AAACGGGTCACATACG-1                  NA                    NA
+pt01_AAACGGGTCTGATTCT-1                  NA                    NA
+pt01_AAAGATGGTTCACCTC-1                  NA                    NA
+pt01_AAAGCAAAGCGCTCCA-1                  NA                    NA
+pt01_AAAGCAAAGCGTCTAT-1                  NA                    NA
+pt01_AAAGCAAAGGCAAAGA-1                  NA                    NA
+pt01_AAAGCAACAAACAACA-1                  NA                    NA
+pt01_AAAGCAACACCTATCC-1                  NA                    NA
+pt01_AAAGCAAGTGAAAGAG-1                  NA                    NA
+pt01_AAATGCCGTAGGGTAC-1                  NA                    NA
+                        CARTEx_84_repcount CARTEx_84_reppercent
+pt01_AAACGGGTCACATACG-1                 NA                   NA
+pt01_AAACGGGTCTGATTCT-1                 NA                   NA
+pt01_AAAGATGGTTCACCTC-1                 NA                   NA
+pt01_AAAGCAAAGCGCTCCA-1                 NA                   NA
+pt01_AAAGCAAAGCGTCTAT-1                 NA                   NA
+pt01_AAAGCAAAGGCAAAGA-1                 NA                   NA
+pt01_AAAGCAACAAACAACA-1                 NA                   NA
+pt01_AAAGCAACACCTATCC-1                 NA                   NA
+pt01_AAAGCAAGTGAAAGAG-1                 NA                   NA
+pt01_AAATGCCGTAGGGTAC-1                 NA                   NA
+                        integrated_snn_res.0.5
+pt01_AAACGGGTCACATACG-1                      1
+pt01_AAACGGGTCTGATTCT-1                      4
+pt01_AAAGATGGTTCACCTC-1                      1
+pt01_AAAGCAAAGCGCTCCA-1                      1
+pt01_AAAGCAAAGCGTCTAT-1                      1
+pt01_AAAGCAAAGGCAAAGA-1                      1
+pt01_AAAGCAACAAACAACA-1                      1
+pt01_AAAGCAACACCTATCC-1                      1
+pt01_AAAGCAAGTGAAAGAG-1                      0
+pt01_AAATGCCGTAGGGTAC-1                      0
+[1] GSE151511 GSE136184 GSE164378
+Levels: GSE151511 GSE136184 GSE164378
+
+                            R                            NR 
+                        17463                         29937 
+                           NE                    YoungNaive 
+                         2562                          3000 
+                  OldTerminal    Central memory CD8 T cells 
+                         3000                          2004 
+  Effector memory CD8 T cells             Naive CD8 T cells 
+                          498                          2637 
+Terminal effector CD8 T cells 
+                         2565 
+
+                            1                             2 
+                        18036                         27127 
+                            3                             4 
+                         3245                          1554 
+                   YoungNaive                   OldTerminal 
+                         3000                          3000 
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                         2004                           498 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                         2637                          2565 
+
+                            0                             1 
+                        17435                          1396 
+                            2                             3 
+                         6741                         20274 
+                            4                    YoungNaive 
+                         4116                          3000 
+                  OldTerminal    Central memory CD8 T cells 
+                         3000                          2004 
+  Effector memory CD8 T cells             Naive CD8 T cells 
+                          498                          2637 
+Terminal effector CD8 T cells 
+                         2565 
+[1] "CD8 Naive"         "CD8 TEM"           "CD8 TCM"          
+[4] "CD8 Proliferating"
+[1] "Central memory CD8 T cells"    "Effector memory CD8 T cells"  
+[3] "Terminal effector CD8 T cells" "Naive CD8 T cells"            
+[1] "T cells, CD8+, naive"             "T cells, CD8+, naive, stimulated"
+[1] "Query"     "Reference"
+[1] "generating figure for  ./plots/GSE151511_integrated_umap_identifier"
+[1] "generating figure for  ./plots/GSE151511_integrated_umap_identifier_expts"
+[1] "generating figure for  ./plots/GSE151511_integrated_umap_seurat_clusters"
+[1] "generating figure for  ./plots/GSE151511_integrated_umap_azimuth"
+[1] "generating figure for  ./plots/GSE151511_integrated_umap_monaco"
+[1] "generating figure for  ./plots/GSE151511_integrated_umap_dice"
+[1] "generating figure for  ./plots/GSE151511_integrated_featureplot_Tcell_markers"
+              azimuth                        monaco
+               <fctr>                        <fctr>
+ 1:         CD8 Naive    Central memory CD8 T cells
+ 2:         CD8 Naive   Effector memory CD8 T cells
+ 3:         CD8 Naive   Effector memory CD8 T cells
+ 4:         CD8 Naive Terminal effector CD8 T cells
+ 5:         CD8 Naive    Central memory CD8 T cells
+ 6:         CD8 Naive Terminal effector CD8 T cells
+ 7:         CD8 Naive             Naive CD8 T cells
+ 8:           CD8 TEM   Effector memory CD8 T cells
+ 9:           CD8 TCM    Central memory CD8 T cells
+10:         CD8 Naive             Naive CD8 T cells
+11:           CD8 TEM    Central memory CD8 T cells
+12:           CD8 TCM             Naive CD8 T cells
+13:           CD8 TEM Terminal effector CD8 T cells
+14:           CD8 TEM Terminal effector CD8 T cells
+15:           CD8 TCM    Central memory CD8 T cells
+16:           CD8 TEM    Central memory CD8 T cells
+17:           CD8 TEM   Effector memory CD8 T cells
+18:           CD8 TCM             Naive CD8 T cells
+19:           CD8 TCM Terminal effector CD8 T cells
+20:           CD8 TCM   Effector memory CD8 T cells
+21: CD8 Proliferating Terminal effector CD8 T cells
+22:           CD8 TCM   Effector memory CD8 T cells
+23: CD8 Proliferating Terminal effector CD8 T cells
+24: CD8 Proliferating   Effector memory CD8 T cells
+25: CD8 Proliferating   Effector memory CD8 T cells
+26:           CD8 TCM Terminal effector CD8 T cells
+27:           CD8 TEM             Naive CD8 T cells
+              azimuth                        monaco
+                                dice     N
+                              <fctr> <int>
+ 1:             T cells, CD8+, naive 13486
+ 2:             T cells, CD8+, naive 36180
+ 3: T cells, CD8+, naive, stimulated   151
+ 4:             T cells, CD8+, naive  3463
+ 5: T cells, CD8+, naive, stimulated   243
+ 6: T cells, CD8+, naive, stimulated     8
+ 7:             T cells, CD8+, naive  4646
+ 8: T cells, CD8+, naive, stimulated   248
+ 9: T cells, CD8+, naive, stimulated   374
+10: T cells, CD8+, naive, stimulated   999
+11:             T cells, CD8+, naive   338
+12: T cells, CD8+, naive, stimulated    14
+13: T cells, CD8+, naive, stimulated  1343
+14:             T cells, CD8+, naive  1210
+15:             T cells, CD8+, naive   470
+16: T cells, CD8+, naive, stimulated   224
+17:             T cells, CD8+, naive   224
+18:             T cells, CD8+, naive    11
+19:             T cells, CD8+, naive     4
+20:             T cells, CD8+, naive     6
+21:             T cells, CD8+, naive     3
+22: T cells, CD8+, naive, stimulated     3
+23: T cells, CD8+, naive, stimulated     2
+24:             T cells, CD8+, naive     3
+25: T cells, CD8+, naive, stimulated     8
+26: T cells, CD8+, naive, stimulated     2
+27:             T cells, CD8+, naive     3
+                                dice     N
+[1] "generating figure for  ./plots/GSE151511_integrated_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/GSE151511_integrated_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/GSE151511_integrated_barplot_dice_seurat_clusters"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+7: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+       N
+   <int>
+1: 13103
+2: 36178
+3:   147
+4:  3463
+5:    28
+6:     7
+7:  3036
+                        orig.ident nCount_RNA nFeature_RNA percent.mt
+pt01_AAACGGGTCACATACG-1       pt01      10664         3043   2.334959
+pt01_AAACGGGTCTGATTCT-1       pt01      10486         2978   2.126645
+pt01_AAAGATGGTTCACCTC-1       pt01       7138         2271   2.605772
+pt01_AAAGCAAAGCGCTCCA-1       pt01      15906         3702   3.508110
+pt01_AAAGCAAAGCGTCTAT-1       pt01      11434         3011   2.466328
+pt01_AAAGCAAAGGCAAAGA-1       pt01       7234         2382   2.958253
+pt01_AAAGCAACAAACAACA-1       pt01       5471         2059   2.942789
+pt01_AAAGCAACACCTATCC-1       pt01       7051         2277   1.474968
+pt01_AAAGCAAGTGAAAGAG-1       pt01       3773         1468   2.040816
+pt01_AAATGCCGTAGGGTAC-1       pt01       7561         2331   3.213861
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+pt01_AAACGGGTCACATACG-1  GSE151511          0.7501875        7.777778
+pt01_AAACGGGTCTGATTCT-1  GSE151511          1.1634560        8.888889
+pt01_AAAGATGGTTCACCTC-1  GSE151511          1.1067526        7.301587
+pt01_AAAGCAAAGCGCTCCA-1  GSE151511          0.6852760        8.888889
+pt01_AAAGCAAAGCGTCTAT-1  GSE151511          0.7084135        8.095238
+pt01_AAAGCAAAGGCAAAGA-1  GSE151511          0.4976500        3.809524
+pt01_AAAGCAACAAACAACA-1  GSE151511          1.0966916        5.555556
+pt01_AAAGCAACACCTATCC-1  GSE151511          1.3756914        6.507937
+pt01_AAAGCAAGTGAAAGAG-1  GSE151511          3.0744765        5.079365
+pt01_AAATGCCGTAGGGTAC-1  GSE151511          1.4548340        8.571429
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+pt01_AAACGGGTCACATACG-1         0.20630158             6.5        0.06564141
+pt01_AAACGGGTCTGATTCT-1         0.36238795            11.0        0.13351135
+pt01_AAAGATGGTTCACCTC-1         0.25217148             6.0        0.02801905
+pt01_AAAGCAAAGCGCTCCA-1         0.19489501             6.0        0.11316484
+pt01_AAAGCAAAGCGTCTAT-1         0.20115445             7.5        0.04372923
+pt01_AAAGCAAAGGCAAAGA-1         0.06911805             1.5        0.04147083
+pt01_AAAGCAACAAACAACA-1         0.12794736             3.5        0.05483458
+pt01_AAAGCAACACCTATCC-1         0.22691817             5.0        0.07091193
+pt01_AAAGCAAGTGAAAGAG-1         2.46488206             7.0        1.88179168
+pt01_AAATGCCGTAGGGTAC-1         0.47612750             7.5        0.13225764
+                        PFSD.CARTEx_84 ClinicalResponse  EMR Responder CRS
+pt01_AAACGGGTCACATACG-1       5.952381               CR GOOD         R   2
+pt01_AAACGGGTCTGATTCT-1       9.523810               CR GOOD         R   2
+pt01_AAAGATGGTTCACCTC-1       2.380952               CR GOOD         R   2
+pt01_AAAGCAAAGCGCTCCA-1       5.952381               CR GOOD         R   2
+pt01_AAAGCAAAGCGTCTAT-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAAGGCAAAGA-1       1.190476               CR GOOD         R   2
+pt01_AAAGCAACAAACAACA-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAACACCTATCC-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAGTGAAAGAG-1       7.142857               CR GOOD         R   2
+pt01_AAATGCCGTAGGGTAC-1       7.142857               CR GOOD         R   2
+                        ICANS RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+pt01_AAACGGGTCACATACG-1     3             0               2               0
+pt01_AAACGGGTCTGATTCT-1     3             0               2               0
+pt01_AAAGATGGTTCACCTC-1     3             0               0               3
+pt01_AAAGCAAAGCGCTCCA-1     3             0               2               0
+pt01_AAAGCAAAGCGTCTAT-1     3             0               2               0
+pt01_AAAGCAAAGGCAAAGA-1     3             0               2               0
+pt01_AAAGCAACAAACAACA-1     3             0               2               0
+pt01_AAAGCAACACCTATCC-1     3             0               2               0
+pt01_AAAGCAAGTGAAAGAG-1     3             0               0               1
+pt01_AAATGCCGTAGGGTAC-1     3             0               0               1
+                        RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+pt01_AAACGGGTCACATACG-1               0               1             4
+pt01_AAACGGGTCTGATTCT-1               0               1             4
+pt01_AAAGATGGTTCACCTC-1               3               3             2
+pt01_AAAGCAAAGCGCTCCA-1               0               1             4
+pt01_AAAGCAAAGCGTCTAT-1               0               1             4
+pt01_AAAGCAAAGGCAAAGA-1               0               1             4
+pt01_AAAGCAACAAACAACA-1               0               1             4
+pt01_AAAGCAACACCTATCC-1               0               1             4
+pt01_AAAGCAAGTGAAAGAG-1               1               0             3
+pt01_AAATGCCGTAGGGTAC-1               1               0             5
+                        seurat_clusters     S.Score     G2M.Score Phase
+pt01_AAACGGGTCACATACG-1               1  0.24353872 -0.0007315527     S
+pt01_AAACGGGTCTGATTCT-1               4 -0.08659983  0.3298550747   G2M
+pt01_AAAGATGGTTCACCTC-1               1 -0.22875268 -0.2332156675    G1
+pt01_AAAGCAAAGCGCTCCA-1               1  0.14174293  0.0765411434     S
+pt01_AAAGCAAAGCGTCTAT-1               1 -0.19521133  0.4876359233   G2M
+pt01_AAAGCAAAGGCAAAGA-1               1 -0.03499739  0.1565637103   G2M
+pt01_AAAGCAACAAACAACA-1               1 -0.05609395  0.5674919031   G2M
+pt01_AAAGCAACACCTATCC-1               1 -0.16896099  0.3971789906   G2M
+pt01_AAAGCAAGTGAAAGAG-1               0 -0.21822718 -0.3517639017    G1
+pt01_AAATGCCGTAGGGTAC-1               0 -0.30299293 -0.3383112139    G1
+                        old.ident   azimuth                      monaco
+pt01_AAACGGGTCACATACG-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAACGGGTCTGATTCT-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGATGGTTCACCTC-1         2 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGCTCCA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGTCTAT-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGGCAAAGA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACAAACAACA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACACCTATCC-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGCAAGTGAAAGAG-1         3 CD8 Naive Effector memory CD8 T cells
+pt01_AAATGCCGTAGGGTAC-1         5 CD8 Naive Effector memory CD8 T cells
+                                        dice  CARTEx_630 CARTEx_630i CARTEx_200
+pt01_AAACGGGTCACATACG-1 T cells, CD8+, naive -0.29451678           0 -0.6666574
+pt01_AAACGGGTCTGATTCT-1 T cells, CD8+, naive  0.37859726           0  0.4680354
+pt01_AAAGATGGTTCACCTC-1 T cells, CD8+, naive  0.06933558           0 -0.5768369
+pt01_AAAGCAAAGCGCTCCA-1 T cells, CD8+, naive -0.40462035           0 -0.7842777
+pt01_AAAGCAAAGCGTCTAT-1 T cells, CD8+, naive -0.38575513           0 -0.5706801
+pt01_AAAGCAAAGGCAAAGA-1 T cells, CD8+, naive -1.45492074          -1 -1.8078827
+pt01_AAAGCAACAAACAACA-1 T cells, CD8+, naive -0.34333026           0 -1.1790131
+pt01_AAAGCAACACCTATCC-1 T cells, CD8+, naive  0.26428773           0 -0.6215653
+pt01_AAAGCAAGTGAAAGAG-1 T cells, CD8+, naive  0.63028384           1  1.7845051
+pt01_AAATGCCGTAGGGTAC-1 T cells, CD8+, naive  1.20916017           1  0.4548768
+                        CARTEx_200i  CARTEx_84 CARTEx_84i Activation
+pt01_AAACGGGTCACATACG-1          -1 -0.5438821         -1  1.0707377
+pt01_AAACGGGTCTGATTCT-1           0  0.4350144          0  0.8120968
+pt01_AAAGATGGTTCACCTC-1          -1 -1.3343633         -1  0.7711588
+pt01_AAAGCAAAGCGCTCCA-1          -1 -0.3356831          0 -0.3128820
+pt01_AAAGCAAAGCGTCTAT-1          -1 -1.0769044         -1  2.2814757
+pt01_AAAGCAAAGGCAAAGA-1          -2 -1.3748891         -1  0.9270644
+pt01_AAAGCAACAAACAACA-1          -1 -0.8832781         -1  1.2437604
+pt01_AAAGCAACACCTATCC-1          -1 -0.8235722         -1  1.4122441
+pt01_AAAGCAAGTGAAAGAG-1           2  2.1683588          2  0.3035121
+pt01_AAATGCCGTAGGGTAC-1           0  0.2968105          0  2.2280054
+                             Anergy    Stemness   Senescence Activationi
+pt01_AAACGGGTCACATACG-1 -1.11906552  1.28327752  0.008863249           1
+pt01_AAACGGGTCTGATTCT-1 -0.08602086 -0.71886754  0.449618488           1
+pt01_AAAGATGGTTCACCTC-1 -0.70594640 -0.44422600  0.026327284           1
+pt01_AAAGCAAAGCGCTCCA-1 -0.43361545 -0.39792976  0.991485268           0
+pt01_AAAGCAAAGCGTCTAT-1  1.00623406  0.38763718  0.654143666           2
+pt01_AAAGCAAAGGCAAAGA-1 -0.36343007  0.33686756 -0.579821803           1
+pt01_AAAGCAACAAACAACA-1  1.20634463 -1.09422202 -0.267153306           1
+pt01_AAAGCAACACCTATCC-1  0.91181882  0.03403512  1.525894314           1
+pt01_AAAGCAAGTGAAAGAG-1  1.05834122  0.42019953  1.225191668           0
+pt01_AAATGCCGTAGGGTAC-1  0.45390704  1.94696997  0.988149688           2
+                        Anergyi Stemnessi Senescencei NKlike_Tex    LCMV_Tex
+pt01_AAACGGGTCACATACG-1      -1         1           0 -1.1710946  0.01486496
+pt01_AAACGGGTCTGATTCT-1       0        -1           0 -0.2536522 -1.82241697
+pt01_AAAGATGGTTCACCTC-1      -1         0           0 -0.6179009 -0.73691570
+pt01_AAAGCAAAGCGCTCCA-1       0         0           1 -1.3251371 -0.31374598
+pt01_AAAGCAAAGCGTCTAT-1       1         0           1 -1.3081637 -0.52277285
+pt01_AAAGCAAAGGCAAAGA-1       0         0          -1 -1.1787957 -0.26085139
+pt01_AAAGCAACAAACAACA-1       1        -1           0 -0.9440337  0.49418941
+pt01_AAAGCAACACCTATCC-1       1         0           2 -0.4034949  0.41865437
+pt01_AAAGCAAGTGAAAGAG-1       1         0           1  1.6879625 -0.11115719
+pt01_AAATGCCGTAGGGTAC-1       0         2           1  0.7980019  1.06007703
+                           BBD_Tex    PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi
+pt01_AAACGGGTCACATACG-1 -0.6436013 -0.5791141          -1         0       -1
+pt01_AAACGGGTCTGATTCT-1  0.9077895 -1.5598691           0        -2        1
+pt01_AAAGATGGTTCACCTC-1  0.2544745  0.2220063          -1        -1        0
+pt01_AAAGCAAAGCGCTCCA-1 -0.8438287 -1.7421175          -1         0       -1
+pt01_AAAGCAAAGCGTCTAT-1 -0.6139471 -1.1031609          -1        -1       -1
+pt01_AAAGCAAAGGCAAAGA-1 -0.3289398 -0.8300969          -1         0        0
+pt01_AAAGCAACAAACAACA-1  0.3739397 -0.8594312          -1         0        0
+pt01_AAAGCAACACCTATCC-1  0.5080484 -1.1529818           0         0        1
+pt01_AAAGCAAGTGAAAGAG-1  1.3121345  0.4671621           2         0        1
+pt01_AAATGCCGTAGGGTAC-1  1.2279131  1.2649197           1         1        1
+                        PD1_Texi identifier2 identifier2_CRS identifier2_ICANS
+pt01_AAACGGGTCACATACG-1       -1           R               2                 3
+pt01_AAACGGGTCTGATTCT-1       -2           R               2                 3
+pt01_AAAGATGGTTCACCTC-1        0           R               2                 3
+pt01_AAAGCAAAGCGCTCCA-1       -2           R               2                 3
+pt01_AAAGCAAAGCGTCTAT-1       -1           R               2                 3
+pt01_AAAGCAAAGGCAAAGA-1       -1           R               2                 3
+pt01_AAAGCAACAAACAACA-1       -1           R               2                 3
+pt01_AAAGCAACACCTATCC-1       -1           R               2                 3
+pt01_AAAGCAAGTGAAAGAG-1        0           R               2                 3
+pt01_AAATGCCGTAGGGTAC-1        1           R               2                 3
+                        identifier3_clinical identifier3_EMR split.ident Code
+pt01_AAACGGGTCACATACG-1                   CR            GOOD       Query <NA>
+pt01_AAACGGGTCTGATTCT-1                   CR            GOOD       Query <NA>
+pt01_AAAGATGGTTCACCTC-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGCGCTCCA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGCGTCTAT-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGGCAAAGA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAACAAACAACA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAACACCTATCC-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAGTGAAAGAG-1                   CR            GOOD       Query <NA>
+pt01_AAATGCCGTAGGGTAC-1                   CR            GOOD       Query <NA>
+                        visit   bc short_bc  Sex Age AgeGroup AgeGroup2 Cohort
+pt01_AAACGGGTCACATACG-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAACGGGTCTGATTCT-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGATGGTTCACCTC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGCGCTCCA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGCGTCTAT-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGGCAAAGA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAACAAACAACA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAACACCTATCC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAGTGAAAGAG-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAATGCCGTAGGGTAC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+                        DC1rank DC2rank extract.ident lane donor time
+pt01_AAACGGGTCACATACG-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAACGGGTCTGATTCT-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGATGGTTCACCTC-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGCGCTCCA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGCGTCTAT-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGGCAAAGA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAACAAACAACA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAACACCTATCC-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAGTGAAAGAG-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAATGCCGTAGGGTAC-1      NA      NA          <NA> <NA>  <NA>   NA
+                        celltype.l1 celltype.l2 celltype.l3 Phase_ref Batch
+pt01_AAACGGGTCACATACG-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAACGGGTCTGATTCT-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGATGGTTCACCTC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGCGCTCCA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGCGTCTAT-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGGCAAAGA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAACAAACAACA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAACACCTATCC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAGTGAAAGAG-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAATGCCGTAGGGTAC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+                        donor_time RNA_snn_res.0.5 CARTEx_630_countsproportion
+pt01_AAACGGGTCACATACG-1       <NA>            <NA>                          NA
+pt01_AAACGGGTCTGATTCT-1       <NA>            <NA>                          NA
+pt01_AAAGATGGTTCACCTC-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGCGCTCCA-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGCGTCTAT-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGGCAAAGA-1       <NA>            <NA>                          NA
+pt01_AAAGCAACAAACAACA-1       <NA>            <NA>                          NA
+pt01_AAAGCAACACCTATCC-1       <NA>            <NA>                          NA
+pt01_AAAGCAAGTGAAAGAG-1       <NA>            <NA>                          NA
+pt01_AAATGCCGTAGGGTAC-1       <NA>            <NA>                          NA
+                        CARTEx_200_countsproportion CARTEx_84_countsproportion
+pt01_AAACGGGTCACATACG-1                          NA                         NA
+pt01_AAACGGGTCTGATTCT-1                          NA                         NA
+pt01_AAAGATGGTTCACCTC-1                          NA                         NA
+pt01_AAAGCAAAGCGCTCCA-1                          NA                         NA
+pt01_AAAGCAAAGCGTCTAT-1                          NA                         NA
+pt01_AAAGCAAAGGCAAAGA-1                          NA                         NA
+pt01_AAAGCAACAAACAACA-1                          NA                         NA
+pt01_AAAGCAACACCTATCC-1                          NA                         NA
+pt01_AAAGCAAGTGAAAGAG-1                          NA                         NA
+pt01_AAATGCCGTAGGGTAC-1                          NA                         NA
+                        CARTEx_630_repcount CARTEx_630_reppercent
+pt01_AAACGGGTCACATACG-1                  NA                    NA
+pt01_AAACGGGTCTGATTCT-1                  NA                    NA
+pt01_AAAGATGGTTCACCTC-1                  NA                    NA
+pt01_AAAGCAAAGCGCTCCA-1                  NA                    NA
+pt01_AAAGCAAAGCGTCTAT-1                  NA                    NA
+pt01_AAAGCAAAGGCAAAGA-1                  NA                    NA
+pt01_AAAGCAACAAACAACA-1                  NA                    NA
+pt01_AAAGCAACACCTATCC-1                  NA                    NA
+pt01_AAAGCAAGTGAAAGAG-1                  NA                    NA
+pt01_AAATGCCGTAGGGTAC-1                  NA                    NA
+                        CARTEx_200_repcount CARTEx_200_reppercent
+pt01_AAACGGGTCACATACG-1                  NA                    NA
+pt01_AAACGGGTCTGATTCT-1                  NA                    NA
+pt01_AAAGATGGTTCACCTC-1                  NA                    NA
+pt01_AAAGCAAAGCGCTCCA-1                  NA                    NA
+pt01_AAAGCAAAGCGTCTAT-1                  NA                    NA
+pt01_AAAGCAAAGGCAAAGA-1                  NA                    NA
+pt01_AAAGCAACAAACAACA-1                  NA                    NA
+pt01_AAAGCAACACCTATCC-1                  NA                    NA
+pt01_AAAGCAAGTGAAAGAG-1                  NA                    NA
+pt01_AAATGCCGTAGGGTAC-1                  NA                    NA
+                        CARTEx_84_repcount CARTEx_84_reppercent
+pt01_AAACGGGTCACATACG-1                 NA                   NA
+pt01_AAACGGGTCTGATTCT-1                 NA                   NA
+pt01_AAAGATGGTTCACCTC-1                 NA                   NA
+pt01_AAAGCAAAGCGCTCCA-1                 NA                   NA
+pt01_AAAGCAAAGCGTCTAT-1                 NA                   NA
+pt01_AAAGCAAAGGCAAAGA-1                 NA                   NA
+pt01_AAAGCAACAAACAACA-1                 NA                   NA
+pt01_AAAGCAACACCTATCC-1                 NA                   NA
+pt01_AAAGCAAGTGAAAGAG-1                 NA                   NA
+pt01_AAATGCCGTAGGGTAC-1                 NA                   NA
+                        integrated_snn_res.0.5
+pt01_AAACGGGTCACATACG-1                      1
+pt01_AAACGGGTCTGATTCT-1                      4
+pt01_AAAGATGGTTCACCTC-1                      1
+pt01_AAAGCAAAGCGCTCCA-1                      1
+pt01_AAAGCAAAGCGTCTAT-1                      1
+pt01_AAAGCAAAGGCAAAGA-1                      1
+pt01_AAAGCAACAAACAACA-1                      1
+pt01_AAAGCAACACCTATCC-1                      1
+pt01_AAAGCAAGTGAAAGAG-1                      0
+pt01_AAATGCCGTAGGGTAC-1                      0
+                        orig.ident nCount_RNA nFeature_RNA percent.mt
+pt01_AAACGGGTCACATACG-1       pt01      10664         3043   2.334959
+pt01_AAACGGGTCTGATTCT-1       pt01      10486         2978   2.126645
+pt01_AAAGATGGTTCACCTC-1       pt01       7138         2271   2.605772
+pt01_AAAGCAAAGCGCTCCA-1       pt01      15906         3702   3.508110
+pt01_AAAGCAAAGCGTCTAT-1       pt01      11434         3011   2.466328
+pt01_AAAGCAAAGGCAAAGA-1       pt01       7234         2382   2.958253
+pt01_AAAGCAACAAACAACA-1       pt01       5471         2059   2.942789
+pt01_AAAGCAACACCTATCC-1       pt01       7051         2277   1.474968
+pt01_AAAGCAAGTGAAAGAG-1       pt01       3773         1468   2.040816
+pt01_AAATGCCGTAGGGTAC-1       pt01       7561         2331   3.213861
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+pt01_AAACGGGTCACATACG-1  GSE151511          0.7501875        7.777778
+pt01_AAACGGGTCTGATTCT-1  GSE151511          1.1634560        8.888889
+pt01_AAAGATGGTTCACCTC-1  GSE151511          1.1067526        7.301587
+pt01_AAAGCAAAGCGCTCCA-1  GSE151511          0.6852760        8.888889
+pt01_AAAGCAAAGCGTCTAT-1  GSE151511          0.7084135        8.095238
+pt01_AAAGCAAAGGCAAAGA-1  GSE151511          0.4976500        3.809524
+pt01_AAAGCAACAAACAACA-1  GSE151511          1.0966916        5.555556
+pt01_AAAGCAACACCTATCC-1  GSE151511          1.3756914        6.507937
+pt01_AAAGCAAGTGAAAGAG-1  GSE151511          3.0744765        5.079365
+pt01_AAATGCCGTAGGGTAC-1  GSE151511          1.4548340        8.571429
+                        percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+pt01_AAACGGGTCACATACG-1         0.20630158             6.5        0.06564141
+pt01_AAACGGGTCTGATTCT-1         0.36238795            11.0        0.13351135
+pt01_AAAGATGGTTCACCTC-1         0.25217148             6.0        0.02801905
+pt01_AAAGCAAAGCGCTCCA-1         0.19489501             6.0        0.11316484
+pt01_AAAGCAAAGCGTCTAT-1         0.20115445             7.5        0.04372923
+pt01_AAAGCAAAGGCAAAGA-1         0.06911805             1.5        0.04147083
+pt01_AAAGCAACAAACAACA-1         0.12794736             3.5        0.05483458
+pt01_AAAGCAACACCTATCC-1         0.22691817             5.0        0.07091193
+pt01_AAAGCAAGTGAAAGAG-1         2.46488206             7.0        1.88179168
+pt01_AAATGCCGTAGGGTAC-1         0.47612750             7.5        0.13225764
+                        PFSD.CARTEx_84 ClinicalResponse  EMR Responder CRS
+pt01_AAACGGGTCACATACG-1       5.952381               CR GOOD         R   2
+pt01_AAACGGGTCTGATTCT-1       9.523810               CR GOOD         R   2
+pt01_AAAGATGGTTCACCTC-1       2.380952               CR GOOD         R   2
+pt01_AAAGCAAAGCGCTCCA-1       5.952381               CR GOOD         R   2
+pt01_AAAGCAAAGCGTCTAT-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAAGGCAAAGA-1       1.190476               CR GOOD         R   2
+pt01_AAAGCAACAAACAACA-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAACACCTATCC-1       3.571429               CR GOOD         R   2
+pt01_AAAGCAAGTGAAAGAG-1       7.142857               CR GOOD         R   2
+pt01_AAATGCCGTAGGGTAC-1       7.142857               CR GOOD         R   2
+                        ICANS RNA_snn_res.0 RNA_snn_res.0.2 RNA_snn_res.0.4
+pt01_AAACGGGTCACATACG-1     3             0               2               0
+pt01_AAACGGGTCTGATTCT-1     3             0               2               0
+pt01_AAAGATGGTTCACCTC-1     3             0               0               3
+pt01_AAAGCAAAGCGCTCCA-1     3             0               2               0
+pt01_AAAGCAAAGCGTCTAT-1     3             0               2               0
+pt01_AAAGCAAAGGCAAAGA-1     3             0               2               0
+pt01_AAAGCAACAAACAACA-1     3             0               2               0
+pt01_AAAGCAACACCTATCC-1     3             0               2               0
+pt01_AAAGCAAGTGAAAGAG-1     3             0               0               1
+pt01_AAATGCCGTAGGGTAC-1     3             0               0               1
+                        RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+pt01_AAACGGGTCACATACG-1               0               1             4
+pt01_AAACGGGTCTGATTCT-1               0               1             4
+pt01_AAAGATGGTTCACCTC-1               3               3             2
+pt01_AAAGCAAAGCGCTCCA-1               0               1             4
+pt01_AAAGCAAAGCGTCTAT-1               0               1             4
+pt01_AAAGCAAAGGCAAAGA-1               0               1             4
+pt01_AAAGCAACAAACAACA-1               0               1             4
+pt01_AAAGCAACACCTATCC-1               0               1             4
+pt01_AAAGCAAGTGAAAGAG-1               1               0             3
+pt01_AAATGCCGTAGGGTAC-1               1               0             5
+                        seurat_clusters     S.Score     G2M.Score Phase
+pt01_AAACGGGTCACATACG-1               1  0.24353872 -0.0007315527     S
+pt01_AAACGGGTCTGATTCT-1               4 -0.08659983  0.3298550747   G2M
+pt01_AAAGATGGTTCACCTC-1               1 -0.22875268 -0.2332156675    G1
+pt01_AAAGCAAAGCGCTCCA-1               1  0.14174293  0.0765411434     S
+pt01_AAAGCAAAGCGTCTAT-1               1 -0.19521133  0.4876359233   G2M
+pt01_AAAGCAAAGGCAAAGA-1               1 -0.03499739  0.1565637103   G2M
+pt01_AAAGCAACAAACAACA-1               1 -0.05609395  0.5674919031   G2M
+pt01_AAAGCAACACCTATCC-1               1 -0.16896099  0.3971789906   G2M
+pt01_AAAGCAAGTGAAAGAG-1               0 -0.21822718 -0.3517639017    G1
+pt01_AAATGCCGTAGGGTAC-1               0 -0.30299293 -0.3383112139    G1
+                        old.ident   azimuth                      monaco
+pt01_AAACGGGTCACATACG-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAACGGGTCTGATTCT-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGATGGTTCACCTC-1         2 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGCTCCA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGCGTCTAT-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAAAGGCAAAGA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACAAACAACA-1         4 CD8 Naive  Central memory CD8 T cells
+pt01_AAAGCAACACCTATCC-1         4 CD8 Naive Effector memory CD8 T cells
+pt01_AAAGCAAGTGAAAGAG-1         3 CD8 Naive Effector memory CD8 T cells
+pt01_AAATGCCGTAGGGTAC-1         5 CD8 Naive Effector memory CD8 T cells
+                                        dice CARTEx_630 CARTEx_630i CARTEx_200
+pt01_AAACGGGTCACATACG-1 T cells, CD8+, naive -0.2371892           0 -0.1714020
+pt01_AAACGGGTCTGATTCT-1 T cells, CD8+, naive  1.0336293           1  0.5950738
+pt01_AAAGATGGTTCACCTC-1 T cells, CD8+, naive -0.0804691           0 -0.3809369
+pt01_AAAGCAAAGCGCTCCA-1 T cells, CD8+, naive -0.2296149           0 -0.4965906
+pt01_AAAGCAAAGCGTCTAT-1 T cells, CD8+, naive -0.2116862           0 -0.5118264
+pt01_AAAGCAAAGGCAAAGA-1 T cells, CD8+, naive -0.8481762          -1 -1.5533765
+pt01_AAAGCAACAAACAACA-1 T cells, CD8+, naive  0.2097114           0 -0.7983098
+pt01_AAAGCAACACCTATCC-1 T cells, CD8+, naive  1.0197442           1 -0.1726133
+pt01_AAAGCAAGTGAAAGAG-1 T cells, CD8+, naive  0.8170799           1  2.1291995
+pt01_AAATGCCGTAGGGTAC-1 T cells, CD8+, naive  0.9582597           1  0.4403884
+                        CARTEx_200i   CARTEx_84 CARTEx_84i Activation
+pt01_AAACGGGTCACATACG-1           0 -0.06505958          0  1.0707377
+pt01_AAACGGGTCTGATTCT-1           1 -0.25197578          0  0.8120968
+pt01_AAAGATGGTTCACCTC-1           0 -1.27601311         -1  0.7711588
+pt01_AAAGCAAAGCGCTCCA-1           0 -0.24621694          0 -0.3128820
+pt01_AAAGCAAAGCGTCTAT-1          -1 -1.17413034         -1  2.2814757
+pt01_AAAGCAAAGGCAAAGA-1          -2 -1.23558278         -1  0.9270644
+pt01_AAAGCAACAAACAACA-1          -1 -0.73345046         -1  1.2437604
+pt01_AAAGCAACACCTATCC-1           0 -0.77190010         -1  1.4122441
+pt01_AAAGCAAGTGAAAGAG-1           2  2.34991846          2  0.3035121
+pt01_AAATGCCGTAGGGTAC-1           0  0.31948851          0  2.2280054
+                             Anergy    Stemness   Senescence Activationi
+pt01_AAACGGGTCACATACG-1 -1.11906552  1.28327752  0.008863249           1
+pt01_AAACGGGTCTGATTCT-1 -0.08602086 -0.71886754  0.449618488           1
+pt01_AAAGATGGTTCACCTC-1 -0.70594640 -0.44422600  0.026327284           1
+pt01_AAAGCAAAGCGCTCCA-1 -0.43361545 -0.39792976  0.991485268           0
+pt01_AAAGCAAAGCGTCTAT-1  1.00623406  0.38763718  0.654143666           2
+pt01_AAAGCAAAGGCAAAGA-1 -0.36343007  0.33686756 -0.579821803           1
+pt01_AAAGCAACAAACAACA-1  1.20634463 -1.09422202 -0.267153306           1
+pt01_AAAGCAACACCTATCC-1  0.91181882  0.03403512  1.525894314           1
+pt01_AAAGCAAGTGAAAGAG-1  1.05834122  0.42019953  1.225191668           0
+pt01_AAATGCCGTAGGGTAC-1  0.45390704  1.94696997  0.988149688           2
+                        Anergyi Stemnessi Senescencei NKlike_Tex    LCMV_Tex
+pt01_AAACGGGTCACATACG-1      -1         1           0 -1.1710946  0.01486496
+pt01_AAACGGGTCTGATTCT-1       0        -1           0 -0.2536522 -1.82241697
+pt01_AAAGATGGTTCACCTC-1      -1         0           0 -0.6179009 -0.73691570
+pt01_AAAGCAAAGCGCTCCA-1       0         0           1 -1.3251371 -0.31374598
+pt01_AAAGCAAAGCGTCTAT-1       1         0           1 -1.3081637 -0.52277285
+pt01_AAAGCAAAGGCAAAGA-1       0         0          -1 -1.1787957 -0.26085139
+pt01_AAAGCAACAAACAACA-1       1        -1           0 -0.9440337  0.49418941
+pt01_AAAGCAACACCTATCC-1       1         0           2 -0.4034949  0.41865437
+pt01_AAAGCAAGTGAAAGAG-1       1         0           1  1.6879625 -0.11115719
+pt01_AAATGCCGTAGGGTAC-1       0         2           1  0.7980019  1.06007703
+                           BBD_Tex    PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi
+pt01_AAACGGGTCACATACG-1 -0.6436013 -0.5791141          -1         0       -1
+pt01_AAACGGGTCTGATTCT-1  0.9077895 -1.5598691           0        -2        1
+pt01_AAAGATGGTTCACCTC-1  0.2544745  0.2220063          -1        -1        0
+pt01_AAAGCAAAGCGCTCCA-1 -0.8438287 -1.7421175          -1         0       -1
+pt01_AAAGCAAAGCGTCTAT-1 -0.6139471 -1.1031609          -1        -1       -1
+pt01_AAAGCAAAGGCAAAGA-1 -0.3289398 -0.8300969          -1         0        0
+pt01_AAAGCAACAAACAACA-1  0.3739397 -0.8594312          -1         0        0
+pt01_AAAGCAACACCTATCC-1  0.5080484 -1.1529818           0         0        1
+pt01_AAAGCAAGTGAAAGAG-1  1.3121345  0.4671621           2         0        1
+pt01_AAATGCCGTAGGGTAC-1  1.2279131  1.2649197           1         1        1
+                        PD1_Texi identifier2 identifier2_CRS identifier2_ICANS
+pt01_AAACGGGTCACATACG-1       -1           R               2                 3
+pt01_AAACGGGTCTGATTCT-1       -2           R               2                 3
+pt01_AAAGATGGTTCACCTC-1        0           R               2                 3
+pt01_AAAGCAAAGCGCTCCA-1       -2           R               2                 3
+pt01_AAAGCAAAGCGTCTAT-1       -1           R               2                 3
+pt01_AAAGCAAAGGCAAAGA-1       -1           R               2                 3
+pt01_AAAGCAACAAACAACA-1       -1           R               2                 3
+pt01_AAAGCAACACCTATCC-1       -1           R               2                 3
+pt01_AAAGCAAGTGAAAGAG-1        0           R               2                 3
+pt01_AAATGCCGTAGGGTAC-1        1           R               2                 3
+                        identifier3_clinical identifier3_EMR split.ident Code
+pt01_AAACGGGTCACATACG-1                   CR            GOOD       Query <NA>
+pt01_AAACGGGTCTGATTCT-1                   CR            GOOD       Query <NA>
+pt01_AAAGATGGTTCACCTC-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGCGCTCCA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGCGTCTAT-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAAGGCAAAGA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAACAAACAACA-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAACACCTATCC-1                   CR            GOOD       Query <NA>
+pt01_AAAGCAAGTGAAAGAG-1                   CR            GOOD       Query <NA>
+pt01_AAATGCCGTAGGGTAC-1                   CR            GOOD       Query <NA>
+                        visit   bc short_bc  Sex Age AgeGroup AgeGroup2 Cohort
+pt01_AAACGGGTCACATACG-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAACGGGTCTGATTCT-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGATGGTTCACCTC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGCGCTCCA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGCGTCTAT-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAAGGCAAAGA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAACAAACAACA-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAACACCTATCC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAAGCAAGTGAAAGAG-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+pt01_AAATGCCGTAGGGTAC-1    NA <NA>     <NA> <NA>  NA     <NA>      <NA>   <NA>
+                        DC1rank DC2rank extract.ident lane donor time
+pt01_AAACGGGTCACATACG-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAACGGGTCTGATTCT-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGATGGTTCACCTC-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGCGCTCCA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGCGTCTAT-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAAGGCAAAGA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAACAAACAACA-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAACACCTATCC-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAAGCAAGTGAAAGAG-1      NA      NA          <NA> <NA>  <NA>   NA
+pt01_AAATGCCGTAGGGTAC-1      NA      NA          <NA> <NA>  <NA>   NA
+                        celltype.l1 celltype.l2 celltype.l3 Phase_ref Batch
+pt01_AAACGGGTCACATACG-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAACGGGTCTGATTCT-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGATGGTTCACCTC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGCGCTCCA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGCGTCTAT-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAAGGCAAAGA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAACAAACAACA-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAACACCTATCC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAAGCAAGTGAAAGAG-1        <NA>        <NA>        <NA>      <NA>  <NA>
+pt01_AAATGCCGTAGGGTAC-1        <NA>        <NA>        <NA>      <NA>  <NA>
+                        donor_time RNA_snn_res.0.5 CARTEx_630_countsproportion
+pt01_AAACGGGTCACATACG-1       <NA>            <NA>                          NA
+pt01_AAACGGGTCTGATTCT-1       <NA>            <NA>                          NA
+pt01_AAAGATGGTTCACCTC-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGCGCTCCA-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGCGTCTAT-1       <NA>            <NA>                          NA
+pt01_AAAGCAAAGGCAAAGA-1       <NA>            <NA>                          NA
+pt01_AAAGCAACAAACAACA-1       <NA>            <NA>                          NA
+pt01_AAAGCAACACCTATCC-1       <NA>            <NA>                          NA
+pt01_AAAGCAAGTGAAAGAG-1       <NA>            <NA>                          NA
+pt01_AAATGCCGTAGGGTAC-1       <NA>            <NA>                          NA
+                        CARTEx_200_countsproportion CARTEx_84_countsproportion
+pt01_AAACGGGTCACATACG-1                          NA                         NA
+pt01_AAACGGGTCTGATTCT-1                          NA                         NA
+pt01_AAAGATGGTTCACCTC-1                          NA                         NA
+pt01_AAAGCAAAGCGCTCCA-1                          NA                         NA
+pt01_AAAGCAAAGCGTCTAT-1                          NA                         NA
+pt01_AAAGCAAAGGCAAAGA-1                          NA                         NA
+pt01_AAAGCAACAAACAACA-1                          NA                         NA
+pt01_AAAGCAACACCTATCC-1                          NA                         NA
+pt01_AAAGCAAGTGAAAGAG-1                          NA                         NA
+pt01_AAATGCCGTAGGGTAC-1                          NA                         NA
+                        CARTEx_630_repcount CARTEx_630_reppercent
+pt01_AAACGGGTCACATACG-1                  NA                    NA
+pt01_AAACGGGTCTGATTCT-1                  NA                    NA
+pt01_AAAGATGGTTCACCTC-1                  NA                    NA
+pt01_AAAGCAAAGCGCTCCA-1                  NA                    NA
+pt01_AAAGCAAAGCGTCTAT-1                  NA                    NA
+pt01_AAAGCAAAGGCAAAGA-1                  NA                    NA
+pt01_AAAGCAACAAACAACA-1                  NA                    NA
+pt01_AAAGCAACACCTATCC-1                  NA                    NA
+pt01_AAAGCAAGTGAAAGAG-1                  NA                    NA
+pt01_AAATGCCGTAGGGTAC-1                  NA                    NA
+                        CARTEx_200_repcount CARTEx_200_reppercent
+pt01_AAACGGGTCACATACG-1                  NA                    NA
+pt01_AAACGGGTCTGATTCT-1                  NA                    NA
+pt01_AAAGATGGTTCACCTC-1                  NA                    NA
+pt01_AAAGCAAAGCGCTCCA-1                  NA                    NA
+pt01_AAAGCAAAGCGTCTAT-1                  NA                    NA
+pt01_AAAGCAAAGGCAAAGA-1                  NA                    NA
+pt01_AAAGCAACAAACAACA-1                  NA                    NA
+pt01_AAAGCAACACCTATCC-1                  NA                    NA
+pt01_AAAGCAAGTGAAAGAG-1                  NA                    NA
+pt01_AAATGCCGTAGGGTAC-1                  NA                    NA
+                        CARTEx_84_repcount CARTEx_84_reppercent
+pt01_AAACGGGTCACATACG-1                 NA                   NA
+pt01_AAACGGGTCTGATTCT-1                 NA                   NA
+pt01_AAAGATGGTTCACCTC-1                 NA                   NA
+pt01_AAAGCAAAGCGCTCCA-1                 NA                   NA
+pt01_AAAGCAAAGCGTCTAT-1                 NA                   NA
+pt01_AAAGCAAAGGCAAAGA-1                 NA                   NA
+pt01_AAAGCAACAAACAACA-1                 NA                   NA
+pt01_AAAGCAACACCTATCC-1                 NA                   NA
+pt01_AAAGCAAGTGAAAGAG-1                 NA                   NA
+pt01_AAATGCCGTAGGGTAC-1                 NA                   NA
+                        integrated_snn_res.0.5
+pt01_AAACGGGTCACATACG-1                      1
+pt01_AAACGGGTCTGATTCT-1                      4
+pt01_AAAGATGGTTCACCTC-1                      1
+pt01_AAAGCAAAGCGCTCCA-1                      1
+pt01_AAAGCAAAGCGTCTAT-1                      1
+pt01_AAAGCAAAGGCAAAGA-1                      1
+pt01_AAAGCAACAAACAACA-1                      1
+pt01_AAAGCAACACCTATCC-1                      1
+pt01_AAAGCAAGTGAAAGAG-1                      0
+pt01_AAATGCCGTAGGGTAC-1                      0
+[1] R           NR          NE          OldTerminal YoungNaive 
+9 Levels: R NR NE YoungNaive OldTerminal ... Terminal effector CD8 T cells
+[1] "generating figure for  ./plots/GSE151511_query_vlnplot_CARTEx_84"
+[1] 2           4           3           1           OldTerminal YoungNaive 
+10 Levels: 1 2 3 4 YoungNaive OldTerminal ... Terminal effector CD8 T cells
+[1] "generating figure for  ./plots/GSE151511_query_vlnplot_CARTEx_84_CRS"
+[1] 3           0           4           2           1           OldTerminal
+[7] YoungNaive 
+11 Levels: 0 1 2 3 4 YoungNaive OldTerminal ... Terminal effector CD8 T cells
+[1] "generating figure for  ./plots/GSE151511_query_vlnplot_CARTEx_84_ICANS"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+7: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+       N
+   <int>
+1: 13103
+2: 36178
+3:   147
+4:  3463
+5:    28
+6:     7
+7:  3036
+[1] "generating figure for  ./plots/GSE151511_query_barplot_azimuth_identifier2"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_monaco_identifier2"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_dice_identifier2"
+[1] "generating figure for  ./plots/GSE151511_query_vlnplot_CARTEx_84_azimuth"
+[1] "generating figure for  ./plots/GSE151511_query_vlnplot_CARTEx_84_monaco"
+[1] "generating figure for  ./plots/GSE151511_query_vlnplot_CARTEx_84_dice"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_azimuth_identifier2_CRS"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_monaco_identifier2_CRS"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_dice_identifier2_CRS"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_azimuth_identifier2_ICANS"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_monaco_identifier2_ICANS"
+[1] "generating figure for  ./plots/GSE151511_query_barplot_dice_identifier2_ICANS"

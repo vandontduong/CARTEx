@@ -1,0 +1,365 @@
+Loading required package: SeuratObject
+Loading required package: sp
+‘SeuratObject’ was built with package ‘Matrix’ 1.6.4 but the current
+version is 1.6.5; it is recomended that you reinstall ‘SeuratObject’ as
+the ABI for ‘Matrix’ may have changed
+
+Attaching package: ‘SeuratObject’
+
+The following object is masked from ‘package:base’:
+
+    intersect
+
+Loading required package: ggplot2
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘matrixStats’
+
+The following object is masked from ‘package:dplyr’:
+
+    count
+
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:dplyr’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:SeuratObject’:
+
+    intersect
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following objects are masked from ‘package:dplyr’:
+
+    first, rename
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: ‘IRanges’
+
+The following objects are masked from ‘package:dplyr’:
+
+    collapse, desc, slice
+
+The following object is masked from ‘package:sp’:
+
+    %over%
+
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+
+Attaching package: ‘SummarizedExperiment’
+
+The following object is masked from ‘package:Seurat’:
+
+    Assays
+
+The following object is masked from ‘package:SeuratObject’:
+
+    Assays
+
+Loading required package: SingleCellExperiment
+
+Attaching package: ‘destiny’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    distance
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    distance
+
+The following object is masked from ‘package:IRanges’:
+
+    distance
+
+
+Attaching package: ‘data.table’
+
+The following object is masked from ‘package:SummarizedExperiment’:
+
+    shift
+
+The following object is masked from ‘package:GenomicRanges’:
+
+    shift
+
+The following object is masked from ‘package:IRanges’:
+
+    shift
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, second
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+Loading required package: ggrepel
+Loading required package: ggraph
+
+Attaching package: ‘ggraph’
+
+The following object is masked from ‘package:sp’:
+
+    geometry
+
+
+Attaching package: ‘glmGamPoi’
+
+The following object is masked from ‘package:dplyr’:
+
+    vars
+
+The following object is masked from ‘package:ggplot2’:
+
+    vars
+
+Loading required package: grid
+========================================
+ComplexHeatmap version 2.14.0
+Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+Github page: https://github.com/jokergoo/ComplexHeatmap
+Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+
+If you use it in published research, please cite either one:
+- Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+- Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+    genomic data. Bioinformatics 2016.
+
+
+The new InteractiveComplexHeatmap package can directly export static 
+complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(ComplexHeatmap))
+========================================
+
+
+Attaching package: ‘cowplot’
+
+The following object is masked from ‘package:patchwork’:
+
+    align_plots
+
+The following object is masked from ‘package:ggpubr’:
+
+    get_legend
+
+Warning: Feature names cannot have underscores ('_'), replacing with dashes ('-')
+Warning: Feature names cannot have underscores ('_'), replacing with dashes ('-')
+Warning: Feature names cannot have underscores ('_'), replacing with dashes ('-')
+Warning: Feature names cannot have underscores ('_'), replacing with dashes ('-')
+Normalizing layer: counts
+Performing log-normalization
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Warning message:
+The `slot` argument of `GetAssayData()` is deprecated as of SeuratObject 5.0.0.
+ℹ Please use the `layer` argument instead. 
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Finding variable features for layer counts
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+When using repel, set xnudge and ynudge to 0 for optimal results
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Saving 7 x 7 in image
+Warning messages:
+1: In scale_x_log10() : log-10 transformation introduced infinite values.
+2: In scale_x_log10() : log-10 transformation introduced infinite values.
+3: In scale_x_log10() : log-10 transformation introduced infinite values.
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   6%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |=========                                                             |  12%  |                                                                              |==========                                                            |  14%  |                                                                              |===========                                                           |  16%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |================                                                      |  22%  |                                                                              |=================                                                     |  24%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  31%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  35%  |                                                                              |==========================                                            |  37%  |                                                                              |===========================                                           |  39%  |                                                                              |=============================                                         |  41%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  45%  |                                                                              |=================================                                     |  47%  |                                                                              |==================================                                    |  49%  |                                                                              |====================================                                  |  51%  |                                                                              |=====================================                                 |  53%  |                                                                              |=======================================                               |  55%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  59%  |                                                                              |===========================================                           |  61%  |                                                                              |============================================                          |  63%  |                                                                              |==============================================                        |  65%  |                                                                              |===============================================                       |  67%  |                                                                              |=================================================                     |  69%  |                                                                              |==================================================                    |  71%  |                                                                              |===================================================                   |  73%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  96%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  GNB2L1, ATP5E, ATP5G2, SEPT6, C11orf31, FYB, ATP5D, TCEB2, AES, ATP5B 
+	   ATP5O, C14orf166, ATP5C1, USMG5, ATP5H, ATP5A1, FAM96B, RARRES3, FAM101B, C19orf60 
+	   SEPW1, C9orf142, HMHA1, KIAA1551, LINC00152, ADRBK1, UFD1L, SEPT2, JUN, ATP5G1 
+Negative:  RACK1, ATP5MC3, EEF1G, NME2, ATP5F1E, ATP5MF, RPL17, ATP5F1D, SELENOH, SEM1 
+	   JPT1, ATP5F1B, TRIR, SNHG29, SEPTIN6, SNHG5, ATP5ME, RNASEK, COPS9, CIAO2B 
+	   RAB5IF, ELOC, PSMA6, ATP6V0C, EIF4A1, TLE5, UFD1, CRIP1, PCLAF, ATP5MC1 
+PC_ 2 
+Positive:  LTB, TXNIP, PCED1B-AS1, CD27, RIPOR2, LPAR6, TRIM22, LINC01871, CD7, SATB1 
+	   LINC00861, NPC2, PRKCQ-AS1, IFITM1, ISG20, IL7R, ZMAT3, KLF2, UCP2, LEF1 
+	   BTG2, BBC3, SAMD3, TLE5, GIMAP4, JAML, NOP53, GZMM, CCR7, MTRNR2L12 
+Negative:  TYMS, TUBB, H2AFZ, STMN1, MKI67, HMGB2, PTMA, DUT, TK1, H2AFX 
+	   SMC2, SMC4, TUBB4B, RAN, ZWINT, CENPF, CENPW, RANBP1, BIRC5, CKS1B 
+	   NCAPG, CLSPN, CCNA2, MCM7, HMGN2, TPX2, ANP32E, NUSAP1, ASF1B, UBE2S 
+PC_ 3 
+Positive:  TOP2A, UBE2C, ASPM, NUSAP1, CENPF, HJURP, KIF23, PRC1, CKAP2, CDCA2 
+	   PLK1, CDCA8, KIF20B, KIF2C, ANLN, CDKN2C, TPX2, CALM2, AURKB, KIF15 
+	   KIFC1, NEK2, NDC80, HMMR, UBALD2, KIF20A, NUF2, GPSM2, CDC25B, ECT2 
+Negative:  RPL8, RPS2, C1QBP, DCTPP1, HSPD1, RPLP0, PAICS, NME1, CCND2, UNG 
+	   PRMT1, PPA1, GINS2, BATF3, TOMM40, CCT2, MRPS34, GNL3, NOLC1, EIF1AY 
+	   MRPL12, MRPL3, ABCE1, PEBP1, RPS4Y1, PSME2, SLBP, SERBP1, WDR43, GTF3A 
+PC_ 4 
+Positive:  PLAC8, IL7R, LEF1, CCR7, CAPG, TIMP1, SELL, CD7, LST1, RPS4Y1 
+	   SPTBN1, DHRS3, CD38, EIF1AY, SATB1, TCF7, CORO1B, RPL8, CHD7, FAM134B 
+	   XBP1, SPINT2, SERINC5, STAT1, FAM101B, RPS2, S100B, FAM65B, CD27, PLK1 
+Negative:  NKG7, TIGIT, CST7, SRGN, GZMA, F2R, PLEK, LAG3, HLA-DQA1, GZMH 
+	   IFNG, OASL, GZMK, IKZF3, DUSP4, HLA-DPA1, GYG1, EOMES, ZBED2, FASLG 
+	   SRM, RGCC, TNFRSF9, PHLDA1, SNX9, AC133644.2, CD70, TGFBR3, DUSP5, PRF1 
+PC_ 5 
+Positive:  RNF213, AHNAK, GZMK, HLA-DPB1, HLA-DPA1, GYG1, HLA-DQA1, KLF2, FTL, F2R 
+	   TXN, CST7, FUT7, HLA-DQB1, NPC2, LYAR, OASL, PLEK, HLA-DRB5, TPM4 
+	   CCR6, CLU, NETO2, BATF3, AIM1, GSTP1, EOMES, HOPX, LMNA, PLA2G16 
+Negative:  NPW, ZBED2, TNFRSF9, RGS16, ID3, COL6A3, SNX9, LAYN, SRGAP3, IL2RA 
+	   TNFRSF18, MB, VDR, SEC14L2, DUSP4, IL2RB, CD109, KRT86, TNFAIP3, NR4A3 
+	   IL1RN, NEK6, MYO1E, GEM, SH2D2A, AHI1, SMOX, ID2, SIRPG, SEMA7A 
+Computing nearest neighbor graph
+Computing SNN
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+This message will be shown once per session
+15:33:25 UMAP embedding parameters a = 0.9922 b = 1.112
+15:33:25 Read 9587 rows and found 13 numeric columns
+15:33:25 Using Annoy for neighbor search, n_neighbors = 30
+15:33:25 Building Annoy index with metric = cosine, n_trees = 50
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+15:33:26 Writing NN index file to temp file /tmp/Rtmpte0HcI/file188df65d0f2d1
+15:33:26 Searching Annoy index using 1 thread, search_k = 3000
+15:33:29 Annoy recall = 100%
+15:33:29 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+15:33:31 Found 2 connected components, falling back to 'spca' initialization with init_sdev = 1
+15:33:31 Using 'irlba' for PCA
+15:33:31 PCA: 2 components explained 65.58% variance
+15:33:31 Scaling init to sdev = 1
+15:33:31 Commencing optimization for 500 epochs, with 382724 positive edges
+Using method 'umap'
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+15:33:58 Optimization finished
+Warning message:
+`aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information. 
+Calculating cluster 0
+Calculating cluster 1
+Calculating cluster 2
+Calculating cluster 3
+Calculating cluster 4
+Calculating cluster 5
+Calculating cluster 6
+Calculating cluster 7
+Calculating cluster 8
+Calculating cluster 9
+Calculating cluster 10
+Calculating cluster 11
+Calculating cluster 12
+Calculating cluster 13
+Calculating cluster 14
+Calculating cluster 15
+Calculating cluster 16
+Calculating cluster 17
+Calculating cluster 18

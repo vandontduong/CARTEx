@@ -1,0 +1,569 @@
+[1] "The script is starting..."
+                        orig.ident nCount_RNA nFeature_RNA                 cell
+AD1-AAACGGGAGCGTTGCC SeuratProject       1714          723 AD1-AAACGGGAGCGTTGCC
+AD1-AAAGATGCAAGAAGAG SeuratProject       1870          803 AD1-AAAGATGCAAGAAGAG
+AD1-AAAGATGTCCAACCAA SeuratProject       1892          920 AD1-AAAGATGTCCAACCAA
+AD1-AAAGCAAAGTCATCCA SeuratProject       1877          859 AD1-AAAGCAAAGTCATCCA
+AD1-AAAGTAGAGGGCTCTC SeuratProject       1269          587 AD1-AAAGTAGAGGGCTCTC
+AD1-AACACGTTCATTATCC SeuratProject       2315          991 AD1-AACACGTTCATTATCC
+                     sample     sampleType clusterID
+AD1-AAACGGGAGCGTTGCC    AD1 Alzheimer(CSF)       C20
+AD1-AAAGATGCAAGAAGAG    AD1 Alzheimer(CSF)       C17
+AD1-AAAGATGTCCAACCAA    AD1 Alzheimer(CSF)        C9
+AD1-AAAGCAAAGTCATCCA    AD1 Alzheimer(CSF)       C11
+AD1-AAAGTAGAGGGCTCTC    AD1 Alzheimer(CSF)       C16
+AD1-AACACGTTCATTATCC    AD1 Alzheimer(CSF)       C13
+                                             clusterAnno cellType
+AD1-AAACGGGAGCGTTGCC                   C20: CD4+ T cells      CD4
+AD1-AAAGATGCAAGAAGAG C17: Terminal effector CD8+ T cells      CD8
+AD1-AAAGATGTCCAACCAA  C9: Terminal effector CD8+ T cells      CD8
+AD1-AAAGCAAAGTCATCCA C11: Terminal effector CD8+ T cells      CD8
+AD1-AAAGTAGAGGGCTCTC                     C16: MAIT cells     MAIT
+AD1-AACACGTTCATTATCC    C13: Central memory CD8+ T cells      CD8
+                                          cellType2      clonotype
+AD1-AAACGGGAGCGTTGCC                   CD4+ T cells           <NA>
+AD1-AAAGATGCAAGAAGAG Terminal effector CD8+ T cells clonotype47520
+AD1-AAAGATGTCCAACCAA Terminal effector CD8+ T cells  clonotype4719
+AD1-AAAGCAAAGTCATCCA Terminal effector CD8+ T cells clonotype85151
+AD1-AAAGTAGAGGGCTCTC                     MAIT cells   clonotype750
+AD1-AACACGTTCATTATCC    Central memory CD8+ T cells           <NA>
+                           alpha_CDR3_aa     beta_CDR3_aa percent.mt
+AD1-AAACGGGAGCGTTGCC                <NA>             <NA>   5.425904
+AD1-AAAGATGCAAGAAGAG CAMREARWGYGGSQGNLIF CASSLARDRSTHGYTF   8.556150
+AD1-AAAGATGTCCAACCAA     CAVRDRNQAGTALIF  CASSPRAGGRETQYF   3.594080
+AD1-AAAGCAAAGTCATCCA     CAVRDRNQAGTALIF                    6.339904
+AD1-AAAGTAGAGGGCTCTC    CAVRDPIGDSSYKLIF CASSLNGGKSYNEQFF   7.328605
+AD1-AACACGTTCATTATCC                <NA>             <NA>   5.399568
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+AD1-AAACGGGAGCGTTGCC Zenodo3993994          0.9334889        2.063492
+AD1-AAAGATGCAAGAAGAG Zenodo3993994          1.2834225        2.222222
+AD1-AAAGATGTCCAACCAA Zenodo3993994          1.2684989        2.380952
+AD1-AAAGCAAAGTCATCCA Zenodo3993994          1.5982952        2.222222
+AD1-AAAGTAGAGGGCTCTC Zenodo3993994          1.1820331        1.904762
+AD1-AACACGTTCATTATCC Zenodo3993994          1.0799136        3.015873
+                     percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+AD1-AAACGGGAGCGTTGCC          0.1166861             1.0        0.00000000
+AD1-AAAGATGCAAGAAGAG          0.2673797             1.5        0.10695187
+AD1-AAAGATGTCCAACCAA          0.3171247             3.0        0.05285412
+AD1-AAAGCAAAGTCATCCA          0.7458711             1.5        0.05327651
+AD1-AAAGTAGAGGGCTCTC          0.4728132             2.5        0.07880221
+AD1-AACACGTTCATTATCC          0.2591793             3.0        0.08639309
+                     PFSD.CARTEx_84       Disease sampleSource RNA_snn_res.0
+AD1-AAACGGGAGCGTTGCC       0.000000 Alzheimer (C)          CSF             0
+AD1-AAAGATGCAAGAAGAG       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGATGTCCAACCAA       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGCAAAGTCATCCA       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGTAGAGGGCTCTC       1.190476 Alzheimer (C)          CSF             0
+AD1-AACACGTTCATTATCC       2.380952 Alzheimer (C)          CSF             0
+                     RNA_snn_res.0.2 RNA_snn_res.0.4 RNA_snn_res.0.6
+AD1-AAACGGGAGCGTTGCC               0               1               1
+AD1-AAAGATGCAAGAAGAG               1               0               0
+AD1-AAAGATGTCCAACCAA               1               0               0
+AD1-AAAGCAAAGTCATCCA               0               2               4
+AD1-AAAGTAGAGGGCTCTC               0               1               1
+AD1-AACACGTTCATTATCC               0               1               1
+                     RNA_snn_res.0.8 RNA_snn_res.1 seurat_clusters DC1rank
+AD1-AAACGGGAGCGTTGCC               3             5               1     931
+AD1-AAAGATGCAAGAAGAG               3             5               0     674
+AD1-AAAGATGTCCAACCAA               0             4               0     569
+AD1-AAAGCAAAGTCATCCA               5             6               4     599
+AD1-AAAGTAGAGGGCTCTC               3             5               1    1300
+AD1-AACACGTTCATTATCC               1             0               1     911
+                     DC2rank         dpt      S.Score    G2M.Score Phase
+AD1-AAACGGGAGCGTTGCC     407 -0.01376173 -0.043485128 -0.070301740    G1
+AD1-AAAGATGCAAGAAGAG     896 -0.01168461  0.008626136  0.023429435   G2M
+AD1-AAAGATGTCCAACCAA    1127 -0.01169539  0.095099113  0.002601183     S
+AD1-AAAGCAAAGTCATCCA    1043 -0.01188733 -0.050053401 -0.030646816    G1
+AD1-AAAGTAGAGGGCTCTC     320 -0.01437503  0.024144007 -0.013421698     S
+AD1-AACACGTTCATTATCC     773 -0.01219505  0.147540431 -0.046287428     S
+                     old.ident
+AD1-AAACGGGAGCGTTGCC         5
+AD1-AAAGATGCAAGAAGAG         5
+AD1-AAAGATGTCCAACCAA         4
+AD1-AAAGCAAAGTCATCCA         6
+AD1-AAAGTAGAGGGCTCTC         5
+AD1-AACACGTTCATTATCC         0
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_ridgeplt"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_PCAplot"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_PCAplot_regressed"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_phase"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_phase"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+         <fctr>            <fctr> <int>
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine     N
+             <char>                        <char> <int>
+ 1:    CD8+ T cells             Naive CD8 T cells     4
+ 2:    CD8+ T cells    Central memory CD8 T cells     4
+ 3:    CD8+ T cells   Effector memory CD8 T cells     4
+ 4:    CD8+ T cells Terminal effector CD8 T cells     4
+ 5:         T cells                    MAIT cells     4
+ 6:         T cells                Vd2 gd T cells     4
+ 7:         T cells            Non-Vd2 gd T cells     4
+ 8:    CD4+ T cells     Follicular helper T cells     4
+ 9:    CD4+ T cells            T regulatory cells     4
+10:    CD4+ T cells                     Th1 cells     4
+11:    CD4+ T cells                Th1/Th17 cells     4
+12:    CD4+ T cells                    Th17 cells     4
+13:    CD4+ T cells                     Th2 cells     4
+14:    CD4+ T cells             Naive CD4 T cells     4
+15:     Progenitors              Progenitor cells     4
+16:         B cells                 Naive B cells     4
+17:         B cells   Non-switched memory B cells     4
+18:         B cells             Exhausted B cells     4
+19:         B cells       Switched memory B cells     4
+20:         B cells                  Plasmablasts     4
+21:       Monocytes           Classical monocytes     4
+22:       Monocytes        Intermediate monocytes     4
+23:       Monocytes       Non classical monocytes     4
+24:        NK cells          Natural killer cells     4
+25: Dendritic cells  Plasmacytoid dendritic cells     4
+26: Dendritic cells       Myeloid dendritic cells     4
+27:     Neutrophils       Low-density neutrophils     4
+28:       Basophils         Low-density basophils     4
+29:    CD4+ T cells Terminal effector CD4 T cells     2
+         label.main                    label.fine     N
+[1] "CD8+ T cells"
+       label.main                       label.fine     N
+           <char>                           <char> <int>
+ 1:       B cells                   B cells, naive   106
+ 2:     Monocytes                 Monocytes, CD14+   106
+ 3:     Monocytes                 Monocytes, CD16+   105
+ 4:      NK cells                         NK cells   105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG   104
+ 6: T cells, CD4+             T cells, CD4+, naive   103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated   102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG   104
+ 9: T cells, CD4+               T cells, CD4+, TFH   104
+10: T cells, CD4+               T cells, CD4+, Th1   104
+11: T cells, CD4+            T cells, CD4+, Th1_17   104
+12: T cells, CD4+              T cells, CD4+, Th17   104
+13: T cells, CD4+               T cells, CD4+, Th2   104
+14: T cells, CD8+             T cells, CD8+, naive   104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated   102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+     1691 
+                       azimuth
+AD1-AAACGGGAGCGTTGCC CD8 Naive
+[1] "generating figure for  ./plots/Zenodo3993994_csf_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                          973                           545 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                            2                           171 
+                                            monaco
+AD1-AAACGGGAGCGTTGCC    Central memory CD8 T cells
+AD1-AAAGATGCAAGAAGAG Terminal effector CD8 T cells
+AD1-AAAGATGTCCAACCAA   Effector memory CD8 T cells
+AD2-TAGCCGGCAATGGACG             Naive CD8 T cells
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_predicted_monaco"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                            1666                               25 
+                                                 dice
+AD1-AAACGGGAGCGTTGCC             T cells, CD8+, naive
+AD1-AGGCCGTTCGTAGATC T cells, CD8+, naive, stimulated
+[1] "generating figure for  ./plots/Zenodo3993994_csf_umap_predicted_dice"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+4: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+5: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+7: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+       N
+   <int>
+1:   959
+2:   169
+3:   536
+4:     9
+5:    14
+6:     2
+7:     2
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_dice_seurat_clusters"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_azimuth_disease"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_monaco_disease"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_dice_disease"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_phase_disease"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_activationi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_activationi_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_anergyi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_anergyi_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_stemnessi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_stemnessi_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_senescencei"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_senescencei_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_CARTEx_84"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_CARTEx_200"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_CARTEx_630"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_activation"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_anergy"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_stemness"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sig_senescence"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_NKlike_Tex"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_LCMV_Tex"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_BBD_Tex"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_PD1_Tex"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_CARTEx_84"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_CARTEx_200"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_CARTEx_630"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_sig_activation"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_sig_anergy"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_sig_stemness"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_sig_senescence"
+                        orig.ident nCount_RNA nFeature_RNA                 cell
+AD1-AAACGGGAGCGTTGCC SeuratProject       1714          723 AD1-AAACGGGAGCGTTGCC
+AD1-AAAGATGCAAGAAGAG SeuratProject       1870          803 AD1-AAAGATGCAAGAAGAG
+AD1-AAAGATGTCCAACCAA SeuratProject       1892          920 AD1-AAAGATGTCCAACCAA
+AD1-AAAGCAAAGTCATCCA SeuratProject       1877          859 AD1-AAAGCAAAGTCATCCA
+AD1-AAAGTAGAGGGCTCTC SeuratProject       1269          587 AD1-AAAGTAGAGGGCTCTC
+AD1-AACACGTTCATTATCC SeuratProject       2315          991 AD1-AACACGTTCATTATCC
+AD1-AACCATGAGTCGTACT SeuratProject       1806          786 AD1-AACCATGAGTCGTACT
+AD1-AACGTTGAGTGACTCT SeuratProject       2146          851 AD1-AACGTTGAGTGACTCT
+AD1-AACTCAGGTTTGGGCC SeuratProject        916          539 AD1-AACTCAGGTTTGGGCC
+AD1-AACTTTCGTCACAAGG SeuratProject       2569         1117 AD1-AACTTTCGTCACAAGG
+                     sample     sampleType clusterID
+AD1-AAACGGGAGCGTTGCC    AD1 Alzheimer(CSF)       C20
+AD1-AAAGATGCAAGAAGAG    AD1 Alzheimer(CSF)       C17
+AD1-AAAGATGTCCAACCAA    AD1 Alzheimer(CSF)        C9
+AD1-AAAGCAAAGTCATCCA    AD1 Alzheimer(CSF)       C11
+AD1-AAAGTAGAGGGCTCTC    AD1 Alzheimer(CSF)       C16
+AD1-AACACGTTCATTATCC    AD1 Alzheimer(CSF)       C13
+AD1-AACCATGAGTCGTACT    AD1 Alzheimer(CSF)        C9
+AD1-AACGTTGAGTGACTCT    AD1 Alzheimer(CSF)       C13
+AD1-AACTCAGGTTTGGGCC    AD1 Alzheimer(CSF)        C9
+AD1-AACTTTCGTCACAAGG    AD1 Alzheimer(CSF)        C9
+                                             clusterAnno cellType
+AD1-AAACGGGAGCGTTGCC                   C20: CD4+ T cells      CD4
+AD1-AAAGATGCAAGAAGAG C17: Terminal effector CD8+ T cells      CD8
+AD1-AAAGATGTCCAACCAA  C9: Terminal effector CD8+ T cells      CD8
+AD1-AAAGCAAAGTCATCCA C11: Terminal effector CD8+ T cells      CD8
+AD1-AAAGTAGAGGGCTCTC                     C16: MAIT cells     MAIT
+AD1-AACACGTTCATTATCC    C13: Central memory CD8+ T cells      CD8
+AD1-AACCATGAGTCGTACT  C9: Terminal effector CD8+ T cells      CD8
+AD1-AACGTTGAGTGACTCT    C13: Central memory CD8+ T cells      CD8
+AD1-AACTCAGGTTTGGGCC  C9: Terminal effector CD8+ T cells      CD8
+AD1-AACTTTCGTCACAAGG  C9: Terminal effector CD8+ T cells      CD8
+                                          cellType2      clonotype
+AD1-AAACGGGAGCGTTGCC                   CD4+ T cells           <NA>
+AD1-AAAGATGCAAGAAGAG Terminal effector CD8+ T cells clonotype47520
+AD1-AAAGATGTCCAACCAA Terminal effector CD8+ T cells  clonotype4719
+AD1-AAAGCAAAGTCATCCA Terminal effector CD8+ T cells clonotype85151
+AD1-AAAGTAGAGGGCTCTC                     MAIT cells   clonotype750
+AD1-AACACGTTCATTATCC    Central memory CD8+ T cells           <NA>
+AD1-AACCATGAGTCGTACT Terminal effector CD8+ T cells  clonotype2826
+AD1-AACGTTGAGTGACTCT    Central memory CD8+ T cells clonotype44939
+AD1-AACTCAGGTTTGGGCC Terminal effector CD8+ T cells clonotype91748
+AD1-AACTTTCGTCACAAGG Terminal effector CD8+ T cells clonotype48228
+                           alpha_CDR3_aa     beta_CDR3_aa percent.mt
+AD1-AAACGGGAGCGTTGCC                <NA>             <NA>   5.425904
+AD1-AAAGATGCAAGAAGAG CAMREARWGYGGSQGNLIF CASSLARDRSTHGYTF   8.556150
+AD1-AAAGATGTCCAACCAA     CAVRDRNQAGTALIF  CASSPRAGGRETQYF   3.594080
+AD1-AAAGCAAAGTCATCCA     CAVRDRNQAGTALIF                    6.339904
+AD1-AAAGTAGAGGGCTCTC    CAVRDPIGDSSYKLIF CASSLNGGKSYNEQFF   7.328605
+AD1-AACACGTTCATTATCC                <NA>             <NA>   5.399568
+AD1-AACCATGAGTCGTACT        CAAHSGNTPLVF CASSLPSGSEADTQYF   5.149502
+AD1-AACGTTGAGTGACTCT      CAMSSSGGSYIPTF    CATSSSGTDTQYF   6.197577
+AD1-AACTCAGGTTTGGGCC                     CASSLTLLGAPGELFF   6.768559
+AD1-AACTTTCGTCACAAGG      CALSEAGRDDKIIF   CASSVAGGQTEAFF   4.281822
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+AD1-AAACGGGAGCGTTGCC Zenodo3993994          0.9334889       2.0634921
+AD1-AAAGATGCAAGAAGAG Zenodo3993994          1.2834225       2.2222222
+AD1-AAAGATGTCCAACCAA Zenodo3993994          1.2684989       2.3809524
+AD1-AAAGCAAAGTCATCCA Zenodo3993994          1.5982952       2.2222222
+AD1-AAAGTAGAGGGCTCTC Zenodo3993994          1.1820331       1.9047619
+AD1-AACACGTTCATTATCC Zenodo3993994          1.0799136       3.0158730
+AD1-AACCATGAGTCGTACT Zenodo3993994          1.3289037       3.0158730
+AD1-AACGTTGAGTGACTCT Zenodo3993994          0.5125815       1.5873016
+AD1-AACTCAGGTTTGGGCC Zenodo3993994          0.6550218       0.6349206
+AD1-AACTTTCGTCACAAGG Zenodo3993994          0.5449591       1.5873016
+                     percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+AD1-AAACGGGAGCGTTGCC          0.1166861             1.0        0.00000000
+AD1-AAAGATGCAAGAAGAG          0.2673797             1.5        0.10695187
+AD1-AAAGATGTCCAACCAA          0.3171247             3.0        0.05285412
+AD1-AAAGCAAAGTCATCCA          0.7458711             1.5        0.05327651
+AD1-AAAGTAGAGGGCTCTC          0.4728132             2.5        0.07880221
+AD1-AACACGTTCATTATCC          0.2591793             3.0        0.08639309
+AD1-AACCATGAGTCGTACT          0.3322259             2.5        0.11074197
+AD1-AACGTTGAGTGACTCT          0.1397950             1.0        0.04659832
+AD1-AACTCAGGTTTGGGCC          0.0000000             0.0        0.00000000
+AD1-AACTTTCGTCACAAGG          0.1167770             1.5        0.07785130
+                     PFSD.CARTEx_84       Disease sampleSource RNA_snn_res.0
+AD1-AAACGGGAGCGTTGCC       0.000000 Alzheimer (C)          CSF             0
+AD1-AAAGATGCAAGAAGAG       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGATGTCCAACCAA       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGCAAAGTCATCCA       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGTAGAGGGCTCTC       1.190476 Alzheimer (C)          CSF             0
+AD1-AACACGTTCATTATCC       2.380952 Alzheimer (C)          CSF             0
+AD1-AACCATGAGTCGTACT       1.190476 Alzheimer (C)          CSF             0
+AD1-AACGTTGAGTGACTCT       1.190476 Alzheimer (C)          CSF             0
+AD1-AACTCAGGTTTGGGCC       0.000000 Alzheimer (C)          CSF             0
+AD1-AACTTTCGTCACAAGG       2.380952 Alzheimer (C)          CSF             0
+                     RNA_snn_res.0.2 RNA_snn_res.0.4 RNA_snn_res.0.6
+AD1-AAACGGGAGCGTTGCC               0               1               1
+AD1-AAAGATGCAAGAAGAG               1               0               0
+AD1-AAAGATGTCCAACCAA               1               0               0
+AD1-AAAGCAAAGTCATCCA               0               2               4
+AD1-AAAGTAGAGGGCTCTC               0               1               1
+AD1-AACACGTTCATTATCC               0               1               1
+AD1-AACCATGAGTCGTACT               1               0               0
+AD1-AACGTTGAGTGACTCT               0               1               1
+AD1-AACTCAGGTTTGGGCC               1               0               0
+AD1-AACTTTCGTCACAAGG               1               0               0
+                     RNA_snn_res.0.8 RNA_snn_res.1 seurat_clusters DC1rank
+AD1-AAACGGGAGCGTTGCC               3             5               1     931
+AD1-AAAGATGCAAGAAGAG               3             5               0     674
+AD1-AAAGATGTCCAACCAA               0             4               0     569
+AD1-AAAGCAAAGTCATCCA               5             6               4     599
+AD1-AAAGTAGAGGGCTCTC               3             5               1    1300
+AD1-AACACGTTCATTATCC               1             0               1     911
+AD1-AACCATGAGTCGTACT               0             4               0     682
+AD1-AACGTTGAGTGACTCT               1             0               1    1146
+AD1-AACTCAGGTTTGGGCC               0             1               0      75
+AD1-AACTTTCGTCACAAGG               0             4               0     580
+                     DC2rank         dpt      S.Score    G2M.Score Phase
+AD1-AAACGGGAGCGTTGCC     407 -0.01376173 -0.043485128 -0.070301740    G1
+AD1-AAAGATGCAAGAAGAG     896 -0.01168461  0.008626136  0.023429435   G2M
+AD1-AAAGATGTCCAACCAA    1127 -0.01169539  0.095099113  0.002601183     S
+AD1-AAAGCAAAGTCATCCA    1043 -0.01188733 -0.050053401 -0.030646816    G1
+AD1-AAAGTAGAGGGCTCTC     320 -0.01437503  0.024144007 -0.013421698     S
+AD1-AACACGTTCATTATCC     773 -0.01219505  0.147540431 -0.046287428     S
+AD1-AACCATGAGTCGTACT     588 -0.01264441 -0.047272843 -0.041579096    G1
+AD1-AACGTTGAGTGACTCT     572 -0.01635232 -0.037396844  0.054968274   G2M
+AD1-AACTCAGGTTTGGGCC    1604 -0.03431705  0.064158781 -0.010072436     S
+AD1-AACTTTCGTCACAAGG    1179 -0.01138011  0.013353165 -0.058979182     S
+                     old.ident   azimuth                        monaco
+AD1-AAACGGGAGCGTTGCC         5 CD8 Naive    Central memory CD8 T cells
+AD1-AAAGATGCAAGAAGAG         5 CD8 Naive Terminal effector CD8 T cells
+AD1-AAAGATGTCCAACCAA         4 CD8 Naive   Effector memory CD8 T cells
+AD1-AAAGCAAAGTCATCCA         6 CD8 Naive Terminal effector CD8 T cells
+AD1-AAAGTAGAGGGCTCTC         5 CD8 Naive    Central memory CD8 T cells
+AD1-AACACGTTCATTATCC         0 CD8 Naive    Central memory CD8 T cells
+AD1-AACCATGAGTCGTACT         4 CD8 Naive   Effector memory CD8 T cells
+AD1-AACGTTGAGTGACTCT         0 CD8 Naive    Central memory CD8 T cells
+AD1-AACTCAGGTTTGGGCC         1 CD8 Naive Terminal effector CD8 T cells
+AD1-AACTTTCGTCACAAGG         4 CD8 Naive   Effector memory CD8 T cells
+                                     dice  CARTEx_630 CARTEx_630i CARTEx_200
+AD1-AAACGGGAGCGTTGCC T cells, CD8+, naive -0.22750103           0 -1.0378320
+AD1-AAAGATGCAAGAAGAG T cells, CD8+, naive  0.42440379           0 -0.4112477
+AD1-AAAGATGTCCAACCAA T cells, CD8+, naive  0.10876292           0  0.6893553
+AD1-AAAGCAAAGTCATCCA T cells, CD8+, naive  0.19990275           0 -0.1368860
+AD1-AAAGTAGAGGGCTCTC T cells, CD8+, naive -0.07393967           0  0.4306150
+AD1-AACACGTTCATTATCC T cells, CD8+, naive  0.83348955           1  0.3569001
+AD1-AACCATGAGTCGTACT T cells, CD8+, naive  1.13016075           1  0.3629782
+AD1-AACGTTGAGTGACTCT T cells, CD8+, naive -1.47709577          -1 -0.9660831
+AD1-AACTCAGGTTTGGGCC T cells, CD8+, naive -2.08435119          -2 -2.0027445
+AD1-AACTTTCGTCACAAGG T cells, CD8+, naive -1.34184243          -1 -0.9257045
+                     CARTEx_200i   CARTEx_84 CARTEx_84i Activation     Anergy
+AD1-AAACGGGAGCGTTGCC          -1 -1.26997459         -1 -2.0094324  1.0221086
+AD1-AAAGATGCAAGAAGAG           0 -0.07895188          0  0.7261545 -1.1088131
+AD1-AAAGATGTCCAACCAA           1 -0.45019797          0 -1.1096119  1.7078462
+AD1-AAAGCAAAGTCATCCA           0 -0.33820942          0 -1.2162086 -2.6286400
+AD1-AAAGTAGAGGGCTCTC           0 -0.28040342          0 -1.1291070  0.7798301
+AD1-AACACGTTCATTATCC           0  0.33540689          0  1.4566608 -1.2721086
+AD1-AACCATGAGTCGTACT           0 -0.06235127          0 -2.4479208  3.6735053
+AD1-AACGTTGAGTGACTCT          -1 -0.41057411          0  0.4145983  0.6859082
+AD1-AACTCAGGTTTGGGCC          -2 -1.26997459         -1  0.9901614 -1.0543024
+AD1-AACTTTCGTCACAAGG          -1  0.20777729          0 -0.6433298 -1.3474915
+                        Stemness Senescence Activationi Anergyi Stemnessi
+AD1-AAACGGGAGCGTTGCC  0.99837534 -0.3201924          -2       1         1
+AD1-AAAGATGCAAGAAGAG -0.67881682 -0.3479312           1      -1        -1
+AD1-AAAGATGTCCAACCAA -0.55863792 -1.0313814          -1       2        -1
+AD1-AAAGCAAAGTCATCCA  0.11666400  0.9558287          -1      -3         0
+AD1-AAAGTAGAGGGCTCTC -0.07280577  0.5855611          -1       1         0
+AD1-AACACGTTCATTATCC -0.07700371 -0.6292309           1      -1         0
+AD1-AACCATGAGTCGTACT  0.57715289 -0.3826942          -2       4         1
+AD1-AACGTTGAGTGACTCT -1.39157022  0.6155779           0       1        -1
+AD1-AACTCAGGTTTGGGCC  1.06808887  0.6354894           1      -1         1
+AD1-AACTTTCGTCACAAGG  2.86632307  0.6236938          -1      -1         3
+                     Senescencei  NKlike_Tex    LCMV_Tex    BBD_Tex
+AD1-AAACGGGAGCGTTGCC           0  0.28550498  0.00925514 -0.4331949
+AD1-AAAGATGCAAGAAGAG           0 -1.54903079  0.27584943  0.4047354
+AD1-AAAGATGTCCAACCAA          -1 -0.15111563  3.14918357 -0.2075042
+AD1-AAAGCAAAGTCATCCA           1  0.86984800  0.47411102  1.3555365
+AD1-AAAGTAGAGGGCTCTC           1  1.13819987  1.11704507 -1.6235091
+AD1-AACACGTTCATTATCC          -1  0.42201777 -1.64444873  0.1414185
+AD1-AACCATGAGTCGTACT           0 -0.06949216 -2.14857268 -1.8884151
+AD1-AACGTTGAGTGACTCT           1 -0.20615610  0.97861013  0.2256579
+AD1-AACTCAGGTTTGGGCC           1 -1.30480814 -0.04896350 -0.7769331
+AD1-AACTTTCGTCACAAGG           1 -0.97901290  0.28594484 -0.8566150
+                          PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi PD1_Texi
+AD1-AAACGGGAGCGTTGCC -1.368840650           0         0        0       -1
+AD1-AAAGATGCAAGAAGAG  2.443777984          -2         0        0        2
+AD1-AAAGATGTCCAACCAA -0.005278734           0         3        0        0
+AD1-AAAGCAAAGTCATCCA  0.032410085           1         0        1        0
+AD1-AAAGTAGAGGGCTCTC  1.465333108           1         1       -2        1
+AD1-AACACGTTCATTATCC -0.881666779           0        -2        0       -1
+AD1-AACCATGAGTCGTACT  0.274390187           0        -2       -2        0
+AD1-AACGTTGAGTGACTCT -1.230099772           0         1        0       -1
+AD1-AACTCAGGTTTGGGCC -0.448166479          -1         0       -1        0
+AD1-AACTTTCGTCACAAGG -1.744047542          -1         0       -1       -2
+[1] "The script has completed..."
+   user  system elapsed 
+278.937  17.240 350.223 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] cowplot_1.1.3               ca_0.71.1                  
+ [3] ComplexHeatmap_2.14.0       ComplexUpset_1.3.3         
+ [5] ggbeeswarm_0.7.2            glmGamPoi_1.10.2           
+ [7] ROGUE_1.0                   clustree_0.5.1             
+ [9] ggraph_2.2.1                EnhancedVolcano_1.16.0     
+[11] ggrepel_0.9.5               patchwork_1.2.0            
+[13] data.table_1.15.4           destiny_3.12.0             
+[15] scuttle_1.11.3              SingleCellExperiment_1.20.1
+[17] SingleR_2.0.0               SummarizedExperiment_1.28.0
+[19] Biobase_2.58.0              GenomicRanges_1.50.2       
+[21] GenomeInfoDb_1.34.9         IRanges_2.32.0             
+[23] S4Vectors_0.36.2            BiocGenerics_0.44.0        
+[25] MatrixGenerics_1.10.0       matrixStats_1.1.0          
+[27] dplyr_1.1.4                 stringr_1.5.1              
+[29] ggplotify_0.1.2             ggpubr_0.6.0               
+[31] ggplot2_3.5.1               Seurat_5.0.3               
+[33] SeuratObject_5.0.1          sp_2.1-4                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             smoother_1.3             
+ [17] BiocParallel_1.32.6       rjson_0.2.21             
+ [19] glue_1.7.0                sctransform_0.4.1        
+ [21] parallel_4.2.0            vipor_0.4.7              
+ [23] spatstat.sparse_3.0-3     dotCall64_1.1-1          
+ [25] spatstat.geom_3.2-9       tidyselect_1.2.1         
+ [27] fitdistrplus_1.1-11       tidyr_1.3.1              
+ [29] zoo_1.8-12                xtable_1.8-4             
+ [31] RcppHNSW_0.6.0            magrittr_2.0.3           
+ [33] cli_3.6.2                 zlibbioc_1.44.0          
+ [35] miniUI_0.1.1.1            RcppEigen_0.3.4.0.0      
+ [37] fastDummies_1.7.3         shiny_1.8.1.1            
+ [39] BiocSingular_1.14.0       clue_0.3-65              
+ [41] cluster_2.1.6             tidygraph_1.3.1          
+ [43] pcaMethods_1.90.0         tibble_3.2.1             
+ [45] listenv_0.9.1             png_0.1-8                
+ [47] future_1.33.2             withr_3.0.0              
+ [49] bitops_1.0-7              ggforce_0.4.2            
+ [51] ranger_0.16.0             plyr_1.8.9               
+ [53] e1071_1.7-14              pillar_1.9.0             
+ [55] GlobalOptions_0.1.2       cachem_1.0.8             
+ [57] fs_1.6.4                  scatterplot3d_0.3-44     
+ [59] TTR_0.24.4                GetoptLong_1.0.5         
+ [61] DelayedMatrixStats_1.20.0 xts_0.13.2               
+ [63] vctrs_0.6.5               generics_0.1.3           
+ [65] tools_4.2.0               beeswarm_0.4.0           
+ [67] munsell_0.5.1             tweenr_2.0.3             
+ [69] proxy_0.4-27              DelayedArray_0.24.0      
+ [71] fastmap_1.1.1             compiler_4.2.0           
+ [73] abind_1.4-5               httpuv_1.6.15            
+ [75] plotly_4.10.4             GenomeInfoDbData_1.2.9   
+ [77] gridExtra_2.3             lattice_0.22-6           
+ [79] deldir_2.0-4              utf8_1.2.4               
+ [81] later_1.3.2               jsonlite_1.8.8           
+ [83] ggplot.multistats_1.0.0   scales_1.3.0             
+ [85] ScaledMatrix_1.6.0        pbapply_1.7-2            
+ [87] carData_3.0-5             sparseMatrixStats_1.10.0 
+ [89] lazyeval_0.2.2            promises_1.3.0           
+ [91] car_3.1-2                 doParallel_1.0.17        
+ [93] goftest_1.2-3             spatstat.utils_3.0-4     
+ [95] reticulate_1.36.1         Rtsne_0.17               
+ [97] uwot_0.2.2                igraph_2.0.3             
+ [99] survival_3.6-4            systemfonts_1.0.6        
+[101] htmltools_0.5.8.1         memoise_2.0.1            
+[103] graphlayouts_1.1.1        viridisLite_0.4.2        
+[105] digest_0.6.35             mime_0.12                
+[107] spam_2.10-0               yulab.utils_0.1.4        
+[109] future.apply_1.11.2       splines_4.2.0            
+[111] labeling_0.4.3            RCurl_1.98-1.14          
+[113] broom_1.0.5               colorspace_2.1-0         
+[115] shape_1.4.6.1             ggrastr_1.0.2            
+[117] nnet_7.3-19               Rcpp_1.0.12              
+[119] RANN_2.6.1                circlize_0.4.16          
+[121] fansi_1.0.6               VIM_6.2.2                
+[123] parallelly_1.37.1         R6_2.5.1                 
+[125] ggridges_0.5.6            lifecycle_1.0.4          
+[127] curl_5.2.1                ggsignif_0.6.4           
+[129] leiden_0.4.3.1            robustbase_0.99-2        
+[131] Matrix_1.6-5              RcppAnnoy_0.0.22         
+[133] RColorBrewer_1.1-3        iterators_1.0.14         
+[135] spatstat.explore_3.2-7    htmlwidgets_1.6.4        
+[137] beachmat_2.14.2           polyclip_1.10-6          
+[139] purrr_1.0.2               gridGraphics_0.5-1       
+[141] globals_0.16.3            spatstat.random_3.2-3    
+[143] progressr_0.14.0          codetools_0.2-20         
+[145] RSpectra_0.16-1           gtable_0.3.5             
+[147] tensor_1.5                httr_1.4.7               
+[149] KernSmooth_2.23-20        stringi_1.7.8            
+[151] reshape2_1.4.4            farver_2.1.1             
+[153] viridis_0.6.5             ggthemes_5.1.0           
+[155] hexbin_1.28.3             boot_1.3-30              
+[157] scattermore_1.2           DEoptimR_1.1-3           
+[159] spatstat.data_3.0-4       pkgconfig_2.0.3          
+[161] rstatix_0.7.2            

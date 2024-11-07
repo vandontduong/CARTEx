@@ -1,0 +1,197 @@
+[1] "The script is starting..."
+                       orig.ident nCount_RNA nFeature_RNA Code visit
+AAACCTGTCTAAGCCA-26 SeuratProject   2160.577         5953   L2     2
+AAACCTGTCTGATTCT-26 SeuratProject   2367.003         5939   L2     2
+AAACGGGGTGGCCCTA-26 SeuratProject   2283.242         5754   L2     1
+AAACGGGTCTAACTGG-26 SeuratProject   2375.011         5941   L2     1
+AAAGATGCACAGACTT-26 SeuratProject   2575.277         5872   L2     2
+AAAGTAGTCCAGATCA-26 SeuratProject   2039.495         5654   L2     1
+                                     bc         short_bc percent.mt identifier
+AAACCTGTCTAAGCCA-26 AAACCTGTCTAAGCCA-26 AAACCTGTCTAAGCCA   2.669652  GSE136184
+AAACCTGTCTGATTCT-26 AAACCTGTCTGATTCT-26 AAACCTGTCTGATTCT   2.321683  GSE136184
+AAACGGGGTGGCCCTA-26 AAACGGGGTGGCCCTA-26 AAACGGGGTGGCCCTA   2.373950  GSE136184
+AAACGGGTCTAACTGG-26 AAACGGGTCTAACTGG-26 AAACGGGTCTAACTGG   2.116722  GSE136184
+AAAGATGCACAGACTT-26 AAAGATGCACAGACTT-26 AAAGATGCACAGACTT   1.930571  GSE136184
+AAAGTAGTCCAGATCA-26 AAAGTAGTCCAGATCA-26 AAAGTAGTCCAGATCA   3.552471  GSE136184
+                    percent.CARTEx_630 PFSD.CARTEx_630 percent.CARTEx_200
+AAACCTGTCTAAGCCA-26          1.2096316        33.65079         0.16340685
+AAACCTGTCTGATTCT-26          0.6778526        31.90476         0.28310607
+AAACGGGGTGGCCCTA-26          1.5635978        33.01587         0.33374120
+AAACGGGTCTAACTGG-26          1.0539357        33.01587         0.05086507
+AAAGATGCACAGACTT-26          1.0498303        32.38095         0.42303392
+AAAGTAGTCCAGATCA-26          2.3330445        36.03175         1.17689259
+                    PFSD.CARTEx_200 percent.CARTEx_84 PFSD.CARTEx_84 Sex Age
+AAACCTGTCTAAGCCA-26            29.0        0.14169478       25.00000   M  40
+AAACCTGTCTGATTCT-26            28.0        0.01386753       23.80952   M  40
+AAACGGGGTGGCCCTA-26            29.5        0.12378669       25.00000   M  32
+AAACGGGTCTAACTGG-26            29.5       -0.12455402       26.19048   M  32
+AAAGATGCACAGACTT-26            29.0        0.11938987       25.00000   M  40
+AAAGTAGTCCAGATCA-26            33.5        0.14589923       27.38095   M  32
+                    AgeGroup AgeGroup2       Cohort RNA_snn_res.0
+AAACCTGTCTAAGCCA-26   Middle  Under 50 Longitudinal             0
+AAACCTGTCTGATTCT-26   Middle  Under 50 Longitudinal             0
+AAACGGGGTGGCCCTA-26   Middle  Under 50 Longitudinal             0
+AAACGGGTCTAACTGG-26   Middle  Under 50 Longitudinal             0
+AAAGATGCACAGACTT-26   Middle  Under 50 Longitudinal             0
+AAAGTAGTCCAGATCA-26   Middle  Under 50 Longitudinal             0
+                    RNA_snn_res.0.2 RNA_snn_res.0.4 RNA_snn_res.0.6
+AAACCTGTCTAAGCCA-26               1               0               4
+AAACCTGTCTGATTCT-26               1               0               4
+AAACGGGGTGGCCCTA-26               1               0               4
+AAACGGGTCTAACTGG-26               1               0               4
+AAAGATGCACAGACTT-26               3               3               2
+AAAGTAGTCCAGATCA-26               4               6               7
+                    RNA_snn_res.0.8 RNA_snn_res.1 seurat_clusters DC1rank
+AAACCTGTCTAAGCCA-26               1             5               0    9438
+AAACCTGTCTGATTCT-26               1             8               0    6947
+AAACGGGGTGGCCCTA-26               1             5               0     923
+AAACGGGTCTAACTGG-26               1             5               0    1833
+AAAGATGCACAGACTT-26               0             0               3    5390
+AAAGTAGTCCAGATCA-26               9            10               6    7782
+                    DC2rank     S.Score   G2M.Score Phase old.ident
+AAACCTGTCTAAGCCA-26     334 -0.14467384  0.19323069   G2M         5
+AAACCTGTCTGATTCT-26    2939 -0.13349969 -0.17740974    G1         8
+AAACGGGGTGGCCCTA-26    7044 -0.12526367  0.29022041   G2M         5
+AAACGGGTCTAACTGG-26    7556  0.05409312  0.05690843   G2M         5
+AAAGATGCACAGACTT-26    4064 -0.04578041  0.29055294   G2M         0
+AAAGTAGTCCAGATCA-26    1957  0.26891114  0.41806950   G2M        10
+[1] "generating figure for  ./plots/GSE136184_l_prepare_ridgeplt"
+      orig.ident Phase    N
+1: SeuratProject   G2M 3855
+2: SeuratProject    G1 2870
+3: SeuratProject     S 3033
+[1] "generating figure for  ./plots/GSE136184_l_prepare_barplot_phase"
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_phase"
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine N
+ 1:    CD8+ T cells             Naive CD8 T cells 4
+ 2:    CD8+ T cells    Central memory CD8 T cells 4
+ 3:    CD8+ T cells   Effector memory CD8 T cells 4
+ 4:    CD8+ T cells Terminal effector CD8 T cells 4
+ 5:         T cells                    MAIT cells 4
+ 6:         T cells                Vd2 gd T cells 4
+ 7:         T cells            Non-Vd2 gd T cells 4
+ 8:    CD4+ T cells     Follicular helper T cells 4
+ 9:    CD4+ T cells            T regulatory cells 4
+10:    CD4+ T cells                     Th1 cells 4
+11:    CD4+ T cells                Th1/Th17 cells 4
+12:    CD4+ T cells                    Th17 cells 4
+13:    CD4+ T cells                     Th2 cells 4
+14:    CD4+ T cells             Naive CD4 T cells 4
+15:     Progenitors              Progenitor cells 4
+16:         B cells                 Naive B cells 4
+17:         B cells   Non-switched memory B cells 4
+18:         B cells             Exhausted B cells 4
+19:         B cells       Switched memory B cells 4
+20:         B cells                  Plasmablasts 4
+21:       Monocytes           Classical monocytes 4
+22:       Monocytes        Intermediate monocytes 4
+23:       Monocytes       Non classical monocytes 4
+24:        NK cells          Natural killer cells 4
+25: Dendritic cells  Plasmacytoid dendritic cells 4
+26: Dendritic cells       Myeloid dendritic cells 4
+27:     Neutrophils       Low-density neutrophils 4
+28:       Basophils         Low-density basophils 4
+29:    CD4+ T cells Terminal effector CD4 T cells 2
+         label.main                    label.fine N
+[1] "CD8+ T cells"
+       label.main                       label.fine   N
+ 1:       B cells                   B cells, naive 106
+ 2:     Monocytes                 Monocytes, CD14+ 106
+ 3:     Monocytes                 Monocytes, CD16+ 105
+ 4:      NK cells                         NK cells 105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG 104
+ 6: T cells, CD4+             T cells, CD4+, naive 103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated 102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG 104
+ 9: T cells, CD4+               T cells, CD4+, TFH 104
+10: T cells, CD4+               T cells, CD4+, Th1 104
+11: T cells, CD4+            T cells, CD4+, Th1_17 104
+12: T cells, CD4+              T cells, CD4+, Th17 104
+13: T cells, CD4+               T cells, CD4+, Th2 104
+14: T cells, CD8+             T cells, CD8+, naive 104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated 102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+     9758 
+                      azimuth
+AAACCTGTCTAAGCCA-26 CD8 Naive
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                          893                            83 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                         5288                          3494 
+                                           monaco
+AAACCTGTCTAAGCCA-26             Naive CD8 T cells
+AAAGTAGTCCAGATCA-26 Terminal effector CD8 T cells
+ACGAGCCTCGTTGACA-26    Central memory CD8 T cells
+GATCGATGTTCGAATC-26   Effector memory CD8 T cells
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_predicted_monaco"
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                            9740                               18 
+                                                dice
+AAACCTGTCTAAGCCA-26             T cells, CD8+, naive
+CCATTCGGTAGGGACT-28 T cells, CD8+, naive, stimulated
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_predicted_dice"
+[1] "generating figure for  ./plots/GSE136184_l_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/GSE136184_l_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+1: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+2: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+4: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+7: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+8: CD8 Naive             Naive CD8 T cells T cells, CD8+, naive, stimulated
+      N
+1: 5287
+2: 3480
+3:  891
+4:   82
+5:   14
+6:    2
+7:    1
+8:    1
+[1] "azimuth"
+[1] "Under 50"
+     azimuth    N
+1: CD8 Naive 3645

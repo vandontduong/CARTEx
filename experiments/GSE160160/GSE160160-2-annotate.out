@@ -1,0 +1,564 @@
+[1] "The script is starting..."
+                                    orig.ident nCount_RNA nFeature_RNA
+donor150_day0_AAACCTGAGCTCCTCT-1 donor150_day0       8784         2768
+donor150_day0_AAACCTGCAAGTTCTG-1 donor150_day0      13142         3635
+donor150_day0_AAACCTGGTACGACCC-1 donor150_day0      15069         3691
+donor150_day0_AAACCTGGTTTAGCTG-1 donor150_day0      39894         5880
+donor150_day0_AAACGGGAGACTGTAA-1 donor150_day0      37392         5246
+donor150_day0_AAACGGGAGGGTGTGT-1 donor150_day0       4158         1616
+                                 percent.mt identifier    donor exposure
+donor150_day0_AAACCTGAGCTCCTCT-1   7.433971  GSE160160 donor150     day0
+donor150_day0_AAACCTGCAAGTTCTG-1   3.332826  GSE160160 donor150     day0
+donor150_day0_AAACCTGGTACGACCC-1   3.238437  GSE160160 donor150     day0
+donor150_day0_AAACCTGGTTTAGCTG-1   3.439114  GSE160160 donor150     day0
+donor150_day0_AAACGGGAGACTGTAA-1   3.305520  GSE160160 donor150     day0
+donor150_day0_AAACGGGAGGGTGTGT-1   5.146705  GSE160160 donor150     day0
+                                 percent.CARTEx_630 PFSD.CARTEx_630
+donor150_day0_AAACCTGAGCTCCTCT-1          0.7399818        6.825397
+donor150_day0_AAACCTGCAAGTTCTG-1          3.8426419       12.380952
+donor150_day0_AAACCTGGTACGACCC-1          0.7764284        8.888889
+donor150_day0_AAACCTGGTTTAGCTG-1          1.8824886       21.587302
+donor150_day0_AAACGGGAGACTGTAA-1          0.7916132       16.507937
+donor150_day0_AAACGGGAGGGTGTGT-1          1.0822511        3.650794
+                                 percent.CARTEx_200 PFSD.CARTEx_200
+donor150_day0_AAACCTGAGCTCCTCT-1          0.2959927             6.5
+donor150_day0_AAACCTGCAAGTTCTG-1          2.9675848            10.5
+donor150_day0_AAACCTGGTACGACCC-1          0.2057204             6.5
+donor150_day0_AAACCTGGTTTAGCTG-1          0.9399910            17.5
+donor150_day0_AAACGGGAGACTGTAA-1          0.3182499            13.5
+donor150_day0_AAACGGGAGGGTGTGT-1          0.5291005             2.0
+                                 percent.CARTEx_84 PFSD.CARTEx_84 RNA_snn_res.0
+donor150_day0_AAACCTGAGCTCCTCT-1         0.1593807       7.142857             0
+donor150_day0_AAACCTGCAAGTTCTG-1         1.9403439       8.333333             0
+donor150_day0_AAACCTGGTACGACCC-1         0.1260867       5.952381             0
+donor150_day0_AAACCTGGTTTAGCTG-1         0.6266607      17.857143             0
+donor150_day0_AAACGGGAGACTGTAA-1         0.2086008      16.666667             0
+donor150_day0_AAACGGGAGGGTGTGT-1         0.4088504       2.380952             0
+                                 RNA_snn_res.0.2 RNA_snn_res.0.4
+donor150_day0_AAACCTGAGCTCCTCT-1               4               5
+donor150_day0_AAACCTGCAAGTTCTG-1               4               7
+donor150_day0_AAACCTGGTACGACCC-1               4               7
+donor150_day0_AAACCTGGTTTAGCTG-1               4               7
+donor150_day0_AAACGGGAGACTGTAA-1               4               7
+donor150_day0_AAACGGGAGGGTGTGT-1               4               5
+                                 RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+donor150_day0_AAACCTGAGCTCCTCT-1               5               4             4
+donor150_day0_AAACCTGCAAGTTCTG-1               8               8             9
+donor150_day0_AAACCTGGTACGACCC-1               8               8            15
+donor150_day0_AAACCTGGTTTAGCTG-1               8               8             9
+donor150_day0_AAACGGGAGACTGTAA-1               8               8             9
+donor150_day0_AAACGGGAGGGTGTGT-1               5               4             4
+                                 seurat_clusters DC1rank DC2rank         dpt
+donor150_day0_AAACCTGAGCTCCTCT-1               4    6282    2974 0.002570194
+donor150_day0_AAACCTGCAAGTTCTG-1               4     549    5808 0.009308056
+donor150_day0_AAACCTGGTACGACCC-1               4    1173    2061 0.009411967
+donor150_day0_AAACCTGGTTTAGCTG-1               4     213    2682 0.016379697
+donor150_day0_AAACGGGAGACTGTAA-1               4     139    2784 0.023498457
+donor150_day0_AAACGGGAGGGTGTGT-1               4    3244    6642 0.003292687
+                                     S.Score  G2M.Score Phase old.ident
+donor150_day0_AAACCTGAGCTCCTCT-1 -0.25201922 -0.4156606    G1         4
+donor150_day0_AAACCTGCAAGTTCTG-1  0.09885483 -0.3657735     S         9
+donor150_day0_AAACCTGGTACGACCC-1 -0.05986258  0.8405385   G2M        15
+donor150_day0_AAACCTGGTTTAGCTG-1  0.37468666  0.1433448     S         9
+donor150_day0_AAACGGGAGACTGTAA-1  0.24259909  0.3690781   G2M         9
+donor150_day0_AAACGGGAGGGTGTGT-1 -0.29744301 -0.3803208    G1         4
+[1] "generating figure for  ./plots/GSE160160_prepare_ridgeplt"
+[1] "generating figure for  ./plots/GSE160160_prepare_PCAplot"
+[1] "generating figure for  ./plots/GSE160160_prepare_PCAplot_regressed"
+       orig.ident  Phase     N
+           <char> <fctr> <int>
+ 1: donor150_day0     G1   835
+ 2: donor150_day0      S   200
+ 3: donor150_day0    G2M   144
+ 4:  donor150_CAE     G1  1150
+ 5:  donor150_CAE    G2M    41
+ 6:  donor150_CAE      S    66
+ 7: donor388_day0      S   631
+ 8: donor388_day0     G1  1936
+ 9: donor388_day0    G2M   388
+10:  donor388_CAE     G1  1497
+11:  donor388_CAE      S  2002
+12:  donor388_CAE    G2M  2407
+13: donor538_day0     G1   386
+14: donor538_day0    G2M    61
+15: donor538_day0      S    17
+16:  donor538_CAE     G1  1177
+17:  donor538_CAE      S    65
+18:  donor538_CAE    G2M    36
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_phase"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_phase"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_phase_highlight"
+    celltype.l1       celltype.l2     N
+         <fctr>            <fctr> <int>
+ 1:     other T               gdT   835
+ 2:       CD8 T           CD8 TEM  1796
+ 3:       CD8 T           CD8 TCM  2883
+ 4:     other T               dnT   181
+ 5:           B    B intermediate   899
+ 6:       CD4 T           CD4 TCM 14889
+ 7:          DC               pDC   284
+ 8:          NK                NK  1546
+ 9:           B           B naive   903
+10:        Mono         CD14 Mono  3673
+11:           B       Plasmablast   299
+12:       CD4 T         CD4 Naive  1403
+13:       CD4 T              Treg   298
+14:        Mono         CD16 Mono   891
+15:       other              HSPC   300
+16:          NK  NK Proliferating   214
+17:       CD4 T           CD4 TEM   703
+18:       CD8 T         CD8 Naive  1148
+19:     other T              MAIT   600
+20:           B          B memory   597
+21:          NK     NK_CD56bright   291
+22:          DC              cDC2   472
+23:       other          Platelet   566
+24:       other             Eryth    81
+25:       CD4 T           CD4 CTL   296
+26:          DC              cDC1   150
+27:       CD4 T CD4 Proliferating    57
+28:       other               ILC   131
+29:          DC              ASDC    16
+30:       CD8 T CD8 Proliferating    31
+    celltype.l1       celltype.l2     N
+         label.main                    label.fine     N
+             <char>                        <char> <int>
+ 1:    CD8+ T cells             Naive CD8 T cells     4
+ 2:    CD8+ T cells    Central memory CD8 T cells     4
+ 3:    CD8+ T cells   Effector memory CD8 T cells     4
+ 4:    CD8+ T cells Terminal effector CD8 T cells     4
+ 5:         T cells                    MAIT cells     4
+ 6:         T cells                Vd2 gd T cells     4
+ 7:         T cells            Non-Vd2 gd T cells     4
+ 8:    CD4+ T cells     Follicular helper T cells     4
+ 9:    CD4+ T cells            T regulatory cells     4
+10:    CD4+ T cells                     Th1 cells     4
+11:    CD4+ T cells                Th1/Th17 cells     4
+12:    CD4+ T cells                    Th17 cells     4
+13:    CD4+ T cells                     Th2 cells     4
+14:    CD4+ T cells             Naive CD4 T cells     4
+15:     Progenitors              Progenitor cells     4
+16:         B cells                 Naive B cells     4
+17:         B cells   Non-switched memory B cells     4
+18:         B cells             Exhausted B cells     4
+19:         B cells       Switched memory B cells     4
+20:         B cells                  Plasmablasts     4
+21:       Monocytes           Classical monocytes     4
+22:       Monocytes        Intermediate monocytes     4
+23:       Monocytes       Non classical monocytes     4
+24:        NK cells          Natural killer cells     4
+25: Dendritic cells  Plasmacytoid dendritic cells     4
+26: Dendritic cells       Myeloid dendritic cells     4
+27:     Neutrophils       Low-density neutrophils     4
+28:       Basophils         Low-density basophils     4
+29:    CD4+ T cells Terminal effector CD4 T cells     2
+         label.main                    label.fine     N
+[1] "CD8+ T cells"
+       label.main                       label.fine     N
+           <char>                           <char> <int>
+ 1:       B cells                   B cells, naive   106
+ 2:     Monocytes                 Monocytes, CD14+   106
+ 3:     Monocytes                 Monocytes, CD16+   105
+ 4:      NK cells                         NK cells   105
+ 5: T cells, CD4+       T cells, CD4+, memory TREG   104
+ 6: T cells, CD4+             T cells, CD4+, naive   103
+ 7: T cells, CD4+ T cells, CD4+, naive, stimulated   102
+ 8: T cells, CD4+        T cells, CD4+, naive TREG   104
+ 9: T cells, CD4+               T cells, CD4+, TFH   104
+10: T cells, CD4+               T cells, CD4+, Th1   104
+11: T cells, CD4+            T cells, CD4+, Th1_17   104
+12: T cells, CD4+              T cells, CD4+, Th17   104
+13: T cells, CD4+               T cells, CD4+, Th2   104
+14: T cells, CD8+             T cells, CD8+, naive   104
+15: T cells, CD8+ T cells, CD8+, naive, stimulated   102
+[1] "T cells, CD8+"
+
+CD8 Naive 
+    13039 
+                                   azimuth
+donor150_day0_AAACCTGAGCTCCTCT-1 CD8 Naive
+[1] "generating figure for  ./plots/GSE160160_umap_predicted_azimuth"
+ERROR : No cells found  for  CD8 Proliferating 
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_predicted_azimuth_highlight"
+
+   Central memory CD8 T cells   Effector memory CD8 T cells 
+                         4962                          7716 
+            Naive CD8 T cells Terminal effector CD8 T cells 
+                           27                           334 
+                                                        monaco
+donor150_day0_AAACCTGAGCTCCTCT-1    Central memory CD8 T cells
+donor150_day0_AAACCTGCAAGTTCTG-1   Effector memory CD8 T cells
+donor150_day0_ACTTTCATCAAACCGT-1 Terminal effector CD8 T cells
+donor150_CAE_AGGTCATAGAGCTATA-1              Naive CD8 T cells
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_predicted_monaco"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_predicted_monaco_highlight"
+
+            T cells, CD8+, naive T cells, CD8+, naive, stimulated 
+                           12788                              251 
+                                                             dice
+donor150_day0_AAACCTGAGCTCCTCT-1 T cells, CD8+, naive, stimulated
+donor150_day0_AAACCTGCAAGTTCTG-1             T cells, CD8+, naive
+[1] "generating figure for  ./plots/GSE160160_umap_predicted_dice"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_predicted_dice_highlight"
+[1] "generating figure for  ./plots/GSE160160_prepare_featureplot_Tcell_markers"
+     azimuth                        monaco                             dice
+      <fctr>                        <fctr>                           <fctr>
+1: CD8 Naive    Central memory CD8 T cells T cells, CD8+, naive, stimulated
+2: CD8 Naive   Effector memory CD8 T cells             T cells, CD8+, naive
+3: CD8 Naive    Central memory CD8 T cells             T cells, CD8+, naive
+4: CD8 Naive Terminal effector CD8 T cells             T cells, CD8+, naive
+5: CD8 Naive   Effector memory CD8 T cells T cells, CD8+, naive, stimulated
+6: CD8 Naive             Naive CD8 T cells             T cells, CD8+, naive
+7: CD8 Naive Terminal effector CD8 T cells T cells, CD8+, naive, stimulated
+       N
+   <int>
+1:    46
+2:  7517
+3:  4916
+4:   328
+5:   199
+6:    27
+7:     6
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_azimuth_seurat_clusters"
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_monaco_seurat_clusters"
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_dice_seurat_clusters"
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_azimuth_exposure"
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_monaco_exposure"
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_dice_exposure"
+[1] "generating figure for  ./plots/GSE160160_prepare_barplot_phase_exposure"
+[1] "generating figure for  ./plots/GSE160160_prepare_rogue_boxplot_seurat_clusters_exposure"
+[1] "generating figure for  ./plots/GSE160160_prepare_rogue_boxplot_monaco_exposure"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_activationi"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_activationi_highlight"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_anergyi"
+ERROR : No cells found  for  -4 
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_anergyi_highlight"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_stemnessi"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_stemnessi_highlight"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_senescencei"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_senescencei_highlight"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_CARTEx_84"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_CARTEx_200"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_CARTEx_630"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_activation"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_anergy"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_stemness"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_sig_senescence"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_NKlike_Tex"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_LCMV_Tex"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_BBD_Tex"
+[1] "generating figure for  ./plots/GSE160160_prepare_umap_PD1_Tex"
+[1] "generating figure for  ./plots/GSE160160_prepare_scatterplot_CARTEx_84_NKlike_Tex"
+[1] "generating figure for  ./plots/GSE160160_prepare_scatterplot_CARTEx_200_NKlike_Tex"
+[1] "generating figure for  ./plots/GSE160160_prepare_scatterplot_CARTEx_630_NKlike_Tex"
+                                    orig.ident nCount_RNA nFeature_RNA
+donor150_day0_AAACCTGAGCTCCTCT-1 donor150_day0       8784         2768
+donor150_day0_AAACCTGCAAGTTCTG-1 donor150_day0      13142         3635
+donor150_day0_AAACCTGGTACGACCC-1 donor150_day0      15069         3691
+donor150_day0_AAACCTGGTTTAGCTG-1 donor150_day0      39894         5880
+donor150_day0_AAACGGGAGACTGTAA-1 donor150_day0      37392         5246
+donor150_day0_AAACGGGAGGGTGTGT-1 donor150_day0       4158         1616
+donor150_day0_AAACGGGCAAATTGCC-1 donor150_day0      14705         3697
+donor150_day0_AAACGGGTCACCGGGT-1 donor150_day0      13012         3438
+donor150_day0_AAAGATGAGAGTTGGC-1 donor150_day0       9970         2898
+donor150_day0_AAAGATGCATCGGAAG-1 donor150_day0      20012         4172
+                                 percent.mt identifier    donor exposure
+donor150_day0_AAACCTGAGCTCCTCT-1   7.433971  GSE160160 donor150     day0
+donor150_day0_AAACCTGCAAGTTCTG-1   3.332826  GSE160160 donor150     day0
+donor150_day0_AAACCTGGTACGACCC-1   3.238437  GSE160160 donor150     day0
+donor150_day0_AAACCTGGTTTAGCTG-1   3.439114  GSE160160 donor150     day0
+donor150_day0_AAACGGGAGACTGTAA-1   3.305520  GSE160160 donor150     day0
+donor150_day0_AAACGGGAGGGTGTGT-1   5.146705  GSE160160 donor150     day0
+donor150_day0_AAACGGGCAAATTGCC-1   4.277457  GSE160160 donor150     day0
+donor150_day0_AAACGGGTCACCGGGT-1   4.741777  GSE160160 donor150     day0
+donor150_day0_AAAGATGAGAGTTGGC-1   3.741224  GSE160160 donor150     day0
+donor150_day0_AAAGATGCATCGGAAG-1   7.335599  GSE160160 donor150     day0
+                                 percent.CARTEx_630 PFSD.CARTEx_630
+donor150_day0_AAACCTGAGCTCCTCT-1          0.7399818        6.825397
+donor150_day0_AAACCTGCAAGTTCTG-1          3.8426419       12.380952
+donor150_day0_AAACCTGGTACGACCC-1          0.7764284        8.888889
+donor150_day0_AAACCTGGTTTAGCTG-1          1.8824886       21.587302
+donor150_day0_AAACGGGAGACTGTAA-1          0.7916132       16.507937
+donor150_day0_AAACGGGAGGGTGTGT-1          1.0822511        3.650794
+donor150_day0_AAACGGGCAAATTGCC-1          1.4280857       11.904762
+donor150_day0_AAACGGGTCACCGGGT-1          0.8914848       10.000000
+donor150_day0_AAAGATGAGAGTTGGC-1          0.6619860        5.873016
+donor150_day0_AAAGATGCATCGGAAG-1          0.7545473       11.428571
+                                 percent.CARTEx_200 PFSD.CARTEx_200
+donor150_day0_AAACCTGAGCTCCTCT-1          0.2959927             6.5
+donor150_day0_AAACCTGCAAGTTCTG-1          2.9675848            10.5
+donor150_day0_AAACCTGGTACGACCC-1          0.2057204             6.5
+donor150_day0_AAACCTGGTTTAGCTG-1          0.9399910            17.5
+donor150_day0_AAACGGGAGACTGTAA-1          0.3182499            13.5
+donor150_day0_AAACGGGAGGGTGTGT-1          0.5291005             2.0
+donor150_day0_AAACGGGCAAATTGCC-1          0.7956477            10.5
+donor150_day0_AAACGGGTCACCGGGT-1          0.3842607            10.5
+donor150_day0_AAAGATGAGAGTTGGC-1          0.1705115             3.0
+donor150_day0_AAAGATGCATCGGAAG-1          0.3098141             8.0
+                                 percent.CARTEx_84 PFSD.CARTEx_84 RNA_snn_res.0
+donor150_day0_AAACCTGAGCTCCTCT-1         0.1593807       7.142857             0
+donor150_day0_AAACCTGCAAGTTCTG-1         1.9403439       8.333333             0
+donor150_day0_AAACCTGGTACGACCC-1         0.1260867       5.952381             0
+donor150_day0_AAACCTGGTTTAGCTG-1         0.6266607      17.857143             0
+donor150_day0_AAACGGGAGACTGTAA-1         0.2086008      16.666667             0
+donor150_day0_AAACGGGAGGGTGTGT-1         0.4088504       2.380952             0
+donor150_day0_AAACGGGCAAATTGCC-1         0.4896294      10.714286             0
+donor150_day0_AAACGGGTCACCGGGT-1         0.1613895      11.904762             0
+donor150_day0_AAAGATGAGAGTTGGC-1         0.1203611       2.380952             0
+donor150_day0_AAAGATGCATCGGAAG-1         0.1599041       9.523810             0
+                                 RNA_snn_res.0.2 RNA_snn_res.0.4
+donor150_day0_AAACCTGAGCTCCTCT-1               4               5
+donor150_day0_AAACCTGCAAGTTCTG-1               4               7
+donor150_day0_AAACCTGGTACGACCC-1               4               7
+donor150_day0_AAACCTGGTTTAGCTG-1               4               7
+donor150_day0_AAACGGGAGACTGTAA-1               4               7
+donor150_day0_AAACGGGAGGGTGTGT-1               4               5
+donor150_day0_AAACGGGCAAATTGCC-1               4               7
+donor150_day0_AAACGGGTCACCGGGT-1               4               7
+donor150_day0_AAAGATGAGAGTTGGC-1               4               5
+donor150_day0_AAAGATGCATCGGAAG-1               4               7
+                                 RNA_snn_res.0.6 RNA_snn_res.0.8 RNA_snn_res.1
+donor150_day0_AAACCTGAGCTCCTCT-1               5               4             4
+donor150_day0_AAACCTGCAAGTTCTG-1               8               8             9
+donor150_day0_AAACCTGGTACGACCC-1               8               8            15
+donor150_day0_AAACCTGGTTTAGCTG-1               8               8             9
+donor150_day0_AAACGGGAGACTGTAA-1               8               8             9
+donor150_day0_AAACGGGAGGGTGTGT-1               5               4             4
+donor150_day0_AAACGGGCAAATTGCC-1               8               8             9
+donor150_day0_AAACGGGTCACCGGGT-1               8               8            15
+donor150_day0_AAAGATGAGAGTTGGC-1               5               4             4
+donor150_day0_AAAGATGCATCGGAAG-1               8               8             9
+                                 seurat_clusters DC1rank DC2rank         dpt
+donor150_day0_AAACCTGAGCTCCTCT-1               4    6282    2974 0.002570194
+donor150_day0_AAACCTGCAAGTTCTG-1               4     549    5808 0.009308056
+donor150_day0_AAACCTGGTACGACCC-1               4    1173    2061 0.009411967
+donor150_day0_AAACCTGGTTTAGCTG-1               4     213    2682 0.016379697
+donor150_day0_AAACGGGAGACTGTAA-1               4     139    2784 0.023498457
+donor150_day0_AAACGGGAGGGTGTGT-1               4    3244    6642 0.003292687
+donor150_day0_AAACGGGCAAATTGCC-1               4     626    5595 0.008938956
+donor150_day0_AAACGGGTCACCGGGT-1               4    1500    2256 0.007611915
+donor150_day0_AAAGATGAGAGTTGGC-1               4    1180    9665 0.005606576
+donor150_day0_AAAGATGCATCGGAAG-1               4    1628    1141 0.012627840
+                                     S.Score  G2M.Score Phase old.ident
+donor150_day0_AAACCTGAGCTCCTCT-1 -0.25201922 -0.4156606    G1         4
+donor150_day0_AAACCTGCAAGTTCTG-1  0.09885483 -0.3657735     S         9
+donor150_day0_AAACCTGGTACGACCC-1 -0.05986258  0.8405385   G2M        15
+donor150_day0_AAACCTGGTTTAGCTG-1  0.37468666  0.1433448     S         9
+donor150_day0_AAACGGGAGACTGTAA-1  0.24259909  0.3690781   G2M         9
+donor150_day0_AAACGGGAGGGTGTGT-1 -0.29744301 -0.3803208    G1         4
+donor150_day0_AAACGGGCAAATTGCC-1  0.25238915 -0.3747264     S         9
+donor150_day0_AAACGGGTCACCGGGT-1 -0.08283945  0.2359709   G2M        15
+donor150_day0_AAAGATGAGAGTTGGC-1 -0.27763556 -0.4678211    G1         4
+donor150_day0_AAAGATGCATCGGAAG-1  0.25104990  0.1625878     S         9
+                                   azimuth                      monaco
+donor150_day0_AAACCTGAGCTCCTCT-1 CD8 Naive  Central memory CD8 T cells
+donor150_day0_AAACCTGCAAGTTCTG-1 CD8 Naive Effector memory CD8 T cells
+donor150_day0_AAACCTGGTACGACCC-1 CD8 Naive Effector memory CD8 T cells
+donor150_day0_AAACCTGGTTTAGCTG-1 CD8 Naive  Central memory CD8 T cells
+donor150_day0_AAACGGGAGACTGTAA-1 CD8 Naive Effector memory CD8 T cells
+donor150_day0_AAACGGGAGGGTGTGT-1 CD8 Naive  Central memory CD8 T cells
+donor150_day0_AAACGGGCAAATTGCC-1 CD8 Naive  Central memory CD8 T cells
+donor150_day0_AAACGGGTCACCGGGT-1 CD8 Naive  Central memory CD8 T cells
+donor150_day0_AAAGATGAGAGTTGGC-1 CD8 Naive  Central memory CD8 T cells
+donor150_day0_AAAGATGCATCGGAAG-1 CD8 Naive  Central memory CD8 T cells
+                                                             dice   CARTEx_630
+donor150_day0_AAACCTGAGCTCCTCT-1 T cells, CD8+, naive, stimulated -1.029305147
+donor150_day0_AAACCTGCAAGTTCTG-1             T cells, CD8+, naive  0.053238586
+donor150_day0_AAACCTGGTACGACCC-1             T cells, CD8+, naive -0.983341580
+donor150_day0_AAACCTGGTTTAGCTG-1             T cells, CD8+, naive -0.002032843
+donor150_day0_AAACGGGAGACTGTAA-1             T cells, CD8+, naive -0.807584370
+donor150_day0_AAACGGGAGGGTGTGT-1             T cells, CD8+, naive -1.210730637
+donor150_day0_AAACGGGCAAATTGCC-1             T cells, CD8+, naive -0.441775019
+donor150_day0_AAACGGGTCACCGGGT-1             T cells, CD8+, naive -0.728731296
+donor150_day0_AAAGATGAGAGTTGGC-1             T cells, CD8+, naive -1.191999954
+donor150_day0_AAAGATGCATCGGAAG-1             T cells, CD8+, naive -0.876232752
+                                 CARTEx_630i CARTEx_200 CARTEx_200i  CARTEx_84
+donor150_day0_AAACCTGAGCTCCTCT-1          -1 -0.8450288          -1 -0.7567341
+donor150_day0_AAACCTGCAAGTTCTG-1           0  0.1549379           0  0.1055002
+donor150_day0_AAACCTGGTACGACCC-1          -1 -1.0236178          -1 -0.9253452
+donor150_day0_AAACCTGGTTTAGCTG-1           0 -0.3189068           0 -0.1863312
+donor150_day0_AAACGGGAGACTGTAA-1          -1 -0.8371354          -1 -0.6464478
+donor150_day0_AAACGGGAGGGTGTGT-1          -1 -1.1112704          -1 -0.8824703
+donor150_day0_AAACGGGCAAATTGCC-1           0 -0.4775951           0 -0.3416207
+donor150_day0_AAACGGGTCACCGGGT-1          -1 -0.6009116          -1 -0.5957544
+donor150_day0_AAAGATGAGAGTTGGC-1          -1 -1.2373874          -1 -1.1634074
+donor150_day0_AAAGATGCATCGGAAG-1          -1 -0.8295576          -1 -0.6954007
+                                 CARTEx_84i Activation      Anergy   Stemness
+donor150_day0_AAACCTGAGCTCCTCT-1         -1 -0.3497519 -0.06145716  2.2004299
+donor150_day0_AAACCTGCAAGTTCTG-1          0  0.8580915 -0.71317449  1.8050639
+donor150_day0_AAACCTGGTACGACCC-1         -1 -0.4331850  0.45288398 -0.1780731
+donor150_day0_AAACCTGGTTTAGCTG-1          0 -2.5724814 -0.93589671  0.3769881
+donor150_day0_AAACGGGAGACTGTAA-1         -1 -1.6381356 -0.33657467 -0.3961806
+donor150_day0_AAACGGGAGGGTGTGT-1         -1 -0.4452262 -0.84635937  1.1666454
+donor150_day0_AAACGGGCAAATTGCC-1          0 -0.6408487 -0.34018677  0.3337874
+donor150_day0_AAACGGGTCACCGGGT-1         -1  0.4677555 -1.54025777  0.5667305
+donor150_day0_AAAGATGAGAGTTGGC-1         -1 -0.1879545 -0.21265389 -1.0368966
+donor150_day0_AAAGATGCATCGGAAG-1         -1 -0.2467136 -1.04093935 -0.4274176
+                                 Senescence Activationi Anergyi Stemnessi
+donor150_day0_AAACCTGAGCTCCTCT-1 -1.1269062           0       0         2
+donor150_day0_AAACCTGCAAGTTCTG-1  0.8224339           1      -1         2
+donor150_day0_AAACCTGGTACGACCC-1  0.8088185           0       0         0
+donor150_day0_AAACCTGGTTTAGCTG-1  0.4629974          -3      -1         0
+donor150_day0_AAACGGGAGACTGTAA-1  1.0931427          -2       0         0
+donor150_day0_AAACGGGAGGGTGTGT-1  0.4647159           0      -1         1
+donor150_day0_AAACGGGCAAATTGCC-1  0.6368058          -1       0         0
+donor150_day0_AAACGGGTCACCGGGT-1  0.4593697           0      -2         1
+donor150_day0_AAAGATGAGAGTTGGC-1  1.6756566           0       0        -1
+donor150_day0_AAAGATGCATCGGAAG-1  0.8198694           0      -1         0
+                                 Senescencei NKlike_Tex   LCMV_Tex    BBD_Tex
+donor150_day0_AAACCTGAGCTCCTCT-1          -1 -0.7224419  0.6806981 -0.3117539
+donor150_day0_AAACCTGCAAGTTCTG-1           1 -0.1730743 -0.2942924 -0.5080374
+donor150_day0_AAACCTGGTACGACCC-1           1 -1.0471926 -0.1990252 -1.5414690
+donor150_day0_AAACCTGGTTTAGCTG-1           0 -1.0898427  0.3430956 -2.8674400
+donor150_day0_AAACGGGAGACTGTAA-1           1 -1.2463293 -0.2291354 -2.7663586
+donor150_day0_AAACGGGAGGGTGTGT-1           0 -0.9951886 -0.9903833 -0.8551738
+donor150_day0_AAACGGGCAAATTGCC-1           1 -0.4044430  0.2062684 -0.2599099
+donor150_day0_AAACGGGTCACCGGGT-1           0 -0.8001857 -1.0589583 -1.5839768
+donor150_day0_AAAGATGAGAGTTGGC-1           2 -1.1243957 -0.6264994 -0.6352735
+donor150_day0_AAAGATGCATCGGAAG-1           1 -1.0705732 -0.6708247 -2.2794381
+                                    PD1_Tex NKlike_Texi LCMV_Texi BBD_Texi
+donor150_day0_AAACCTGAGCTCCTCT-1 -0.8538442          -1         1        0
+donor150_day0_AAACCTGCAAGTTCTG-1 -0.3231247           0         0       -1
+donor150_day0_AAACCTGGTACGACCC-1 -1.5541902          -1         0       -2
+donor150_day0_AAACCTGGTTTAGCTG-1 -0.9829914          -1         0       -3
+donor150_day0_AAACGGGAGACTGTAA-1 -1.1286100          -1         0       -3
+donor150_day0_AAACGGGAGGGTGTGT-1 -0.3903222          -1        -1       -1
+donor150_day0_AAACGGGCAAATTGCC-1 -0.1606730           0         0        0
+donor150_day0_AAACGGGTCACCGGGT-1 -0.6258184          -1        -1       -2
+donor150_day0_AAAGATGAGAGTTGGC-1 -1.2749385          -1        -1       -1
+donor150_day0_AAAGATGCATCGGAAG-1 -1.2780276          -1        -1       -2
+                                 PD1_Texi
+donor150_day0_AAACCTGAGCTCCTCT-1       -1
+donor150_day0_AAACCTGCAAGTTCTG-1        0
+donor150_day0_AAACCTGGTACGACCC-1       -2
+donor150_day0_AAACCTGGTTTAGCTG-1       -1
+donor150_day0_AAACGGGAGACTGTAA-1       -1
+donor150_day0_AAACGGGAGGGTGTGT-1        0
+donor150_day0_AAACGGGCAAATTGCC-1        0
+donor150_day0_AAACGGGTCACCGGGT-1       -1
+donor150_day0_AAAGATGAGAGTTGGC-1       -1
+donor150_day0_AAAGATGCATCGGAAG-1       -1
+[1] "generating figure for  ./plots/GSE160160_prepare_vlnplot_exposure_exhaustion_markers"
+[1] "The script has completed..."
+    user   system  elapsed 
+11553.41 20562.34 10593.61 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] ca_0.71.1                   ComplexHeatmap_2.14.0      
+ [3] ComplexUpset_1.3.3          ggbeeswarm_0.7.2           
+ [5] glmGamPoi_1.10.2            ROGUE_1.0                  
+ [7] clustree_0.5.1              ggraph_2.2.1               
+ [9] EnhancedVolcano_1.16.0      ggrepel_0.9.5              
+[11] patchwork_1.2.0             data.table_1.15.4          
+[13] destiny_3.12.0              scuttle_1.11.3             
+[15] SingleCellExperiment_1.20.1 SingleR_2.0.0              
+[17] SummarizedExperiment_1.28.0 Biobase_2.58.0             
+[19] GenomicRanges_1.50.2        GenomeInfoDb_1.34.9        
+[21] IRanges_2.32.0              S4Vectors_0.36.2           
+[23] BiocGenerics_0.44.0         MatrixGenerics_1.10.0      
+[25] matrixStats_1.1.0           dplyr_1.1.4                
+[27] stringr_1.5.1               ggplotify_0.1.2            
+[29] ggpubr_0.6.0                ggplot2_3.5.1              
+[31] Seurat_5.0.3                SeuratObject_5.0.1         
+[33] sp_2.1-4                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             smoother_1.3             
+ [17] BiocParallel_1.32.6       rjson_0.2.21             
+ [19] glue_1.7.0                sctransform_0.4.1        
+ [21] parallel_4.2.0            vipor_0.4.7              
+ [23] spatstat.sparse_3.0-3     dotCall64_1.1-1          
+ [25] spatstat.geom_3.2-9       tidyselect_1.2.1         
+ [27] fitdistrplus_1.1-11       tidyr_1.3.1              
+ [29] zoo_1.8-12                xtable_1.8-4             
+ [31] RcppHNSW_0.6.0            magrittr_2.0.3           
+ [33] cli_3.6.2                 zlibbioc_1.44.0          
+ [35] miniUI_0.1.1.1            RcppEigen_0.3.4.0.0      
+ [37] fastDummies_1.7.3         shiny_1.8.1.1            
+ [39] BiocSingular_1.14.0       clue_0.3-65              
+ [41] cluster_2.1.6             tidygraph_1.3.1          
+ [43] pcaMethods_1.90.0         tibble_3.2.1             
+ [45] listenv_0.9.1             png_0.1-8                
+ [47] future_1.33.2             withr_3.0.0              
+ [49] bitops_1.0-7              ggforce_0.4.2            
+ [51] ranger_0.16.0             plyr_1.8.9               
+ [53] e1071_1.7-14              pillar_1.9.0             
+ [55] GlobalOptions_0.1.2       cachem_1.0.8             
+ [57] fs_1.6.4                  scatterplot3d_0.3-44     
+ [59] TTR_0.24.4                GetoptLong_1.0.5         
+ [61] DelayedMatrixStats_1.20.0 xts_0.13.2               
+ [63] vctrs_0.6.5               generics_0.1.3           
+ [65] tools_4.2.0               beeswarm_0.4.0           
+ [67] munsell_0.5.1             tweenr_2.0.3             
+ [69] proxy_0.4-27              DelayedArray_0.24.0      
+ [71] fastmap_1.1.1             compiler_4.2.0           
+ [73] abind_1.4-5               httpuv_1.6.15            
+ [75] plotly_4.10.4             GenomeInfoDbData_1.2.9   
+ [77] gridExtra_2.3             lattice_0.22-6           
+ [79] deldir_2.0-4              utf8_1.2.4               
+ [81] later_1.3.2               jsonlite_1.8.8           
+ [83] ggplot.multistats_1.0.0   scales_1.3.0             
+ [85] ScaledMatrix_1.6.0        pbapply_1.7-2            
+ [87] carData_3.0-5             sparseMatrixStats_1.10.0 
+ [89] lazyeval_0.2.2            promises_1.3.0           
+ [91] car_3.1-2                 doParallel_1.0.17        
+ [93] goftest_1.2-3             spatstat.utils_3.0-4     
+ [95] reticulate_1.36.1         cowplot_1.1.3            
+ [97] Rtsne_0.17                uwot_0.2.2               
+ [99] igraph_2.0.3              survival_3.6-4           
+[101] systemfonts_1.0.6         htmltools_0.5.8.1        
+[103] memoise_2.0.1             graphlayouts_1.1.1       
+[105] viridisLite_0.4.2         digest_0.6.35            
+[107] mime_0.12                 spam_2.10-0              
+[109] yulab.utils_0.1.4         future.apply_1.11.2      
+[111] splines_4.2.0             labeling_0.4.3           
+[113] RCurl_1.98-1.14           broom_1.0.5              
+[115] colorspace_2.1-0          shape_1.4.6.1            
+[117] ggrastr_1.0.2             nnet_7.3-19              
+[119] Rcpp_1.0.12               RANN_2.6.1               
+[121] circlize_0.4.16           fansi_1.0.6              
+[123] VIM_6.2.2                 parallelly_1.37.1        
+[125] R6_2.5.1                  ggridges_0.5.6           
+[127] lifecycle_1.0.4           curl_5.2.1               
+[129] ggsignif_0.6.4            leiden_0.4.3.1           
+[131] robustbase_0.99-2         Matrix_1.6-5             
+[133] RcppAnnoy_0.0.22          RColorBrewer_1.1-3       
+[135] iterators_1.0.14          spatstat.explore_3.2-7   
+[137] htmlwidgets_1.6.4         beachmat_2.14.2          
+[139] polyclip_1.10-6           purrr_1.0.2              
+[141] gridGraphics_0.5-1        globals_0.16.3           
+[143] spatstat.random_3.2-3     progressr_0.14.0         
+[145] codetools_0.2-20          RSpectra_0.16-1          
+[147] gtable_0.3.5              tensor_1.5               
+[149] httr_1.4.7                KernSmooth_2.23-20       
+[151] stringi_1.7.8             reshape2_1.4.4           
+[153] farver_2.1.1              viridis_0.6.5            
+[155] ggthemes_5.1.0            hexbin_1.28.3            
+[157] boot_1.3-30               scattermore_1.2          
+[159] DEoptimR_1.1-3            spatstat.data_3.0-4      
+[161] pkgconfig_2.0.3           rstatix_0.7.2            

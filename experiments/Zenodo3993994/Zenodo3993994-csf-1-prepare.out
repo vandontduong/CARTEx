@@ -1,0 +1,533 @@
+[1] "The script is starting..."
+[1] "dgCMatrix"
+attr(,"package")
+[1] "Matrix"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_vlnplot_quality_control_standard_original"
+[1] "orig.ident levels() is not NULL"
+[1] "SeuratProject"
+
+[1] "nCount_RNA levels() is NULL"
+
+[1] "nFeature_RNA levels() is NULL"
+
+[1] "cell levels() is NULL"
+
+[1] "sample levels() is NULL"
+
+[1] "sampleType levels() is not NULL"
+[1] "Parkinson(Blood)" "Control(Blood)"   "Alzheimer(CSF)"   "MCI(CSF)"        
+[5] "Control(CSF)"    
+
+[1] "clusterID levels() is NULL"
+
+[1] "clusterAnno levels() is NULL"
+
+[1] "cellType levels() is NULL"
+
+[1] "cellType2 levels() is NULL"
+
+[1] "clonotype levels() is NULL"
+
+[1] "alpha_CDR3_aa levels() is NULL"
+
+[1] "beta_CDR3_aa levels() is NULL"
+
+[1] "percent.mt levels() is NULL"
+
+[1] "identifier levels() is NULL"
+
+[1] "percent.CARTEx_630 levels() is NULL"
+
+[1] "PFSD.CARTEx_630 levels() is NULL"
+
+[1] "percent.CARTEx_200 levels() is NULL"
+
+[1] "PFSD.CARTEx_200 levels() is NULL"
+
+[1] "percent.CARTEx_84 levels() is NULL"
+
+[1] "PFSD.CARTEx_84 levels() is NULL"
+
+[1] "Disease levels() is not NULL"
+[1] "Parkinson (B)" "Control (B)"   "Alzheimer (C)" "MCI (C)"      
+[5] "Control (C)"  
+
+[1] "sampleSource levels() is not NULL"
+[1] "Blood" "CSF"  
+
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_vlnplot_quality_control_standard_pre"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_vlnplot_quality_control_standard_post"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_varplt_labeled"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_inspect_elbow"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 1691
+Number of edges: 56031
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 1.0000
+Number of communities: 1
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 1691
+Number of edges: 56031
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8806
+Number of communities: 3
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 1691
+Number of edges: 56031
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8238
+Number of communities: 4
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 1691
+Number of edges: 56031
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.7722
+Number of communities: 5
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 1691
+Number of edges: 56031
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.7318
+Number of communities: 6
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 1691
+Number of edges: 56031
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.7037
+Number of communities: 8
+Elapsed time: 0 seconds
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_inspect_clustering"
+[1] "Calculating UMAPs..."
+[1] "Calculating diffusion maps..."
+finding knns......done. Time: 111.88s
+Calculating transition probabilities......done. Time: 0.01s
+
+performing eigen decomposition......done. Time: 0.02s
+[1] "Saving Seurat object..."
+                        orig.ident nCount_RNA nFeature_RNA                 cell
+AD1-AAACGGGAGCGTTGCC SeuratProject       1714          723 AD1-AAACGGGAGCGTTGCC
+AD1-AAAGATGCAAGAAGAG SeuratProject       1870          803 AD1-AAAGATGCAAGAAGAG
+AD1-AAAGATGTCCAACCAA SeuratProject       1892          920 AD1-AAAGATGTCCAACCAA
+AD1-AAAGCAAAGTCATCCA SeuratProject       1877          859 AD1-AAAGCAAAGTCATCCA
+AD1-AAAGTAGAGGGCTCTC SeuratProject       1269          587 AD1-AAAGTAGAGGGCTCTC
+AD1-AACACGTTCATTATCC SeuratProject       2315          991 AD1-AACACGTTCATTATCC
+AD1-AACCATGAGTCGTACT SeuratProject       1806          786 AD1-AACCATGAGTCGTACT
+AD1-AACGTTGAGTGACTCT SeuratProject       2146          851 AD1-AACGTTGAGTGACTCT
+AD1-AACTCAGGTTTGGGCC SeuratProject        916          539 AD1-AACTCAGGTTTGGGCC
+AD1-AACTTTCGTCACAAGG SeuratProject       2569         1117 AD1-AACTTTCGTCACAAGG
+                     sample     sampleType clusterID
+AD1-AAACGGGAGCGTTGCC    AD1 Alzheimer(CSF)       C20
+AD1-AAAGATGCAAGAAGAG    AD1 Alzheimer(CSF)       C17
+AD1-AAAGATGTCCAACCAA    AD1 Alzheimer(CSF)        C9
+AD1-AAAGCAAAGTCATCCA    AD1 Alzheimer(CSF)       C11
+AD1-AAAGTAGAGGGCTCTC    AD1 Alzheimer(CSF)       C16
+AD1-AACACGTTCATTATCC    AD1 Alzheimer(CSF)       C13
+AD1-AACCATGAGTCGTACT    AD1 Alzheimer(CSF)        C9
+AD1-AACGTTGAGTGACTCT    AD1 Alzheimer(CSF)       C13
+AD1-AACTCAGGTTTGGGCC    AD1 Alzheimer(CSF)        C9
+AD1-AACTTTCGTCACAAGG    AD1 Alzheimer(CSF)        C9
+                                             clusterAnno cellType
+AD1-AAACGGGAGCGTTGCC                   C20: CD4+ T cells      CD4
+AD1-AAAGATGCAAGAAGAG C17: Terminal effector CD8+ T cells      CD8
+AD1-AAAGATGTCCAACCAA  C9: Terminal effector CD8+ T cells      CD8
+AD1-AAAGCAAAGTCATCCA C11: Terminal effector CD8+ T cells      CD8
+AD1-AAAGTAGAGGGCTCTC                     C16: MAIT cells     MAIT
+AD1-AACACGTTCATTATCC    C13: Central memory CD8+ T cells      CD8
+AD1-AACCATGAGTCGTACT  C9: Terminal effector CD8+ T cells      CD8
+AD1-AACGTTGAGTGACTCT    C13: Central memory CD8+ T cells      CD8
+AD1-AACTCAGGTTTGGGCC  C9: Terminal effector CD8+ T cells      CD8
+AD1-AACTTTCGTCACAAGG  C9: Terminal effector CD8+ T cells      CD8
+                                          cellType2      clonotype
+AD1-AAACGGGAGCGTTGCC                   CD4+ T cells           <NA>
+AD1-AAAGATGCAAGAAGAG Terminal effector CD8+ T cells clonotype47520
+AD1-AAAGATGTCCAACCAA Terminal effector CD8+ T cells  clonotype4719
+AD1-AAAGCAAAGTCATCCA Terminal effector CD8+ T cells clonotype85151
+AD1-AAAGTAGAGGGCTCTC                     MAIT cells   clonotype750
+AD1-AACACGTTCATTATCC    Central memory CD8+ T cells           <NA>
+AD1-AACCATGAGTCGTACT Terminal effector CD8+ T cells  clonotype2826
+AD1-AACGTTGAGTGACTCT    Central memory CD8+ T cells clonotype44939
+AD1-AACTCAGGTTTGGGCC Terminal effector CD8+ T cells clonotype91748
+AD1-AACTTTCGTCACAAGG Terminal effector CD8+ T cells clonotype48228
+                           alpha_CDR3_aa     beta_CDR3_aa percent.mt
+AD1-AAACGGGAGCGTTGCC                <NA>             <NA>   5.425904
+AD1-AAAGATGCAAGAAGAG CAMREARWGYGGSQGNLIF CASSLARDRSTHGYTF   8.556150
+AD1-AAAGATGTCCAACCAA     CAVRDRNQAGTALIF  CASSPRAGGRETQYF   3.594080
+AD1-AAAGCAAAGTCATCCA     CAVRDRNQAGTALIF                    6.339904
+AD1-AAAGTAGAGGGCTCTC    CAVRDPIGDSSYKLIF CASSLNGGKSYNEQFF   7.328605
+AD1-AACACGTTCATTATCC                <NA>             <NA>   5.399568
+AD1-AACCATGAGTCGTACT        CAAHSGNTPLVF CASSLPSGSEADTQYF   5.149502
+AD1-AACGTTGAGTGACTCT      CAMSSSGGSYIPTF    CATSSSGTDTQYF   6.197577
+AD1-AACTCAGGTTTGGGCC                     CASSLTLLGAPGELFF   6.768559
+AD1-AACTTTCGTCACAAGG      CALSEAGRDDKIIF   CASSVAGGQTEAFF   4.281822
+                        identifier percent.CARTEx_630 PFSD.CARTEx_630
+AD1-AAACGGGAGCGTTGCC Zenodo3993994          0.9334889       2.0634921
+AD1-AAAGATGCAAGAAGAG Zenodo3993994          1.2834225       2.2222222
+AD1-AAAGATGTCCAACCAA Zenodo3993994          1.2684989       2.3809524
+AD1-AAAGCAAAGTCATCCA Zenodo3993994          1.5982952       2.2222222
+AD1-AAAGTAGAGGGCTCTC Zenodo3993994          1.1820331       1.9047619
+AD1-AACACGTTCATTATCC Zenodo3993994          1.0799136       3.0158730
+AD1-AACCATGAGTCGTACT Zenodo3993994          1.3289037       3.0158730
+AD1-AACGTTGAGTGACTCT Zenodo3993994          0.5125815       1.5873016
+AD1-AACTCAGGTTTGGGCC Zenodo3993994          0.6550218       0.6349206
+AD1-AACTTTCGTCACAAGG Zenodo3993994          0.5449591       1.5873016
+                     percent.CARTEx_200 PFSD.CARTEx_200 percent.CARTEx_84
+AD1-AAACGGGAGCGTTGCC          0.1166861             1.0        0.00000000
+AD1-AAAGATGCAAGAAGAG          0.2673797             1.5        0.10695187
+AD1-AAAGATGTCCAACCAA          0.3171247             3.0        0.05285412
+AD1-AAAGCAAAGTCATCCA          0.7458711             1.5        0.05327651
+AD1-AAAGTAGAGGGCTCTC          0.4728132             2.5        0.07880221
+AD1-AACACGTTCATTATCC          0.2591793             3.0        0.08639309
+AD1-AACCATGAGTCGTACT          0.3322259             2.5        0.11074197
+AD1-AACGTTGAGTGACTCT          0.1397950             1.0        0.04659832
+AD1-AACTCAGGTTTGGGCC          0.0000000             0.0        0.00000000
+AD1-AACTTTCGTCACAAGG          0.1167770             1.5        0.07785130
+                     PFSD.CARTEx_84       Disease sampleSource RNA_snn_res.0
+AD1-AAACGGGAGCGTTGCC       0.000000 Alzheimer (C)          CSF             0
+AD1-AAAGATGCAAGAAGAG       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGATGTCCAACCAA       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGCAAAGTCATCCA       1.190476 Alzheimer (C)          CSF             0
+AD1-AAAGTAGAGGGCTCTC       1.190476 Alzheimer (C)          CSF             0
+AD1-AACACGTTCATTATCC       2.380952 Alzheimer (C)          CSF             0
+AD1-AACCATGAGTCGTACT       1.190476 Alzheimer (C)          CSF             0
+AD1-AACGTTGAGTGACTCT       1.190476 Alzheimer (C)          CSF             0
+AD1-AACTCAGGTTTGGGCC       0.000000 Alzheimer (C)          CSF             0
+AD1-AACTTTCGTCACAAGG       2.380952 Alzheimer (C)          CSF             0
+                     RNA_snn_res.0.2 RNA_snn_res.0.4 RNA_snn_res.0.6
+AD1-AAACGGGAGCGTTGCC               0               1               1
+AD1-AAAGATGCAAGAAGAG               1               0               0
+AD1-AAAGATGTCCAACCAA               1               0               0
+AD1-AAAGCAAAGTCATCCA               0               2               4
+AD1-AAAGTAGAGGGCTCTC               0               1               1
+AD1-AACACGTTCATTATCC               0               1               1
+AD1-AACCATGAGTCGTACT               1               0               0
+AD1-AACGTTGAGTGACTCT               0               1               1
+AD1-AACTCAGGTTTGGGCC               1               0               0
+AD1-AACTTTCGTCACAAGG               1               0               0
+                     RNA_snn_res.0.8 RNA_snn_res.1 seurat_clusters DC1rank
+AD1-AAACGGGAGCGTTGCC               3             5               1     931
+AD1-AAAGATGCAAGAAGAG               3             5               0     674
+AD1-AAAGATGTCCAACCAA               0             4               0     569
+AD1-AAAGCAAAGTCATCCA               5             6               4     599
+AD1-AAAGTAGAGGGCTCTC               3             5               1    1300
+AD1-AACACGTTCATTATCC               1             0               1     911
+AD1-AACCATGAGTCGTACT               0             4               0     682
+AD1-AACGTTGAGTGACTCT               1             0               1    1146
+AD1-AACTCAGGTTTGGGCC               0             1               0      75
+AD1-AACTTTCGTCACAAGG               0             4               0     580
+                     DC2rank         dpt
+AD1-AAACGGGAGCGTTGCC     407 -0.01376173
+AD1-AAAGATGCAAGAAGAG     896 -0.01168461
+AD1-AAAGATGTCCAACCAA    1127 -0.01169539
+AD1-AAAGCAAAGTCATCCA    1043 -0.01188733
+AD1-AAAGTAGAGGGCTCTC     320 -0.01437503
+AD1-AACACGTTCATTATCC     773 -0.01219505
+AD1-AACCATGAGTCGTACT     588 -0.01264441
+AD1-AACGTTGAGTGACTCT     572 -0.01635232
+AD1-AACTCAGGTTTGGGCC    1604 -0.03431705
+AD1-AACTTTCGTCACAAGG    1179 -0.01138011
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_seurat_clusters"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_seurat_clusters_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_disease"
+ERROR : No cells found  for  Parkinson (B) 
+ERROR : No cells found  for  Control (B) 
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_disease_highlight"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sample_source"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_umap_sample_type"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_seurat_clusters"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_dmap_disease"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_disease_seurat_clusters"
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_barplot_sample_source_seurat_clusters"
+# A tibble: 2,067 × 7
+# Groups:   cluster [8]
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene   
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>  
+ 1 4.08e-94       1.97 0.945 0.447  6.44e-90 0       LTB    
+ 2 1.77e-68       3.84 0.313 0.023  2.79e-64 0       MAL    
+ 3 8.47e-59       2.41 0.488 0.11   1.34e-54 0       CISH   
+ 4 4.60e-38       1.39 0.709 0.348  7.25e-34 0       NOSIP  
+ 5 2.50e-35       1.77 0.442 0.134  3.94e-31 0       LEF1   
+ 6 2.51e-32       1.45 0.546 0.208  3.96e-28 0       TMEM123
+ 7 5.56e-29       1.02 0.663 0.303  8.78e-25 0       SELL   
+ 8 4.02e-27       1.56 0.387 0.126  6.34e-23 0       CCR7   
+ 9 6.01e-27       1.41 0.491 0.198  9.49e-23 0       PIM1   
+10 2.59e-25       1.05 0.669 0.348  4.09e-21 0       FLT3LG 
+# ℹ 2,057 more rows
+[1] "generating figure for  ./plots/Zenodo3993994_csf_prepare_cluster_markers_heatmap"
+[1] "Cluster: 0"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene   
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>  
+ 1 4.08e-94       1.97 0.945 0.447  6.44e-90 0       LTB    
+ 2 1.77e-68       3.84 0.313 0.023  2.79e-64 0       MAL    
+ 3 8.47e-59       2.41 0.488 0.11   1.34e-54 0       CISH   
+ 4 4.60e-38       1.39 0.709 0.348  7.25e-34 0       NOSIP  
+ 5 2.50e-35       1.77 0.442 0.134  3.94e-31 0       LEF1   
+ 6 2.51e-32       1.45 0.546 0.208  3.96e-28 0       TMEM123
+ 7 5.56e-29       1.02 0.663 0.303  8.78e-25 0       SELL   
+ 8 4.02e-27       1.56 0.387 0.126  6.34e-23 0       CCR7   
+ 9 6.01e-27       1.41 0.491 0.198  9.49e-23 0       PIM1   
+10 2.59e-25       1.05 0.669 0.348  4.09e-21 0       FLT3LG 
+[1] "Cluster: 1"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>   
+ 1 1.34e-54       1.35 0.983 0.798  2.12e-50 1       CD74    
+ 2 3.76e-51       1.77 0.785 0.347  5.92e-47 1       HLA-DRB1
+ 3 2.11e-30       1.26 0.743 0.409  3.34e-26 1       HLA-DPA1
+ 4 3.27e-30       2.05 0.376 0.105  5.16e-26 1       HLA-DRA 
+ 5 3.82e-23       1.01 0.747 0.47   6.03e-19 1       SLC9A3R1
+ 6 5.97e-19       1.29 0.527 0.255  9.42e-15 1       GZMH    
+ 7 1.21e-16       1.25 0.418 0.184  1.91e-12 1       EOMES   
+ 8 3.54e-16       1.42 0.376 0.161  5.58e-12 1       PLEK    
+ 9 1.83e-15       1.63 0.3   0.113  2.89e-11 1       HLA-DRB5
+10 4.56e-15       1.31 0.397 0.184  7.19e-11 1       IDH2    
+[1] "Cluster: 2"
+# A tibble: 10 × 7
+       p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+       <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 1.03e-105       3.44 0.749 0.147 1.63e-101 2       NFKBIA
+ 2 2.18e- 65       2.47 0.784 0.296 3.44e- 61 2       JUN   
+ 3 2.41e- 39       1.57 0.675 0.26  3.80e- 35 2       MZT2B 
+ 4 2.81e- 39       1.98 0.545 0.177 4.44e- 35 2       TGFB1 
+ 5 1.86e- 37       1.88 0.584 0.214 2.94e- 33 2       KRT10 
+ 6 1.40e- 32       1.71 0.61  0.264 2.21e- 28 2       DDIT4 
+ 7 1.11e- 28       1.54 0.55  0.213 1.75e- 24 2       MZT2A 
+ 8 5.83e- 26       1.83 0.424 0.146 9.19e- 22 2       ZYX   
+ 9 1.68e- 24       1.69 0.455 0.178 2.66e- 20 2       JAK1  
+10 2.05e- 24       3.82 0.147 0.016 3.23e- 20 2       DUSP4 
+[1] "Cluster: 3"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+ 1 4.65e-14       1.58 0.272 0.097  7.33e-10 3       HLA-DQA1 
+ 2 1.08e-12       2.78 0.079 0.01   1.71e- 8 3       GSTM1    
+ 3 6.11e-10       1.03 0.43  0.239  9.64e- 6 3       HIST1H1E 
+ 4 6.78e-10       4.14 0.035 0.001  1.07e- 5 3       HIST1H2BB
+ 5 1.80e- 9       1.46 0.329 0.164  2.84e- 5 3       MTRNR2L12
+ 6 2.89e- 9       1.81 0.145 0.045  4.56e- 5 3       BISPR    
+ 7 1.10e- 8       1.12 0.263 0.12   1.73e- 4 3       HLA-DRB5 
+ 8 1.01e- 6       3.71 0.031 0.003  1.60e- 2 3       VCAM1    
+ 9 1.14e- 6       2.19 0.066 0.015  1.80e- 2 3       HIST1H2BG
+10 2.44e- 6       1.84 0.11  0.038  3.84e- 2 3       CCL3L1   
+[1] "Cluster: 4"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 5.13e-26       1.35 0.712 0.374  8.09e-22 4       DUSP2 
+ 2 6.31e-14       1.23 0.406 0.188  9.95e-10 4       EOMES 
+ 3 6.41e-13       1.11 0.443 0.23   1.01e- 8 4       GPR183
+ 4 1.28e-11       1.97 0.169 0.049  2.02e- 7 4       FCRL3 
+ 5 2.68e-10       1.05 0.589 0.367  4.23e- 6 4       CCL4  
+ 6 1.81e- 9       1.04 0.338 0.169  2.85e- 5 4       PLEK  
+ 7 6.57e- 9       1.02 0.26  0.115  1.04e- 4 4       LYST  
+ 8 1.12e- 8       2.34 0.091 0.021  1.77e- 4 4       ENC1  
+ 9 1.65e- 8       1.02 0.26  0.118  2.60e- 4 4       PECAM1
+10 1.67e- 8       1.59 0.178 0.069  2.63e- 4 4       NEK7  
+[1] "Cluster: 5"
+# A tibble: 10 × 7
+         p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene      
+         <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>     
+ 1 0.000000183       6.91 0.018 0       0.00288 5       LINC00384 
+ 2 0.00000631        6.58 0.014 0       0.0995  5       DLL1      
+ 3 0.00000631        6.43 0.014 0       0.0995  5       AC009950.1
+ 4 0.00000960        1.96 0.069 0.019   0.151   5       CLCF1     
+ 5 0.00000986        1.48 0.157 0.073   0.155   5       MS4A1     
+ 6 0.0000770         4.51 0.018 0.001   1       5       AC231981.1
+ 7 0.000417          3.60 0.023 0.003   1       5       HOXB-AS1  
+ 8 0.00123           2.03 0.041 0.012   1       5       TUT1      
+ 9 0.00136           2.41 0.037 0.01    1       5       FBXW8     
+10 0.00157           3.95 0.014 0.001   1       5       TMEM132E  
+[1] "Cluster: 6"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene  
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr> 
+ 1 1.81e-34       2.01 0.634 0.226  2.85e-30 6       HOPX  
+ 2 5.95e-25       4.37 0.13  0.009  9.39e-21 6       GPR25 
+ 3 1.62e-19       1.91 0.391 0.131  2.55e-15 6       ZNF683
+ 4 4.36e-16       2.72 0.174 0.033  6.88e-12 6       GZMB  
+ 5 4.12e-14       2.95 0.13  0.022  6.50e-10 6       CD9   
+ 6 5.22e-14       2.99 0.143 0.026  8.24e-10 6       ITGA1 
+ 7 1.53e-12       1.50 0.311 0.112  2.41e- 8 6       CXCR6 
+ 8 2.04e-12       2.37 0.236 0.075  3.22e- 8 6       GNLY  
+ 9 2.86e-12       1.36 0.404 0.179  4.52e- 8 6       LGALS3
+10 2.91e-12       1.15 0.484 0.248  4.59e- 8 6       ACTN4 
+[1] "Cluster: 7"
+# A tibble: 10 × 7
+      p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene   
+      <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>  
+ 1 2.37e-32       3.08 0.514 0.084  3.74e-28 7       XCL1   
+ 2 2.83e-23       2.89 0.236 0.023  4.47e-19 7       CD9    
+ 3 1.24e-22       2.99 0.194 0.015  1.96e-18 7       SMPD3  
+ 4 1.74e-22       1.63 0.875 0.387  2.75e-18 7       ALOX5AP
+ 5 3.75e-20       1.79 0.708 0.245  5.92e-16 7       HOPX   
+ 6 4.00e-20       1.92 0.625 0.182  6.32e-16 7       LGALS3 
+ 7 4.03e-19       2.37 0.514 0.14   6.36e-15 7       ZNF683 
+ 8 1.75e-17       4.45 0.097 0.004  2.75e-13 7       SYNGR1 
+ 9 1.88e-17       2.49 0.292 0.049  2.96e-13 7       KLRC1  
+10 2.69e-17       2.38 0.417 0.101  4.24e-13 7       KLRB1  
+[1] "Cluster: 0"
+[1] "LTB, MAL, CISH, NOSIP, LEF1, TMEM123, SELL, CCR7, PIM1, FLT3LG"
+
+[1] "Cluster: 1"
+[1] "CD74, HLA-DRB1, HLA-DPA1, HLA-DRA, SLC9A3R1, GZMH, EOMES, PLEK, HLA-DRB5, IDH2"
+
+[1] "Cluster: 2"
+[1] "NFKBIA, JUN, MZT2B, TGFB1, KRT10, DDIT4, MZT2A, ZYX, JAK1, DUSP4"
+
+[1] "Cluster: 3"
+[1] "HLA-DQA1, GSTM1, HIST1H1E, HIST1H2BB, MTRNR2L12, BISPR, HLA-DRB5, VCAM1, HIST1H2BG, CCL3L1"
+
+[1] "Cluster: 4"
+[1] "DUSP2, EOMES, GPR183, FCRL3, CCL4, PLEK, LYST, ENC1, PECAM1, NEK7"
+
+[1] "Cluster: 5"
+[1] "LINC00384, DLL1, AC009950.1, CLCF1, MS4A1, AC231981.1, HOXB-AS1, TUT1, FBXW8, TMEM132E"
+
+[1] "Cluster: 6"
+[1] "HOPX, GPR25, ZNF683, GZMB, CD9, ITGA1, CXCR6, GNLY, LGALS3, ACTN4"
+
+[1] "Cluster: 7"
+[1] "XCL1, CD9, SMPD3, ALOX5AP, HOPX, LGALS3, ZNF683, SYNGR1, KLRC1, KLRB1"
+
+[1] "The script has completed..."
+   user  system elapsed 
+271.304  33.892 321.458 
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /share/software/user/open/openblas/0.3.10/lib/libopenblas_haswellp-r0.3.10.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] cowplot_1.1.3               ca_0.71.1                  
+ [3] ComplexHeatmap_2.14.0       ComplexUpset_1.3.3         
+ [5] ggbeeswarm_0.7.2            glmGamPoi_1.10.2           
+ [7] ROGUE_1.0                   clustree_0.5.1             
+ [9] ggraph_2.2.1                EnhancedVolcano_1.16.0     
+[11] ggrepel_0.9.5               patchwork_1.2.0            
+[13] data.table_1.15.4           destiny_3.12.0             
+[15] scuttle_1.11.3              SingleCellExperiment_1.20.1
+[17] SingleR_2.0.0               SummarizedExperiment_1.28.0
+[19] Biobase_2.58.0              GenomicRanges_1.50.2       
+[21] GenomeInfoDb_1.34.9         IRanges_2.32.0             
+[23] S4Vectors_0.36.2            BiocGenerics_0.44.0        
+[25] MatrixGenerics_1.10.0       matrixStats_1.1.0          
+[27] dplyr_1.1.4                 stringr_1.5.1              
+[29] ggplotify_0.1.2             ggpubr_0.6.0               
+[31] ggplot2_3.5.1               Seurat_5.0.3               
+[33] SeuratObject_5.0.1          sp_2.1-4                   
+
+loaded via a namespace (and not attached):
+  [1] rsvd_1.0.5                vcd_1.4-12               
+  [3] ica_1.0-3                 class_7.3-22             
+  [5] foreach_1.5.2             lmtest_0.9-40            
+  [7] crayon_1.5.2              laeken_0.5.3             
+  [9] MASS_7.3-60.0.1           nlme_3.1-164             
+ [11] backports_1.4.1           rlang_1.1.3              
+ [13] XVector_0.38.0            ROCR_1.0-11              
+ [15] irlba_2.3.5.1             limma_3.54.2             
+ [17] smoother_1.3              BiocParallel_1.32.6      
+ [19] rjson_0.2.21              glue_1.7.0               
+ [21] sctransform_0.4.1         parallel_4.2.0           
+ [23] vipor_0.4.7               spatstat.sparse_3.0-3    
+ [25] dotCall64_1.1-1           spatstat.geom_3.2-9      
+ [27] tidyselect_1.2.1          fitdistrplus_1.1-11      
+ [29] tidyr_1.3.1               zoo_1.8-12               
+ [31] xtable_1.8-4              RcppHNSW_0.6.0           
+ [33] magrittr_2.0.3            cli_3.6.2                
+ [35] zlibbioc_1.44.0           miniUI_0.1.1.1           
+ [37] RcppEigen_0.3.4.0.0       fastDummies_1.7.3        
+ [39] shiny_1.8.1.1             BiocSingular_1.14.0      
+ [41] clue_0.3-65               cluster_2.1.6            
+ [43] tidygraph_1.3.1           pcaMethods_1.90.0        
+ [45] tibble_3.2.1              listenv_0.9.1            
+ [47] png_0.1-8                 future_1.33.2            
+ [49] withr_3.0.0               bitops_1.0-7             
+ [51] ggforce_0.4.2             ranger_0.16.0            
+ [53] plyr_1.8.9                e1071_1.7-14             
+ [55] pillar_1.9.0              GlobalOptions_0.1.2      
+ [57] cachem_1.0.8              fs_1.6.4                 
+ [59] scatterplot3d_0.3-44      TTR_0.24.4               
+ [61] GetoptLong_1.0.5          DelayedMatrixStats_1.20.0
+ [63] xts_0.13.2                vctrs_0.6.5              
+ [65] generics_0.1.3            tools_4.2.0              
+ [67] beeswarm_0.4.0            munsell_0.5.1            
+ [69] tweenr_2.0.3              proxy_0.4-27             
+ [71] DelayedArray_0.24.0       fastmap_1.1.1            
+ [73] compiler_4.2.0            abind_1.4-5              
+ [75] httpuv_1.6.15             plotly_4.10.4            
+ [77] GenomeInfoDbData_1.2.9    gridExtra_2.3            
+ [79] lattice_0.22-6            deldir_2.0-4             
+ [81] utf8_1.2.4                later_1.3.2              
+ [83] jsonlite_1.8.8            ggplot.multistats_1.0.0  
+ [85] scales_1.3.0              ScaledMatrix_1.6.0       
+ [87] pbapply_1.7-2             carData_3.0-5            
+ [89] sparseMatrixStats_1.10.0  lazyeval_0.2.2           
+ [91] promises_1.3.0            car_3.1-2                
+ [93] doParallel_1.0.17         goftest_1.2-3            
+ [95] spatstat.utils_3.0-4      reticulate_1.36.1        
+ [97] checkmate_2.3.1           Rtsne_0.17               
+ [99] uwot_0.2.2                igraph_2.0.3             
+[101] survival_3.6-4            systemfonts_1.0.6        
+[103] htmltools_0.5.8.1         memoise_2.0.1            
+[105] graphlayouts_1.1.1        viridisLite_0.4.2        
+[107] digest_0.6.35             mime_0.12                
+[109] spam_2.10-0               yulab.utils_0.1.4        
+[111] future.apply_1.11.2       splines_4.2.0            
+[113] labeling_0.4.3            Cairo_1.6-2              
+[115] RCurl_1.98-1.14           broom_1.0.5              
+[117] colorspace_2.1-0          shape_1.4.6.1            
+[119] ggrastr_1.0.2             nnet_7.3-19              
+[121] Rcpp_1.0.12               RANN_2.6.1               
+[123] circlize_0.4.16           fansi_1.0.6              
+[125] VIM_6.2.2                 parallelly_1.37.1        
+[127] R6_2.5.1                  ggridges_0.5.6           
+[129] lifecycle_1.0.4           curl_5.2.1               
+[131] ggsignif_0.6.4            leiden_0.4.3.1           
+[133] robustbase_0.99-2         Matrix_1.6-5             
+[135] RcppAnnoy_0.0.22          RColorBrewer_1.1-3       
+[137] iterators_1.0.14          spatstat.explore_3.2-7   
+[139] htmlwidgets_1.6.4         beachmat_2.14.2          
+[141] polyclip_1.10-6           purrr_1.0.2              
+[143] gridGraphics_0.5-1        globals_0.16.3           
+[145] spatstat.random_3.2-3     progressr_0.14.0         
+[147] codetools_0.2-20          RSpectra_0.16-1          
+[149] gtable_0.3.5              tensor_1.5               
+[151] httr_1.4.7                KernSmooth_2.23-20       
+[153] presto_1.0.0              stringi_1.7.8            
+[155] reshape2_1.4.4            farver_2.1.1             
+[157] viridis_0.6.5             ggthemes_5.1.0           
+[159] hexbin_1.28.3             boot_1.3-30              
+[161] scattermore_1.2           DEoptimR_1.1-3           
+[163] spatstat.data_3.0-4       pkgconfig_2.0.3          
+[165] knn.covertree_1.0         rstatix_0.7.2            
