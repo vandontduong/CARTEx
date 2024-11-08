@@ -144,7 +144,7 @@ Working directory: [`GSE136184`](experiments/GSE136184)
 
 ### GSE125881 <a name = "GSE125881"></a>
 
-The [GSE125881](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125881) experiment was the kinetic monitoring of CAR T cells in cancer patients across 16 weeks. 
+The [GSE125881](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125881) experiment was the kinetic monitoring of CAR T cells in cancer patients across 16 weeks. This dataset had 62,167 total cells, of which 47,754 were CD8+ T cells. After quality control, we analyzed 47,045 CD8+ T cells. The single-cell transcriptomes had measured 20,107 genes.
 
 Working directory: [`GSE125881`](experiments/GSE125881)
 - [`GSE125881-1-prepare.R`](experiments/GSE125881/GSE125881-1-prepare.R)
@@ -161,7 +161,7 @@ Working directory: [`GSE125881`](experiments/GSE125881)
 
 ### GSE136874 <a name = "GSE136874"></a>
 
-The [GSE136874](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136874) experiment was comparing highly functional CD19 and exhaustion-prone GD2 CAR T cells on day 10 of cell culture. 
+The [GSE136874](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136874) experiment was comparing highly functional CD19 and exhaustion-prone GD2 CAR T cells on day 10 of cell culture. This dataset had 1,530 total cells, all of which were CD8+ T cells. After quality control, we analyzed 1,397 CD8+ T cells. The single-cell transcriptomes had measured 14,563 genes.
 
 Working directory: [`GSE136874`](experiments/GSE136874)
 - [`GSE136874-1-prepare.R`](experiments/GSE136874/GSE136874-1-prepare.R)
