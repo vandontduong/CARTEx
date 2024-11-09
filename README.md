@@ -22,6 +22,10 @@ Preprint: coming soon...
 
 Publication: coming soon...
 
+**Graphical Abstract**
+
+<img alt="Graphical Abstract" src="miscellaneous/graphical_abstract.png" width="600" />
+
 # Experiments <a name = "experiments"></a>
 
 We derived the CARTEx signature from in-house experiments comparing highly functional CD19 CAR T cells, exhaustion-prone HA CAR T cells, and control T cells. The scripts for identifying the gene set and constructing the weights are shared within [construction](construction). We then applied the CARTEx signature to both in-house and publicly-available experiments. Note, we do not include the raw or processed data for these experiments in the github repository, as the file sizes are far too large. However, our scripts for preparing and exploring the datasets are shared in this repository within [experiments](experiments). Publicly-available experiments can be downloaded from the [Gene Expression Omnibus (GEO)](https://www.ncbi.nlm.nih.gov/geo/) or [Zenodo](https://zenodo.org/).
