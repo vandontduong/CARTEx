@@ -122,6 +122,7 @@ featplot_CARTEx_84_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_
 featplot_CARTEx_combined_response <- (featplot_CARTEx_630_response | featplot_CARTEx_200_response | featplot_CARTEx_84_response)
 generate_figs(featplot_CARTEx_combined_response, paste('./plots/', experiment, '_featplot_CARTEx_combined_response', sep = ''), c(10,4))
 
+featplot_CARTEx_200_response <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'characteristics_response', cols=c("firebrick", "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 20)) + ylim(c(-3, 5))
 generate_figs(featplot_CARTEx_200_response, paste('./plots/', experiment, '_featplot_CARTEx_200_response', sep = ''), c(1.5,2))
 
 

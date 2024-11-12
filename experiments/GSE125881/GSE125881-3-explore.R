@@ -69,6 +69,7 @@ featplot_CARTEx_84_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84
 featplot_CARTEx_combined_group2 <- (featplot_CARTEx_630_group2 | featplot_CARTEx_200_group2 | featplot_CARTEx_84_group2)
 generate_figs(featplot_CARTEx_combined_group2, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_group2', sep = ''), c(10,4))
 
+featplot_CARTEx_200_group2 <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Group2', cols=colorRampPalette(c("cadetblue", "violet", "darkorchid"))(length(unique(expt.obj@meta.data$Group2))), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-4, 6))
 generate_figs(featplot_CARTEx_200_group2, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_group2', sep = ''), c(1.5,2))
 
 

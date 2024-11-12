@@ -329,10 +329,20 @@ custom_labels <- c('CTRL\n(R)', 'CTRL\n(S)', 'GOF\n(R)', 'GOF\n(S)')
 aggplot_CARTEx_200_affstatstim_monaco_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + ylab('CARTEx') + 
   scale_x_discrete(labels = custom_labels) + 
   scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_monaco_split_countsized', sep = ''), c(4.5,3)) 
+
+
+aggplot_TSR_affstatstim_monaco_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = TSR, color = monaco, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + ylab('Stress Response') + 
+  scale_x_discrete(labels = custom_labels) + 
+  scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+generate_figs(aggplot_TSR_affstatstim_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_TSR_affstatstim_monaco_split_countsized', sep = ''), c(4.5,3)) 
+
 
 
 
@@ -380,10 +390,20 @@ generate_figs(umap_senescence_affstatstim, paste('./plots/', experiment, '_prepa
 umap_stemness_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Stemness"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc)
 generate_figs(umap_stemness_affstatstim, paste('./plots/', experiment, '_prepare_umap_stemness_affstatstim', sep = ''), c(8,2))
 
+umap_TSR_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc)
+generate_figs(umap_TSR_affstatstim, paste('./plots/', experiment, '_prepare_umap_TSR_affstatstim', sep = ''), c(8,2))
+
+
 
 # https://divingintogeneticsandgenomics.com/post/customize-featureplot-in-seurat-for-multi-condition-comparisons-using-patchwork/
 ### 
 
+
+FeaturePlot(expt.obj, features = c("CARTEx_200", "TSR"), pt.size = 0.1, blend = TRUE)
+
+FeaturePlot(expt.obj, features = c("CARTEx_200", "Activation"), pt.size = 0.1, blend = TRUE)
+
+FeaturePlot(expt.obj, features = c("Activation", "TSR"), pt.size = 0.1, blend = TRUE)
 
 
 

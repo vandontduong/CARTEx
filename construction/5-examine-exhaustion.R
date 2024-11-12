@@ -300,8 +300,46 @@ generate_figs(plot_heatmap_all_clusters, './plots/plot_heatmap_all_clusters', c(
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html
 
 
+# CREATE HEATMAP WITHOUT GENE ANNOTATIONS AND LEGENDS
+
+colAnn_noAnno <- HeatmapAnnotation(
+  df = ann,
+  annotation_height = 0.6,
+  annotation_width = unit(1, 'cm'),
+  gap = unit(1, 'mm'), 
+  annotation_legend_param = list(
+    CAR = list(nrow = 2, title = 'CAR',title_position = 'topcenter',legend_direction = 'vertical',title_gp = gpar(fontsize = 12, fontface = 'bold'),labels_gp = gpar(fontsize = 12, fontface = 'bold')),
+    Timepoint = list(nrow = 3,title = 'Timepoint',title_position = 'topcenter',legend_direction = 'vertical',title_gp = gpar(fontsize = 12, fontface = 'bold'),labels_gp = gpar(fontsize = 12, fontface = 'bold'))),
+  col = list(CAR = c("Control" = "darkgoldenrod", "CD19" = "dodgerblue", "HA" = "indianred"),
+             Timepoint = setNames(colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4), c(0,11,15,21))),
+  show_legend = c(FALSE, FALSE, FALSE)
+)
+
+hmap_noAnno <- Heatmap(mat, 
+                name = 'Zscore',
+                column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                row_gap = unit(1.5, "mm"),
+                row_split = pamClusters$clustering, 
+                cluster_row_slices = FALSE,
+                row_dend_reorder = TRUE, 
+                cluster_rows = TRUE, 
+                show_row_dend = TRUE,
+                show_row_names = FALSE,
+                row_names_gp = gpar(fontsize = 10, fontface = 'bold'),
+                row_names_side = 'right',
+                row_dend_width = unit(5,'mm'),
+                column_dend_reorder = FALSE,
+                # column_names_gp = gpar(fontsize = 8, fontface = 'bold'),
+                show_column_names = FALSE,
+                top_annotation = colAnn_noAnno,
+                use_raster=FALSE)
+
+plot_heatmap_all_clusters_noAnno <- as.grob(hmap_noAnno)
+generate_figs(plot_heatmap_all_clusters_noAnno, './plots/plot_heatmap_all_clusters_noAnno', c(8,7))
 
 
+
+## 
 
 
 

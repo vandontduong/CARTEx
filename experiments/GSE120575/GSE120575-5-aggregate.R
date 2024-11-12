@@ -128,7 +128,7 @@ aggplot_CARTEx_200_baseline <- md %>% ggplot(aes(identifier5, CARTEx_200)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
 generate_figs(aggplot_CARTEx_200_baseline, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200_baseline', sep = ''), c(3,3))
 

@@ -24,48 +24,63 @@ fix.sc <- scale_color_gradientn(colours = c("blue","lightgrey","red"), limits = 
 
 
 transitplot_affstatstim_CARTEx_84 <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = CARTEx_84)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_CARTEx_84, paste('./plots/', experiment, '_transition_transitplot_affstatstim_CARTEx_84', sep = ''), c(10, 5))
 
 transitplot_affstatstim_CARTEx_200 <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = CARTEx_200)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_CARTEx_200, paste('./plots/', experiment, '_transition_transitplot_affstatstim_CARTEx_200', sep = ''), c(10, 5))
 
 transitplot_affstatstim_CARTEx_630 <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = CARTEx_630)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_CARTEx_630, paste('./plots/', experiment, '_transition_transitplot_affstatstim_CARTEx_630', sep = ''), c(10, 5))
 
 transitplot_affstatstim_activation <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = Activation)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_activation, paste('./plots/', experiment, '_transition_transitplot_affstatstim_activation', sep = ''), c(10, 5))
 
 transitplot_affstatstim_anergy <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = Anergy)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_anergy, paste('./plots/', experiment, '_transition_transitplot_affstatstim_anergy', sep = ''), c(10, 5))
 
 transitplot_affstatstim_senescence <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = Senescence)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_senescence, paste('./plots/', experiment, '_transition_transitplot_affstatstim_senescence', sep = ''), c(10, 5))
 
 transitplot_affstatstim_stemness <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = Stemness)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_stemness, paste('./plots/', experiment, '_transition_transitplot_affstatstim_stemness', sep = ''), c(10, 5))
 
 transitplot_affstatstim_LCMV_Tex <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = LCMV_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_LCMV_Tex, paste('./plots/', experiment, '_transition_transitplot_affstatstim_LCMV_Tex', sep = ''), c(10, 5))
 
 transitplot_affstatstim_NKlike_Tex <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = NKlike_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_NKlike_Tex, paste('./plots/', experiment, '_transition_transitplot_affstatstim_NKlike_Tex', sep = ''), c(10, 5))
 
 transitplot_affstatstim_BBD_Tex <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = BBD_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_BBD_Tex, paste('./plots/', experiment, '_transition_transitplot_affstatstim_BBD_Tex', sep = ''), c(10, 5))
 
 transitplot_affstatstim_PD1_Tex <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = PD1_Tex)) +
-  geom_quasirandom(groupOnX = FALSE) + fix.sc + theme_classic()
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
 generate_figs(transitplot_affstatstim_PD1_Tex, paste('./plots/', experiment, '_transition_transitplot_affstatstim_PD1_Tex', sep = ''), c(10, 5))
+
+transitplot_affstatstim_TSR <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = TSR)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
+generate_figs(transitplot_affstatstim_TSR, paste('./plots/', experiment, '_transition_transitplot_affstatstim_TSR', sep = ''), c(10, 5))
+
 
 
 ###
+
+
+
+
+
+
+
+
+
+

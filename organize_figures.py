@@ -346,9 +346,9 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_vlnplot_stim_exhaustion_markers.png", top = Inches(7.75), left = Inches(2), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_stimulation_status_monaco_split_countsized.png", top = Inches(7.75), left = Inches(4), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_stimulation_status_monaco_split_countsized.png", top = Inches(7.75), left = Inches(5.5), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(7.75), left = Inches(7), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(7.75), left = Inches(8), height = Inches(2))
 
 
 # new slide
@@ -379,6 +379,9 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_TissueType_monaco_split_countsized.png", top = Inches(6), left = Inches(6), height = Inches(2))
 
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_compare_sigs_CARTEx_TSR.png", top = Inches(8.25), left = Inches(0.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_tissue_type.png", top = Inches(8.25), left = Inches(3), height = Inches(1.5))
 
 
 
@@ -394,17 +397,17 @@ slide = add_slide(prs, blank_slide_layout, "Figure 6. CARTEx applied to clinical
 
 experiment = "GSE120575" # Sade-Feldman
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_timepoint.png", left = Inches(0), top = Inches(0.75), height = Inches(1.5))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_timepoint.png", left = Inches(0), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(2), top = Inches(0.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(0.25), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4.25), top = Inches(0.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(2.5), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_response_slim.png", left = Inches(6.25), top = Inches(0.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_response_slim.png", left = Inches(4.75), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(7.25), top = Inches(0.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(6), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_response_slim.png", left = Inches(9.25), top = Inches(0.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_response_slim.png", left = Inches(8.25), top = Inches(0.75), height = Inches(1.5))
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", left = Inches(0.25), top = Inches(3), height = Inches(2))
 
@@ -433,9 +436,9 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_responder_slim_noNA.png", left = Inches(4.75), top = Inches(5.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(5.5), top = Inches(5.25), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(6), top = Inches(5.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_responder_slim_noNA.png", left = Inches(7.75), top = Inches(5.25), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_responder_slim_noNA.png", left = Inches(8.25), top = Inches(5.25), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_responder.png", left = Inches(0.25), top = Inches(7.5), height = Inches(1.5))
 
@@ -456,9 +459,9 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_group2_slim.png", left = Inches(4.75), top = Inches(9.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(5.5), top = Inches(9.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(6), top = Inches(9.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group2_slim.png", left = Inches(7.75), top = Inches(9.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group2_slim.png", left = Inches(8.25), top = Inches(9.75), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_group2.png", left = Inches(0.25), top = Inches(12), height = Inches(1.5))
 
@@ -659,15 +662,6 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_heatmap_C5_C2.png", top = Inches(5.25), left = Inches(5.5), height = Inches(2))
 
 
-# new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure. More STAT3 GOF")
-
-experiment = "GSE207935" # STAT3 GOF
-
-
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_affstatstim_exhaustion_markers.png", top = Inches(0.75), left = Inches(0.25), height = Inches(2))
-
-
 
 
 # new slide
@@ -675,23 +669,28 @@ slide = add_slide(prs, blank_slide_layout, "Supplementary Figure. More STAT3 GOF
 
 experiment = "GSE207935" # STAT3 GOF
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_vlnplot_all_C5_C2.png", left = Inches(0.25), top = Inches(0.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(0), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_activation.png", left = Inches(0), top = Inches(3), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_affstatstim.png", left = Inches(2), top = Inches(0.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_anergy.png", left = Inches(2), top = Inches(3), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_activation.png", left = Inches(0), top = Inches(2.5), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_senescence.png", left = Inches(4), top = Inches(3), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_activation_affstatstim.png", left = Inches(2), top = Inches(2.5), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_stemness.png", left = Inches(6), top = Inches(3), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_anergy.png", left = Inches(0), top = Inches(4.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_affstatstim.png", left = Inches(0), top = Inches(5.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_anergy_affstatstim.png", left = Inches(2), top = Inches(4.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_activation_affstatstim.png", left = Inches(0), top = Inches(7.5), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_sig_senescence.png", left = Inches(0), top = Inches(6), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_anergy_affstatstim.png", left = Inches(0), top = Inches(9.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_senescence_affstatstim.png", left = Inches(2), top = Inches(6), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_senescence_affstatstim.png", left = Inches(0), top = Inches(12), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR.png", left = Inches(0), top = Inches(7.75), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_affstatstim.png", left = Inches(2), top = Inches(7.75), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_affstatstim_exhaustion_markers.png", top = Inches(9.5), left = Inches(0.25), height = Inches(2))
+
 
 
 
@@ -709,13 +708,13 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", top = Inches(2.5), left = Inches(0.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_severity_slim.png", top = Inches(2.5), left = Inches(2.5), height = Inches(1.25))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_severity_slim.png", top = Inches(2.5), left = Inches(2.75), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(2.5), left = Inches(4), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(0.25), top = Inches(4.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_severity_slim.png", left = Inches(2.5), top = Inches(4.25), height = Inches(1.25))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_severity_slim.png", left = Inches(2.75), top = Inches(4.25), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(4.25), left = Inches(4), height = Inches(1.5))
 
@@ -742,13 +741,13 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", top = Inches(2.5), left = Inches(0.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_group_slim.png", top = Inches(2.5), left = Inches(2.5), height = Inches(1.25))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_group_slim.png", top = Inches(2.5), left = Inches(2.75), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(2.5), left = Inches(4), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(0.25), top = Inches(4.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group_slim.png", left = Inches(2.5), top = Inches(4.25), height = Inches(1.25))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group_slim.png", left = Inches(2.75), top = Inches(4.25), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(4.25), left = Inches(4), height = Inches(1.5))
 
@@ -756,8 +755,9 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_group_monaco_split_countsized.png", top = Inches(6), left = Inches(2), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(6), left = Inches(5), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(6), left = Inches(5), height = Inches(2))
 
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_expression_CTLA4.png", top = Inches(6), left = Inches(5), height = Inches(1.5))
 
 
 
@@ -777,13 +777,13 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_phase.png", top = Inches(2.5), left = Inches(0.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_barplot_phase_disease_slim.png",  top = Inches(2.5), left = Inches(2.5), height = Inches(1.25))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_barplot_phase_disease_slim.png",  top = Inches(2.5), left = Inches(2.75), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_CARTEx_200_phase.png", top = Inches(2.5), left = Inches(4), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_predicted_monaco.png", top = Inches(4.25), left = Inches(0.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_barplot_monaco_disease_slim.png", top = Inches(4.25), left = Inches(2.5), height = Inches(1.25))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_barplot_monaco_disease_slim.png", top = Inches(4.25), left = Inches(2.75), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_CARTEx_200_monaco.png", top = Inches(4.25), left = Inches(4), height = Inches(1.5))
 
@@ -792,6 +792,23 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_aggplot_CARTEx_200_group_monaco_split_countsized.png", top = Inches(6), left = Inches(4), height = Inches(2))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_explore_plot_volcano_Parkinson_blood.png", top = Inches(6), left = Inches(0.25), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_aggplot_CARTEx_200_disease_monaco_split_countsized.png", top = Inches(6), left = Inches(3), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_dmap_disease.png", top = Inches(8.25), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_dmap_monaco.png", top = Inches(8.25), left = Inches(2.75), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_transition_transitplot_disease_monaco.png", top = Inches(8.25), left = Inches(5.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_dmap_CARTEx_200.png", top = Inches(10.5), left = Inches(0.25), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_transition_transitplot_disease_CARTEx_200.png", top = Inches(10.5), left = Inches(5.5), height = Inches(2))
+
+
+
+
+
 
 
 

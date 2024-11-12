@@ -216,7 +216,7 @@ plt_CARTEx_200 <- ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD1
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.2) + 
   scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
   scale_alpha_manual(values = c('0' = 0.25, '11' = 0.5, '15' = 0.75, '21' = 1)) +
-  xlab("CAR") + ylab("CARTEx 200") + ylim(-2.5,2.5) + theme_classic()
+  xlab(NULL) + ylab("CARTEx") + ylim(-2.5,2.5) + theme_classic()
 
 generate_figs(plt_CARTEx_200, "./plots/plt_CARTEx_200", c(4,3))
 

@@ -163,7 +163,7 @@ vlnplot_CARTEx_84_extract_ident <- VlnPlot(expt.obj, c("CARTEx_84"), group.by = 
 vlnplot_CARTEx_combined_extract_ident <- (vlnplot_CARTEx_630_extract_ident | vlnplot_CARTEx_200_extract_ident | vlnplot_CARTEx_84_extract_ident)
 generate_figs(vlnplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_vlnplot_CARTEx_combined_extract_ident', sep = ''), c(10,4))
 
-vlnplot_CARTEx_200_extract_ident <- vlnplot_CARTEx_200_extract_ident + scale_x_discrete(label = c("YN", "OT"))
+vlnplot_CARTEx_200_extract_ident <- vlnplot_CARTEx_200_extract_ident + scale_x_discrete(label = c("YN", "OT")) + ylab('CARTEx')
 
 generate_figs(vlnplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_vlnplot_CARTEx_200_extract_ident', sep = ''), c(1.5,2))
 
@@ -175,6 +175,7 @@ featplot_CARTEx_84_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CA
 featplot_CARTEx_combined_extract_ident <- (featplot_CARTEx_630_extract_ident | featplot_CARTEx_200_extract_ident | featplot_CARTEx_84_extract_ident)
 generate_figs(featplot_CARTEx_combined_extract_ident, paste('./plots/', experiment, '_extract_featplot_CARTEx_combined_extract_ident', sep = ''), c(10,4))
 
+featplot_CARTEx_200_extract_ident <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', cols=c("orchid", "royalblue"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 11.5)) + ylim(c(-3, 5))
 generate_figs(featplot_CARTEx_200_extract_ident, paste('./plots/', experiment, '_featplot_CARTEx_200_extract_ident', sep = ''), c(1.5,2))
 
 

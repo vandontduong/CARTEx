@@ -192,8 +192,11 @@ dmap_seurat_clusters <- DimPlot(expt.obj, reduction = "dm", group.by = "seurat_c
 generate_figs(dmap_seurat_clusters, paste('./plots/', experiment, '_blood_prepare_dmap_seurat_clusters', sep = ''), c(6, 5))
 
 dmap_disease_cols <- c('Parkinson (B)' = 'violet', 'Control (B)' = 'cadetblue', 'Alzheimer (C)' = 'firebrick', 'MCI (C)' = 'indianred', 'Control (C)' = 'lightsalmon')
-dmap_disease <- DimPlot(expt.obj, reduction = "dm", group.by = "Disease", shuffle = TRUE, seed = 123, cols = dmap_disease_cols) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
-generate_figs(dmap_disease, paste('./plots/', experiment, '_blood_prepare_dmap_disease', sep = ''), c(6.5, 5))
+dmap_disease <- DimPlot(expt.obj, reduction = "dm", group.by = "Disease", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = dmap_disease_cols) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15)) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("P","C"), values = dmap_disease_cols)
+generate_figs(dmap_disease, paste('./plots/', experiment, '_blood_prepare_dmap_disease', sep = ''), c(2.8, 2))
+
+
 
 
 

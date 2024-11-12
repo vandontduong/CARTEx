@@ -31,15 +31,6 @@ md[, .N, by = c("identifier2", "monaco", "pblabels")]
 
 unique(query.obj@meta.data$identifier2)
 
-DefaultAssay(query.obj) <- "integrated"
-
-query.obj <- ScaleData(query.obj)
-query.obj <- NormalizeData(query.obj)
-
-# query.obj <- JoinLayers(query.obj, assay = "SCT")
-# DefaultAssay(query.obj) <- "RNA"
-query.obj <- JoinLayers(query.obj)
-
 
 query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'pblabels'), return.seurat = TRUE)
 # query.obj.agg <- AggregateExpression(query.obj, group.by = c('identifier2', 'monaco', 'pblabels'), return.seurat = TRUE)
@@ -90,7 +81,7 @@ aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','LRBA')), label = "p.signif", label.y = 1) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('LRBA','NBEAL2')), label = "p.signif", label.y = 1.4) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','NBEAL2')), label = "p.signif", label.y = 1.8) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("C", "L", "N", "YN", "OT"))
 generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(3.5,3))
 
@@ -103,6 +94,9 @@ aggplot_CARTEx_630 <- md %>% ggplot(aes(identifier2, CARTEx_630)) +
   ylab("CARTEx 630") + xlab(NULL) + geom_point() + ylim(-2, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("C", "L", "N", "YN", "OT"))
 generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_630', sep = ''), c(3.5,3))
+
+
+
 
 
 
