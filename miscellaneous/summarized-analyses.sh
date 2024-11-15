@@ -12,10 +12,18 @@ cp ../construction/plots/cluster5.png ./plots
 cp ../construction/plots/plot_initial_pca.png ./plots
 cp ../construction/plots/plot_canonical_exhaustion_markers.png ./plots
 cp ../construction/plots/plt_CARTEx_200.png ./plots
+cp ../construction/plots/CARTEx_reactome_coverage.png ./plots
+cp ../construction/plots/CARTEx_reactome_pval.png ./plots
 
+cp ../construction/plots/upset_exhaustion_state_sigs.png ./plots
+cp ../construction/plots/upset_exhaustion_sigs.png ./plots
+cp ../construction/plots/upset_state_sigs.png ./plots
 
+cp ../construction/plots/barplot_significant_pathways.png ./plots
 
-
+cp ../construction/plots/bespoke_plot_heatmap_all_sigs_hires.png ./plots
+cp ../construction/plots/bespoke_plot_heatmap_legend_alt.png ./plots
+cp ../construction/plots/plot_signature_cluster_representation.png ./plots
 
 
 

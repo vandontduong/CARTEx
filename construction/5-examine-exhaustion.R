@@ -509,7 +509,7 @@ df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
 df_long_avgbydonor <- subset(df_long_avgbydonor, measurement != "mean_CARTEx_84")
 df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("mean_CARTEx_630", "mean_CARTEx_200", "mean_Wherry", "mean_NKlike", "mean_BBD", "mean_PD1", "mean_activation", "mean_anergy",  "mean_senescence", "mean_stemness"))
 
-measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "C5 genes", mean_CARTEx_200 = "CARTEx 200",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
+measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "C5", mean_CARTEx_200 = "CARTEx",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
 
 plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = value, group = CAR, color = CAR)) +
   geom_line() + geom_point() +
@@ -519,7 +519,7 @@ plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = va
   scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
   theme_classic() + theme(legend.position = "none")
 
-generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(6,2))
+generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(5,2))
 
 
 intersect(rownames(mat), c('HNF1A', 'HNF1B'))
@@ -539,22 +539,177 @@ ggplot(data=HNF1B_dataset, aes(x=CAR, y=HNF1B_score)) + geom_boxplot() + geom_po
 colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4)
 
 
-# SIRPA is not part of cluster 5 (mat)
 
-intersect(rownames(data), c('SIRPA'))
-data[rownames(data) %in% c('SIRPA'),]
 
-SIRPA_score <- data[rownames(data) %in% c('SIRPA'),]
-SIRPA_score <- SIRPA_score %>% pivot_longer(everything(), names_to = "name", values_to = "SIRPA_score")
 
-CAR <- sub("_.*", "", SIRPA_score$name)
-Days <- sub(".*_", "", SIRPA_score$name)
 
-SIRPA_dataset <- data.frame(SIRPA_score, CAR, Days)
-ggplot(data=SIRPA_dataset, aes(x = factor(CAR, levels = c('Control', 'CD19', 'HA')), y=SIRPA_score)) + geom_boxplot() + geom_point(aes(color=Days)) + 
-  xlab("CAR") + scale_y_continuous(limits = c(-1, 1)) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 0.7) +
-  theme_bw()
+
+
+#### 
+
+qk_anno <- function(mat_select, sele_genes){
+  idx_sele_genes <- which(rownames(mat_select) %in% sele_genes)
+  ord_sele_genes <- rownames(mat_select)[idx_sele_genes]
+  right_anno <- rowAnnotation(CAR = anno_mark(at = idx_sele_genes, labels = ord_sele_genes))
+  return(right_anno)
+}
+
+qk_assemble <- function(gene_ID, cluster_ID){
+  df <- data.frame(gene_ID, cluster_ID)
+  colnames(df) <- c('Gene', 'Cluster')
+  return(df)
+}
+
+
+
+
+rownames(mat_CARTEx_630)
+setdiff(rownames(mat_CARTEx_630), rownames(mat_CARTEx_200))
+# right_anno <- qk_anno(mat_CARTEx_630, c('ZEB2', 'JUN', 'REL', 'RUNX3', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'STAT3', 'IL21R', 'CTLA4', 'TIGIT', 'SOX4', 'IFNG', 'CD70', 'DUSP4', 'LAIR2', 'GNLY', 'CFLAR', 'ATP9A', 'METRNL'))
+right_anno <- qk_anno(mat_CARTEx_630, c('JUN', 'REL', 'RUNX3', 'LAG3', 'ENTPD1', 'STAT3', 'IL21R', 'CTLA4', 'CD70', 'CFLAR', 'IL26', 'RGS2', 'IL1A', 'GZMK', 'HOXB6', 'CDKN1A', 'IL36G', 'RAB30', 'CD276', 'CDK6', 'FASLG', 'NINJ1', 'ICAM1', 'RUNX2'))
+hmap_CARTEx_630 <- Heatmap(mat_CARTEx_630, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                           row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_CARTEx_630], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                           cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                           top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_CARTEx_630
+
+# novel genes: XKRX, ATP9A, METRNL
+
+qk_assemble(rownames(mat_CARTEx_200), pamClusters$clustering[index_CARTEx_200])
+right_anno <- qk_anno(mat_CARTEx_200, c('KLRC1', 'KLRD1', 'ZEB2', 'TNFRSF9', 'GZMB', 'TIGIT', 'SOX4', 'IFNG', 'KIR2DL4', 'XKRX', 'LAIR2', 'GNLY', 'CFLAR', 'ATP9A', 'METRNL', 'CXCL10', 'CCL4', 'CCL3', 'KLRC2', 'FOSB', 'KIR3DX1', 'MAGI1', 'TWIST1', 'RGS16'))
+hmap_CARTEx_200 <- Heatmap(mat_CARTEx_200, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                           row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_CARTEx_200], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                           cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                           top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_CARTEx_200
+sum(rownames(mat_CARTEx_200) == 'CFLAR')
+
+
+rownames(mat_Wherry)
+pamClusters$clustering[index_Wherry]
+right_anno <- qk_anno(mat_Wherry, c('CD160', 'RGS16', 'EOMES', 'NFATC1', 'PDCD1', 'CCL3', 'CCL4', 'CXCL10', 'SPP1', 'CTLA4', 'CCRL2', 'LAG3', 'TNFRSF9', 'TNFRSF1A', 'ENTPD1', 'CASP4', 'LILRB4', 'PAWR', 'TCEAL9', 'TCEA2', 'SPOCK2'))
+hmap_Wherry <- Heatmap(mat_Wherry, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                           row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_Wherry], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                           cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                           top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_Wherry
+
+
+rownames(mat_NKlike)
+right_anno <- qk_anno(mat_NKlike, c('PLS3', 'CDK6', 'ID3', 'KLRD1', 'KLRC1', 'KLRC2', 'RGS16', 'CSF1', 'TNFRSF9', 'TNFRSF18', 'NDFIP2', 'SRGAP3', 'KLRB1', 'CCL3', 'CCL4', 'SQLE', 'LYST', 'GZMB', 'IL2RA', 'SOX4', 'GNLY'))
+hmap_NKlike <- Heatmap(mat_NKlike, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                       row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_NKlike], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                       cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                       top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_NKlike
+
+
+rownames(mat_BBD)
+right_anno <- qk_anno(mat_BBD, c('KLRC3', 'KLRD1', 'KIT', 'IL9R', 'KLF6', 'JUN', 'CCR8', 'IGFLR1', 'ATP8B4', 'SERPINE1', 'CD69', 'GZMK', 'GNLY', 'CXCR6', 'ITGA1', 'TXNIP', 'CD27', 'CD8B', 'KLRK1', 'NCR3', 'TSPAN32', 'FYB1', 'YPEL3', 'GADD45B'))
+hmap_BBD <- Heatmap(mat_BBD, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                       row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_BBD], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                       cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                       top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_BBD
+
+
+rownames(mat_PD1)
+right_anno <- qk_anno(mat_PD1, c('RGS1', 'LAG3', 'TNFRSF9', 'SYNGR3', 'CD200', 'ATP8B4', 'TOX', 'BTLA', 'TIGIT', 'KLRB1', 'TNFSF4', 'CD80', 'CCR2', 'CD70', 'RGS13', 'CTLA4', 'VCAM1', 'CXCL13', 'BATF', 'IRF5', 'ZBED2', 'GLDC', 'L1CAM', 'CARD16', 'KCNN4'))
+hmap_PD1 <- Heatmap(mat_PD1, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                    row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_PD1], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                    cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                    top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_PD1
+
+rownames(mat_activation)
+right_anno <- qk_anno(mat_activation, c('CD80', 'JUN', 'FOS', 'PIK3CG', 'PIK3CB', 'PIK3R1', 'ITPR1', 'MAPK8', 'NFKBIA', 'SOS1'))
+hmap_activation <- Heatmap(mat_activation, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                    row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_activation], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                    cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                    top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_activation
+
+rownames(mat_anergy)
+right_anno <- qk_anno(mat_anergy, c('LAG3', 'CCL1', 'CSF1', 'NOTCH1', 'CCL3', 'NFATC1', 'TNFSF9', 'TNFSF11', 'NOCT', 'CASP4', 'DDR1', 'FURIN', 'DUSP6', 'CD40LG', 'ZNF629', 'EGR2', 'CDC14A', 'GADD45B', 'ING4', 'HLF', 'HSPA1A', 'JUP'))
+hmap_anergy <- Heatmap(mat_anergy, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                           row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_anergy], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                           cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                           top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_anergy
+
+qk_assemble(rownames(mat_senescence), pamClusters$clustering[index_senescence])
+right_anno <- qk_anno(mat_senescence, c('CDKN1A', 'CYP1B1', 'STAT1', 'IFNG', 'CD44', 'RHOB', 'CDKN2B', 'IGFBP7', 'FILIP1L', 'ALDH1A3', 'IRF7', 'HSPA2', 'TGFB1I1', 'IGFBP4', 'SERPINE1', 'MAP2K3', 'RAB13', 'TFAP2A'))
+hmap_senescence <- Heatmap(mat_senescence, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                       row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_senescence], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                       cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                       row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                       top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_senescence
+
+
+qk_assemble(rownames(mat_stemness), pamClusters$clustering[index_stemness])
+right_anno <- qk_anno(mat_stemness, c('ODF1', 'PROM1', 'CD40', 'TWIST1', 'KLF6', 'SNAP25', 'CASP4', 'S1PR2', 'BRD3', 'LRRN3', 'TTC22', 'MARCKS', 'MMP10', 'ADO', 'CHST2', 'ZNF202'))
+hmap_stemness <- Heatmap(mat_stemness, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                           row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_stemness], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                           cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                           row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                           top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_stemness
+
+
+
+
+
+#### count up cluster representation
+
+library(tidyverse)
+library(forcats)
+
+cluster_representation <- list(
+  C5 = pamClusters$clustering[index_CARTEx_630],
+  CARTEx = pamClusters$clustering[index_CARTEx_200],
+  LCMV = pamClusters$clustering[index_Wherry],
+  NK_like = pamClusters$clustering[index_NKlike],
+  BBD = pamClusters$clustering[index_BBD],
+  PD1 = pamClusters$clustering[index_PD1],
+  Activation = pamClusters$clustering[index_activation],
+  Anergy = pamClusters$clustering[index_anergy],
+  Senescence = pamClusters$clustering[index_senescence],
+  Stemness = pamClusters$clustering[index_stemness]
+)
+
+
+# Convert the list into a dataframe
+df_cluster_representation <- cluster_representation %>% enframe(name = "Signature", value = "Cluster") %>% unnest(Cluster)
+
+# Reverse the order of clusters 
+df_cluster_representation$Cluster <- fct_rev(factor(df_cluster_representation$Cluster))
+
+# Set the custom order for the vectors 
+df_cluster_representation$Signature <- factor(df_cluster_representation$Signature, levels = rev(c('C5', 'CARTEx', 'LCMV', 'NK_like', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')))
+
+# Plot the relative distribution of the elements across clusters for each vector 
+plot_signature_cluster_representation <- ggplot(df_cluster_representation, aes(x = factor(Signature), fill = factor(Cluster))) +
+  geom_bar(position = "fill", colour="black") + labs(x = NULL, y = "Proportion", fill = "Cluster") +
+  scale_y_continuous(labels = scales::percent_format()) + scale_fill_manual(values = rev(c("lightsalmon", "lightpink2", "lightpink3", "plum3", "mediumorchid1"))) +
+  theme_classic() + coord_flip()
+
+generate_figs(plot_signature_cluster_representation, './plots/plot_signature_cluster_representation', c(2.75,3))
+
+
+
+
+
+
+
 
 
 

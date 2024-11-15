@@ -263,50 +263,50 @@ length(PD1_Tex)
 
 
 exhaustion_sigs <- list(
-  CARTEx_630 = rownames(cartex_630_weights),
-  CARTEx_200 = rownames(cartex_200_weights),
-  NKlike_Tex = NK_like,
-  LCMV_Tex = Wherry_Tex,
-  BBD_Tex = BBD_Tex,
-  PD1_Tex = PD1_Tex
+  C5 = rownames(cartex_630_weights),
+  CARTEx = rownames(cartex_200_weights),
+  NK_like = NK_like,
+  LCMV = Wherry_Tex,
+  BBD = BBD_Tex,
+  PD1 = PD1_Tex
 )
 
-upset_exhaustion_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_sigs), intersect = names(exhaustion_sigs),
+upset_exhaustion_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_sigs), intersect = names(exhaustion_sigs), width_ratio=0.15,
                                              base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_exhaustion_sigs, "./plots/upset_exhaustion_sigs", c(7.5, 3.5))
+generate_figs(upset_exhaustion_sigs, "./plots/upset_exhaustion_sigs", c(6, 3.5))
 
 
 state_sigs <- list(
-  CARTEx_630 = rownames(cartex_630_weights),
-  CARTEx_200 = rownames(cartex_200_weights),
+  C5 = rownames(cartex_630_weights),
+  CARTEx = rownames(cartex_200_weights),
   Activation = activation.sig,
   Anergy = anergy.sig,
   Senescence = senescence.sig,
   Stemness = stemness.sig
 )
 
-upset_state_sigs <- ComplexUpset::upset(UpSetR::fromList(state_sigs), intersect = names(state_sigs),
+upset_state_sigs <- ComplexUpset::upset(UpSetR::fromList(state_sigs), intersect = names(state_sigs), width_ratio=0.25,
                                         base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_state_sigs, "./plots/upset_state_sigs", c(5, 3.5))
+generate_figs(upset_state_sigs, "./plots/upset_state_sigs", c(4.5, 3.5))
 
 
 
 exhaustion_state_sigs <- list(
-  CARTEx_630 = rownames(cartex_630_weights),
-  CARTEx_200 = rownames(cartex_200_weights),
-  NKlike_Tex = NK_like,
-  LCMV_Tex = Wherry_Tex,
-  BBD_Tex = BBD_Tex,
-  PD1_Tex = PD1_Tex,
+  C5 = rownames(cartex_630_weights),
+  CARTEx = rownames(cartex_200_weights),
+  NK_like = NK_like,
+  LCMV = Wherry_Tex,
+  BBD = BBD_Tex,
+  PD1 = PD1_Tex,
   Activation = activation.sig,
   Anergy = anergy.sig,
   Senescence = senescence.sig,
   Stemness = stemness.sig
 )
 
-upset_exhaustion_state_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_state_sigs), intersect = names(exhaustion_state_sigs),
+upset_exhaustion_state_sigs <- ComplexUpset::upset(UpSetR::fromList(exhaustion_state_sigs), intersect = names(exhaustion_state_sigs), width_ratio=0.08, height_ratio = 1.25,
                                         base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_exhaustion_state_sigs, "./plots/upset_exhaustion_state_sigs", c(12, 3.5))
+generate_figs(upset_exhaustion_state_sigs, "./plots/upset_exhaustion_state_sigs", c(11, 3.5))
 
 
 

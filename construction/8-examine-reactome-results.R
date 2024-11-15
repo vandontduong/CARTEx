@@ -44,6 +44,24 @@ ggvenn(reactome_venn_sig)
 
 
 
+# create barchart of significant pathways in reactome for CARTEx (200)
+
+reactome_CARTEx_200_sig_paths <- reactome_CARTEx_200 %>% filter(Entities.pValue <= 0.05 & Entities.FDR <= 0.05)
+
+# entities found - number of curated molecules in pathway
+barplot_significant_pathways <- ggplot(reactome_CARTEx_200_sig_paths, aes(x = reorder(Pathway.name, X.Entities.found), y = X.Entities.found)) + 
+  geom_bar(stat = 'identity') + coord_flip() + theme_classic() + ylab('# of CARTEx genes in pathway') + xlab(NULL)
+
+generate_figs(barplot_significant_pathways, "./plots/barplot_significant_pathways", c(6,2))
+
+
+
+
+
+
+
+
+
 
 
 

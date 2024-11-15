@@ -1,8 +1,21 @@
-from pptx import Presentation
-from pptx.util import Inches
+### Script name: organize_figures.py
+### Description: assemble figures for manuscript
+### Author: Vandon Duong
 
-experiment = "GSE136874"
-description = "comparison of CD19 and GD2 CAR T cells on day 10 in culture"
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.dml.line import LineFormat
+from pptx.enum.dml import MSO_LINE
+from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
+from pptx.oxml import parse_xml
+from pptx.enum.shapes import MSO_CONNECTOR_TYPE
+from pptx.dml.color import RGBColor
+
+
+####################################################################################################
+########################################## Initialize pptx #########################################
+####################################################################################################
+
 
 prs = Presentation()
 # set width and height to 16 and 9 inches.
@@ -11,7 +24,13 @@ prs.slide_height = Inches(14)
 
 blank_slide_layout = prs.slide_layouts[6]
 
-def add_slide(prs, layout, subtitle):
+
+####################################################################################################
+######################################## Initialize functions ######################################
+####################################################################################################
+
+
+def add_slide(slide, layout, subtitle):
 	slide = prs.slides.add_slide(layout)
 	txBox = slide.shapes.add_textbox(left = Inches(0), top = Inches(0), width = Inches(1), height = Inches(1))
 	tf = txBox.text_frame
@@ -21,31 +40,79 @@ def add_slide(prs, layout, subtitle):
 	return slide
 
 
+def add_text(start_x, start_y, size, text):
+	txBox = slide.shapes.add_textbox(left = Inches(start_x), top = Inches(start_y), width = Inches(0.5), height = Inches(0.34))
+	tf = txBox.text_frame
+	p = tf.paragraphs[0]
+	p.text = text
+	p.font.size = Pt(size)
+	p.font.bold = True
 
+
+def draw_arrow_line(start_x, start_y, end_x, end_y, line_width, line_color):
+  # https://stackoverflow.com/questions/51311069/insert-a-line-into-a-powerpoint-using-python-pptx-module
+  # https://stackoverflow.com/questions/58792955/changing-format-of-connector-to-an-arrow-one-in-python-pptx
+
+  # Adding a line shape to the slide
+  arrow_line = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(start_x), Inches(start_y), Inches(end_x), Inches(end_y))
+  
+  # Setting the line properties
+  arrow_line.line.width = Pt(line_width)
+  arrow_line.line.fill.solid()
+  arrow_line.line.fill.fore_color.rgb = RGBColor(*line_color)
+  
+  line_elem=arrow_line.line._get_or_add_ln()
+  line_elem.append(parse_xml("""
+  <a:tailEnd type="arrow" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"/>
+  """))
+	
+# draw_arrow_line(1,2,3,4, 1.5, (0,0,0))
+
+
+
+####################################################################################################
+############################################ Build slides ##########################################
+####################################################################################################
 
 
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Figure 1. Bulk RNA sequencing of functional and exhausted CAR T cells across 21 days")
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_initial_pca.png", top = Inches(0.75), left = Inches(3.5), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "HA_model_diagram.png", left = Inches(0.25), top = Inches(0.9), height = Inches(1.75))
+add_text(0.25, 0.75, 14, 'A')
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_canonical_exhaustion_markers.png", top = Inches(0.75), left = Inches(6.5), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_initial_pca.png", left = Inches(3.75), top = Inches(0.9), height = Inches(1.75))
+add_text(3.5, 0.75, 14, 'B')
 
-# manually replace heatmap with gene expression; use placeholder for now
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_canonical_exhaustion_markers.png", left = Inches(6.5), top = Inches(0.75), height = Inches(2))
+add_text(6.5, 0.75, 14, 'C')
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster1.png", left = Inches(3.5), top = Inches(3), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster2.png", left = Inches(3.5), top = Inches(4.65), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_all_clusters.png", left = Inches(0.15), top = Inches(2.75), height = Inches(6))
+add_text(0.15, 2.75, 14, 'D')
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(0.5), top = Inches(8.75), height = Inches(0.75))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster3.png", left = Inches(3.5), top = Inches(6.3), height = Inches(2))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster4.png", left = Inches(3.5), top = Inches(7.95), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster1.png", left = Inches(3.75), top = Inches(2.75), height = Inches(1.5))
+add_text(3.6, 2.75, 14, 'E')
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster2.png", left = Inches(3.75), top = Inches(4), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "cluster5.png", left = Inches(3.5), top = Inches(9.6), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster3.png", left = Inches(3.75), top = Inches(5.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(7), top = Inches(3), height = Inches(2.5))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster4.png", left = Inches(3.75), top = Inches(6.5), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(6), height = Inches(3))
+pic = slide.shapes.add_picture("./construction/plots/" + "cluster5.png", left = Inches(3.75), top = Inches(7.75), height = Inches(1.5))
+
+
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(7), top = Inches(3), height = Inches(2))
+add_text(6, 2.75, 14, 'F')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(6), height = Inches(2.5))
+add_text(6, 6, 14, 'G')
+
+
+
 
 
 
@@ -53,9 +120,33 @@ pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", l
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Figure 2. Biological context / Evaluation with other exhaustion and cell state signatures")
 
+# https://answers.microsoft.com/en-us/msoffice/forum/all/in-powerpoint-save-as-picture-saves-images-in-low/15ae4a58-6065-4b9a-b23a-ecb22f3cbf2a
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_all_sigs_hires.png", top = Inches(0.75), left = Inches(0.25), height = Inches(4.5))
+add_text(0.15, 0.75, 14, 'A')
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(8), top = Inches(1), height = Inches(0.75))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_signature_cluster_representation.png", left = Inches(8), top = Inches(2.5), height = Inches(2.5))
+add_text(8, 2.25, 14, 'B')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_mean_zscore_by_signature.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.75))
+add_text(0.15, 5.5, 14, 'C')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_pathways_analysis.png", top = Inches(5.5), left = Inches(5.25), height = Inches(4.25))
+add_text(5.4, 5.5, 14, 'E')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "upset_exhaustion_state_sigs.png", top = Inches(7.5), left = Inches(0), height = Inches(1.8))
+add_text(0.15, 7.5, 14, 'D')
+
+# pic = slide.shapes.add_picture("./construction/plots/" + "CARTEx_reactome_coverage.png", top = Inches(8.5), left = Inches(0.25), height = Inches(2.5))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "barplot_significant_pathways.png", top = Inches(9.5), left = Inches(0), height = Inches(1.8))
+add_text(0.15, 9.5, 14, 'F')
 
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_mean_zscore_by_signature.png", top = Inches(5), left = Inches(0.25), height = Inches(2))
+
+
+
+
 
 
 
