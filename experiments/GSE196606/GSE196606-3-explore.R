@@ -44,14 +44,15 @@ featplot_CARTEx_84_group <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84'
 featplot_CARTEx_combined_group <- (featplot_CARTEx_630_group | featplot_CARTEx_200_group | featplot_CARTEx_84_group)
 generate_figs(featplot_CARTEx_combined_group, paste('./plots/', experiment, '_prepare_featplot_CARTEx_combined_group', sep = ''), c(10,5))
 
+
+featplot_CARTEx_200_group <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'group', cols=c("grey", 'orange', "seagreen"), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 20)) + ylim(c(-3, 5))
 generate_figs(featplot_CARTEx_200_group, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_group', sep = ''), c(1.5,2))
 
 
 
 
-
-
-
+umap_expression_CTLA4 <- FeaturePlot(expt.obj, features = 'CTLA4', pt.size = 0.1)
+generate_figs(umap_expression_CTLA4, paste('./plots/', experiment, '_prepare_umap_expression_CTLA4', sep = ''), c(3,2.5))
 
 
 
@@ -118,7 +119,7 @@ md <- md %>% left_join(md_count, by = c("monaco", "group", "pblabels"))
 aggplot_CARTEx_200_group_monaco_split_countsized <- md %>% ggplot(aes(x = group, y = CARTEx_200, color = monaco, size = count)) +
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
-  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + ylab("CARTEx") + 
   scale_x_discrete(labels = c('C', 'L', 'N')) + 
   scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_group_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group_monaco_split_countsized', sep = ''), c(3.5,3)) 
