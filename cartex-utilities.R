@@ -445,9 +445,9 @@ PercentageFeatureSetDetected <- function(atlas, feature_set){
 # @ sig_weights: apply weights for scoring
 
 SignatureScore <- function(atlas, sig_weights){
-  common <- intersect(rownames(sig_weights), rownames(atlas))
-  expr <- t(as.matrix(GetAssayData(atlas))[match(common, rownames(as.matrix(GetAssayData(atlas)))),])
-  weights <- sig_weights[match(common, rownames(sig_weights)),]
+  common <- intersect(toupper(rownames(sig_weights)), toupper(rownames(atlas)))
+  expr <- t(as.matrix(GetAssayData(atlas))[match(common, toupper(rownames(as.matrix(GetAssayData(atlas))))),])
+  weights <- sig_weights[match(common, toupper(rownames(sig_weights))),]
   scores <- expr %*% as.matrix(weights)
   return(scores)
 }
@@ -538,10 +538,10 @@ ScoreSubroutine <- function(atlas) {
   atlas@meta.data$CARTEx_84i <- integerize(atlas@meta.data$CARTEx_84)
   
   
-  activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1))
-  anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1))
-  stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1))
-  senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = FALSE, row.names = 1))
+  activation.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1)))
+  anergy.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1)))
+  stemness.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1)))
+  senescence.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = FALSE, row.names = 1)))
   
   atlas <- AddModuleScore(atlas, features = list(activation.sig, anergy.sig, stemness.sig, senescence.sig), name="State", search = TRUE)
   
@@ -567,31 +567,40 @@ ScoreSubroutine <- function(atlas) {
   atlas@meta.data$State4 <- NULL
   
   # examine other signatures
-  NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1))
-  Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = FALSE, row.names = 1))
-  BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1))
-  PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1))
-  TSR <- rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1))
+  NK_like <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1)))
+  Wherry_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = FALSE, row.names = 1)))
+  BBD_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1)))
+  PD1_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = TRUE, row.names = 1)))
+  TSR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1)))
+  Tex_Term <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexTerm.csv", sep = ''), header = FALSE, row.names = 1)))
+  Tex_KLR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexKLR.csv", sep = ''), header = FALSE, row.names = 1)))
   
-  atlas <- AddModuleScore(atlas, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex, TSR), name="Signature", search = TRUE)
+  
+  atlas <- AddModuleScore(atlas, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex, TSR, Tex_Term, Tex_KLR), name="Signature", search = TRUE)
   
   atlas@meta.data$NKlike_Tex <- scale(atlas@meta.data$Signature1)
   atlas@meta.data$LCMV_Tex <- scale(atlas@meta.data$Signature2)
   atlas@meta.data$BBD_Tex <- scale(atlas@meta.data$Signature3)
   atlas@meta.data$PD1_Tex <- scale(atlas@meta.data$Signature4)
   atlas@meta.data$TSR <- scale(atlas@meta.data$Signature5)
+  atlas@meta.data$Tex_Term <- scale(atlas@meta.data$Signature6)
+  atlas@meta.data$Tex_KLR <- scale(atlas@meta.data$Signature7)
   
   atlas@meta.data$NKlike_Texi <- integerize(atlas@meta.data$NKlike_Tex)
   atlas@meta.data$LCMV_Texi <- integerize(atlas@meta.data$LCMV_Tex)
   atlas@meta.data$BBD_Texi <- integerize(atlas@meta.data$BBD_Tex)
   atlas@meta.data$PD1_Texi <- integerize(atlas@meta.data$PD1_Tex)
   atlas@meta.data$TSRi <- integerize(atlas@meta.data$TSR)
+  atlas@meta.data$Tex_Termi <- integerize(atlas@meta.data$Tex_Term)
+  atlas@meta.data$Tex_KLRi <- integerize(atlas@meta.data$Tex_KLR)
   
   atlas@meta.data$Signature1 <- NULL
   atlas@meta.data$Signature2 <- NULL
   atlas@meta.data$Signature3 <- NULL
   atlas@meta.data$Signature4 <- NULL
   atlas@meta.data$Signature5 <- NULL
+  atlas@meta.data$Signature6 <- NULL
+  atlas@meta.data$Signature7 <- NULL
   
   return(atlas)
 }

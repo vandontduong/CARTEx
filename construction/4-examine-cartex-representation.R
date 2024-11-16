@@ -22,16 +22,29 @@ cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
-TSG <- rownames(read.csv(paste0(PATH_SIGNATURES, "tumor-suppressor-genes.csv"), row.names = 1, header = FALSE))
-activation.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1))
-anergy.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1))
-stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1))
-senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = FALSE, row.names = 1))
-NK_like <- rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1))
-Wherry_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = TRUE, row.names = 1))
-BBD_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1))
-PD1_Tex <- rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = FALSE, row.names = 1))
-TSR <- rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1))
+TSG <- toupper(rownames(read.csv(paste0(PATH_SIGNATURES, "tumor-suppressor-genes.csv"), row.names = 1, header = FALSE)))
+activation.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1)))
+anergy.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1)))
+stemness.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1)))
+senescence.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = FALSE, row.names = 1)))
+NK_like <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1)))
+Wherry_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = FALSE, row.names = 1)))
+BBD_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1)))
+PD1_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Cai_2020_Pathology_PD1_Tex.csv", sep = ''), header = FALSE, row.names = 1)))
+TSR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1)))
+
+Daniel_Tex_Term <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexTerm.csv", sep = ''), header = FALSE, row.names = 1)))
+Daniel_Tex_KLR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexKLR.csv", sep = ''), header = FALSE, row.names = 1)))
+
+
+# check overlap with Tex subsets from Daniel et al. 2022
+intersect(Daniel_Tex_Term, Daniel_Tex_KLR)
+intersect(toupper(rownames(cartex_200_weights)),Daniel_Tex_Term)
+intersect(toupper(rownames(cartex_200_weights)), Daniel_Tex_KLR)
+
+
+
+
 
 expt.list <- c("GSE125881", "GSE136874", "GSE136184", "GSE126030", "GSE120575", "GSE146264", "GSE151511", "GSE153931", "GSE160160", "GSE196606", "GSE207935", "Zenodo3993994", "mdandersonTCM")
 
@@ -51,6 +64,9 @@ expt.NK_like <- c()
 expt.Wherry_Tex <- c()
 expt.BBD_Tex <- c()
 expt.PD1_Tex <- c()
+expt.TSR <- c()
+expt.Tex_Term <- c()
+expt.Tex_KLR <- c()
 
 expt.allgenes.counts <- c()
 expt.CARTEx630.counts <- c()
@@ -65,17 +81,20 @@ expt.NK_like.counts <- c()
 expt.Wherry_Tex.counts <- c()
 expt.BBD_Tex.counts <- c()
 expt.PD1_Tex.counts <- c()
+expt.TSR.counts <- c()
+expt.Tex_Term.counts <- c()
+expt.Tex_KLR.counts <- c()
 
 
 for (exptID in expt.list){
   print(exptID)
-  expt.allgenes[[exptID]] <- read.csv(paste(PATH_EXPERIMENTS, exptID, "/data/", exptID, "_allgenes.csv", sep = ''), header = TRUE, row.names = 1)$x
+  expt.allgenes[[exptID]] <- toupper(read.csv(paste(PATH_EXPERIMENTS, exptID, "/data/", exptID, "_allgenes.csv", sep = ''), header = TRUE, row.names = 1)$x)
   expt.allgenes.counts[[exptID]] <- length(expt.allgenes[[exptID]])
   print(paste0("all genes: ", expt.allgenes.counts[[exptID]]))
   
-  expt.CARTEx630[[exptID]] <- intersect(expt.allgenes[[exptID]], rownames(cartex_630_weights))
-  expt.CARTEx200[[exptID]] <- intersect(expt.allgenes[[exptID]], rownames(cartex_200_weights))
-  expt.CARTEx84[[exptID]] <- intersect(expt.allgenes[[exptID]], rownames(cartex_84_weights))
+  expt.CARTEx630[[exptID]] <- intersect(expt.allgenes[[exptID]], toupper(rownames(cartex_630_weights)))
+  expt.CARTEx200[[exptID]] <- intersect(expt.allgenes[[exptID]], toupper(rownames(cartex_200_weights)))
+  expt.CARTEx84[[exptID]] <- intersect(expt.allgenes[[exptID]], toupper(rownames(cartex_84_weights)))
   
   expt.CARTEx630.counts[[exptID]] <- length(expt.CARTEx630[[exptID]])
   expt.CARTEx200.counts[[exptID]] <- length(expt.CARTEx200[[exptID]])
@@ -121,10 +140,25 @@ for (exptID in expt.list){
   expt.PD1_Tex.counts[[exptID]] <- length(expt.PD1_Tex[[exptID]])
   print(paste0("PD1_Tex genes: ", expt.PD1_Tex.counts[[exptID]]))
   
+  expt.TSR[[exptID]] <- intersect(expt.allgenes[[exptID]], TSR)
+  expt.TSR.counts[[exptID]] <- length(expt.TSR[[exptID]])
+  print(paste0("TSR genes: ", expt.TSR.counts[[exptID]]))
+  
+  expt.Tex_Term[[exptID]] <- intersect(expt.allgenes[[exptID]], Daniel_Tex_Term)
+  expt.Tex_Term.counts[[exptID]] <- length(expt.Tex_Term[[exptID]])
+  print(paste0("Tex_Term genes: ", expt.Tex_Term.counts[[exptID]]))
+  
+  expt.Tex_KLR[[exptID]] <- intersect(expt.allgenes[[exptID]], Daniel_Tex_KLR)
+  expt.Tex_KLR.counts[[exptID]] <- length(expt.Tex_KLR[[exptID]])
+  print(paste0("Tex_KLR genes: ", expt.Tex_KLR.counts[[exptID]]))
+  
   print("")
 }
 
-expt.matrix.counts <- do.call("cbind", list(expt.allgenes.counts, expt.CARTEx630.counts, expt.CARTEx200.counts, expt.CARTEx84.counts, expt.TSG.counts, expt.activation.counts, expt.anergy.counts, expt.stemness.counts, expt.senescence.counts, expt.NK_like.counts, expt.Wherry_Tex.counts, expt.BBD_Tex.counts, expt.PD1_Tex.counts))
+expt.matrix.counts <- do.call("cbind", list(expt.allgenes.counts, expt.CARTEx630.counts, expt.CARTEx200.counts, expt.CARTEx84.counts, expt.TSG.counts, 
+                                            expt.activation.counts, expt.anergy.counts, expt.stemness.counts, expt.senescence.counts, 
+                                            expt.NK_like.counts, expt.Wherry_Tex.counts, expt.BBD_Tex.counts, expt.PD1_Tex.counts, 
+                                            expt.TSR.counts, expt.Tex_Term.counts, expt.Tex_KLR.counts))
 expt.matrix.counts
 
 write.csv(expt.matrix.counts, paste0(PATH_CONSTRUCTION, "data/expt_matrix_counts.csv"), row.names=TRUE)
@@ -140,22 +174,22 @@ library(tidyverse)
 # https://stackoverflow.com/questions/47733031/how-to-plot-dataframe-in-r-as-a-heatmap-grid
 
 expt.df.counts <- as.data.frame(expt.matrix.counts)
-colnames(expt.df.counts) <- c('All', 'C5', 'CARTEx', 'CARTEx_84', 'TSG', 'Activation', 'Anergy', 'Stemness', 'Senescence', 'NK-like', 'LCMV', 'BBD', 'PD1')
+colnames(expt.df.counts) <- c('All', 'C5', 'CARTEx', 'CARTEx_84', 'TSG', 'Activation', 'Anergy', 'Stemness', 'Senescence', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Stress Response', 'Tex-Term', 'Tex-KLR')
 
 # store all counts
 expt.df.counts.all <- expt.df.counts['All']
 
 # rearrange and remove CARTEx_84 and TSG
-expt.df.counts <- expt.df.counts[c('C5', 'CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')]
+expt.df.counts <- expt.df.counts[c('C5', 'CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness', 'Stress Response', 'Tex-Term', 'Tex-KLR')]
 
 # define a vector with the denominator values and divide each column by the corresponding element in the vector
-divisors <- c(630, 200, length(NK_like), length(Wherry_Tex), length(BBD_Tex), length(PD1_Tex), length(activation.sig), length(anergy.sig), length(senescence.sig), length(stemness.sig))
+divisors <- c(630, 200, length(NK_like), length(Wherry_Tex), length(BBD_Tex), length(PD1_Tex), length(activation.sig), length(anergy.sig), length(senescence.sig), length(stemness.sig), length(TSR), length(Daniel_Tex_Term), length(Daniel_Tex_KLR))
 expt.df.counts[] <- lapply(expt.df.counts, as.numeric)
 expt.df.scaled <- sweep(expt.df.counts, 2, divisors, "/")
 
 
 expt.heatmap <- expt.df.scaled %>% rownames_to_column() %>% gather(colname, value, -rowname)
-expt.heatmap$colname <- factor(expt.heatmap$colname, ordered=TRUE, levels = c('C5', 'CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness'))
+expt.heatmap$colname <- factor(expt.heatmap$colname, ordered=TRUE, levels = c('C5', 'CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness', 'Stress Response', 'Tex-Term', 'Tex-KLR'))
 expt.heatmap$rowname <- factor(expt.heatmap$rowname, ordered=TRUE, levels = c('GSE120575', 'GSE125881', 'GSE126030', 'GSE136184', 'GSE136874', 'GSE146264', 'GSE151511', 'GSE153931', 'GSE160160', 'GSE196606', 'GSE207935', 'Zenodo3993994', 'mdandersonTCM'))
 
 x_labels <- paste0(levels(expt.heatmap$rowname), " (", as.character(unlist(expt.df.counts.all, use.names = FALSE)), ")")
@@ -263,8 +297,8 @@ length(PD1_Tex)
 
 
 exhaustion_sigs <- list(
-  C5 = rownames(cartex_630_weights),
-  CARTEx = rownames(cartex_200_weights),
+  C5 = toupper(rownames(cartex_630_weights)),
+  CARTEx = toupper(rownames(cartex_200_weights)),
   NK_like = NK_like,
   LCMV = Wherry_Tex,
   BBD = BBD_Tex,
@@ -277,8 +311,8 @@ generate_figs(upset_exhaustion_sigs, "./plots/upset_exhaustion_sigs", c(6, 3.5))
 
 
 state_sigs <- list(
-  C5 = rownames(cartex_630_weights),
-  CARTEx = rownames(cartex_200_weights),
+  C5 = toupper(rownames(cartex_630_weights)),
+  CARTEx = toupper(rownames(cartex_200_weights)),
   Activation = activation.sig,
   Anergy = anergy.sig,
   Senescence = senescence.sig,
@@ -292,8 +326,8 @@ generate_figs(upset_state_sigs, "./plots/upset_state_sigs", c(4.5, 3.5))
 
 
 exhaustion_state_sigs <- list(
-  C5 = rownames(cartex_630_weights),
-  CARTEx = rownames(cartex_200_weights),
+  C5 = toupper(rownames(cartex_630_weights)),
+  CARTEx = toupper(rownames(cartex_200_weights)),
   NK_like = NK_like,
   LCMV = Wherry_Tex,
   BBD = BBD_Tex,
