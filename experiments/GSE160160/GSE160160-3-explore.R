@@ -198,7 +198,7 @@ signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
 signif <- signif[rownames(signif) %in% rownames(cartex_630_weights),]
 
 # create custom key-value pairs for CARTEx genes
-keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights))
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_630_weights), 'C5')
 
 # change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
 plot_volcano_CAE2groups <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
@@ -213,7 +213,7 @@ de_genes_sorted_CAE2groups <- arrange(filter(de_genes, p_val < 10e-6 & abs(avg_l
 write.csv(de_genes_sorted_CAE2groups, "data/de_genes_sorted_CAE2groups.csv")
 
 
-FeaturePlot(expt.obj, features = rownames(filter(de_genes_sorted_CAE2groups, avg_log2FC < 0)))
+# FeaturePlot(expt.obj, features = rownames(filter(de_genes_sorted_CAE2groups, avg_log2FC < 0)))
 
 
 

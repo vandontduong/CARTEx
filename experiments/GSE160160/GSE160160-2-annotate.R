@@ -290,6 +290,8 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = FALSE, 
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_TSR <- FeaturePlot(expt.obj, features = c("TSR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_Tex_Term <- FeaturePlot(expt.obj, features = c("Tex_Term"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_Tex_KLR <- FeaturePlot(expt.obj, features = c("Tex_KLR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_prepare_umap_CARTEx_84', sep = ''), c(2.8, 2))
@@ -304,6 +306,10 @@ generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_T
 generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_TSR, paste('./plots/', experiment, '_prepare_umap_TSR', sep = ''), c(2.8, 2))
+generate_figs(umap_Tex_Term, paste('./plots/', experiment, '_prepare_umap_Tex_Term', sep = ''), c(2.8, 2))
+generate_figs(umap_Tex_KLR, paste('./plots/', experiment, '_prepare_umap_Tex_KLR', sep = ''), c(2.8, 2))
+
+
 
 scatterplot_CARTEx_84_NKlike_Tex <- FeatureScatter(expt.obj, 'CARTEx_84', 'NKlike_Tex', group.by = 'exposure', shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue'))
 scatterplot_CARTEx_200_NKlike_Tex <- FeatureScatter(expt.obj, 'CARTEx_200', 'NKlike_Tex', group.by = 'exposure', shuffle = TRUE, seed = 123, cols = c('skyblue', 'cadetblue'))
@@ -322,6 +328,8 @@ dmap_sig_anergy <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Anergy"
 dmap_sig_stemness <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Stemness"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
 dmap_sig_senescence <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Senescence"), order = TRUE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
 dmap_TSR <- FeaturePlot(expt.obj, reduction = 'dm', features = c("TSR"), order = TRUE) + fix.sc + theme(plot.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
+dmap_Tex_Term <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Tex_Term"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
+dmap_Tex_KLR <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Tex_KLR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + xlim(c(-0.06, 0.06)) + ylim(c(-0.06, 0.06))
 
 generate_figs(dmap_CARTEx_84, paste('./plots/', experiment, '_prepare_dmap_CARTEx_84', sep = ''), c(2.8, 2))
 generate_figs(dmap_CARTEx_200, paste('./plots/', experiment, '_prepare_dmap_CARTEx_200', sep = ''), c(2.8, 2))
@@ -331,6 +339,9 @@ generate_figs(dmap_sig_anergy, paste('./plots/', experiment, '_prepare_dmap_sig_
 generate_figs(dmap_sig_stemness, paste('./plots/', experiment, '_prepare_dmap_sig_stemness', sep = ''), c(2.8, 2))
 generate_figs(dmap_sig_senescence, paste('./plots/', experiment, '_prepare_dmap_sig_senescence', sep = ''), c(2.8, 2))
 generate_figs(dmap_TSR, paste('./plots/', experiment, '_prepare_dmap_TSR', sep = ''), c(2.8, 2))
+generate_figs(dmap_Tex_Term, paste('./plots/', experiment, '_prepare_dmap_Tex_Term', sep = ''), c(2.8, 2))
+generate_figs(dmap_Tex_KLR, paste('./plots/', experiment, '_prepare_dmap_Tex_KLR', sep = ''), c(2.8, 2))
+
 
 
 

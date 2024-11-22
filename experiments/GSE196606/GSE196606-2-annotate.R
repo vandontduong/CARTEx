@@ -274,6 +274,8 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = FALSE, 
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_TSR <- FeaturePlot(expt.obj, features = c("TSR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_Tex_Term <- FeaturePlot(expt.obj, features = c("Tex_Term"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_Tex_KLR <- FeaturePlot(expt.obj, features = c("Tex_KLR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 
 
 
@@ -289,7 +291,8 @@ generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_prepare_umap_LCMV_T
 generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_prepare_umap_BBD_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_prepare_umap_PD1_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_TSR, paste('./plots/', experiment, '_prepare_umap_TSR', sep = ''), c(2.8, 2))
-
+generate_figs(umap_Tex_Term, paste('./plots/', experiment, '_prepare_umap_Tex_Term', sep = ''), c(2.8, 2))
+generate_figs(umap_Tex_KLR, paste('./plots/', experiment, '_prepare_umap_Tex_KLR', sep = ''), c(2.8, 2))
 
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_scored.rds', sep = ''))

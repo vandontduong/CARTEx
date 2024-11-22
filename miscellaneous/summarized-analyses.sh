@@ -44,12 +44,22 @@ cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_phase.jpeg ./plots
 cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_phase_highlight.jpeg ./plots
 cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_CARTEx_84.jpeg ./plots
 
+cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_predicted_monaco.jpeg ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_barplot_monaco_CAR_slim.jpeg ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_phase.jpeg ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_barplot_phase_CAR_slim.jpeg ./plots
+
+
+
 echo "GSE136184"
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_age.jpeg ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_age_group_2.jpeg ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_sex.jpeg ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_predicted_monaco.jpeg ./plots
-cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_barplot_monaco_age_group.jpeg ./plots
+cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_barplot_monaco_age_group_slim.jpeg ./plots
+cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_phase.jpeg ./plots
+cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_barplot_phase_age_group_slim.jpeg ./plots
+
 cp ../experiments/GSE136184/plots/GSE136184_cs_extract_umap_highlight_combined.jpeg ./plots
 
 
@@ -57,11 +67,14 @@ cp ../experiments/GSE136184/plots/GSE136184_cs_extract_umap_highlight_combined.j
 
 
 
+echo "Zenodo3993994"
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_umap_disease.jpeg ./plots
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_dmap_disease.jpeg ./plots
 
-
-
-
-
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_umap_predicted_monaco.jpeg ./plots
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_barplot_monaco_disease_slim.jpeg ./plots
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_umap_phase.jpeg ./plots
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_barplot_phase_disease_slim.jpeg ./plots
 
 
 

@@ -43,7 +43,7 @@ transitplot_severity_monaco <- ggplot(md, aes(x = DC1rank, y = Severity, color =
 generate_figs(transitplot_severity_monaco, paste('./plots/', experiment, '_transition_transitplot_severity_monaco', sep = ''), c(3.5,2))
 
 
-FeaturePlot(expt.obj, feature = 'DC1rank')
+FeaturePlot(expt.obj, feature = 'DC1rank', cols = c('violet', 'blue'))
 
 
 

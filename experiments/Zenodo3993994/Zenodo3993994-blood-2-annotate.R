@@ -285,6 +285,9 @@ umap_LCMV_Tex <- FeaturePlot(expt.obj, features = c("LCMV_Tex"), order = FALSE, 
 umap_BBD_Tex <- FeaturePlot(expt.obj, features = c("BBD_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_PD1_Tex <- FeaturePlot(expt.obj, features = c("PD1_Tex"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
 umap_TSR <- FeaturePlot(expt.obj, features = c("TSR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_Tex_Term <- FeaturePlot(expt.obj, features = c("Tex_Term"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+umap_Tex_KLR <- FeaturePlot(expt.obj, features = c("Tex_KLR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank())
+
 
 
 generate_figs(umap_CARTEx_84, paste('./plots/', experiment, '_blood_prepare_umap_CARTEx_84', sep = ''), c(2.8, 2))
@@ -299,6 +302,11 @@ generate_figs(umap_LCMV_Tex, paste('./plots/', experiment, '_blood_prepare_umap_
 generate_figs(umap_BBD_Tex, paste('./plots/', experiment, '_blood_prepare_umap_BBD_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_PD1_Tex, paste('./plots/', experiment, '_blood_prepare_umap_PD1_Tex', sep = ''), c(2.8, 2))
 generate_figs(umap_TSR, paste('./plots/', experiment, '_blood_prepare_umap_TSR', sep = ''), c(2.8, 2))
+generate_figs(umap_Tex_Term, paste('./plots/', experiment, '_blood_prepare_umap_Tex_Term', sep = ''), c(2.8, 2))
+generate_figs(umap_Tex_KLR, paste('./plots/', experiment, '_blood_prepare_umap_Tex_KLR', sep = ''), c(2.8, 2))
+
+
+
 
 
 dmap_CARTEx_84 <- FeaturePlot(expt.obj, reduction = 'dm', features = c("CARTEx_84"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
@@ -309,6 +317,11 @@ dmap_sig_anergy <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Anergy"
 dmap_sig_stemness <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Stemness"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
 dmap_sig_senescence <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Senescence"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
 dmap_TSR <- FeaturePlot(expt.obj, reduction = 'dm', features = c("TSR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
+dmap_Tex_Term <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Tex_Term"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
+dmap_Tex_KLR <- FeaturePlot(expt.obj, reduction = 'dm', features = c("Tex_KLR"), order = FALSE, pt.size = 0.1) + fix.sc + theme(plot.title = element_blank()) + xlim(c(-0.15, 0.15)) + ylim(c(-0.15, 0.15))
+
+
+
 
 
 generate_figs(dmap_CARTEx_84, paste('./plots/', experiment, '_blood_prepare_dmap_CARTEx_84', sep = ''), c(2.8, 2))
@@ -319,6 +332,8 @@ generate_figs(dmap_sig_anergy, paste('./plots/', experiment, '_blood_prepare_dma
 generate_figs(dmap_sig_stemness, paste('./plots/', experiment, '_blood_prepare_dmap_sig_stemness', sep = ''), c(2.8, 2))
 generate_figs(dmap_sig_senescence, paste('./plots/', experiment, '_blood_prepare_dmap_sig_senescence', sep = ''), c(2.8, 2))
 generate_figs(dmap_TSR, paste('./plots/', experiment, '_blood_prepare_dmap_TSR', sep = ''), c(2.8, 2))
+generate_figs(dmap_Tex_Term, paste('./plots/', experiment, '_blood_prepare_dmap_Tex_Term', sep = ''), c(2.8, 2))
+generate_figs(dmap_Tex_KLR, paste('./plots/', experiment, '_blood_prepare_dmap_Tex_KLR', sep = ''), c(2.8, 2))
 
 
 
