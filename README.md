@@ -140,6 +140,8 @@ We share some summarized analyses resulting from our custom pipelines. Select fi
 The [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) experiment was the cross-sectional and longitudinal studies of CD8 T cells in humans spanning 9 decades of life. This dataset had 120,418 total cells, of which 39,937 were CD8+ T cells. After quality control, we analyzed 39,937 CD8+ T cells. The single-cell transcriptomes had 10,098 genes.
 
 Working directory: [`GSE136184`](experiments/GSE136184)
+- [`GSE136184-1-prepare.R`](experiments/GSE136184/GSE136184-1-prepare.R)
+- [`GSE136184-2-integrate.R`](experiments/GSE136184/GSE136184-2-integrate.R)
 
 <img alt="GSE136184 UMAP age" src="miscellaneous/plots/GSE136184_cs_prepare_umap_age.jpeg" width="300" />
 
