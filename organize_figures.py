@@ -154,14 +154,39 @@ add_text(0.15, 9.5, 14, 'F')
 slide = add_slide(prs, blank_slide_layout, "Supplementary figures. ")
 
 # Fraction of signature genes represented in experiments
-pic = slide.shapes.add_picture("./construction/plots/" + "all_genes_repmap.png", top = Inches(0.75), left = Inches(0.25), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "all_genes_repmap.png", top = Inches(0.75), left = Inches(0.25), height = Inches(2.25))
 
 # Fraction of CARTEx (200) genes represented in each signature
-pic = slide.shapes.add_picture("./construction/plots/" + "fraction_CARTEx_repchart.png", top = Inches(0.75), left = Inches(5), height = Inches(1.25))
+pic = slide.shapes.add_picture("./construction/plots/" + "fraction_CARTEx_repchart.png", top = Inches(0.75), left = Inches(5.25), height = Inches(1.25))
 
 # Fraction of signature genes represented in CARTEx (200)
+pic = slide.shapes.add_picture("./construction/plots/" + "fraction_sig_repchart_CARTEx.png", top = Inches(2.25), left = Inches(5.25), height = Inches(1.25))
 
-pic = slide.shapes.add_picture("./construction/plots/" + "fraction_sig_repchart_CARTEx.png", top = Inches(2.25), left = Inches(5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "upset_exhaustion_differentiation.png", top = Inches(4), left = Inches(0.25), height = Inches(2))
+
+
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Supplementary figures. glmnet")
+
+pic = slide.shapes.add_picture("./construction/plots/" + "glmnet_equation.png", top = Inches(1), left = Inches(0.25), height = Inches(1.75))
+add_text(0.15, 0.75, 14, 'A')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_cvglmnet_lasso.png", top = Inches(4), left = Inches(0.25), height = Inches(2))
+add_text(0.15, 3, 14, 'B')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_cvglmnet_elastic.png", top = Inches(4), left = Inches(2.5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_cvglmnet_quasi_ridge.png", top = Inches(4), left = Inches(4.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_cvglmnet_ridge.png", top = Inches(4), left = Inches(7), height = Inches(2))
+
+
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_glmnet_alphasize.png", top = Inches(6.5), left = Inches(0.25), height = Inches(2))
 
 
 

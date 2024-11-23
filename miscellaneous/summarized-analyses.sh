@@ -18,12 +18,22 @@ cp ../construction/plots/CARTEx_reactome_pval.png ./plots
 cp ../construction/plots/upset_exhaustion_state_sigs.png ./plots
 cp ../construction/plots/upset_exhaustion_sigs.png ./plots
 cp ../construction/plots/upset_state_sigs.png ./plots
+cp ../construction/plots/upset_exhaustion_differentiation.png ./plots
 
 cp ../construction/plots/barplot_significant_pathways.png ./plots
 
 cp ../construction/plots/bespoke_plot_heatmap_all_sigs_hires.png ./plots
 cp ../construction/plots/bespoke_plot_heatmap_legend_alt.png ./plots
 cp ../construction/plots/plot_signature_cluster_representation.png ./plots
+
+
+cp ../construction/plots/glmnet_equation.png ./plots
+cp ../construction/plots/bespoke_glmnet_alphasize.png ./plots
+cp ../construction/plots/plt_cvglmnet_lasso.png ./plots
+cp ../construction/plots/plt_cvglmnet_elastic.png ./plots
+cp ../construction/plots/plt_cvglmnet_quasi_ridge.png ./plots
+cp ../construction/plots/plt_cvglmnet_ridge.png ./plots
+cp ../construction/plots/bespoke_glmnet_alphasize.png ./plots
 
 
 
