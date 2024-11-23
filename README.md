@@ -140,9 +140,10 @@ We share some summarized analyses resulting from our custom pipelines. Select fi
 The [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) experiment was the cross-sectional and longitudinal studies of CD8 T cells in humans spanning 9 decades of life. This dataset had 120,418 total cells, of which 39,937 were CD8+ T cells. After quality control, we analyzed 39,937 CD8+ T cells. The single-cell transcriptomes had 10,098 genes.
 
 Working directory: [`GSE136184`](experiments/GSE136184)
+- [`GSE136184-1-prepare.R`](experiments/GSE136184/GSE136184-1-prepare.R)
+- [`GSE136184-2-integrate.R`](experiments/GSE136184/GSE136184-2-integrate.R)
 
 <img alt="GSE136184 UMAP age" src="miscellaneous/plots/GSE136184_cs_prepare_umap_age.jpeg" width="300" />
-<img alt="GSE136184 UMAP sex" src="miscellaneous/plots/GSE136184_cs_prepare_umap_sex.jpeg" width="300" />
 
 <img alt="GSE136184 UMAP monaco" src="miscellaneous/plots/GSE136184_cs_prepare_umap_predicted_monaco.jpeg" width="300" />
 
@@ -156,11 +157,7 @@ Working directory: [`GSE125881`](experiments/GSE125881)
 
 <img alt="GSE125881 UMAP group" src="miscellaneous/plots/GSE125881_prepare_umap_group.jpeg" width="300" />
 
-<img alt="GSE125881 UMAP group highlight" src="miscellaneous/plots/GSE125881_prepare_umap_group_highlight.jpeg" width="500" />
-
 <img alt="GSE125881 UMAP phase" src="miscellaneous/plots/GSE125881_prepare_umap_phase.jpeg" width="300" />
-
-<img alt="GSE125881 UMAP phase highlight" src="miscellaneous/plots/GSE125881_prepare_umap_phase_highlight.jpeg" width="700" />
 
 
 ### GSE136874 <a name = "GSE136874"></a>
@@ -173,11 +170,8 @@ Working directory: [`GSE136874`](experiments/GSE136874)
 
 <img alt="GSE136874 UMAP CAR" src="miscellaneous/plots/GSE136874_prepare_umap_CAR.jpeg" width="300" />
 
-<img alt="GSE136874 UMAP CAR highlight" src="miscellaneous/plots/GSE136874_prepare_umap_CAR_highlight.jpeg" width="500" />
-
 <img alt="GSE136874 UMAP phase" src="miscellaneous/plots/GSE136874_prepare_umap_phase.jpeg" width="300" />
 
-<img alt="GSE136874 UMAP phase highlight" src="miscellaneous/plots/GSE136874_prepare_umap_phase_highlight.jpeg" width="700" />
 
 
 
