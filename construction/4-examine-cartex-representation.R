@@ -232,21 +232,21 @@ CARTEx_versions <- list(
 
 
 
-upset_expt_allgenes <- ComplexUpset::upset(UpSetR::fromList(expt.allgenes), intersect = names(expt.allgenes),
+upset_expt_allgenes <- ComplexUpset::upset(UpSetR::fromList(expt.allgenes), intersect = names(expt.allgenes), width_ratio=0.05, height_ratio = 1.5,
                                            base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_expt_allgenes, "./plots/upset_expt_allgenes", c(16, 6))
+generate_figs(upset_expt_allgenes, "./plots/upset_expt_allgenes", c(30, 4))
 
 upset_expt_CARTEx630 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx630), intersect = names(expt.CARTEx630),
                                             base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
 generate_figs(upset_expt_CARTEx630, "./plots/upset_expt_CARTEx630", c(6, 6))
 
-upset_expt_CARTEx200 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx200), intersect = names(expt.CARTEx200),
+upset_expt_CARTEx200 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx200), intersect = names(expt.CARTEx200), width_ratio=0.3, height_ratio = 1.5,
                                             base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_expt_CARTEx200, "./plots/upset_expt_CARTEx200", c(6, 6))
+generate_figs(upset_expt_CARTEx200, "./plots/upset_expt_CARTEx200", c(9, 4))
 
-upset_expt_CARTEx84 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx84), intersect = names(expt.CARTEx84),
+upset_expt_CARTEx84 <- ComplexUpset::upset(UpSetR::fromList(expt.CARTEx84), intersect = names(expt.CARTEx84), width_ratio=0.3, height_ratio = 1.5,
                                            base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
-generate_figs(upset_expt_CARTEx84, "./plots/upset_expt_CARTEx84", c(6, 6))
+generate_figs(upset_expt_CARTEx84, "./plots/upset_expt_CARTEx84", c(6.5, 4))
 
 upset_expt_TSG <- ComplexUpset::upset(UpSetR::fromList(expt.TSG), intersect = names(expt.TSG),
                                       base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
@@ -345,6 +345,23 @@ generate_figs(upset_exhaustion_state_sigs, "./plots/upset_exhaustion_state_sigs"
 
 
 
+exhaustion_differentiation <- list(
+  C5 = toupper(rownames(cartex_630_weights)),
+  CARTEx = toupper(rownames(cartex_200_weights)),
+  Tex_Term = Daniel_Tex_Term,
+  Tex_KLR = Daniel_Tex_KLR
+)
+
+upset_exhaustion_differentiation <- ComplexUpset::upset(UpSetR::fromList(exhaustion_differentiation), intersect = names(exhaustion_differentiation), width_ratio=0.2,
+                                                   base_annotations=list('Intersection size'=(intersection_size(counts=FALSE))))
+generate_figs(upset_exhaustion_differentiation, "./plots/upset_exhaustion_differentiation", c(6, 3.5))
+
+
+
+
+
+
+
 ####################################################################################################
 #################################### Generate representation charts ################################
 ####################################################################################################
@@ -431,6 +448,14 @@ generate_figs(fraction_CARTEx_repchart, "./plots/fraction_CARTEx_repchart", c(6,
 
 
 
+compare_exhaustion_sigs <- list(
+  CARTEx = rownames(read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)),
+  Tex_Term = Daniel_Tex_Term,
+  Tex_KLR = Daniel_Tex_KLR
+)
+
+ggvenn_compare_exhaustion_sigs <- ggvenn(compare_exhaustion_sigs, set_name_size = 3, text_size = 3)
+generate_figs(ggvenn_compare_exhaustion_sigs, paste('./plots/ggvenn_compare_exhaustion_sigs', sep = ''), c(4,4))
 
 
 

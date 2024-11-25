@@ -83,9 +83,10 @@ for (a in alpha_sequence){
 explore_space <- data.frame(alpha_sequence, CARTEx_size)
 
 plt_cvglmnet_alpha_size <- ggplot(explore_space, aes(x=alpha_sequence, y=CARTEx_size)) + 
-  geom_point(size=2) + geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95)
+  geom_smooth(method="auto", se=TRUE, fullrange=FALSE, level=0.95) + geom_point(size=0.5) + 
+  ylab('CARTEx genes') + xlab('Alpha Sequence') + theme_classic()
 
-generate_figs(plt_cvglmnet_alpha_size, "./plots/plt_cvglmnet_alpha_size")
+generate_figs(plt_cvglmnet_alpha_size, "./plots/plt_cvglmnet_alpha_size", c(2,2))
 
 refined_set <- Reduce(union, list(CARTEx_genesets$alpha_1, CARTEx_genesets$alpha_0.825, CARTEx_genesets$alpha_0.75, 
                                   CARTEx_genesets$alpha_0.625, CARTEx_genesets$alpha_0.5, 
@@ -110,10 +111,10 @@ colnames(cv_tmp) <- c("lambda", "mse", "sde", "upper", "lower")
 
 plt_cvglmnet_lasso <- ggplot(cv_tmp, aes(log(lambda), mse)) + 
   geom_vline(xintercept=log(cvfit_lasso$lambda.min), linetype='dashed') + geom_vline(xintercept=log(cvfit_lasso$lambda.1se), linetype='dashed') +
-  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red") + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red", size = 0.5) + 
   xlab("log(Lambda)") + ylab("Mean-squared error") + theme_bw() + theme(legend.position="none")
 
-generate_figs(plt_cvglmnet_lasso, "./plots/plt_cvglmnet_lasso")
+generate_figs(plt_cvglmnet_lasso, "./plots/plt_cvglmnet_lasso", c(2,2))
 
 weights_lasso_min <- prepare_weights(cvfit_lasso, "lambda.min")
 write.csv(weights_lasso_min, "./data/weights_lasso_min.csv")
@@ -130,10 +131,10 @@ colnames(cv_tmp) <- c("lambda", "mse", "sde", "upper", "lower")
 
 plt_cvglmnet_ridge <- ggplot(cv_tmp, aes(log(lambda), mse)) + 
   geom_vline(xintercept=log(cvfit_ridge$lambda.min), linetype='dashed') + geom_vline(xintercept=log(cvfit_ridge$lambda.1se), linetype='dashed') +
-  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red") + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red", size = 0.5) + 
   xlab("log(Lambda)") + ylab("Mean-squared error") + theme_bw() + theme(legend.position="none")
 
-generate_figs(plt_cvglmnet_ridge, "./plots/plt_cvglmnet_ridge")
+generate_figs(plt_cvglmnet_ridge, "./plots/plt_cvglmnet_ridge", c(2,2))
 
 weights_ridge_min <- prepare_weights(cvfit_ridge, "lambda.min")
 write.csv(weights_ridge_min, "./data/weights_ridge_min.csv")
@@ -150,10 +151,10 @@ colnames(cv_tmp) <- c("lambda", "mse", "sde", "upper", "lower")
 
 plt_cvglmnet_elastic <- ggplot(cv_tmp, aes(log(lambda), mse)) + 
   geom_vline(xintercept=log(cvfit_elastic$lambda.min), linetype='dashed') + geom_vline(xintercept=log(cvfit_elastic$lambda.1se), linetype='dashed') +
-  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red") + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red", size = 0.5) + 
   xlab("log(Lambda)") + ylab("Mean-squared error") + theme_bw() + theme(legend.position="none")
 
-generate_figs(plt_cvglmnet_elastic, "./plots/plt_cvglmnet_elastic")
+generate_figs(plt_cvglmnet_elastic, "./plots/plt_cvglmnet_elastic", c(2,2))
 
 weights_elastic_min <- prepare_weights(cvfit_elastic, "lambda.min")
 write.csv(weights_elastic_min, "./data/weights_elastic_min.csv")
@@ -169,10 +170,10 @@ colnames(cv_tmp) <- c("lambda", "mse", "sde", "upper", "lower")
 
 plt_cvglmnet_quasi_ridge <- ggplot(cv_tmp, aes(log(lambda), mse)) + 
   geom_vline(xintercept=log(cvfit_quasi_ridge$lambda.min), linetype='dashed') + geom_vline(xintercept=log(cvfit_quasi_ridge$lambda.1se), linetype='dashed') +
-  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red") + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), col = "grey") + geom_point(col = "red", size = 0.5) + 
   xlab("log(Lambda)") + ylab("Mean-squared error") + theme_bw() + theme(legend.position="none")
 
-generate_figs(plt_cvglmnet_quasi_ridge, "./plots/plt_cvglmnet_quasi_ridge")
+generate_figs(plt_cvglmnet_quasi_ridge, "./plots/plt_cvglmnet_quasi_ridge", c(2,2))
 
 weights_quasi_ridge_min <- prepare_weights(cvfit_quasi_ridge, "lambda.min")
 write.csv(weights_quasi_ridge_min, "./data/weights_quasi_ridge_min.csv")
@@ -229,7 +230,7 @@ plt_CARTEx_84 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19"
   stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.2) + 
   scale_fill_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
   scale_alpha_manual(values = c('0' = 0.25, '11' = 0.5, '15' = 0.75, '21' = 1)) +
-  xlab("CAR") + ylab("CARTEx 84") + ylim(-2.5,2.5) + theme_classic()
+  xlab("CAR") + ylab("CARTEx") + ylim(-2.5,2.5) + theme_classic()
 
 
 generate_figs(plt_CARTEx_84, "./plots/plt_CARTEx_84", c(4,3))

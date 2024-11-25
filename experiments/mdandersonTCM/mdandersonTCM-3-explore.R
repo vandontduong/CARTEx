@@ -249,11 +249,10 @@ compare_sigs <- list(
   TSR = rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1))
 )
 
-par(mar=c(7,5,1,1))
-compare_sigs_CARTEx_TSR <- ggvenn(compare_sigs) 
-generate_figs(compare_sigs_CARTEx_TSR, paste('./plots/', experiment, '_prepare_compare_sigs_CARTEx_TSR', sep = ''), c(3,3))
+compare_sigs_CARTEx_TSR <- ggvenn(compare_sigs, set_name_size = 3, text_size = 3)
+generate_figs(compare_sigs_CARTEx_TSR, paste('./plots/', experiment, '_prepare_compare_sigs_CARTEx_TSR', sep = ''), c(3,2.5))
 
-
+# 
 
 
 

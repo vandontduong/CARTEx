@@ -157,6 +157,10 @@ STAT3_GOF_sig_stim <- rownames(read.csv("./data/GSE207935_STAT3_GOF_stim.csv", h
 STAT3_GOF_sig_rest <- rownames(read.csv("./data/GSE207935_STAT3_GOF_rest.csv", header = TRUE, row.names = 1))
 STAT3_GOF_sig_combined <- rownames(read.csv("./data/GSE207935_STAT3_GOF_combined.csv", header = TRUE, row.names = 1))
 
+STAT3_GOF_sig_intersect <- intersect(STAT3_GOF_sig_stim, STAT3_GOF_sig_rest)
+write.csv(STAT3_GOF_sig_intersect, "./data/GSE207935_STAT3_GOF_intersect.csv", row.names=FALSE)
+
+
 STAT3_GOF_sig_venn <- list(
   Stim = STAT3_GOF_sig_stim, 
   Rest = STAT3_GOF_sig_rest, 
@@ -164,10 +168,10 @@ STAT3_GOF_sig_venn <- list(
 )
 
 library(ggvenn)
-plot_STAT3_GOF_sig_venn <- ggvenn(STAT3_GOF_sig_venn, fill_color = c("violetred", "steelblue", "orange"), stroke_size = 0.5, set_name_size = 4)
-generate_figs(plot_STAT3_GOF_sig_venn, paste('./plots/', experiment, '_plot_STAT3_GOF_sig_venn', sep = ''), c(3.5,3.5))
+plot_STAT3_GOF_sig_venn <- ggvenn(STAT3_GOF_sig_venn, fill_color = c("violetred", "steelblue", "orange"), stroke_size = 0.5, set_name_size = 3, text_size = 3)
+generate_figs(plot_STAT3_GOF_sig_venn, paste('./plots/', experiment, '_plot_STAT3_GOF_sig_venn', sep = ''), c(2,2))
 
-
+####
 
 
 
@@ -369,6 +373,19 @@ generate_figs(umap_activation_monaco, paste('./plots/', experiment, '_prepare_um
 umap_anergy_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Anergy"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
 generate_figs(umap_anergy_monaco, paste('./plots/', experiment, '_prepare_umap_anergy_monaco', sep = ''), c(8,2))
 
+umap_senescence_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Senescence"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_senescence_monaco, paste('./plots/', experiment, '_prepare_umap_senescence_monaco', sep = ''), c(8,2))
+
+umap_TSR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_TSR_monaco, paste('./plots/', experiment, '_prepare_umap_TSR_monaco', sep = ''), c(8,2))
+
+umap_Tex_Term_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_Tex_Term_monaco, paste('./plots/', experiment, '_prepare_umap_Tex_Term_monaco', sep = ''), c(8,2))
+
+umap_Tex_KLR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_Tex_KLR_monaco, paste('./plots/', experiment, '_prepare_umap_Tex_KLR_monaco', sep = ''), c(8,2))
+
+
 
 
 
@@ -393,10 +410,55 @@ generate_figs(umap_stemness_affstatstim, paste('./plots/', experiment, '_prepare
 umap_TSR_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc)
 generate_figs(umap_TSR_affstatstim, paste('./plots/', experiment, '_prepare_umap_TSR_affstatstim', sep = ''), c(8,2))
 
+umap_Tex_Term_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc)
+generate_figs(umap_Tex_Term_affstatstim, paste('./plots/', experiment, '_prepare_umap_Tex_Term_affstatstim', sep = ''), c(8,2))
+
+umap_Tex_KLR_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc)
+generate_figs(umap_Tex_KLR_affstatstim, paste('./plots/', experiment, '_prepare_umap_Tex_KLR_affstatstim', sep = ''), c(8,2))
+
+
 
 
 # https://divingintogeneticsandgenomics.com/post/customize-featureplot-in-seurat-for-multi-condition-comparisons-using-patchwork/
 ### 
+
+# dmaps
+
+dmap_CARTEx_200_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_CARTEx_200_affstatstim[[i]] <- dmap_CARTEx_200_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_CARTEx_200_affstatstim, paste('./plots/', experiment, '_prepare_dmap_CARTEx_200_affstatstim', sep = ''), c(8,2))
+
+dmap_activation_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Activation"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_activation_affstatstim[[i]] <- dmap_activation_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_activation_affstatstim, paste('./plots/', experiment, '_prepare_dmap_activation_affstatstim', sep = ''), c(8,2))
+
+dmap_anergy_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Anergy"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_anergy_affstatstim[[i]] <- dmap_anergy_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_anergy_affstatstim, paste('./plots/', experiment, '_prepare_dmap_anergy_affstatstim', sep = ''), c(8,2))
+
+dmap_senescence_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Senescence"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_senescence_affstatstim[[i]] <- dmap_senescence_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_senescence_affstatstim, paste('./plots/', experiment, '_prepare_dmap_senescence_affstatstim', sep = ''), c(8,2))
+
+dmap_TSR_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_TSR_affstatstim[[i]] <- dmap_TSR_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_TSR_affstatstim, paste('./plots/', experiment, '_prepare_dmap_TSR_affstatstim', sep = ''), c(8,2))
+
+dmap_Tex_Term_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_Tex_Term_affstatstim[[i]] <- dmap_Tex_Term_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_Tex_Term_affstatstim, paste('./plots/', experiment, '_prepare_dmap_Tex_Term_affstatstim', sep = ''), c(8,2))
+
+dmap_Tex_KLR_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'AffstatStim', split_ids = c("Ctrl (R)", "Ctrl (S)", "GOF (R)", "GOF (S)"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_Tex_KLR_affstatstim[[i]] <- dmap_Tex_KLR_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_Tex_KLR_affstatstim, paste('./plots/', experiment, '_prepare_dmap_Tex_KLR_affstatstim', sep = ''), c(8,2))
+
+
+
+
+##
+
+
+
 
 
 FeaturePlot(expt.obj, features = c("CARTEx_200", "TSR"), pt.size = 0.1, blend = TRUE)

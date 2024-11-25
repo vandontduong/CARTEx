@@ -243,8 +243,8 @@ generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot
 md$PDCD1 <- query.obj.agg@assays$RNA$data['PDCD1',]
 
 aggplot_PDCD1 <- md %>% ggplot(aes(identifier2, PDCD1)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
-  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid"), color = "black") + geom_hline(yintercept=0) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") +
+  scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) + geom_hline(yintercept=0) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 0.15) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 0.18) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 0.21) +

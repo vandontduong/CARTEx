@@ -72,6 +72,15 @@ transitplot_affstatstim_TSR <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colo
 generate_figs(transitplot_affstatstim_TSR, paste('./plots/', experiment, '_transition_transitplot_affstatstim_TSR', sep = ''), c(10, 5))
 
 
+transitplot_affstatstim_Tex_Term <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = Tex_Term)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
+generate_figs(transitplot_affstatstim_Tex_Term, paste('./plots/', experiment, '_transition_transitplot_affstatstim_Tex_Term', sep = ''), c(10, 5))
+
+transitplot_affstatstim_Tex_KLR <- ggplot(md, aes(x = DC1rank, y = AffstatStim, colour = Tex_KLR)) +
+  geom_quasirandom(groupOnX = FALSE, size = 0.1) + fix.sc + theme_classic()
+generate_figs(transitplot_affstatstim_Tex_KLR, paste('./plots/', experiment, '_transition_transitplot_affstatstim_Tex_KLR', sep = ''), c(10, 5))
+
+
 
 ###
 

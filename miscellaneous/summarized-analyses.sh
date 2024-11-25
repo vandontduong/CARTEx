@@ -34,7 +34,7 @@ cp ../construction/plots/plt_cvglmnet_elastic.png ./plots
 cp ../construction/plots/plt_cvglmnet_quasi_ridge.png ./plots
 cp ../construction/plots/plt_cvglmnet_ridge.png ./plots
 cp ../construction/plots/bespoke_glmnet_alphasize.png ./plots
-
+cp ../construction/plots/plt_CARTEx_84.png ./plots
 
 
 
