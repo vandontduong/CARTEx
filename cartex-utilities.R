@@ -641,8 +641,8 @@ CustomKeyValPairsVolcanoPlot <- function(de_genes, select_genes, select_genes_na
 # @ split_ids: vector of strings describing the unique identities within split_identity (custom names)
 # @ color_scale: color_scale (optional)
 
-FeaturePlotSplitBy <- function(atlas, features, split_identity, split_ids, color_scale = NULL){
-  featplots <- FeaturePlot(expt.obj, features = features, order = FALSE, pt.size = 0.1, split.by = split_identity)
+FeaturePlotSplitBy <- function(atlas, features, split_identity, split_ids, color_scale = NULL, reduction_map = 'umap'){
+  featplots <- FeaturePlot(expt.obj, reduction = reduction_map, features = features, order = FALSE, pt.size = 0.1, split.by = split_identity)
   if (is.null(color_scale)) {
     for(i in 1:length(split_ids)){featplots[[i]] <- featplots[[i]] + labs(title = split_ids[i])}
   }
