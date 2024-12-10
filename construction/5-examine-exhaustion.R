@@ -55,7 +55,7 @@ plot_canonical_exhaustion_markers <- ggplot(melted_df, aes(x = Days, y = name, f
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~variable, scales = "free_y") +
   geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
-  labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
+  labs(x = "Day", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
   scale_fill_manual(values = custom_colors) + theme_classic()
 
 # log2-transformed TPM values
@@ -208,7 +208,7 @@ colAnn <- HeatmapAnnotation(
 # https://jokergoo.github.io/ComplexHeatmap-reference/book/heatmap-annotations.html#mark-annotation
 # select_genes <- c('FOS', 'CSF1', 'TCF7', 'BTLA', 'ID3', 'NFATC1', 'KLRG1', 'CD160', 'NFKB1', 'TOX', 'GZMA', 'BATF', 'EOMES', 'PDCD1', 'ZEB2', 'CXCR5', 'JUN', 'IFNG', 'RUNX3', 'NR4A1', 'TNFRSF9', 'LAG3', 'GZMB', 'ENTPD1', 'IL21R', 'CTLA4', 'TIGIT')
 # select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT1', 'STAT3', 'STAT4', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'NFKB1', 'NFKB2', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69')
-select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT3', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69')
+select_genes <- c('CSF1', 'CD44', 'IL2', 'IL3', 'STAT3', 'KLRG1', 'TOX', 'TCF7', "PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", 'FOS', 'BTAF', 'EOMES', 'JUN', 'CD160', 'BTLA', 'GZMA', 'GZMB', 'NFATC1', 'TBX21', 'RUNX3', 'IL21R', 'TNFRSF9', 'INFG', 'ZEB2', 'ICOSLG', 'REL', 'TNFRSF11A', 'CD40LG', 'SELL', 'SLAMF6', 'CD69', 'CD38', 'KLF2', 'CD8B', 'ADA2', 'TRPV1', 'BCL2A1', 'PIM2')
 # select_genes <- c('MYC', 'BRD4', 'BRD3', 'BRD2', 'BRDT', 'CDK9', 'CCNT1', 'HIF1A', 'HIF2A', 'HIF1B', 'NFKB1', 'NFKB2', 'RELA', 'RELB', 'REL', 'CD137', 'TNFRSF11A', 'TNFRSF11B', 'MAP3K14', 'ICOSLG', 'NFKBIA', 'NFKBIB', 'NFKBIE', 'EP300', 'CREBBP', 'TET2')
 
 # examine NFKB pathways
@@ -255,6 +255,18 @@ gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "STAT1"] # C1
 gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "IFNG"] # C5
 gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "TBX21"] # C3 T-Bet
 gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SOCS3"] # C1
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "CD38"] # C1
+
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SELL"] # C2
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "SELE"] # none
+
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "KLF2"] # C2
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "FOXP1"] # none
+
+
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "IL31RA"] # C3
+
+
 
 
 # list genes in a specific cluster

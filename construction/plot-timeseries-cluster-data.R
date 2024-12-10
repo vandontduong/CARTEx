@@ -1,5 +1,5 @@
-## Author: Hima Anbunathan
-## Plot time series data
+## Minimally modified from Hima's code
+## Plot Day series data
 
 # ml R/4.2.0
 # Rscript plot-timeseries-cluster-data.R -f ./data/Data_Figure1B.csv -c C1 -o ./plots/cluster1.png
@@ -31,11 +31,11 @@ create_data_for_plot <- function(inputfile, cluster_num) {
   cluster <- clusters[clusters$cluster == cluster_num,]
   print(paste0('Number of genes in cluster ',cluster_num," = ",dim(cluster)[1]))
   CAR = unlist(lapply(colnames(cluster)[-22], function(x) unlist(strsplit(x, "_"))[1]))
-  Time = unlist(lapply(colnames(cluster)[-22], function(x) unlist(strsplit(x, "_"))[3]))
-  pdata <- data.frame(CAR, Time)
+  Day = unlist(lapply(colnames(cluster)[-22], function(x) unlist(strsplit(x, "_"))[3]))
+  pdata <- data.frame(CAR, Day)
   dat2 <- data.frame(cbind(t(cluster[,-22]), pdata))
-  dat3 <- melt(dat2, id.vars = c("CAR", "Time"))
-  dat3$Time <- as.factor(dat3$Time)
+  dat3 <- melt(dat2, id.vars = c("CAR", "Day"))
+  dat3$Day <- as.factor(dat3$Day)
   dat3$CAR <- as.factor(dat3$CAR) 
   return(dat3)
   
@@ -46,19 +46,19 @@ if (!is.null(opt$file) && !is.null(opt$cluster_num) && !is.null(opt$output)) {
   dat3 <- create_data_for_plot(opt$file, opt$cluster_num)
   
   gd <- dat3 %>% 
-    group_by(variable, Time, CAR) %>% 
-    summarise(gene_mean_per_time = mean(value))
+    group_by(variable, Day, CAR) %>% 
+    summarise(gene_mean_per_Day = mean(value))
   
   gd2 <- gd %>% 
-    group_by(CAR, Time) %>% 
-    summarise(all_genes = mean(gene_mean_per_time))
+    group_by(CAR, Day) %>% 
+    summarise(all_genes = mean(gene_mean_per_Day))
   
   cluster_value = unlist(strsplit(opt$cluster_num, "C"))[2]
   
-  finalplot = ggplot(gd, aes(x = Time, y = gene_mean_per_time)) + 
+  finalplot = ggplot(gd, aes(x = Day, y = gene_mean_per_Day)) + 
     geom_line(aes(group = variable), color="gray90") +
-    geom_line(data = gd2, aes(x = Time, y = all_genes, group=CAR, color=CAR), linewidth=2) +
-    ylab("z-score") +
+    geom_line(data = gd2, aes(x = Day, y = all_genes, group=CAR, color=CAR), linewidth=2) +
+    ylab("z-score") + scale_x_discrete(labels = c("0", "11", "15", "21")) +
     scale_color_manual(values = c("dodgerblue", "black", "indianred")) + 
     ggtitle(paste0('Cluster ',cluster_value)) +
     theme_classic() + 

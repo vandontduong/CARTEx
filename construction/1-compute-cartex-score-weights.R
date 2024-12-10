@@ -213,7 +213,9 @@ initial_pca <- ggplot(pcaData, aes(x = PC1, y = PC2, fill = CAR, alpha = Timepoi
   ylab(paste0("PC2 (", percentVar[2], "% variance)")) + 
   xlim(c(-25, 25)) + ylim(c(-15,15))
 
-generate_figs(initial_pca, './plots/plot_initial_pca', c(3.1,2))
+initial_pca$labels$alpha <- "Day" # rename from Timepoint to Day
+
+generate_figs(initial_pca, './plots/plot_initial_pca', c(3.5,2.5))
 
 
 

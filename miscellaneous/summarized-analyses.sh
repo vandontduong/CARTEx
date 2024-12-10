@@ -9,6 +9,7 @@ cp ../construction/plots/cluster2.png ./plots
 cp ../construction/plots/cluster3.png ./plots
 cp ../construction/plots/cluster4.png ./plots
 cp ../construction/plots/cluster5.png ./plots
+cp ../construction/plots/bespoke_plot_all_clusters.png ./plots
 cp ../construction/plots/plot_initial_pca.png ./plots
 cp ../construction/plots/plot_canonical_exhaustion_markers.png ./plots
 cp ../construction/plots/plt_CARTEx_200.png ./plots
