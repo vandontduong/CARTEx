@@ -84,7 +84,7 @@ pic = slide.shapes.add_picture("./miscellaneous/graphical_abstract.png", left = 
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 1. Bulk RNA sequencing of functional and exhausted CAR T cells across 21 days")
+slide = add_slide(prs, blank_slide_layout, "Figure 1. Bulk RNA sequencing of sorted functional and exhausted CD8+ CAR T cells across 21 days")
 
 pic = slide.shapes.add_picture("./construction/plots/" + "HA_model_diagram.png", left = Inches(0.5), top = Inches(0.9), height = Inches(1.75))
 add_text(0.25, 0.75, 14, 'A')
@@ -120,7 +120,7 @@ add_text(6, 5.75, 14, 'G')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 1. glmnet")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 1. CARTEx signature refinement using glmnet")
 
 pic = slide.shapes.add_picture("./construction/plots/" + "glmnet_equation.png", top = Inches(0.75), left = Inches(0.25), height = Inches(2.5))
 add_text(0.15, 0.75, 14, 'A')
@@ -180,7 +180,7 @@ add_text(0.15, 0.75, 14, 'E')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 2. Biological context / Evaluation with other exhaustion and cell state signatures")
+slide = add_slide(prs, blank_slide_layout, "Figure 2. Contextualizing the CARTEx signature")
 
 # https://answers.microsoft.com/en-us/msoffice/forum/all/in-powerpoint-save-as-picture-saves-images-in-low/15ae4a58-6065-4b9a-b23a-ecb22f3cbf2a
 pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_all_sigs_hires.png", top = Inches(0.75), left = Inches(0.25), height = Inches(4.5))
@@ -208,7 +208,7 @@ add_text(0.15, 9.5, 14, 'F')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 3. Applying CARTEx signature to bulk RNA sequencing data")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 3. CARTEx scoring of bulk RNA sequencing datasets")
 
 pic = slide.shapes.add_picture("./miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019.png", top = Inches(0.75), left = Inches(0.25), height = Inches(1.75))
 add_text(0.15, 0.75, 14, 'A')
@@ -229,7 +229,7 @@ add_text(3.35, 3, 14, 'D')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 3. T cell exhaustion is distinct from aging, cell cycle, and differentiation")
+slide = add_slide(prs, blank_slide_layout, "Figure 3. Analysis of 39,937 CD8+ T cells from healthy donors across 9 decades of life")
 # Naive and terminal effector T cells have age-invariant CARTEx scores
 # Central memory and effector memory T cells have age-dependent CARTEx scores
 # We derived relative controls for scRNAseq analyses
@@ -282,7 +282,7 @@ add_text(5.05, 8.25, 14, 'K')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 4. Validation in exhaustion-prone models")
+slide = add_slide(prs, blank_slide_layout, "Figure 4. Analysis of 14,436 functional and exhaustion-prone CD8+ CAR T cells")
 
 experiment = "GSE136874" # CD19 vs GD2 experiment
 
@@ -308,7 +308,7 @@ add_text(2.65, 2.5, 14, 'E')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_CAR.png", left = Inches(5.25), top = Inches(2.5), height = Inches(1.5))
 add_text(5.15, 2.5, 14, 'F')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(6.25), top = Inches(2.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(6.4), top = Inches(2.5), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(8.5), top = Inches(2.5), height = Inches(2))
 add_text(8.4, 2.5, 14, 'G')
@@ -334,12 +334,12 @@ add_text(0.15, 7, 14, 'L')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(2.5), top = Inches(7), height = Inches(1.5))
 add_text(2.4, 7, 14, 'M')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_exposure_slim.png", left = Inches(5), top = Inches(7), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_exposure_slim.png", left = Inches(5), top = Inches(7), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(6.5), top = Inches(7), height = Inches(1.5))
 add_text(6.4, 7, 14, 'N')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_exposure_slim.png", left = Inches(9), top = Inches(7), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_exposure_slim.png", left = Inches(9), top = Inches(7), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_exposure_exhaustion_markers.png", left = Inches(0.25), top = Inches(8.85), height = Inches(1.75))
 add_text(0.15, 8.75, 14, 'O')
@@ -350,29 +350,29 @@ add_text(2.65, 8.75, 14, 'P')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_exposure.png", left = Inches(5.25), top = Inches(8.75), height = Inches(1.5))
 add_text(5.15, 8.75, 14, 'Q')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(6.25), top = Inches(8.75), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(6.25), top = Inches(8.9), height = Inches(1.5))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(8.5), top = Inches(8.75), height = Inches(2))
 add_text(8.4, 8.75, 14, 'R')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_exposure_monaco_split_countsized.png", left = Inches(0.25), top = Inches(10.75), height = Inches(2))
-add_text(0.15, 10.75, 14, 'S')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_exposure_monaco_split_countsized.png", left = Inches(0.25), top = Inches(11), height = Inches(2))
+add_text(0.15, 11, 14, 'S')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_exposure.png", left = Inches(2.5), top = Inches(10.75), height = Inches(1.5))
-add_text(2.4, 10.75, 14, 'T')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_exposure.png", left = Inches(2.5), top = Inches(11), height = Inches(1.5))
+add_text(2.4, 11, 14, 'T')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_CARTEx_200.png", left = Inches(4.75), top = Inches(10.75), height = Inches(1.5))
-add_text(4.65, 10.75, 14, 'U')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_CARTEx_200.png", left = Inches(4.75), top = Inches(11), height = Inches(1.5))
+add_text(4.65, 11, 14, 'U')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_transitplot_exposure_CARTEx_200.png", left = Inches(7), top = Inches(10.75), height = Inches(2))
-add_text(6.9, 10.75, 14, 'V')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_transitplot_exposure_CARTEx_200.png", left = Inches(7), top = Inches(11), height = Inches(2))
+add_text(6.9, 11, 14, 'V')
 
 
 
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 4. validation in exhaustion-prone models")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 4. Additional analysis of exhaustion-prone CAR T cell models")
 
 experiment = "GSE136874" # CD19 vs GD2 experiment
 
@@ -437,7 +437,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 5. Activation and resting T cells from healthy donors")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 5. Analysis of 5,434 resting and stimulated CD8+ T from healthy donors")
 # important to assess baseline exhaustion
 
 experiment = "GSE126030" # 
@@ -484,7 +484,7 @@ add_text(7.9, 7.75, 14, 'L')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 5. T cells from healthy donors and cancer patients (MD Anderson pan-cancer)")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 6. Analysis of 53,757 CD8+ T cells from 16 cancer types")
 # H, normal tissues from healthy donors; U, tumor-adjacent uninvolved tissues; P, primary tumor tissues; M, metastatic tumor tissues
 
 experiment = "mdandersonTCM" # 
@@ -535,7 +535,7 @@ add_text(2.9, 8.25, 14, 'K')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 5. CARTEx applied to clinical oncology")
+slide = add_slide(prs, blank_slide_layout, "Figure 5. Analysis of 101,626 CD8+ endogenous and CAR T cells in clinical oncology")
 
 experiment = "GSE120575" # Sade-Feldman
 
@@ -622,25 +622,25 @@ add_text(5.9, 8.75, 14, 'Q')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group2_slim.png", left = Inches(8.25), top = Inches(8.75), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_group2.png", left = Inches(0.25), top = Inches(9.5), height = Inches(1.5))
-add_text(0.15, 9.5, 14, 'R')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_group2.png", left = Inches(0.25), top = Inches(10.5), height = Inches(1.5))
+add_text(0.15, 10.5, 14, 'R')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(9.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(10.5), height = Inches(1.5))
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_plot_volcano_InVivo_IP.png", left = Inches(3.5), top = Inches(12), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(3.5), top = Inches(9.5), height = Inches(2))
-add_text(3.4, 9.5, 14, 'S')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(3.5), top = Inches(10.5), height = Inches(2))
+add_text(3.4, 10.5, 14, 'S')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_group2_monaco_split_countsized.png", left = Inches(6.5), top = Inches(9.5), height = Inches(2))
-add_text(6.4, 9.5, 14, 'T')
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_group2_monaco_split_countsized.png", left = Inches(6.5), top = Inches(10.5), height = Inches(2))
+add_text(6.4, 10.5, 14, 'T')
 
 
 
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 6. COVID-19 severity and SARS-CoV-2-reactive T cell exhaustion")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 7. Analysis of 61,583 CD8+ virus-reactive T cells including those with memory response to SARS-CoV-2")
 
 experiment = "GSE153931" # COVID-19 severity and SARS-CoV-2-reactive T cell exhaustion
 
@@ -687,7 +687,7 @@ add_text(4.9, 7.75, 14, 'K')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Figure 6. CARTEx applied to CD8 T cells in autoimmune disorders")
+slide = add_slide(prs, blank_slide_layout, "Figure 6. Analysis of 25,191 CD8+ T cells from patients with STAT3 GOF syndrome")
 
 experiment = "GSE207935" # STAT3 GOF
 
@@ -730,7 +730,7 @@ add_text(3.05, 5.25, 14, 'H')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 7. More STAT3 GOF")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 8. Additional analysis of STAT3 GOF CD8+ T cells")
 
 experiment = "GSE207935" # STAT3 GOF
 
@@ -800,7 +800,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 8. Severe psoriasis is distinct from T cell exhaustion")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 9. Analysis of 3,342 CD8+ T cells from patients with severe psoriasis")
 
 experiment = "GSE146264" # Severe psoriasis
 
@@ -816,7 +816,7 @@ add_text(0.15, 2.5, 14, 'C')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_severity_slim.png", top = Inches(2.5), left = Inches(2.75), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(2.5), left = Inches(4), height = Inches(1.5))
-add_text(4, 2.5, 14, 'D')
+add_text(3.9, 2.5, 14, 'D')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(0.25), top = Inches(4.25), height = Inches(1.5))
 add_text(0.15, 4.25, 14, 'E')
@@ -830,7 +830,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 add_text(0.15, 6, 14, 'G')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_severity_monaco_split_countsized.png", top = Inches(6), left = Inches(2), height = Inches(2))
-add_text(3.9, 6, 14, 'H')
+add_text(1.9, 6, 14, 'H')
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(6), left = Inches(5), height = Inches(2))
 
@@ -841,7 +841,7 @@ add_text(3.9, 6, 14, 'H')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 9. BEACH domain deficiencies (autoimmunity caused by defective CTLA-4 trafficking)")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 10. Analysis of 8,118 CD8+ T cells from patients with BEACH domain deficiencies")
 
 experiment = "GSE196606" # NBEAL2 and LRBA deficiencies
 
@@ -857,7 +857,7 @@ add_text(0.15, 2.5, 14, 'C')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_group_slim.png", top = Inches(2.5), left = Inches(2.75), height = Inches(1.25))
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(2.5), left = Inches(4), height = Inches(1.5))
-add_text(4, 2.5, 14, 'D')
+add_text(3.9, 2.5, 14, 'D')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(0.25), top = Inches(4.25), height = Inches(1.5))
 add_text(0.15, 4.25, 14, 'E')
@@ -871,7 +871,7 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 add_text(0.15, 6, 14, 'G')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_group_monaco_split_countsized.png", top = Inches(6), left = Inches(2), height = Inches(2))
-add_text(3.9, 6, 14, 'H')
+add_text(2.9, 6, 14, 'H')
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", top = Inches(6), left = Inches(5), height = Inches(2))
 
@@ -885,7 +885,7 @@ add_text(4.9, 6, 14, 'I')
 
 
 # new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 10. T cell exhaustion in neurodegenerative diseases")
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 11. Analysis of 28,105 CD8+ T cells from patients with Parkinson's disease")
 
 experiment = "Zenodo3993994" # 
 
@@ -935,6 +935,9 @@ add_text(5.4, 8.25, 14, 'L')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_transition_transitplot_disease_CARTEx_200.png", top = Inches(10.5), left = Inches(5.5), height = Inches(2))
 add_text(5.4, 10.5, 14, 'M')
+
+
+
 
 
 
