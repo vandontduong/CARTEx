@@ -37,8 +37,12 @@ transitplot_disease_monaco <- ggplot(md, aes(x = DC1rank, y = Disease, color = m
 generate_figs(transitplot_disease_monaco, paste('./plots/', experiment, '_blood_transition_transitplot_disease_monaco', sep = ''), c(3.5,2))
 
 
-FeaturePlot(expt.obj, feature = 'DC1rank')
+umap_DC1rank <- FeaturePlot(expt.obj, feature = 'DC1rank', order = FALSE, pt.size = 0.1) + theme(plot.title = element_blank()) + 
+  scale_color_gradientn(colours = c("yellow", "orange", "red", "violetred", "darkorchid"))
+generate_figs(umap_DC1rank, paste('./plots/', experiment, '_blood_prepare_umap_DC1rank', sep = ''), c(3, 2))
 
+
+# c("royalblue","palevioletred","darkorchid")
 
 
 

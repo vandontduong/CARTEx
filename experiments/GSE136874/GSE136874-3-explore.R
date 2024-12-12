@@ -57,6 +57,8 @@ featplot_CARTEx_84_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_84', 
 featplot_CARTEx_combined_CAR <- (featplot_CARTEx_630_CAR | featplot_CARTEx_200_CAR | featplot_CARTEx_84_CAR)
 generate_figs(featplot_CARTEx_combined_CAR, paste('./plots/', experiment, '_featplot_CARTEx_combined_CAR', sep = ''), c(10,4))
 
+
+featplot_CARTEx_200_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'CAR', cols=c('dodgerblue', 'indianred'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 35)) + ylim(c(-3, 5))
 generate_figs(featplot_CARTEx_200_CAR, paste('./plots/', experiment, '_featplot_CARTEx_200_CAR', sep = ''), c(1.5,2))
 
 
@@ -122,7 +124,7 @@ aggplot_CARTEx_200_CAR_monaco_split_countsized <- md %>% ggplot(aes(x = CAR, y =
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
-  scale_x_discrete(labels = c('CD19', 'GD2')) + 
+  scale_x_discrete(labels = c('CD19', 'GD2')) + ylab('CARTEx') +
   scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_CAR_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_CAR_monaco_split_countsized', sep = ''), c(3,3)) 
 

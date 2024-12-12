@@ -53,6 +53,7 @@ featplot_CARTEx_84_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_
 featplot_CARTEx_combined_exposure <- (featplot_CARTEx_630_exposure | featplot_CARTEx_200_exposure | featplot_CARTEx_84_exposure)
 generate_figs(featplot_CARTEx_combined_exposure, paste('./plots/', experiment, '_featplot_CARTEx_combined_exposure', sep = ''), c(10,4))
 
+featplot_CARTEx_200_exposure <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'exposure', cols=c('skyblue', 'cadetblue'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 50)) + ylim(c(-3, 5)) + scale_x_continuous(breaks = c(0,20,40))
 generate_figs(featplot_CARTEx_200_exposure, paste('./plots/', experiment, '_featplot_CARTEx_200_exposure', sep = ''), c(1.5,2))
 
 
@@ -120,7 +121,7 @@ aggplot_CARTEx_200_exposure_monaco_split_countsized <- md %>% ggplot(aes(x = exp
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
-  scale_x_discrete(labels = c('D0', 'D20')) + 
+  scale_x_discrete(labels = c('D0', 'D20')) + ylab('CARTEx') +
   scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_exposure_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_exposure_monaco_split_countsized', sep = ''), c(3,3)) 
 
@@ -153,6 +154,24 @@ generate_figs(plot_volcano_CAEvday0, paste('./plots/', experiment, '_explore_vol
 
 
 FeaturePlot(expt.obj, features = c('CCL3', 'CCL4', 'PPARG', 'METRNL', 'IFNG', 'IL2RA', 'PMCH', 'EPAS1', 'RDH10'))
+
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_200_weights), 'CARTEx')
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_CAEvday0_200 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL, 
+                                         selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 28, 
+                                         shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_CAEvday0_200, paste('./plots/', experiment, '_explore_volcano_CAEvday0_200', sep = ''), c(6, 5))
+
+### 
+
 
 
 

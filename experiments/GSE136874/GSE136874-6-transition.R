@@ -81,6 +81,7 @@ test <- ggplot(md, aes(x = UMAP1, y = CAR, colour = CARTEx_84)) +
 
 ### exploded volcano
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
+cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
 
 
@@ -102,6 +103,29 @@ plot_volcano_GD2vCD19 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x =
                                          xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
 
 generate_figs(plot_volcano_GD2vCD19, paste('./plots/', experiment, '_transition_volcano_GD2vCD19', sep = ''), c(6, 5))
+
+
+
+signif <- subset(de_genes, p_val < 10e-6 & abs(avg_log2FC) > 0.5)
+signif <- signif[rownames(signif) %in% rownames(cartex_200_weights),]
+
+# create custom key-value pairs for CARTEx genes
+keyvals <- CustomKeyValPairsVolcanoPlot(de_genes, rownames(cartex_200_weights), "CARTEx")
+
+# change 'log2FoldChange' to 'avg_log2FC' and 'pvalue' to 'p_val'
+plot_volcano_GD2vCD19_200 <- EnhancedVolcano(de_genes, lab = rownames(de_genes), x = 'avg_log2FC', y = 'p_val', 
+                                         pCutoff = 10e-6, FCcutoff = 0.5, title = NULL, subtitle = NULL,
+                                         selectLab = rownames(signif), drawConnectors = TRUE, typeConnectors = 'closed', endsConnectors = 'last', directionConnectors = 'both', colConnectors = 'black', max.overlaps = 20, 
+                                         shapeCustom = keyvals$shape, colAlpha = 0.75, pointSize = keyvals$ptsize,
+                                         xlim = c(-log2fc_lim, log2fc_lim), labSize = 4.0) + theme_classic() + theme(legend.position = "top", legend.title=element_blank()) # + coord_flip()
+
+generate_figs(plot_volcano_GD2vCD19_200, paste('./plots/', experiment, '_transition_volcano_GD2vCD19_200', sep = ''), c(6, 5))
+
+
+
+
+
+
 
 
 # examine cells with DC1rank > 1200

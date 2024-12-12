@@ -50,6 +50,20 @@ md[, .N, by = c("orig.donor", "orig.severity_x", "orig.virus2")]
 expt.obj.subset <- subset(expt.obj, subset = orig.severity_x != 'void')
 
 
+# re-run proportions analyses after removing void / control
+
+barplot_monaco_severity_mod <- BarPlotStackSplit(expt.obj.subset, 'monaco', 'severity_mod', color_set = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
+barplot_monaco_severity_mod_slim <- barplot_monaco_severity_mod + theme(legend.position = "none") + scale_x_discrete(labels = c('M', 'S')) # mild, severe
+generate_figs(barplot_monaco_severity_mod_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_severity_mod_slim', sep = ''), c(1.3,2.5))
+
+barplot_phase_severity_mod <- BarPlotStackSplit(expt.obj.subset, 'Phase', 'severity_mod', color_set = hcl.colors(3, palette = "Temps"))
+barplot_phase_severity_mod_slim <- barplot_phase_severity_mod + theme(legend.position = "none") + scale_x_discrete(labels = c('M', 'S')) # mild, severe
+generate_figs(barplot_phase_severity_mod_slim, paste('./plots/', experiment, '_prepare_barplot_phase_severity_mod_slim', sep = ''), c(1.3,2.5))
+
+###
+
+
+
 vlnplot_severity_x_CV_exhaustion_markers <- VlnPlot(expt.obj.subset, features = c('PDCD1', 'HAVCR2', 'LAG3', 'CTLA4', 'TIGIT', 'ENTPD1'), group.by = 'orig.severity_x', ncol = 3, cols = c('cadetblue', 'violetred', 'indianred'), y.max = 5)
 
 vlnplot_severity_x_CV_exhaustion_markers <- plot_grid(VlnPlot(expt.obj.subset, features=c('PDCD1'), group.by = 'orig.severity_x', cols = c('cadetblue', 'violetred', 'indianred'), y.max = 5)+theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank()) + guides(fill=FALSE),
@@ -86,6 +100,7 @@ featplot_CARTEx_84_severity_mod <- FeatureScatter(expt.obj.subset, feature1 = 'P
 featplot_CARTEx_combined_severity_mod <- (featplot_CARTEx_630_severity_mod | featplot_CARTEx_200_severity_mod | featplot_CARTEx_84_severity_mod)
 generate_figs(featplot_CARTEx_combined_severity_mod, paste('./plots/', experiment, '_explore_featplot_CARTEx_combined_severity_mod', sep = ''), c(10,5))
 
+featplot_CARTEx_200_severity_mod <- FeatureScatter(expt.obj.subset, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'severity_mod', cols=c('cadetblue', 'indianred'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank())+ ylab('CARTEx') + xlab('% detected') + xlim(c(0, 30)) + ylim(c(-3, 5))
 generate_figs(featplot_CARTEx_200_severity_mod, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_severity_mod', sep = ''), c(1.5,2))
 
 

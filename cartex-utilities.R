@@ -133,7 +133,7 @@ check_levels <- function(atlas){
 
 ############################
 #^^^^^^^^^^^^^^^^^^^^^^^^^^#
-# function: sort list
+# function: sort list and optionally shift the dataset
 
 SortNumStrList <- function(num_str_list, shift){
   if(shift == TRUE){
@@ -537,7 +537,7 @@ ScoreSubroutine <- function(atlas) {
   atlas@meta.data$CARTEx_84 <- Z(SignatureScore(atlas, cartex_84_weights))
   atlas@meta.data$CARTEx_84i <- integerize(atlas@meta.data$CARTEx_84)
   
-  
+  # load additional signatures to score
   activation.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "panther-activation.csv", sep = ''), header = FALSE, row.names = 1)))
   anergy.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "SAFFORD_T_LYMPHOCYTE_ANERGY.csv", sep = ''), header = FALSE, row.names = 1)))
   stemness.sig <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL_MEMORY_VS_EFFECTOR_MEMORY_CD8_TCELL_UP.csv", sep = ''), header = FALSE, row.names = 1)))
@@ -566,7 +566,7 @@ ScoreSubroutine <- function(atlas) {
   atlas@meta.data$State3 <- NULL
   atlas@meta.data$State4 <- NULL
   
-  # examine other signatures
+  # examine other signatures and score
   NK_like <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "NK-like-dysfunction.csv", sep = ''), header = FALSE, row.names = 1)))
   Wherry_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Wherry_2007_Immunity_LCMV_Tex_humanized_version.csv", sep = ''), header = FALSE, row.names = 1)))
   BBD_Tex <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Selli_2023_Blood_TBBDex.csv", sep = ''), header = FALSE, row.names = 1)))
@@ -574,7 +574,6 @@ ScoreSubroutine <- function(atlas) {
   TSR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Chu_2023_Nat_Med_T_stress_response.csv", sep = ''), header = FALSE, row.names = 1)))
   Tex_Term <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexTerm.csv", sep = ''), header = FALSE, row.names = 1)))
   Tex_KLR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexKLR.csv", sep = ''), header = FALSE, row.names = 1)))
-  
   
   atlas <- AddModuleScore(atlas, features = list(NK_like, Wherry_Tex, BBD_Tex, PD1_Tex, TSR, Tex_Term, Tex_KLR), name="Signature", search = TRUE)
   

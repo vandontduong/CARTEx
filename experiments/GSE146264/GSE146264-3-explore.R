@@ -54,6 +54,7 @@ featplot_CARTEx_84_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_
 featplot_CARTEx_combined_severity <- (featplot_CARTEx_630_severity | featplot_CARTEx_200_severity | featplot_CARTEx_84_severity)
 generate_figs(featplot_CARTEx_combined_severity, paste('./plots/', experiment, '_prepare_featplot_CARTEx_combined_severity', sep = ''), c(10,5))
 
+featplot_CARTEx_200_severity <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200', feature2 = 'CARTEx_200', group.by = 'Severity', cols=c('seagreen', 'steelblue', 'firebrick'), shuffle = TRUE, seed = 123, pt.size = 0.1) + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected') + xlim(c(0, 40)) + ylim(c(-3, 6))
 generate_figs(featplot_CARTEx_200_severity, paste('./plots/', experiment, '_prepare_featplot_CARTEx_200_severity', sep = ''), c(1.5,2))
 
 

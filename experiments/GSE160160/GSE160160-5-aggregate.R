@@ -84,7 +84,7 @@ aggplot_CARTEx_200 <- md %>% ggplot(aes(identifier2, CARTEx_200)) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.5) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day20','OldTerminal')), label = "p.signif", label.y = 2) +
   stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','YoungNaive')), label = "p.signif", label.y = 2.5) +
-  ylab("CARTEx 200") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-1.5,3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("D0", "D20", "YN", "OT"))
 generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(3,3))
 
