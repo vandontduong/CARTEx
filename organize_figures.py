@@ -272,7 +272,8 @@ add_text(3.75, 8.25, 14, 'J')
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_vlnplot_CARTEx_200_extract_ident.png", top = Inches(8.25), left = Inches(5.25), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_630.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_630.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_200.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
 add_text(5.05, 8.25, 14, 'K')
 
 
@@ -302,7 +303,8 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_CAR_exhaustion_markers.png", left = Inches(0.25), top = Inches(2.6), height = Inches(1.75))
 add_text(0.15, 2.5, 14, 'D')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_GD2vCD19.png", left = Inches(2.75), top = Inches(2.5), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_GD2vCD19.png", left = Inches(2.75), top = Inches(2.5), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_GD2vCD19_200.png", left = Inches(2.75), top = Inches(2.5), height = Inches(2))
 add_text(2.65, 2.5, 14, 'E')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_CAR.png", left = Inches(5.25), top = Inches(2.5), height = Inches(1.5))
@@ -344,7 +346,8 @@ pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + exper
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_exposure_exhaustion_markers.png", left = Inches(0.25), top = Inches(8.85), height = Inches(1.75))
 add_text(0.15, 8.75, 14, 'O')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_volcano_CAEvday0.png", left = Inches(2.75), top = Inches(8.75), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_volcano_CAEvday0.png", left = Inches(2.75), top = Inches(8.75), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_explore_volcano_CAEvday0_200.png", left = Inches(2.75), top = Inches(8.75), height = Inches(2))
 add_text(2.65, 8.75, 14, 'P')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_exposure.png", left = Inches(5.25), top = Inches(8.75), height = Inches(1.5))
@@ -567,7 +570,8 @@ add_text(0.15, 2.5, 14, 'D')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(2.5), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(2.5), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(2.5), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response_200.png", left = Inches(3.5), top = Inches(2.5), height = Inches(2))
 add_text(3.4, 2.5, 14, 'E')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200_baseline.png", left = Inches(6), top = Inches(2.5), height = Inches(2))
@@ -597,7 +601,8 @@ add_text(0.15, 6.5, 14, 'K')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(1.5), top = Inches(6.5), height = Inches(1.5))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(6.5), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response.png", left = Inches(3.5), top = Inches(6.5), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response_200.png", left = Inches(3.5), top = Inches(6.5), height = Inches(2))
 add_text(3.4, 6.5, 14, 'L')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(6), top = Inches(6.5), height = Inches(2))
@@ -715,10 +720,12 @@ add_text(4.15, 3, 14, 'E')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_affstatstim_monaco_split_countsized.png", top = Inches(3), left = Inches(7.25), height = Inches(2))
 add_text(7.15, 3, 14, 'F')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_stim.png", top = Inches(5.25), left = Inches(0.25), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_stim.png", top = Inches(5.25), left = Inches(0.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_stim_200.png", top = Inches(5.25), left = Inches(0.25), height = Inches(2))
 add_text(0.15, 5.25, 14, 'G')
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_control.png", top = Inches(7.5), left = Inches(0.25), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_rest.png", top = Inches(7.5), left = Inches(0.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_STAT3GOF_rest_200.png", top = Inches(7.5), left = Inches(0.25), height = Inches(2))
 
 # pic = slide.shapes.add_picture("./construction/plots/barplot_significant_pathways_STAT3_GOF_combined.png", top = Inches(5.25), left = Inches(3.15), height = Inches(3.75))
 
@@ -915,7 +922,8 @@ add_text(3.9, 4.25, 14, 'F')
 
 # pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_aggplot_CARTEx_200_group_monaco_split_countsized.png", top = Inches(6), left = Inches(4), height = Inches(2))
 
-pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_explore_plot_volcano_Parkinson_blood.png", top = Inches(6), left = Inches(0.25), height = Inches(2))
+# pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_explore_plot_volcano_Parkinson_blood.png", top = Inches(6), left = Inches(0.25), height = Inches(2))
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_explore_plot_volcano_Parkinson_blood_200.png", top = Inches(6), left = Inches(0.25), height = Inches(2))
 add_text(0.15, 6, 14, 'G')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_aggplot_CARTEx_200_disease_monaco_split_countsized.png", top = Inches(6), left = Inches(3), height = Inches(2))
@@ -930,11 +938,14 @@ add_text(2.65, 8.25, 14, 'J')
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_dmap_CARTEx_200.png", top = Inches(10.5), left = Inches(0.25), height = Inches(1.5))
 add_text(0.15, 10.5, 14, 'K')
 
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_DC1rank.png", top = Inches(10.5), left = Inches(2.75), height = Inches(1.5))
+add_text(2.65, 10.5, 14, 'L')
+
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_transition_transitplot_disease_monaco.png", top = Inches(8.25), left = Inches(5.5), height = Inches(2))
-add_text(5.4, 8.25, 14, 'L')
+add_text(5.4, 8.25, 14, 'M')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_blood_transition_transitplot_disease_CARTEx_200.png", top = Inches(10.5), left = Inches(5.5), height = Inches(2))
-add_text(5.4, 10.5, 14, 'M')
+add_text(5.4, 10.5, 14, 'N')
 
 
 
