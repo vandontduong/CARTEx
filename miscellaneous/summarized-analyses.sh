@@ -66,9 +66,21 @@ cp ../construction/plots/upset_exhaustion_differentiation.png ./plots
 echo "GSE125881"
 cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_group.png ./plots
 cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_group_highlight.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_CARTEx_200_group.png ./plots
 cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_phase.png ./plots
 cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_phase_highlight.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_CARTEx_200_phase.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_prepare_umap_CARTEx_200_monaco.png ./plots
 cp ../experiments/GSE125881/plots/GSE125881_prepare_barplot_phase_group.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_prepare_barplot_monaco_group.png ./plots
+
+
+
+
+
+
+
+
 
 
 echo "GSE136874"
@@ -110,6 +122,18 @@ cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_BBD_Tex.png ./plot
 cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_PD1_Tex.png ./plots
 
 
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_CARTEx_84.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_CARTEx_630.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_activation.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_anergy.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_senescence.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_stemness.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_NKlike_Tex.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_LCMV_Tex.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_BBD_Tex.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_PD1_Tex.png ./plots
+
+
 
 
 
@@ -145,6 +169,22 @@ cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_PD1_Tex.png ./plot
 
 
 
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_CARTEx_84.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_CARTEx_630.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_activation.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_anergy.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_senescence.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_stemness.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_NKlike_Tex.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_LCMV_Tex.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_BBD_Tex.png ./plots
+cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_PD1_Tex.png ./plots
+
+
+
+
+
+
 
 
 echo "GSE136184"
@@ -170,6 +210,100 @@ cp ../experiments/GSE136184/plots/GSE136184_transition_volcano_OTvYN_CARTEx_200.
 
 
 
+echo "GSE120575"
+
+
+
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_CARTEx_84_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_CARTEx_200_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_CARTEx_630_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_activation_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_anergy_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_senescence_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_stemness_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_NKlike_Tex_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_LCMV_Tex_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_BBD_Tex_baseline.png ./plots
+cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_PD1_Tex_baseline.png ./plots
+
+
+
+
+
+
+
+
+
+echo "GSE125881"
+
+
+
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_CARTEx_84.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_CARTEx_200.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_CARTEx_630.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_activation.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_anergy.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_senescence.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_stemness.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_NKlike_Tex.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_LCMV_Tex.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_BBD_Tex.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_query_agg_aggplot_PD1_Tex.png ./plots
+
+
+
+
+
+
+
+
+echo "GSE151511"
+
+
+
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_CARTEx_84.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_CARTEx_200.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_CARTEx_630.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_activation.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_anergy.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_senescence.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_stemness.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_NKlike_Tex.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_LCMV_Tex.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_BBD_Tex.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_PD1_Tex.png ./plots
+
+
+
+
+
+
+
+
+
+
+
+echo "GSE207935"
+
+
+
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_CARTEx_84.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_CARTEx_200.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_CARTEx_630.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_activation.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_anergy.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_senescence.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_stemness.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_NKlike_Tex.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_LCMV_Tex.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_BBD_Tex.png ./plots
+cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_PD1_Tex.png ./plots
+
+
+
+
+
+
 
 
 
@@ -181,6 +315,11 @@ cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_umap_predicted
 cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_barplot_monaco_disease_slim.png ./plots
 cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_umap_phase.png ./plots
 cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_barplot_phase_disease_slim.png ./plots
+
+
+
+
+
 
 
 
