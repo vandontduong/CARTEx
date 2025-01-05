@@ -109,18 +109,18 @@ slide = add_slide(prs, blank_slide_layout, "Bulk RNA sequencing of sorted functi
 add_notes("Hello world")
 
 
-pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_all_clusters.png", left = Inches(3.15), top = Inches(1.5), height = Inches(5))
-pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(3.5), top = Inches(6.5), height = Inches(0.75))
-add_text(3.5, 1.2, 14, 'Heatmap of gene expression')
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_all_clusters.png", left = Inches(2.15), top = Inches(1.5), height = Inches(5))
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(2.5), top = Inches(6.5), height = Inches(0.75))
+add_text(2.5, 1.2, 14, 'Heatmap of gene expression')
 
-pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_all_clusters.png", left = Inches(7), top = Inches(1.5), height = Inches(2.75))
-add_text(7, 1.2, 14, 'Clusters of gene expression')
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_plot_all_clusters.png", left = Inches(6), top = Inches(1.5), height = Inches(2.75))
+add_text(6, 1.2, 14, 'Clusters of gene expression')
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(7), top = Inches(4.7), height = Inches(2.5))
-add_text(7, 4.4, 14, 'Genes of highest variance')
+pic = slide.shapes.add_picture("./construction/plots/" + "plot_weights.png", left = Inches(6), top = Inches(4.7), height = Inches(2.5))
+add_text(6, 4.4, 14, 'Genes of highest variance')
 
-pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(9.5), top = Inches(4.7), height = Inches(2.5))
-add_text(9.5, 4.4, 14, 'CARTEx score')
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", left = Inches(8.5), top = Inches(4.7), height = Inches(2.5))
+add_text(8.5, 4.4, 14, 'CARTEx score')
 
 
 
@@ -154,21 +154,20 @@ add_text(9, 1.2, 14, 'Enriched pathways in CARTEx')
 
 
 
-slide = add_slide(prs, blank_slide_layout, "CARTEx scoring of bulk RNA sequencing datasets", "ABC XYZ")
+slide = add_slide(prs, blank_slide_layout, "CARTEx scoring of bulk RNA sequencing datasets", "Validation of CARTEx signature")
 add_notes("Hello world")
 
 pic = slide.shapes.add_picture("./miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019.png", top = Inches(1.5), left = Inches(1), height = Inches(1.75))
-
+add_text(1, 1.2, 14, 'Functional vs exhaustion-prone CAR T cells')
 
 pic = slide.shapes.add_picture("./miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019_2.png", top = Inches(1.5), left = Inches(6), height = Inches(1.75))
-
+add_text(6, 1.2, 14, 'JUN-overexpression in CAR T cells')
 
 pic = slide.shapes.add_picture("./miscellaneous/plots/bulkRNAseq_plot_Weber_et_al_Science_2021.png", top = Inches(4.25), left = Inches(1), height = Inches(1.75))
-
+add_text(1, 3.95, 14, 'Regulatable CAR T cells')
 
 pic = slide.shapes.add_picture("./miscellaneous/plots/bulkRNAseq_plot_Baitsch_JCI_2011.png", top = Inches(4), left = Inches(6), height = Inches(2.5))
-
-
+add_text(6, 3.95, 14, 'Circulating vs TILs')
 
 
 
@@ -238,7 +237,7 @@ experiment = "GSE136874" # CD19 vs GD2 experiment
 add_notes("Hello world")
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CAR.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.5))
-add_text(0.5, 1.2, 14, 'Functional vs exhaustion-Prone CAR')
+add_text(0.5, 1.2, 14, 'Functional vs exhaustion-prone CAR')
 
 pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_CAR_exhaustion_markers.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1.55))
 add_text(0.5, 3.9, 14, 'Canonical markers of exhaustion')
@@ -398,6 +397,228 @@ add_notes("Hello world")
 
 
 
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "Appendix", "Appendix")
+experiment = "GSE160160" # Continuous antigen exposure experiment
+add_notes("Hello world")
+
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE136874: Functional vs exhaustion-prone CAR T cells", "Appendix")
+experiment = "GSE136874" # CD19 vs GD2 experiment
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.75))
+add_text(0.5 + 0.5, 1.2, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_activation.png", left = Inches(2.75), top = Inches(1.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 1.2, 14, 'Activation')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_anergy.png", left = Inches(5), top = Inches(1.5), height = Inches(1.75))
+add_text(5 + 0.5, 1.2, 14, 'Anergy')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_senescence.png", left = Inches(7.25), top = Inches(1.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 1.2, 14, 'Senescence')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_stemness.png", left = Inches(9.5), top = Inches(1.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 1.2, 14, 'Stemness')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(4.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 4.2, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(5), top = Inches(4.5), height = Inches(1.75))
+add_text(5 + 0.5, 4.2, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(7.25), top = Inches(4.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 4.2, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 4.2, 14, 'PD1')
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE160160: Continuous antigen exposure of CAR T cells", "Appendix")
+experiment = "GSE160160" # CAE experiment
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.75))
+add_text(0.5 + 0.5, 1.2, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_activation.png", left = Inches(2.75), top = Inches(1.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 1.2, 14, 'Activation')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_anergy.png", left = Inches(5), top = Inches(1.5), height = Inches(1.75))
+add_text(5 + 0.5, 1.2, 14, 'Anergy')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_senescence.png", left = Inches(7.25), top = Inches(1.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 1.2, 14, 'Senescence')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_stemness.png", left = Inches(9.5), top = Inches(1.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 1.2, 14, 'Stemness')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(4.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 4.2, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(5), top = Inches(4.5), height = Inches(1.75))
+add_text(5 + 0.5, 4.2, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(7.25), top = Inches(4.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 4.2, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 4.2, 14, 'PD1')
+
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE120575: abc", "Appendix")
+experiment = "GSE120575" # Sade-Feldman
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_CARTEx_200_baseline.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.75))
+add_text(0.5 + 0.5, 1.2, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_activation_baseline.png", left = Inches(2.75), top = Inches(1.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 1.2, 14, 'Activation')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_anergy_baseline.png", left = Inches(5), top = Inches(1.5), height = Inches(1.75))
+add_text(5 + 0.5, 1.2, 14, 'Anergy')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_senescence_baseline.png", left = Inches(7.25), top = Inches(1.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 1.2, 14, 'Senescence')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_stemness_baseline.png", left = Inches(9.5), top = Inches(1.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 1.2, 14, 'Stemness')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex_baseline.png", left = Inches(2.75), top = Inches(4.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 4.2, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex_baseline.png", left = Inches(5), top = Inches(4.5), height = Inches(1.75))
+add_text(5 + 0.5, 4.2, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_BBD_Tex_baseline.png", left = Inches(7.25), top = Inches(4.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 4.2, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex_baseline.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 4.2, 14, 'PD1')
+
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE151511: asdasd", "Appendix")
+experiment = "GSE151511" # 
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.75))
+add_text(0.5 + 0.5, 1.2, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_activation.png", left = Inches(2.75), top = Inches(1.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 1.2, 14, 'Activation')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_anergy.png", left = Inches(5), top = Inches(1.5), height = Inches(1.75))
+add_text(5 + 0.5, 1.2, 14, 'Anergy')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_senescence.png", left = Inches(7.25), top = Inches(1.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 1.2, 14, 'Senescence')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_stemness.png", left = Inches(9.5), top = Inches(1.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 1.2, 14, 'Stemness')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(4.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 4.2, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(5), top = Inches(4.5), height = Inches(1.75))
+add_text(5 + 0.5, 4.2, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(7.25), top = Inches(4.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 4.2, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 4.2, 14, 'PD1')
+
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE125881: asdasd", "Appendix")
+experiment = "GSE125881" # 
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.75))
+add_text(0.5 + 0.5, 1.2, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_activation.png", left = Inches(2.75), top = Inches(1.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 1.2, 14, 'Activation')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_anergy.png", left = Inches(5), top = Inches(1.5), height = Inches(1.75))
+add_text(5 + 0.5, 1.2, 14, 'Anergy')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_senescence.png", left = Inches(7.25), top = Inches(1.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 1.2, 14, 'Senescence')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_stemness.png", left = Inches(9.5), top = Inches(1.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 1.2, 14, 'Stemness')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(4.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 4.2, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(5), top = Inches(4.5), height = Inches(1.75))
+add_text(5 + 0.5, 4.2, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(7.25), top = Inches(4.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 4.2, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 4.2, 14, 'PD1')
+
+
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE207935: asdasd", "Appendix")
+experiment = "GSE207935" # 
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.75))
+add_text(0.5 + 0.5, 1.2, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_activation.png", left = Inches(2.75), top = Inches(1.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 1.2, 14, 'Activation')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_anergy.png", left = Inches(5), top = Inches(1.5), height = Inches(1.75))
+add_text(5 + 0.5, 1.2, 14, 'Anergy')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_senescence.png", left = Inches(7.25), top = Inches(1.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 1.2, 14, 'Senescence')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_stemness.png", left = Inches(9.5), top = Inches(1.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 1.2, 14, 'Stemness')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(4.5), height = Inches(1.75))
+add_text(2.75 + 0.5, 4.2, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(5), top = Inches(4.5), height = Inches(1.75))
+add_text(5 + 0.5, 4.2, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(7.25), top = Inches(4.5), height = Inches(1.75))
+add_text(7.25 + 0.5, 4.2, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
+add_text(9.5 + 0.5, 4.2, 14, 'PD1')
 
 
 
