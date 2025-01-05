@@ -128,6 +128,19 @@ generate_figs(aggplot_CARTEx_200_exposure_monaco_split_countsized, paste('./plot
 
 
 
+
+umap_DC1rank <- FeaturePlot(expt.obj, feature = 'DC1rank', order = FALSE, pt.size = 0.1) + theme(plot.title = element_blank()) + 
+  scale_color_gradientn(colours = c("yellow", "orange", "red", "violetred", "darkorchid"))
+generate_figs(umap_DC1rank, paste('./plots/', experiment, '_prepare_umap_DC1rank', sep = ''), c(3, 2))
+
+
+
+
+
+
+
+
+
 # differentially expressed genes
 
 # Compare CAE to day0

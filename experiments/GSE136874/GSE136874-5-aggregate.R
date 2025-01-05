@@ -172,28 +172,44 @@ generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggp
 
 
 aggplot_activation <- md %>% ggplot(aes(identifier2, Activation)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  xlab("CAR T cells and controls") + geom_point()
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("Activation") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
+  scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(3,3))
 
 aggplot_anergy <- md %>% ggplot(aes(identifier2, Anergy)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  xlab("CAR T cells and controls") + geom_point()
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("Anergy") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
+  scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(3,3))
 
 aggplot_senescence <- md %>% ggplot(aes(identifier2, Senescence)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  xlab("CAR T cells and controls") + geom_point()
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("Senescencee") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
+  scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(3,3))
 
 
 aggplot_stemness <- md %>% ggplot(aes(identifier2, Stemness)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2)) + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("dodgerblue", "indianred", "royalblue", "orchid")) +
-  xlab("CAR T cells and controls") + geom_point()
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','YoungNaive')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('GD2','OldTerminal')), label = "p.signif", label.y = 1.8) +
+  ylab("Stemness") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
+  scale_x_discrete(labels = c("CD19", "GD2", "YN", "OT"))
 generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(3,3))
 
 

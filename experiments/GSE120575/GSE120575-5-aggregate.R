@@ -147,28 +147,40 @@ generate_figs(aggplot_CARTEx_630_baseline, paste('./plots/', experiment, '_query
 aggplot_activation_baseline <- md %>% ggplot(aes(identifier5, Activation)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  ylab("Activation") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
 generate_figs(aggplot_activation_baseline, paste('./plots/', experiment, '_query_agg_aggplot_activation_baseline', sep = ''), c(3,3))
 
 aggplot_anergy_baseline <- md %>% ggplot(aes(identifier5, Anergy)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  ylab("Anergy") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
 generate_figs(aggplot_anergy_baseline, paste('./plots/', experiment, '_query_agg_aggplot_anergy_baseline', sep = ''), c(3,3))
 
 aggplot_senescence_baseline <- md %>% ggplot(aes(identifier5, Senescence)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  ylab("Senescence") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
 generate_figs(aggplot_senescence_baseline, paste('./plots/', experiment, '_query_agg_aggplot_senescence_baseline', sep = ''), c(3,3))
 
 aggplot_stemness_baseline <- md %>% ggplot(aes(identifier5, Stemness)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = identifier5), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values=c("firebrick", "seagreen", "royalblue", "orchid")) +
-  xlab("T cells and controls") + geom_point() + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-R','OldTerminal')), label = "p.signif", label.y = 1.1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  ylab("Stemness") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
 generate_figs(aggplot_stemness_baseline, paste('./plots/', experiment, '_query_agg_aggplot_stemness_baseline', sep = ''), c(3,3))
 

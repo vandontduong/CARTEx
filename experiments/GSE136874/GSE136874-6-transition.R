@@ -79,6 +79,17 @@ test <- ggplot(md, aes(x = UMAP1, y = CAR, colour = CARTEx_84)) +
 
 
 
+umap_DC1rank <- FeaturePlot(expt.obj, feature = 'DC1rank', order = FALSE, pt.size = 0.1) + theme(plot.title = element_blank()) + 
+  scale_color_gradientn(colours = c("yellow", "orange", "red", "violetred", "darkorchid"))
+generate_figs(umap_DC1rank, paste('./plots/', experiment, '_prepare_umap_DC1rank', sep = ''), c(2.9, 2))
+
+
+### 
+
+
+
+
+
 ### exploded volcano
 cartex_630_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-630-weights.csv", sep = ''), header = TRUE, row.names = 1)
 cartex_200_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-200-weights.csv", sep = ''), header = TRUE, row.names = 1)

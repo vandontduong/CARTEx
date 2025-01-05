@@ -131,6 +131,55 @@ generate_figs(aggplot_PD1_Tex, paste('./plots/', experiment, '_query_agg_aggplot
 
 
 
+aggplot_activation <- md %>% ggplot(aes(identifier2, Activation)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  ylab("Activation") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
+generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(3,3))
+
+aggplot_anergy <- md %>% ggplot(aes(identifier2, Anergy)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  ylab("Anergy") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
+generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(3,3))
+
+
+aggplot_senescence <- md %>% ggplot(aes(identifier2, Senescence)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  ylab("Senescence") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
+generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(3,3))
+
+
+
+aggplot_stemness <- md %>% ggplot(aes(identifier2, Stemness)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("firebrick", "seagreen", "royalblue", "orchid")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('R','YoungNaive')), label = "p.signif", label.y = 1.1) +
+  ylab("Stemness") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("NR", "R", "YN", "OT"))
+generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(3,3))
+
+
+
+
+
+
+
 
 ####################################################################################################
 #################################### Repeat for clinical response ##################################

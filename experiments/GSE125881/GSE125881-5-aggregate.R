@@ -103,29 +103,45 @@ generate_figs(aggplot_CARTEx_630, paste('./plots/', experiment, '_query_agg_aggp
 
 
 aggplot_activation <- md %>% ggplot(aes(identifier4, Activation)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c(colorRampPalette(c("cadetblue", "violet", "darkorchid"))(4), c("royalblue", "orchid"))) +
-  xlab("CAR T cells and controls") + geom_point() + theme_classic()
-generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(6,5))
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
+  ylab("Activation") + xlab(NULL) + geom_point() + ylim(-2.5, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("IP", "E", "L", "VL", "YN", "OT"))
+generate_figs(aggplot_activation, paste('./plots/', experiment, '_query_agg_aggplot_activation', sep = ''), c(3.5,3))
 
 aggplot_anergy <- md %>% ggplot(aes(identifier4, Anergy)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c(colorRampPalette(c("cadetblue", "violet", "darkorchid"))(4), c("royalblue", "orchid"))) +
-  xlab("CAR T cells and controls") + geom_point() + theme_classic()
-generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(6,5))
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
+  ylab("Anergy") + xlab(NULL) + geom_point() + ylim(-2.5, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("IP", "E", "L", "VL", "YN", "OT"))
+generate_figs(aggplot_anergy, paste('./plots/', experiment, '_query_agg_aggplot_anergy', sep = ''), c(3.5,3))
 
 aggplot_senescence <- md %>% ggplot(aes(identifier4, Senescence)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c(colorRampPalette(c("cadetblue", "violet", "darkorchid"))(4), c("royalblue", "orchid"))) +
-  xlab("CAR T cells and controls") + geom_point() + theme_classic()
-generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(6,5))
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
+  ylab("Senescence") + xlab(NULL) + geom_point() + ylim(-2.5, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("IP", "E", "L", "VL", "YN", "OT"))
+generate_figs(aggplot_senescence, paste('./plots/', experiment, '_query_agg_aggplot_senescence', sep = ''), c(3.5,3))
 
 
 aggplot_stemness <- md %>% ggplot(aes(identifier4, Stemness)) +
-  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = identifier4), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c(colorRampPalette(c("cadetblue", "violet", "darkorchid"))(4), c("royalblue", "orchid"))) +
-  xlab("CAR T cells and controls") + geom_point() + theme_classic()
-generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(6,5))
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','OldTerminal')), label = "p.signif", label.y = 2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','YoungNaive')), label = "p.signif", label.y = 2.5) +
+  ylab("Stemness") + xlab(NULL) + geom_point() + ylim(-2.5, 3) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("IP", "E", "L", "VL", "YN", "OT"))
+generate_figs(aggplot_stemness, paste('./plots/', experiment, '_query_agg_aggplot_stemness', sep = ''), c(3.5,3))
 
 
 aggplot_NKlike_Tex <- md %>% ggplot(aes(identifier4, NKlike_Tex)) +
