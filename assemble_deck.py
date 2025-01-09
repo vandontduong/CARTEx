@@ -123,6 +123,43 @@ pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_200.png", l
 add_text(8.5, 4.4, 14, 'CARTEx score')
 
 
+slide = add_slide(prs, blank_slide_layout, "CARTEx refinement using glmnet", "")
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("./construction/plots/" + "glmnet_equation.png", top = Inches(1.5), left = Inches(0.5), height = Inches(2))
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_glmnet_multiple_regressions.png", top = Inches(4), left = Inches(0.25), height = Inches(2))
+add_text(1.5, 1.2, 14, 'Regression with generalized linear models')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "bespoke_glmnet_alphasize.png", top = Inches(1.5), left = Inches(7), height = Inches(2))
+add_text(7, 1.2, 14, 'Refinement of CARTEx signature')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "plt_CARTEx_84.png", top = Inches(1.5), left = Inches(10), height = Inches(2))
+add_text(10.5, 1.2, 14, 'CARTEx scores')
+
+pic = slide.shapes.add_picture("./construction/plots/" + "upset_expt_CARTEx84.png", top = Inches(4), left = Inches(8), height = Inches(2.5))
+add_text(8.5, 3.7, 14, 'Representation of 84 CARTEx genes')
+
+
+slide = add_slide(prs, blank_slide_layout, "Dissecting the bulk-RNAseq experiment with signatures", "Contextualizing the CARTEx signature")
+add_notes("Hello world")
+
+# Fraction of signature genes represented in experiments
+pic = slide.shapes.add_picture("./construction/plots/" + "all_genes_repmap.png", top = Inches(1.5), left = Inches(0.5), height = Inches(2))
+add_text(1.5, 1.2, 14, 'Representation of signatures')
+
+# CARTEx (200) representation in scRNAseq experiments
+pic = slide.shapes.add_picture("./construction/plots/" + "upset_expt_CARTEx200.png", top = Inches(4), left = Inches(0.5), height = Inches(2))
+add_text(1.5, 3.7, 14, 'Representation of CARTEx (200)')
+
+# Fraction of CARTEx (200) genes represented in each signature
+pic = slide.shapes.add_picture("./construction/plots/" + "fraction_CARTEx_repchart.png", top = Inches(1.5), left = Inches(6), height = Inches(1.75))
+add_text(6.5, 1.2, 14, 'Fraction of CARTEx genes represented in each signature')
+
+# Fraction of signature genes represented in CARTEx (200)
+pic = slide.shapes.add_picture("./construction/plots/" + "fraction_sig_repchart_CARTEx.png", top = Inches(4), left = Inches(6), height = Inches(1.75))
+add_text(6.75, 3.7, 14, 'Fraction of signature genes represented in CARTEx')
+
+
 
 
 slide = add_slide(prs, blank_slide_layout, "Dissecting the bulk-RNAseq experiment with signatures", "Contextualizing the CARTEx signature")
@@ -303,8 +340,6 @@ add_text(4, 1.2, 14, 'Transition (DC1 rank)')
 
 
 
-
-
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Validation of CARTEx signature in another CAR T cell exhaustion model", "GSE160160: 13,039 CD8+ mesothelin (MSLN) CAR T cells across 20 days of antigen stimulation")
 experiment = "GSE160160" # Continuous antigen exposure experiment
@@ -397,7 +432,7 @@ add_notes("Hello world")
 
 
 
-
+### APPENDIX ###
 
 
 
@@ -406,6 +441,18 @@ experiment = "GSE160160" # Continuous antigen exposure experiment
 add_notes("Hello world")
 
 
+slide = add_slide(prs, blank_slide_layout, "Reactome analysis - pathway coverage", "")
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("./miscellaneous/plots/CARTEx_reactome_coverage.png", top = Inches(0.75), left = Inches(0), height = Inches(6.6))
+
+
+slide = add_slide(prs, blank_slide_layout, "Late differentiation subsets of exhausted T cells", "Daniels et al.")
+add_notes("Hello world")
+
+# comparison with Daniel et al. - late differentiation subsets of exhausted T cells
+pic = slide.shapes.add_picture("./construction/plots/" + "ggvenn_compare_exhaustion_sigs.png", top = Inches(1.5), left = Inches(0.5), height = Inches(3))
+pic = slide.shapes.add_picture("./construction/plots/" + "upset_exhaustion_differentiation.png", top = Inches(1.5), left = Inches(5), height = Inches(2))
 
 
 
@@ -443,6 +490,43 @@ add_text(9.5 + 0.5, 4.2, 14, 'PD1')
 
 
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "GSE136874: Functional vs exhaustion-prone CAR T cells", "Appendix")
+experiment = "GSE136874" # CD19 vs GD2 experiment
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_LCMV_Tex.png", left = Inches(0.25), top = Inches(1), height = Inches(1.5))
+add_text(1, 0.75, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_NKlike_Tex.png", left = Inches(2.75), top = Inches(1), height = Inches(1.5))
+add_text(3.5, 0.75, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_BBD_Tex.png", left = Inches(5.25), top = Inches(1), height = Inches(1.5))
+add_text(6, 0.75, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_PD1_Tex.png", left = Inches(7.75), top = Inches(1), height = Inches(1.5))
+add_text(8.5, 0.75, 14, 'PD1')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_LCMV.png", left = Inches(0.25), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_NKlike.png", left = Inches(2.75), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_BBD.png", left = Inches(5.25), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_PD1.png", left = Inches(7.75), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(0.25), top = Inches(5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(5.25), top = Inches(5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(7.75), top = Inches(5), height = Inches(2))
+
+
+
+
+
 slide = add_slide(prs, blank_slide_layout, "GSE160160: Continuous antigen exposure of CAR T cells", "Appendix")
 experiment = "GSE160160" # CAE experiment
 add_notes("Hello world")
@@ -474,6 +558,44 @@ add_text(7.25 + 0.5, 4.2, 14, 'BBD')
 
 pic = slide.shapes.add_picture("./miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
 add_text(9.5 + 0.5, 4.2, 14, 'PD1')
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "GSE160160: Continuous antigen exposure of CAR T cells", "Appendix")
+experiment = "GSE160160" # CD19 vs GD2 experiment
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_LCMV_Tex.png", left = Inches(0.25), top = Inches(1), height = Inches(1.5))
+add_text(1, 0.75, 14, 'LCMV')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_NKlike_Tex.png", left = Inches(2.75), top = Inches(1), height = Inches(1.5))
+add_text(3.5, 0.75, 14, 'NK-like')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_BBD_Tex.png", left = Inches(5.25), top = Inches(1), height = Inches(1.5))
+add_text(6, 0.75, 14, 'BBD')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_PD1_Tex.png", left = Inches(7.75), top = Inches(1), height = Inches(1.5))
+add_text(8.5, 0.75, 14, 'PD1')
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_LCMV.png", left = Inches(0.25), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_NKlike.png", left = Inches(2.75), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_BBD.png", left = Inches(5.25), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_prepare_scatter_CARTEx_200_PD1.png", left = Inches(7.75), top = Inches(2.75), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_LCMV_Tex.png", left = Inches(0.25), top = Inches(5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_NKlike_Tex.png", left = Inches(2.75), top = Inches(5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(5.25), top = Inches(5), height = Inches(2))
+
+pic = slide.shapes.add_picture("./experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(7.75), top = Inches(5), height = Inches(2))
+
+
+
 
 
 
