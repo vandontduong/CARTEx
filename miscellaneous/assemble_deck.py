@@ -108,18 +108,18 @@ slide = add_slide(prs, blank_slide_layout, "Bulk RNA sequencing of sorted functi
 add_notes("Hello world")
 
 
-pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_all_clusters.png", left = Inches(2.15), top = Inches(1.5), height = Inches(5))
-pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(2.5), top = Inches(6.5), height = Inches(0.75))
-add_text(2.5, 1.2, 14, 'Heatmap of gene expression')
+pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_all_clusters.png", left = Inches(1.65), top = Inches(1.5), height = Inches(5))
+pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(2), top = Inches(6.5), height = Inches(0.75))
+add_text(2, 1.2, 14, 'Heatmap of gene expression')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_all_clusters.png", left = Inches(6), top = Inches(1.5), height = Inches(2.75))
-add_text(6, 1.2, 14, 'Clusters of gene expression')
+pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_all_clusters.png", left = Inches(5.5), top = Inches(1.5), height = Inches(2.75))
+add_text(5.5, 1.2, 14, 'Clusters of gene expression')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(6), top = Inches(4.7), height = Inches(2.5))
-add_text(6, 4.4, 14, 'Genes of highest variance')
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(5.5), top = Inches(4.7), height = Inches(2.5))
+add_text(5.5, 4.4, 14, 'Genes of highest variance')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(8.5), top = Inches(4.7), height = Inches(2.5))
-add_text(8.5, 4.4, 14, 'CARTEx score')
+pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(8), top = Inches(4.7), height = Inches(2.5))
+add_text(8, 4.4, 14, 'CARTEx score')
 
 
 slide = add_slide(prs, blank_slide_layout, "CARTEx refinement using glmnet", "")
@@ -421,9 +421,272 @@ add_text(4, 1.2, 14, 'Transition (DC1 rank)')
 
 
 
-slide = add_slide(prs, blank_slide_layout, "Validation of CARTEx signature in another CAR T cell exhaustion model", "GSE160160: 13,039 CD8+ mesothelin (MSLN) CAR T cells across 20 days of antigen stimulation")
-experiment = "GSE160160" # Continuous antigen exposure experiment
+slide = add_slide(prs, blank_slide_layout, "Analysis of T cell activation", "GSE126030: 5,434 resting and stimulated CD8+ T from healthy donors")
+experiment = "GSE126030" # T cell activation map
 add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_stimulation_status.png", top = Inches(1.5), left = Inches(0), height = Inches(1.5))
+add_text(0.25, 1.2, 14, 'Stimulation status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_stimulation_status.png", top = Inches(1.5), left = Inches(2.2), height = Inches(1.5))
+add_text(2.2, 1.2, 14, 'CARTEx scores split by stimulation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_tissue.png", top = Inches(1.5), left = Inches(5.1), height = Inches(1.5))
+add_text(5.1, 1.2, 14, 'Tissue')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_tissue.png", top = Inches(1.5), left = Inches(7.3), height = Inches(1.5))
+add_text(7.3, 1.2, 14, 'CARTEx scores split by tissue')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", top = Inches(3.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 3.2, 14, 'Cell cycle phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_stimulation_status_slim.png",  top = Inches(3.5), left = Inches(2.5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(3.5), left = Inches(4), height = Inches(1.5))
+add_text(4, 3.2, 14, 'CARTEx scores split by phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 5.2, 14, 'Cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_stimulation_status_slim.png", top = Inches(5.5), left = Inches(2.5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(5.5), left = Inches(4), height = Inches(1.5))
+add_text(4, 5.2, 14, 'CARTEx scores split by differentiation')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_stimulation_status_monaco_split_countsized.png", left = Inches(10), top = Inches(3.5), height = Inches(2))
+add_text(10, 3.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Analysis of T cells in various tissue types", "MD Anderson T cell map: 53,757 CD8+ T cells from 16 cancer types")
+experiment = "mdandersonTCM" # MD Anderson T cell map
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_tissuetype.png", top = Inches(1.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 1.2, 14, 'Tissue type')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_tissue_type.png", top = Inches(1.5), left = Inches(2.5), height = Inches(1.5))
+add_text(2.5, 1.2, 14, 'CARTEx scores split by tissue type')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", top = Inches(3.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 3.2, 14, 'Cell cycle phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_tissue_type_slim.png",  top = Inches(3.5), left = Inches(2.5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(3.5), left = Inches(4), height = Inches(1.5))
+add_text(4, 3.2, 14, 'CARTEx scores split by phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 5.2, 14, 'Cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_tissue_type_slim.png", top = Inches(5.5), left = Inches(2.5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(5.5), left = Inches(4), height = Inches(1.5))
+add_text(4, 5.2, 14, 'CARTEx scores split by differentiation')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_TissueType_monaco_split_countsized.png", left = Inches(10), top = Inches(3.5), height = Inches(2))
+add_text(10, 3.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Correlation of CARTEx scores with clinical outcomes", "GSE120575: 4,619 CD8+ TILs from 32 metastatic melanoma patients receiving checkpoint inhibitors")
+experiment = "GSE120575" # Sade-Feldman
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_response.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.5))
+add_text(0.5, 1.2, 14, 'Clinical response')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1.55))
+add_text(0.5, 3.9, 14, 'Canonical markers of exhaustion')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_response_slim.png", left = Inches(6.25), top = Inches(1.5), height = Inches(1.25))
+add_text(4, 1.2, 14, 'Cell cycle phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(4), top = Inches(4.2), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_response_slim.png", left = Inches(6.25), top = Inches(4.2), height = Inches(1.25))
+add_text(4, 3.9, 14, 'Cell type differentiation')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(7.5), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_featplot_CARTEx_200_response.png", left = Inches(9.75), top = Inches(1.5), height = Inches(1.5))
+add_text(7.5, 1.2, 14, 'CARTEx scores')
+add_text(9.75, 1.2, 14, 'CARTEx detection')
+
+# pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_DC1rank.png", left = Inches(7.5), top = Inches(4.2), height = Inches(1.5))
+# add_text(7.5, 3.9, 14, 'Pseudo-time (DC1 rank)')
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Correlation of CARTEx scores with clinical outcomes", "GSE120575: 4,619 CD8+ TILs from 32 metastatic melanoma patients receiving checkpoint inhibitors")
+experiment = "GSE120575" # Sade-Feldman
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(2))
+add_text(0.5, 1.2, 14, 'Differential gene expression')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200_baseline.png", left = Inches(4), top = Inches(1.5), height = Inches(2))
+add_text(4, 1.2, 14, 'Pseudo-bulk CARTEx scores')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_response_monaco_split_baseline_response_countsized.png", left = Inches(7.5), top = Inches(1.5), height = Inches(2))
+add_text(7.5, 1.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Correlation of CARTEx scores with clinical outcomes", "GSE151511: 49,962 CD8+ CD19 CAR T cells from infusion products for 24 patients with B cell lymphomas")
+experiment = "GSE151511" # CAR T cell infusion product
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_responder.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.5))
+add_text(0.5, 1.2, 14, 'Clinical response')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_response_exhaustion_markers.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1.55))
+add_text(0.5, 3.9, 14, 'Canonical markers of exhaustion')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_responder_slim_noNA.png", left = Inches(6.25), top = Inches(1.5), height = Inches(1.25))
+add_text(4, 1.2, 14, 'Cell cycle phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(4), top = Inches(4.2), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_response_slim_noNA.png", left = Inches(6.25), top = Inches(4.2), height = Inches(1.25))
+add_text(4, 3.9, 14, 'Cell type differentiation')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(7.5), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_responder.png", left = Inches(9.75), top = Inches(1.5), height = Inches(1.5))
+add_text(7.5, 1.2, 14, 'CARTEx scores')
+add_text(9.75, 1.2, 14, 'CARTEx detection')
+
+# pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_DC1rank.png", left = Inches(7.5), top = Inches(4.2), height = Inches(1.5))
+# add_text(7.5, 3.9, 14, 'Pseudo-time (DC1 rank)')
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Correlation of CARTEx scores with clinical outcomes", "GSE151511: 49,962 CD8+ CD19 CAR T cells from infusion products for 24 patients with B cell lymphomas")
+experiment = "GSE151511" # CAR T cell infusion product
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_plot_volcano_baseline_response_200.png", left = Inches(0.5), top = Inches(1.5), height = Inches(2))
+add_text(0.5, 1.2, 14, 'Differential gene expression')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(4), top = Inches(1.5), height = Inches(2))
+add_text(4, 1.2, 14, 'Pseudo-bulk CARTEx scores')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_response_monaco_split_countsized.png", left = Inches(7.5), top = Inches(1.5), height = Inches(2))
+add_text(7.5, 1.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Circulating CAR T cells persist with lower CARTEx scores over time", "GSE125881: 47,045 CD8+ CD19 CAR T cells across 16 weeks in 4 patients with B cell malignancies")
+experiment = "GSE125881" # CAR T cell kinetics over 16 weeks
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_group2.png", left = Inches(0.5), top = Inches(1.5), height = Inches(1.5))
+add_text(0.5, 1.2, 14, 'Collection time')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_explore_vlnplot_group2_exhaustion_markers.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1.55))
+add_text(0.5, 3.9, 14, 'Canonical markers of exhaustion')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", left = Inches(4), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group2_slim.png", left = Inches(6.25), top = Inches(1.5), height = Inches(1.25))
+add_text(4, 1.2, 14, 'Cell cycle phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", left = Inches(4), top = Inches(4.2), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_group2_slim.png", left = Inches(6.25), top = Inches(4.2), height = Inches(1.25))
+add_text(4, 3.9, 14, 'Cell type differentiation')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(7.5), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_featplot_CARTEx_200_group2.png", left = Inches(9.75), top = Inches(1.5), height = Inches(1.5))
+add_text(7.5, 1.2, 14, 'CARTEx scores')
+add_text(9.75, 1.2, 14, 'CARTEx detection')
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Circulating CAR T cells persist with lower CARTEx scores over time", "GSE125881: 47,045 CD8+ CD19 CAR T cells across 16 weeks in 4 patients with B cell malignancies")
+experiment = "GSE125881" # CAR T cell kinetics over 16 weeks
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(4), top = Inches(1.5), height = Inches(2))
+add_text(4, 1.2, 14, 'Pseudo-bulk CARTEx scores')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_group2_monaco_split_countsized.png", left = Inches(7.5), top = Inches(1.5), height = Inches(2))
+add_text(7.5, 1.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "CARTEx scores correlated with clinical outcomes", "GSE153931: 61,583 CD8+ virus-reactive T cells including those with memory response to SARS-CoV-2")
+experiment = "GSE153931" # COVID-19 severity
+add_notes("Hello world")
+
+
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_severity_mod.png", top = Inches(1.5), left = Inches(0), height = Inches(1.5))
+add_text(0.25, 1.2, 14, 'Disease severity')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_severity_mod.png", top = Inches(1.5), left = Inches(2.2), height = Inches(1.5))
+add_text(2.2, 1.2, 14, 'CARTEx scores split by disease severity')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_orig_virus.png", top = Inches(1.5), left = Inches(5.1), height = Inches(1.5))
+add_text(5.1, 1.2, 14, 'Virus type')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_orig_virus.png", top = Inches(1.5), left = Inches(7.3), height = Inches(1.5))
+add_text(7.3, 1.2, 14, 'CARTEx scores split by virus type')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_phase.png", top = Inches(3.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 3.2, 14, 'Cell cycle phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_phase_severity_mod_slim.png",  top = Inches(3.5), left = Inches(2.5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_phase.png", top = Inches(3.5), left = Inches(4), height = Inches(1.5))
+add_text(4, 3.2, 14, 'CARTEx scores split by phase')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_predicted_monaco.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.5))
+add_text(0.25, 5.2, 14, 'Cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_barplot_monaco_severity_mod_slim.png", top = Inches(5.5), left = Inches(2.5), height = Inches(1.25))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", top = Inches(5.5), left = Inches(4), height = Inches(1.5))
+add_text(4, 5.2, 14, 'CARTEx scores split by differentiation')
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_severity_mod_monaco_split_countsized.png", left = Inches(10), top = Inches(3.5), height = Inches(2))
+add_text(10, 3.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -594,13 +857,50 @@ pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + expe
 pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(7.75), top = Inches(5), height = Inches(2))
 
 
+slide = add_slide(prs, blank_slide_layout, "GSE126030: 5,434 resting and stimulated CD8+ T from healthy donors", "Appendix")
+experiment = "GSE126030" # T cell activation map
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_CARTEx_200.png", left = Inches(4), top = Inches(1.5), height = Inches(2))
+add_text(4, 1.2, 14, 'Pseudo-bulk CARTEx scores')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_stimulation_status_monaco_split_countsized.png", left = Inches(7.5), top = Inches(1.5), height = Inches(2))
+add_text(7.5, 1.2, 14, 'Pseudo-bulk across differentiation')
+
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "MD Anderson T cell map: 53,757 CD8+ T cells from 16 cancer types", "Appendix")
+experiment = "mdandersonTCM" # MD Anderson T cell map
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_vlnplot_tissue_type_exhaustion_markers.png", left = Inches(0.5), top = Inches(1.5), height = Inches(2))
+add_text(0.5, 1.2, 14, 'Canonical markers of exhaustion')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_aggplot_CARTEx_200_TissueType_monaco_split_countsized.png", left = Inches(4), top = Inches(1.5), height = Inches(2))
+add_text(4, 1.2, 14, 'Pseudo-bulk across differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_compare_sigs_CARTEx_TSR.png", left = Inches(7.5), top = Inches(1.5), height = Inches(2))
+add_text(7.5, 1.2, 14, 'CARTEx and stress response signature comparison')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_tissue_type.png", left = Inches(7), top = Inches(4.5), height = Inches(1.5))
+add_text(7.5, 4.2, 14, 'Stress response scores split by tissue type')
 
 
 
 
 
 
-slide = add_slide(prs, blank_slide_layout, "GSE120575: abc", "Appendix")
+
+
+
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE120575: 4,619 CD8+ TILs from 32 metastatic melanoma patients receiving checkpoint inhibitors", "Appendix")
 experiment = "GSE120575" # Sade-Feldman
 add_notes("Hello world")
 
