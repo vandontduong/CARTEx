@@ -1,4 +1,3 @@
-
 ### Script name: assemble_deck.py
 ### Description: assemble figures for deck presentation
 ### Author: Vandon Duong
