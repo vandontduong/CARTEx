@@ -816,7 +816,7 @@ add_text(4, 3.9, 14, 'Cell type differentiation')
 
 
 pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_CARTEx_200.png", left = Inches(7.5), top = Inches(1.5), height = Inches(1.5))
-pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_umap_CARTEx_200_disease.png", left = Inches(9.75), top = Inches(1.5), height = Inches(1.5))
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_blood_prepare_featplot_CARTEx_200_sample_type.png", left = Inches(9.75), top = Inches(1.5), height = Inches(1.5))
 add_text(7.5, 1.2, 14, 'CARTEx scores')
 add_text(9.75, 1.2, 14, 'CARTEx detection')
 
@@ -916,8 +916,6 @@ add_text(7.25 + 0.5, 4.2, 14, 'BBD')
 pic = slide.shapes.add_picture("../miscellaneous/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(9.5), top = Inches(4.5), height = Inches(1.75))
 add_text(9.5 + 0.5, 4.2, 14, 'PD1')
 
-
-
 # new slide
 slide = add_slide(prs, blank_slide_layout, "GSE136874: Functional vs exhaustion-prone CAR T cells", "Appendix")
 experiment = "GSE136874" # CD19 vs GD2 experiment
@@ -950,6 +948,53 @@ pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + expe
 pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_BBD_Tex.png", left = Inches(5.25), top = Inches(5), height = Inches(2))
 
 pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_query_agg_aggplot_PD1_Tex.png", left = Inches(7.75), top = Inches(5), height = Inches(2))
+
+
+slide = add_slide(prs, blank_slide_layout, "GSE136874: Functional vs exhaustion-prone CAR T cells", "Appendix")
+experiment = "GSE136874" # CD19 vs GD2 experiment
+add_notes("Hello world")
+
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(0.5), top = Inches(1), height = Inches(1))
+add_text(0.5, 0.7, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_CAR.png", left = Inches(2.25), top = Inches(1), height = Inches(1))
+add_text(2.25, 0.7, 14, 'Split by CAR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", left = Inches(2.25), top = Inches(2.25), height = Inches(1))
+add_text(2.25, 1.95, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1))
+add_text(0.5, 3.9, 14, 'Stress response')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_CAR.png", left = Inches(2.25), top = Inches(4.2), height = Inches(1))
+add_text(2.25, 3.9, 14, 'Split by CAR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_monaco.png", left = Inches(2.25), top = Inches(5.45), height = Inches(1))
+add_text(2.25, 5.15, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_Term.png", left = Inches(7), top = Inches(1), height = Inches(1))
+add_text(7, 0.7, 14, 'Tex-Term')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_Term_CAR.png", left = Inches(8.75), top = Inches(1), height = Inches(1))
+add_text(8.75, 0.7, 14, 'Split by CAR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_Term_monaco.png", left = Inches(8.75), top = Inches(2.25), height = Inches(1))
+add_text(8.75, 1.95, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_KLR.png", left = Inches(7), top = Inches(4.2), height = Inches(1))
+add_text(7, 3.9, 14, 'Tex-KLR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_KLR_CAR.png", left = Inches(8.75), top = Inches(4.2), height = Inches(1))
+add_text(8.75, 3.9, 14, 'Split by CAR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_KLR_monaco.png", left = Inches(8.75), top = Inches(5.45), height = Inches(1))
+add_text(8.75, 5.15, 14, 'Split by cell type differentiation')
+
+
+
+
+
 
 
 
@@ -1138,7 +1183,7 @@ add_text(9.5 + 0.5, 4.2, 14, 'PD1')
 
 
 
-slide = add_slide(prs, blank_slide_layout, "GSE125881: asdasd", "Appendix")
+slide = add_slide(prs, blank_slide_layout, "GSE125881: 47,045 CD8+ CD19 CAR T cells across 16 weeks in 4 patients with B cell malignancies", "Appendix")
 experiment = "GSE125881" # 
 add_notes("Hello world")
 
@@ -1175,7 +1220,7 @@ add_text(9.5 + 0.5, 4.2, 14, 'PD1')
 
 
 
-slide = add_slide(prs, blank_slide_layout, "GSE207935: asdasd", "Appendix")
+slide = add_slide(prs, blank_slide_layout, "GSE207935: 25,191 CD8+ T cells from patients with STAT3 GOF syndrome", "Appendix")
 experiment = "GSE207935" # 
 add_notes("Hello world")
 
@@ -1209,6 +1254,90 @@ add_text(9.5 + 0.5, 4.2, 14, 'PD1')
 
 
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "GSE207935: 25,191 CD8+ T cells from patients with STAT3 GOF syndrome", "Appendix")
+experiment = "GSE207935" # 
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200.png", left = Inches(0.5), top = Inches(1), height = Inches(1))
+add_text(0.5, 0.7, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_affstatstim.png", left = Inches(2.25), top = Inches(1), height = Inches(1))
+add_text(2.25, 0.7, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_CARTEx_200_monaco.png", left = Inches(2.25), top = Inches(2.25), height = Inches(1))
+add_text(2.25, 1.95, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1))
+add_text(0.5, 3.9, 14, 'Stress response')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_affstatstim.png", left = Inches(2.25), top = Inches(4.2), height = Inches(1))
+add_text(2.25, 3.9, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_TSR_monaco.png", left = Inches(2.25), top = Inches(5.45), height = Inches(1))
+add_text(2.25, 5.15, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_Term.png", left = Inches(7), top = Inches(1), height = Inches(1))
+add_text(7, 0.7, 14, 'Tex-Term')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_Term_affstatstim.png", left = Inches(8.75), top = Inches(1), height = Inches(1))
+add_text(8.75, 0.7, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_Term_monaco.png", left = Inches(8.75), top = Inches(2.25), height = Inches(1))
+add_text(8.75, 1.95, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_KLR.png", left = Inches(7), top = Inches(4.2), height = Inches(1))
+add_text(7, 3.9, 14, 'Tex-KLR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_KLR_affstatstim.png", left = Inches(8.75), top = Inches(4.2), height = Inches(1))
+add_text(8.75, 3.9, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_umap_Tex_KLR_monaco.png", left = Inches(8.75), top = Inches(5.45), height = Inches(1))
+add_text(8.75, 5.15, 14, 'Split by cell type differentiation')
+
+
+
+
+# new slide
+slide = add_slide(prs, blank_slide_layout, "GSE207935: 25,191 CD8+ T cells from patients with STAT3 GOF syndrome", "Appendix")
+experiment = "GSE207935" # 
+add_notes("Hello world")
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_CARTEx_200.png", left = Inches(0.5), top = Inches(1), height = Inches(1))
+add_text(0.5, 0.7, 14, 'CARTEx')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_CARTEx_200_affstatstim.png", left = Inches(2.25), top = Inches(1), height = Inches(1))
+add_text(2.25, 0.7, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_CARTEx_200_monaco.png", left = Inches(2.25), top = Inches(2.25), height = Inches(1))
+add_text(2.25, 1.95, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_TSR.png", left = Inches(0.5), top = Inches(4.2), height = Inches(1))
+add_text(0.5, 3.9, 14, 'Stress response')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_TSR_affstatstim.png", left = Inches(2.25), top = Inches(4.2), height = Inches(1))
+add_text(2.25, 3.9, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_TSR_monaco.png", left = Inches(2.25), top = Inches(5.45), height = Inches(1))
+add_text(2.25, 5.15, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_Tex_Term.png", left = Inches(7), top = Inches(1), height = Inches(1))
+add_text(7, 0.7, 14, 'Tex-Term')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_Tex_Term_affstatstim.png", left = Inches(8.75), top = Inches(1), height = Inches(1))
+add_text(8.75, 0.7, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_Tex_Term_monaco.png", left = Inches(8.75), top = Inches(2.25), height = Inches(1))
+add_text(8.75, 1.95, 14, 'Split by cell type differentiation')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_Tex_KLR.png", left = Inches(7), top = Inches(4.2), height = Inches(1))
+add_text(7, 3.9, 14, 'Tex-KLR')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_Tex_KLR_affstatstim.png", left = Inches(8.75), top = Inches(4.2), height = Inches(1))
+add_text(8.75, 3.9, 14, 'Split by stimulation-disease status')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_prepare_dmap_Tex_KLR_monaco.png", left = Inches(8.75), top = Inches(5.45), height = Inches(1))
+add_text(8.75, 5.15, 14, 'Split by cell type differentiation')
 
 
 
