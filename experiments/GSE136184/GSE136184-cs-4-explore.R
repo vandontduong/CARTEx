@@ -215,6 +215,35 @@ umap_TSR_group <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identi
 generate_figs(umap_TSR_group, paste('./plots/', experiment, '_cs_prepare_umap_TSR_group', sep = ''), c(10,2))
 
 
+umap_CARTEx_200_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_CARTEx_200_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_CARTEx_200_group_binary', sep = ''), c(4,2))
+
+umap_TSR_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_TSR_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_TSR_group_binary', sep = ''), c(4,2))
+
+umap_Tex_Term_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_Tex_Term_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_Tex_Term_group_binary', sep = ''), c(4,2))
+
+umap_Tex_KLR_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_Tex_KLR_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_Tex_KLR_group_binary', sep = ''), c(4,2))
+
+umap_LCMV_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("LCMV_Tex"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_LCMV_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_LCMV_group_binary', sep = ''), c(4,2))
+
+umap_NKlike_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("NKlike_Tex"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_NKlike_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_NKlike_group_binary', sep = ''), c(4,2))
+
+umap_BBD_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("BBD_Tex"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_BBD_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_BBD_group_binary', sep = ''), c(4,2))
+
+umap_PD1_group_binary <- FeaturePlotSplitBy(expt.obj, features = c("PD1_Tex"), split_identity = 'AgeGroup3', split_ids = c("Newborn", "Adult"), color_scale = fix.sc)
+generate_figs(umap_PD1_group_binary, paste('./plots/', experiment, '_cs_prepare_umap_PD1_group_binary', sep = ''), c(4,2))
+
+
+
+
+
+
 ### 
 ### 
 

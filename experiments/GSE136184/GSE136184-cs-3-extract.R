@@ -73,13 +73,13 @@ saveRDS(cellIDs_ET_high, file="./data/cellIDs_ET_high.RData")
 
 # expt.obj <- merge(expt.obj.young_naive, y = expt.obj.elderly_terminal, project = "aging_extract")
 
-umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + theme(legend.position="none") # + ggtitle("YN")
-umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + theme(legend.position="none") # + ggtitle("OT")
-generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(2,2))
-generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(2,2))
+umap_extract_highlight_YN_low <- DimPlot(expt.obj, cells.highlight = cellIDs_YN_low, cols.highlight = "royalblue", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + theme(legend.position="none") + ggtitle("YN")
+umap_extract_highlight_ET_high <- DimPlot(expt.obj, cells.highlight = cellIDs_ET_high, cols.highlight = "orchid", cols = "grey", order = TRUE, pt.size = 0.1, sizes.highlight = 0.1) + theme(legend.position="none") + ggtitle("OT")
+generate_figs(umap_extract_highlight_YN_low, paste('./plots/', experiment, '_cs_extract_umap_highlight_YN_low', sep = ''), c(2,2.2))
+generate_figs(umap_extract_highlight_ET_high, paste('./plots/', experiment, '_cs_extract_umap_highlight_ET_high', sep = ''), c(2,2.2))
 
 umap_extract_highlight_combined <- umap_extract_highlight_YN_low + umap_extract_highlight_ET_high
-generate_figs(umap_extract_highlight_combined, paste('./plots/', experiment, '_cs_extract_umap_highlight_combined', sep = ''), c(4,2))
+generate_figs(umap_extract_highlight_combined, paste('./plots/', experiment, '_cs_extract_umap_highlight_combined', sep = ''), c(4,2.2))
 
 
 expt.obj <- expt.obj[,(colnames(expt.obj) %in% union(cellIDs_YN_low, cellIDs_ET_high))]

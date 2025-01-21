@@ -120,6 +120,14 @@ expt.obj@meta.data <- mutate(expt.obj@meta.data, AgeGroup2 = case_when(
 
 expt.obj@meta.data$AgeGroup2 <- factor(expt.obj@meta.data$AgeGroup2, levels = c('Newborn', 'Under 30', 'Under 50', 'Under 70', 'Elderly'))
 
+expt.obj@meta.data <- mutate(expt.obj@meta.data, AgeGroup3 = case_when(
+  Age == 0 ~ 'Newborn',
+  Age != 0 ~ 'Adult'
+))
+
+expt.obj@meta.data$AgeGroup3 <- factor(expt.obj@meta.data$AgeGroup3, levels = c('Newborn', 'Adult'))
+
+
 expt.obj@meta.data$Cohort <- plyr::mapvalues(x = expt.obj@meta.data$Code,
                                                       from = c('sc_d1', 'sc_d2', 'sc_d3', 'sc_d4', 'sc_d5', 'sc_d6', 'sc_d7', 'sc_d8', 'sc_d9', 'sc_d10', 'sc_d11', 'sc_d12', 'sc_d13', 'sc_d14', 'sc_d15', 'sc_d16', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'),
                                                       to = c('Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Cross-sectional', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal', 'Longitudinal'))
@@ -226,6 +234,11 @@ generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_
 
 umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap', 'blue', 0.1, 3)
 generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))
+
+umap_age_group_3 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup3", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('royalblue', 'orchid')) + theme(plot.title = element_blank())
+generate_figs(umap_age_group_3, paste('./plots/', experiment, '_cs_prepare_umap_age_group_3', sep = ''), c(3, 2))
+
+
 
 umap_sex <- DimPlot(expt.obj, reduction = "umap", group.by = "Sex", shuffle = TRUE, seed = 123)
 generate_figs(umap_sex, paste('./plots/', experiment, '_cs_prepare_umap_sex', sep = ''), c(2.8, 2))
