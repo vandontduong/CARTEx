@@ -237,6 +237,44 @@ generate_figs(plt_CARTEx_84, "./plots/plt_CARTEx_84", c(4,3))
 
 
 
+### second version -- change scheme from alpha to shape
+
+
+plt_CARTEx_630_2 <- ggplot(out_cartex_630, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
+  geom_jitter(stat = "identity", aes(color = CAR, shape = Day), size = 3, width = 0.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.2) + 
+  scale_color_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
+  scale_shape_manual(values = c('0' = 0, '11' = 1, '15' = 2, '21' = 5)) +
+  xlab(NULL) + ylab("CARTEx") + ylim(-2.5,2.5) + theme_classic()
+
+generate_figs(plt_CARTEx_630_2, "./plots/plt_CARTEx_630_2", c(4,3))
+
+
+plt_CARTEx_200_2 <- ggplot(out_cartex_200, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
+  geom_jitter(stat = "identity", aes(color = CAR, shape = Day), size = 3, width = 0.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.2) + 
+  scale_color_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
+  scale_shape_manual(values = c('0' = 0, '11' = 1, '15' = 2, '21' = 5)) +
+  xlab(NULL) + ylab("CARTEx") + ylim(-2.5,2.5) + theme_classic()
+
+generate_figs(plt_CARTEx_200_2, "./plots/plt_CARTEx_200_2", c(4,3))
+
+
+plt_CARTEx_84_2 <- ggplot(out_cartex_84, aes(x=factor(CAR,level=c("Control","CD19","HA")),y=cartex_score)) + geom_boxplot() + 
+  geom_jitter(stat = "identity", aes(color = CAR, shape = Day), size = 3, width = 0.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control','CD19')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','CD19')), label = "p.signif", label.y = 1.8) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('HA','Control')), label = "p.signif", label.y = 2.2) + 
+  scale_color_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred', 'Control' = 'darkgoldenrod')) +
+  scale_shape_manual(values = c('0' = 0, '11' = 1, '15' = 2, '21' = 5)) +
+  xlab(NULL) + ylab("CARTEx") + ylim(-2.5,2.5) + theme_classic()
+
+generate_figs(plt_CARTEx_84_2, "./plots/plt_CARTEx_84_2", c(4,3))
+
 
 
 

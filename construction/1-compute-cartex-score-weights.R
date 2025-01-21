@@ -219,6 +219,26 @@ generate_figs(initial_pca, './plots/plot_initial_pca', c(3.5,2.5))
 
 
 
+### second version -- change scheme from alpha to shape
+
+
+initial_pca_2 <- ggplot(pcaData, aes(x = PC1, y = PC2, color = CAR, shape = Timepoint)) + 
+  geom_point(size=3) + scale_color_manual(values = c('CD19' = 'dodgerblue', 'HA' = 'indianred')) +
+  scale_shape_manual(values = c('11' = 1, '15' = 2, '21' = 5)) +
+  theme_classic() + theme(axis.text.x = element_text(angle = 0, vjust = 0.2, hjust=1, size=12), 
+                          legend.position="right", legend.text = element_text(colour="black", size = 12), 
+                          legend.title = element_text(colour="black", size = 12, face="bold"), text = element_text(size=12), 
+                          # panel.border = element_rect(colour = "black", fill=NA, size=0.5)) +
+                          panel.border = element_rect(colour = "black", fill=NA, linewidth=1)) +
+  xlab(paste0("PC1 (", percentVar[1], "% variance)")) + 
+  ylab(paste0("PC2 (", percentVar[2], "% variance)")) + 
+  xlim(c(-25, 25)) + ylim(c(-15,15))
+
+initial_pca_2$labels$shape <- "Day" # rename from Timepoint to Day
+
+generate_figs(initial_pca_2, './plots/plot_initial_pca_2', c(3.5,2.5))
+
+
 
 
 
