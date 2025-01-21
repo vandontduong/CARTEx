@@ -79,7 +79,7 @@ def draw_arrow_line(start_x, start_y, end_x, end_y, line_width, line_color):
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Graphical abstract")
 
-pic = slide.shapes.add_picture("../miscellaneous/graphical_abstract.png", left = Inches(0.5), top = Inches(0.9), height = Inches(5))
+pic = slide.shapes.add_picture("../miscellaneous/graphical_abstract_2.png", left = Inches(0.5), top = Inches(0.9), height = Inches(5))
 
 
 
@@ -89,7 +89,8 @@ slide = add_slide(prs, blank_slide_layout, "Figure 1. Bulk RNA sequencing of sor
 pic = slide.shapes.add_picture("../construction/plots/" + "HA_model_diagram.png", left = Inches(0.5), top = Inches(0.9), height = Inches(1.75))
 add_text(0.25, 0.75, 14, 'A')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca.png", left = Inches(3.75), top = Inches(0.9), height = Inches(1.75))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca.png", left = Inches(3.75), top = Inches(0.9), height = Inches(1.75))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca_2.png", left = Inches(3.75), top = Inches(0.9), height = Inches(1.75))
 add_text(3.5, 0.75, 14, 'B')
 
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_canonical_exhaustion_markers.png", left = Inches(6.5), top = Inches(0.75), height = Inches(1.9))
@@ -113,7 +114,8 @@ add_text(3.6, 2.75, 14, 'E')
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(3.75), top = Inches(5.75), height = Inches(2.5))
 add_text(3.6, 5.75, 14, 'F')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(5.75), height = Inches(2.5))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(5.75), height = Inches(2.5))
+pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200_2.png", left = Inches(6), top = Inches(5.75), height = Inches(2.5))
 add_text(6, 5.75, 14, 'G')
 
 
@@ -136,7 +138,8 @@ add_text(0.15, 3.5, 14, 'B')
 pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_glmnet_alphasize.png", top = Inches(6.5), left = Inches(0.25), height = Inches(2))
 add_text(0.15, 6.5, 14, 'C')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_84.png", top = Inches(6.5), left = Inches(3), height = Inches(2))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_84.png", top = Inches(6.5), left = Inches(3), height = Inches(2))
+pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_84_2.png", top = Inches(6.5), left = Inches(3), height = Inches(2))
 add_text(2.85, 6.5, 14, 'D')
 
 pic = slide.shapes.add_picture("../construction/plots/" + "upset_expt_CARTEx84.png", top = Inches(6.5), left = Inches(6), height = Inches(2.5))

@@ -83,7 +83,7 @@ def add_notes(text):
 # new slide
 slide = add_slide(prs, blank_slide_layout, "Development of transcriptional signature and scoring of T cell exhaustion from tonically signaling CAR T cells", "Graphical abstract")
 
-pic = slide.shapes.add_picture("../miscellaneous/graphical_abstract.png", left = Inches(3.5), top = Inches(1.2), height = Inches(5))
+pic = slide.shapes.add_picture("../miscellaneous/graphical_abstract_2.png", left = Inches(3.5), top = Inches(1.2), height = Inches(5))
 
 
 
@@ -97,7 +97,8 @@ add_notes("Hello world")
 pic = slide.shapes.add_picture("../construction/plots/" + "HA_model_diagram.png", left = Inches(0.5), top = Inches(1.5), height = Inches(2.5))
 add_text(0.5, 1.2, 14, 'Functional vs exhaustion-prone CAR')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca.png", left = Inches(4.5), top = Inches(1.5), height = Inches(1.75))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca.png", left = Inches(4.5), top = Inches(1.5), height = Inches(1.75))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca_2.png", left = Inches(4.5), top = Inches(1.5), height = Inches(1.75))
 add_text(4.5, 1.2, 14, 'Principal components')
 
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_canonical_exhaustion_markers.png", left = Inches(8), top = Inches(1.5), height = Inches(1.9))
@@ -118,7 +119,8 @@ add_text(5.5, 1.2, 14, 'Clusters of gene expression')
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(5.5), top = Inches(4.7), height = Inches(2.5))
 add_text(5.5, 4.4, 14, 'Genes of highest variance')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(8), top = Inches(4.7), height = Inches(2.5))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(8), top = Inches(4.7), height = Inches(2.5))
+pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200_2.png", left = Inches(8), top = Inches(4.7), height = Inches(2.5))
 add_text(8, 4.4, 14, 'CARTEx score')
 
 
@@ -132,7 +134,8 @@ add_text(1.5, 1.2, 14, 'Regression with generalized linear models')
 pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_glmnet_alphasize.png", top = Inches(1.5), left = Inches(7), height = Inches(2))
 add_text(7, 1.2, 14, 'Refinement of CARTEx signature')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_84.png", top = Inches(1.5), left = Inches(10), height = Inches(2))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_84.png", top = Inches(1.5), left = Inches(10), height = Inches(2))
+pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_84_2.png", top = Inches(1.5), left = Inches(10), height = Inches(2))
 add_text(10.5, 1.2, 14, 'CARTEx scores')
 
 pic = slide.shapes.add_picture("../construction/plots/" + "upset_expt_CARTEx84.png", top = Inches(4), left = Inches(8), height = Inches(2.5))
