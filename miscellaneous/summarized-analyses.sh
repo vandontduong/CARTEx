@@ -11,9 +11,14 @@ cp ../construction/plots/cluster4.png ./plots
 cp ../construction/plots/cluster5.png ./plots
 cp ../construction/plots/bespoke_plot_all_clusters.png ./plots
 cp ../construction/plots/plot_initial_pca.png ./plots
+cp ../construction/plots/plot_initial_pca_2.png ./plots
 cp ../construction/plots/plot_canonical_exhaustion_markers.png ./plots
+cp ../construction/plots/plt_CARTEx_630.png ./plots
 cp ../construction/plots/plt_CARTEx_200.png ./plots
 cp ../construction/plots/plt_CARTEx_84.png ./plots
+cp ../construction/plots/plt_CARTEx_630_2.png ./plots
+cp ../construction/plots/plt_CARTEx_200_2.png ./plots
+cp ../construction/plots/plt_CARTEx_84_2.png ./plots
 cp ../construction/plots/CARTEx_reactome_coverage.png ./plots
 cp ../construction/plots/CARTEx_reactome_pval.png ./plots
 

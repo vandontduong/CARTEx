@@ -196,7 +196,8 @@ add_text(9, 1.2, 14, 'Enriched pathways in CARTEx')
 slide = add_slide(prs, blank_slide_layout, "CARTEx scoring of bulk RNA sequencing datasets", "Validation of CARTEx signature")
 add_notes("Hello world")
 
-pic = slide.shapes.add_picture("../miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019.png", top = Inches(1.5), left = Inches(1), height = Inches(1.75))
+# pic = slide.shapes.add_picture("../miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019.png", top = Inches(1.5), left = Inches(1), height = Inches(1.75))
+pic = slide.shapes.add_picture("../miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019_v2.png", top = Inches(1.5), left = Inches(1), height = Inches(1.75))
 add_text(1, 1.2, 14, 'Functional vs exhaustion-prone CAR T cells')
 
 pic = slide.shapes.add_picture("../miscellaneous/plots/bulkRNAseq_plot_Lynn_et_al_Nature_2019_2.png", top = Inches(1.5), left = Inches(6), height = Inches(1.75))
