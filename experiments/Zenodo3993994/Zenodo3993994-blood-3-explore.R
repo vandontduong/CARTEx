@@ -55,6 +55,10 @@ featplot_CARTEx_84_sample_type <- FeatureScatter(expt.obj, feature1 = 'PFSD.CART
 featplot_CARTEx_combined_sample_type <- (featplot_CARTEx_630_sample_type | featplot_CARTEx_200_sample_type | featplot_CARTEx_84_sample_type)
 generate_figs(featplot_CARTEx_combined_sample_type, paste('./plots/', experiment, '_blood_featplot_CARTEx_combined_sample_type', sep = ''), c(10,4))
 
+featplot_CARTEx_200_sample_type <- featplot_CARTEx_200_sample_type + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected')
+generate_figs(featplot_CARTEx_200_sample_type, paste('./plots/', experiment, '_blood_prepare_featplot_CARTEx_200_sample_type', sep = ''), c(1.5,2))
+
+
 
 
 # examine differentiation

@@ -165,8 +165,38 @@ generate_figs(umap_CARTEx_200_phase, paste('./plots/', experiment, '_prepare_uma
 umap_CARTEx_200_CAR <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'CAR', split_ids = c("CD19", "GD2"), color_scale = fix.sc)
 generate_figs(umap_CARTEx_200_CAR, paste('./plots/', experiment, '_prepare_umap_CARTEx_200_CAR', sep = ''), c(4,2))
 
+umap_TSR_CAR <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'CAR', split_ids = c("CD19", "GD2"), color_scale = fix.sc)
+generate_figs(umap_TSR_CAR, paste('./plots/', experiment, '_prepare_umap_TSR_CAR', sep = ''), c(4,2))
+
+umap_Tex_Term_CAR <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'CAR', split_ids = c("CD19", "GD2"), color_scale = fix.sc)
+generate_figs(umap_Tex_Term_CAR, paste('./plots/', experiment, '_prepare_umap_Tex_Term_CAR', sep = ''), c(4,2))
+
+umap_Tex_KLR_CAR <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'CAR', split_ids = c("CD19", "GD2"), color_scale = fix.sc)
+generate_figs(umap_Tex_KLR_CAR, paste('./plots/', experiment, '_prepare_umap_Tex_KLR_CAR', sep = ''), c(4,2))
+
+umap_TSR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_TSR_monaco, paste('./plots/', experiment, '_prepare_umap_TSR_monaco', sep = ''), c(8,2))
+
+umap_Tex_Term_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_Tex_Term_monaco, paste('./plots/', experiment, '_prepare_umap_Tex_Term_monaco', sep = ''), c(8,2))
+
+umap_Tex_KLR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc)
+generate_figs(umap_Tex_KLR_monaco, paste('./plots/', experiment, '_prepare_umap_Tex_KLR_monaco', sep = ''), c(8,2))
+
+
+
+
+
+
+
 # https://divingintogeneticsandgenomics.com/post/customize-featureplot-in-seurat-for-multi-condition-comparisons-using-patchwork/
 ### 
+
+
+
+
+
+
 
 
 

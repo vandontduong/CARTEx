@@ -513,11 +513,31 @@ dmap_Tex_KLR_affstatstim <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR")
 for(i in 1:4){dmap_Tex_KLR_affstatstim[[i]] <- dmap_Tex_KLR_affstatstim[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
 generate_figs(dmap_Tex_KLR_affstatstim, paste('./plots/', experiment, '_prepare_dmap_Tex_KLR_affstatstim', sep = ''), c(8,2))
 
+dmap_CARTEx_200_monaco <- FeaturePlotSplitBy(expt.obj, features = c("CARTEx_200"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_CARTEx_200_monaco[[i]] <- dmap_CARTEx_200_monaco[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_CARTEx_200_monaco, paste('./plots/', experiment, '_prepare_dmap_CARTEx_200_monaco', sep = ''), c(8,2))
+
+dmap_TSR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("TSR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_TSR_monaco[[i]] <- dmap_TSR_monaco[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_TSR_monaco, paste('./plots/', experiment, '_prepare_dmap_TSR_monaco', sep = ''), c(8,2))
+
+dmap_Tex_Term_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Tex_Term"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_Tex_Term_monaco[[i]] <- dmap_Tex_Term_monaco[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_Tex_Term_monaco, paste('./plots/', experiment, '_prepare_dmap_Tex_Term_monaco', sep = ''), c(8,2))
+
+dmap_Tex_KLR_monaco <- FeaturePlotSplitBy(expt.obj, features = c("Tex_KLR"), split_identity = 'monaco', split_ids = c("N", "CM", "EM", "TE"), color_scale = fix.sc, reduction = 'dm')
+for(i in 1:4){dmap_Tex_KLR_monaco[[i]] <- dmap_Tex_KLR_monaco[[i]] + xlim(c(-0.025, 0.025)) + ylim(c(-0.025, 0.025))}
+generate_figs(dmap_Tex_KLR_monaco, paste('./plots/', experiment, '_prepare_dmap_Tex_KLR_monaco', sep = ''), c(8,2))
 
 
 
-##
 
+
+
+
+
+###
+###
 
 
 
