@@ -111,12 +111,18 @@ add_text(3.6, 2.75, 14, 'E')
 
 
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(3.75), top = Inches(5.75), height = Inches(2.5))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(3.75), top = Inches(5.75), height = Inches(2.5))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca_variance.png", left = Inches(3.75), top = Inches(5.75), height = Inches(2.5))
 add_text(3.6, 5.75, 14, 'F')
 
 # pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200.png", left = Inches(6), top = Inches(5.75), height = Inches(2.5))
-pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200_2.png", left = Inches(6), top = Inches(5.75), height = Inches(2.5))
-add_text(6, 5.75, 14, 'G')
+pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200_2.png", left = Inches(7), top = Inches(5.75), height = Inches(2.5))
+add_text(7, 5.75, 14, 'G')
+
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(1.5), top = Inches(8.5), height = Inches(2.5))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
+
+
 
 
 
