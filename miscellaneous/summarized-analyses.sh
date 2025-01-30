@@ -63,8 +63,8 @@ cp ../construction/plots/fraction_sig_repchart_CARTEx.png ./plots
 cp ../construction/plots/ggvenn_compare_exhaustion_sigs.png ./plots
 cp ../construction/plots/upset_exhaustion_differentiation.png ./plots
 
-
-
+cp ../construction/plots/plot_gene_pca.png ./plots
+cp ../construction/plots/plot_gene_pca_2.png ./plots
 
 
 
