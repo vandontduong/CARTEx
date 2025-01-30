@@ -239,6 +239,52 @@ initial_pca_2$labels$shape <- "Day" # rename from Timepoint to Day
 generate_figs(initial_pca_2, './plots/plot_initial_pca_2', c(3.5,2.5))
 
 
+### analyze PCAs at gene resolution
+
+pca_gene_data <- read.csv("./data/2025-01-27-pca-loading-data.csv", header = TRUE, row.names = 1)
+# high_var_genes <- names(sort(var_genes, decreasing = TRUE)[1:200]) 
+
+pca_gene_data <- pca_gene_data %>% arrange(cartex_200gene)
+
+pca_gene_data_select <- subset(pca_gene_data, cartex_200gene == "yes")
+
+
+
+plot_gene_pca <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = pc2_loadings)) +
+  geom_point(aes(color = cartex_200gene)) +
+  scale_color_manual(values = c("no" = "grey", "yes" = "indianred")) +
+  geom_text(data = pca_gene_data_select, 
+            aes(label = rownames(pca_gene_data_select)), 
+            nudge_y = 0.005, 
+            size = 1.5, 
+            check_overlap = TRUE) +
+  labs(x = "PC1 Loadings", y = "PC2 Loadings", color = "Cartex_200gene") +
+  xlim(0.015, 0.05) + ylim(-0.1, 0.1) +
+  theme_classic() + theme(legend.position = "none")
+
+generate_figs(plot_gene_pca, './plots/plot_gene_pca', c(3.5,3))
+
+
+
+
+
+library(ggrepel)
+
+plot_gene_pca_2 <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = pc2_loadings)) +
+  geom_point(aes(color = cartex_200gene)) +
+  scale_color_manual(values = c("no" = "grey", "yes" = "indianred")) +
+  geom_text_repel(data = pca_gene_data_select, 
+                  aes(label = rownames(pca_gene_data_select)),
+                  size = 1.5, max.overlaps = 50) +
+  labs(x = "PC1 Loadings", y = "PC2 Loadings", color = "Cartex_200gene") +
+  xlim(0.015, 0.05) + ylim(-0.1, 0.1) +
+  theme_classic() + 
+  theme(legend.position = "none")
+
+generate_figs(plot_gene_pca_2, './plots/plot_gene_pca_2', c(3.5,3))
+
+
+
 
 
 

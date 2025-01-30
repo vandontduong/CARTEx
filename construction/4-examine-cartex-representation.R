@@ -397,10 +397,10 @@ fraction_signature_df <- as.data.frame(fraction_signature[-1])
 colnames(fraction_signature_df) <- 'value'
 
 fraction_sig_repchart <- ggplot(fraction_signature_df, aes(x=factor(rownames(fraction_signature_df), levels = rownames(fraction_signature_df)), y=value)) + 
-  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction of signature genes in C5") + xlab(NULL) + 
   scale_x_discrete(labels = c('NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
   geom_text(aes(label=round(value,2)), vjust=-1)
-generate_figs(fraction_sig_repchart, "./plots/fraction_sig_repchart", c(6,2))
+generate_figs(fraction_sig_repchart, "./plots/fraction_sig_repchart", c(9,3))
 
 
 # fraction of signature genes represented in CARTEx
@@ -410,10 +410,10 @@ fraction_signature_df <- as.data.frame(fraction_signature[-1])
 colnames(fraction_signature_df) <- 'value'
 
 fraction_sig_repchart_CARTEx <- ggplot(fraction_signature_df, aes(x=factor(rownames(fraction_signature_df), levels = rownames(fraction_signature_df)), y=value)) + 
-  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction of signature genes in CARTEx") + xlab(NULL) + 
   scale_x_discrete(labels = c('NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
   geom_text(aes(label=round(value,2)), vjust=-1)
-generate_figs(fraction_sig_repchart_CARTEx, "./plots/fraction_sig_repchart_CARTEx", c(6,2))
+generate_figs(fraction_sig_repchart_CARTEx, "./plots/fraction_sig_repchart_CARTEx", c(9,3))
 
 
 # fraction of C5 genes represented by signature
@@ -423,10 +423,10 @@ fraction_CARTEx_630_df <- as.data.frame(fraction_CARTEx_630)
 colnames(fraction_CARTEx_630_df) <- 'value'
 
 fraction_C5_repchart <- ggplot(fraction_CARTEx_630_df, aes(x=factor(rownames(fraction_CARTEx_630_df), levels = rownames(fraction_CARTEx_630_df)), y=value)) + 
-  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction of C5 genes in signature") + xlab(NULL) + 
   scale_x_discrete(labels = c('CARTEx', 'NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
   geom_text(aes(label=round(value,2)), vjust=-1)
-generate_figs(fraction_C5_repchart, "./plots/fraction_C5_repchart", c(6,2))
+generate_figs(fraction_C5_repchart, "./plots/fraction_C5_repchart", c(9,3))
 
 
 # fraction of CARTEx genes represented in signature
@@ -436,10 +436,10 @@ fraction_CARTEx_200_df <- as.data.frame(fraction_CARTEx_200[-1])
 colnames(fraction_CARTEx_200_df) <- 'value'
 
 fraction_CARTEx_repchart <- ggplot(fraction_CARTEx_200_df, aes(x=factor(rownames(fraction_CARTEx_200_df), levels = rownames(fraction_CARTEx_200_df)), y=value)) + 
-  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction") + xlab(NULL) + 
+  geom_bar(stat = "identity") + ylim(c(0,1)) + theme_classic() + ylab("Fraction of CARTEx genes in signature") + xlab(NULL) + 
   scale_x_discrete(labels = c('NK-like', 'LCMV', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')) +
   geom_text(aes(label=round(value,2)), vjust=-1)
-generate_figs(fraction_CARTEx_repchart, "./plots/fraction_CARTEx_repchart", c(6,2))
+generate_figs(fraction_CARTEx_repchart, "./plots/fraction_CARTEx_repchart", c(9,3))
 
 
 # Increase margin size
@@ -453,6 +453,8 @@ compare_exhaustion_sigs <- list(
   Tex_Term = Daniel_Tex_Term,
   Tex_KLR = Daniel_Tex_KLR
 )
+
+library(ggvenn)
 
 ggvenn_compare_exhaustion_sigs <- ggvenn(compare_exhaustion_sigs, set_name_size = 3, text_size = 3)
 generate_figs(ggvenn_compare_exhaustion_sigs, paste('./plots/ggvenn_compare_exhaustion_sigs', sep = ''), c(4,4))
