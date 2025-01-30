@@ -246,8 +246,15 @@ pca_gene_data <- read.csv("./data/2025-01-27-pca-loading-data.csv", header = TRU
 
 pca_gene_data <- pca_gene_data %>% arrange(cartex_200gene)
 
-pca_gene_data_select <- subset(pca_gene_data, cartex_200gene == "yes")
 
+
+# check if gene sets are identical
+setequal(rownames(pca_gene_data), names(var_genes))
+
+pca_gene_data$variance <- var_genes[rownames(pca_gene_data)]
+
+
+pca_gene_data_select <- subset(pca_gene_data, cartex_200gene == "yes")
 
 
 plot_gene_pca <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = pc2_loadings)) +
@@ -260,7 +267,7 @@ plot_gene_pca <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = pc2_loadings)) 
             check_overlap = TRUE) +
   labs(x = "PC1 Loadings", y = "PC2 Loadings", color = "Cartex_200gene") +
   xlim(0.015, 0.05) + ylim(-0.1, 0.1) +
-  theme_classic() + theme(legend.position = "none")
+  theme_classic() + theme(legend.position = "none", axis.title.x = element_text(size=10), axis.title.y = element_text(size=10))
 
 generate_figs(plot_gene_pca, './plots/plot_gene_pca', c(3.5,3))
 
@@ -279,10 +286,27 @@ plot_gene_pca_2 <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = pc2_loadings)
   labs(x = "PC1 Loadings", y = "PC2 Loadings", color = "Cartex_200gene") +
   xlim(0.015, 0.05) + ylim(-0.1, 0.1) +
   theme_classic() + 
-  theme(legend.position = "none")
+  theme(legend.position = "none", axis.title.x = element_text(size=10), axis.title.y = element_text(size=10))
 
 generate_figs(plot_gene_pca_2, './plots/plot_gene_pca_2', c(3.5,3))
 
+
+# plot variance
+
+
+plot_gene_pca_variance <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = variance)) +
+  geom_point(aes(color = cartex_200gene)) +
+  scale_color_manual(values = c("no" = "grey", "yes" = "indianred")) +
+  geom_text(data = pca_gene_data_select, 
+            aes(label = rownames(pca_gene_data_select)), 
+            nudge_y = 0.15, 
+            size = 1.5, 
+            check_overlap = TRUE) +
+  labs(x = "PC1 Loadings", y = "Variance", color = "Cartex_200gene") +
+  # xlim(0.015, 0.05) + ylim(-0.1, 0.1) +
+  theme_classic() + theme(legend.position = "none", axis.title.x = element_text(size=10), axis.title.y = element_text(size=10))
+
+generate_figs(plot_gene_pca_variance, './plots/plot_gene_pca_variance', c(3.5,3))
 
 
 
