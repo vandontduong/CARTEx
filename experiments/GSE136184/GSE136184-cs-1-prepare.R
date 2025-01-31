@@ -236,7 +236,7 @@ umap_age_group_2_highlight <- DimPlotHighlightIdents(expt.obj, AgeGroup2, 'umap'
 generate_figs(umap_age_group_2_highlight, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2_highlight', sep = ''), c(12, 10))
 
 umap_age_group_3 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup3", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c('royalblue', 'orchid')) + theme(plot.title = element_blank())
-generate_figs(umap_age_group_3, paste('./plots/', experiment, '_cs_prepare_umap_age_group_3', sep = ''), c(3, 2))
+generate_figs(umap_age_group_3, paste('./plots/', experiment, '_cs_prepare_umap_age_group_3', sep = ''), c(3.2, 2))
 
 
 
