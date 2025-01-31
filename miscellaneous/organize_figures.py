@@ -151,6 +151,8 @@ add_text(2.85, 6.5, 14, 'D')
 pic = slide.shapes.add_picture("../construction/plots/" + "upset_expt_CARTEx84.png", top = Inches(6.5), left = Inches(6), height = Inches(2.5))
 add_text(5.85, 6.5, 14, 'E')
 
+# novelty scores
+pic = slide.shapes.add_picture("../miscellaneous/plots/plot_effect_novelty_color_labeled.png", top = Inches(9.1), left = Inches(0.25), height = Inches(2))
 
 
 
@@ -191,7 +193,6 @@ add_text(0.15, 7, 14, 'E')
 # insert Reactome map
 pic = slide.shapes.add_picture("../miscellaneous/plots/CARTEx_reactome_coverage.png", top = Inches(9.1), left = Inches(0.25), height = Inches(4))
 add_text(0.15, 9.1, 14, 'F')
-
 
 
 
@@ -258,8 +259,16 @@ experiment = "GSE136184" # Cross-sectional aging experiment
 pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_age_group_2.png", top = Inches(0.75), left = Inches(0.25), height = Inches(1.5))
 add_text(0.15, 0.75, 14, 'A')
 
-pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200_group.png", top = Inches(0.75), left = Inches(2.5), height = Inches(1.5))
-add_text(2.4, 0.75, 14, 'B')
+# pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200_group.png", top = Inches(0.75), left = Inches(2.5), height = Inches(1.5))
+# add_text(2.4, 0.75, 14, 'B')
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_age_group_3.png", top = Inches(0.75), left = Inches(2.5), height = Inches(1.5))
+
+pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_CARTEx_200_group_binary.png", top = Inches(0.75), left = Inches(5), height = Inches(1.5))
+add_text(4.9, 0.75, 14, 'B')
+
+pic = slide.shapes.add_picture("../miscellaneous/plots/score_legend_gradient_red_white_blue.png", top = Inches(1), left = Inches(8.25), height = Inches(0.5))
+
 
 pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_cs_prepare_umap_phase.png", top = Inches(2.5), left = Inches(0.25), height = Inches(1.5))
 add_text(0.15, 2.5, 14, 'C')

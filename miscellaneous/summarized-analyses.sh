@@ -65,6 +65,11 @@ cp ../construction/plots/upset_exhaustion_differentiation.png ./plots
 
 cp ../construction/plots/plot_gene_pca.png ./plots
 cp ../construction/plots/plot_gene_pca_2.png ./plots
+cp ../construction/plots/plot_gene_pca_variance.png ./plots
+cp ../construction/plots/plot_effect_novelty_color_labeled.png ./plots
+
+
+
 
 
 
@@ -195,6 +200,7 @@ cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_PD1_Tex.png ./plot
 echo "GSE136184"
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_age.png ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_age_group_2.png ./plots
+cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_age_group_3.png ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_sex.png ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_umap_predicted_monaco.png ./plots
 cp ../experiments/GSE136184/plots/GSE136184_cs_prepare_barplot_monaco_age_group_slim.png ./plots
