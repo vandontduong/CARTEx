@@ -9,7 +9,13 @@ cp ../construction/plots/cluster2.png ./plots
 cp ../construction/plots/cluster3.png ./plots
 cp ../construction/plots/cluster4.png ./plots
 cp ../construction/plots/cluster5.png ./plots
+cp ../construction/plots/cluster1_v2.png ./plots
+cp ../construction/plots/cluster2_v2.png ./plots
+cp ../construction/plots/cluster3_v2.png ./plots
+cp ../construction/plots/cluster4_v2.png ./plots
+cp ../construction/plots/cluster5_v2.png ./plots
 cp ../construction/plots/bespoke_plot_all_clusters.png ./plots
+cp ../construction/plots/bespoke_plot_all_clusters_v2.png ./plots
 cp ../construction/plots/plot_initial_pca.png ./plots
 cp ../construction/plots/plot_initial_pca_2.png ./plots
 cp ../construction/plots/plot_canonical_exhaustion_markers.png ./plots
@@ -34,6 +40,7 @@ cp ../construction/plots/bespoke_plot_heatmap_legend_alt.png ./plots
 cp ../construction/plots/bespoke_plot_heatmap_all_clusters.png ./plots
 cp ../construction/plots/plot_signature_cluster_representation.png ./plots
 cp ../construction/plots/plot_mean_zscore_by_signature.png ./plots
+cp ../construction/plots/plot_mean_zscore_by_signature_v2.png ./plots
 cp ../construction/plots/plot_pathways_analysis.png ./plots
 cp ../construction/plots/upset_exhaustion_state_sigs.png ./plots
 cp ../construction/plots/barplot_significant_pathways.png ./plots
@@ -66,8 +73,11 @@ cp ../construction/plots/upset_exhaustion_differentiation.png ./plots
 cp ../construction/plots/plot_gene_pca.png ./plots
 cp ../construction/plots/plot_gene_pca_2.png ./plots
 cp ../construction/plots/plot_gene_pca_variance.png ./plots
+cp ../construction/plots/plot_gene_pca_variance_84version.png ./plots
 cp ../construction/plots/plot_effect_novelty_color_labeled.png ./plots
 
+cp ../construction/plots/plot_expression_canonical_and_noncanonical_exhaustion_markers.png ./plots
+cp ../construction/plots/plot_expression_canonical_and_noncanonical_exhaustion_markers_v2.png ./plots
 
 
 

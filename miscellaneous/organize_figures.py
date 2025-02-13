@@ -90,11 +90,12 @@ pic = slide.shapes.add_picture("../construction/plots/" + "HA_model_diagram.png"
 add_text(0.25, 0.75, 14, 'A')
 
 # pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca.png", left = Inches(3.75), top = Inches(0.9), height = Inches(1.75))
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca_2.png", left = Inches(3.75), top = Inches(0.9), height = Inches(1.75))
-add_text(3.5, 0.75, 14, 'B')
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_initial_pca_2.png", left = Inches(3), top = Inches(0.9), height = Inches(1.75))
+add_text(2.75, 0.75, 14, 'B')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_canonical_exhaustion_markers.png", left = Inches(6.5), top = Inches(0.75), height = Inches(1.9))
-add_text(6.5, 0.75, 14, 'C')
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_canonical_exhaustion_markers.png", left = Inches(6.5), top = Inches(0.75), height = Inches(1.9))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_expression_canonical_and_noncanonical_exhaustion_markers_v2.png", left = Inches(6), top = Inches(0.8), height = Inches(1.9))
+add_text(5.75, 0.75, 14, 'C')
 
 
 pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_all_clusters.png", left = Inches(0.15), top = Inches(2.75), height = Inches(5))
@@ -119,8 +120,9 @@ add_text(3.6, 5.75, 14, 'F')
 pic = slide.shapes.add_picture("../construction/plots/" + "plt_CARTEx_200_2.png", left = Inches(7), top = Inches(5.75), height = Inches(2.5))
 add_text(7, 5.75, 14, 'G')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(1.5), top = Inches(8.5), height = Inches(2.5))
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(1.5), top = Inches(8.5), height = Inches(2.5))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca_variance_84version.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
 
 
 
@@ -209,7 +211,8 @@ pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_signature_cluster_representation.png", left = Inches(8), top = Inches(2.5), height = Inches(2.5))
 add_text(8, 2.5, 14, 'B')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_mean_zscore_by_signature.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.75))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_mean_zscore_by_signature.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.75))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_mean_zscore_by_signature_v2.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.75))
 add_text(0.15, 5.5, 14, 'C')
 
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_pathways_analysis.png", top = Inches(5.5), left = Inches(5.25), height = Inches(4.25))
