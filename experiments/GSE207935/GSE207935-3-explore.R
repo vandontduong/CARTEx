@@ -608,8 +608,44 @@ scatter_CARTEx_200_PD1 <- ggscatterhist(md, x = "CARTEx_200", y = "PD1_Tex", col
                                         margin.params = list(fill = "AffstatStim", color = "black", size = 0.2), xlim = c(-2, 10), ylim = c(-2, 10), legend = "none", ggtheme = theme_classic())
 generate_figs(print(scatter_CARTEx_200_PD1), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_PD1', sep = ''), c(2,2))
 
+scatter_CARTEx_200_TSR <- ggscatterhist(md, x = "CARTEx_200", y = "TSR", color = "AffstatStim", size = 0.1, alpha = 1, palette = c("lightsteelblue", "steelblue", "palevioletred", "violetred"), shuffle = TRUE,
+                                        margin.params = list(fill = "AffstatStim", color = "black", size = 0.2), xlim = c(-2, 10), ylim = c(-2, 10), legend = "none", ggtheme = theme_classic())
+generate_figs(print(scatter_CARTEx_200_TSR), paste('./plots/', experiment, '_prepare_scatter_CARTEx_200_TSR', sep = ''), c(2,2))
+
+# table of cells with scores binned
+table(expt.obj@meta.data$CARTEx_200i, expt.obj@meta.data$TSRi)
+
+expt.obj@meta.data$custom_anno <- case_when(
+  # (expt.obj@meta.data$Tex_Term > 1 | expt.obj@meta.data$Tex_KLR > 1) & expt.obj@meta.data$CARTEx_200 <= 1 & expt.obj@meta.data$TSR <= 1 ~ "exhausted (differentiation)",
+  expt.obj@meta.data$Tex_Term > 1 & expt.obj@meta.data$CARTEx_200 <= 1 & expt.obj@meta.data$TSR <= 1 ~ "exhausted (differentiation)",
+  expt.obj@meta.data$CARTEx_200 > 1 & expt.obj@meta.data$TSR <= 1 ~ "exhausted (CARTEx)",
+  expt.obj@meta.data$TSR > 1 & expt.obj@meta.data$CARTEx_200 <= 1 ~ "stressed",
+  TRUE ~ "normal"
+  # TRUE ~ NA_character_
+)
 
 
+expt.obj@meta.data$custom_anno <- factor(expt.obj@meta.data$custom_anno, levels = c("normal", "exhausted (CARTEx)", "exhausted (differentiation)", "stressed"))
+
+
+umap_custom_anno <- DimPlot(expt.obj, reduction = "umap", group.by = "custom_anno", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("lightgrey", "indianred", "orchid", "cadetblue")) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("normal", "exhausted (CARTEx)", "exhausted (differentiation)", "stressed"), values = c("lightgrey", "indianred", "orchid", "cadetblue"))
+generate_figs(umap_custom_anno, paste('./plots/', experiment, '_prepare_umap_custom_anno', sep = ''), c(4.6, 2))
+# generate_figs(umap_custom_anno, paste('./plots/', experiment, '_prepare_umap_custom_anno', sep = ''), c(8, 4))
+
+# check how the custom annotations bin against AffstatStim
+table(expt.obj@meta.data$AffstatStim, expt.obj@meta.data$custom_anno)
+
+
+custom_labels <- c('Ctrl\n(R)', 'Ctrl\n(S)', 'GOF\n(R)', 'GOF\n(S)')
+barplot_affstatstim_custom_anno <- BarPlotStackSplit(expt.obj, 'custom_anno', 'AffstatStim', color_set = c("lightgrey", "indianred", "orchid", "cadetblue")) +
+  scale_x_discrete(labels = custom_labels) + theme(legend.position = "none")
+generate_figs(barplot_affstatstim_custom_anno, paste('./plots/', experiment, '_prepare_barplot_affstatstim_custom_anno', sep = ''), c(1.75,1.75))
+
+
+
+###
+###
 
 
 

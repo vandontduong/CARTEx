@@ -225,8 +225,11 @@ generate_figs(umap_age_group, paste('./plots/', experiment, '_cs_prepare_umap_ag
 #   theme(plot.title = element_blank()) + scale_color_manual(values = umap_age_group_2_cols)
 # generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(3.1, 2))
 
+# grey-blue gradient
+# umap_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
 
-umap_age_group_2_cols <- colorRampPalette(c("lightgrey","lightblue","mediumblue"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+# palette
+umap_age_group_2_cols <- colorRampPalette(c("lightblue","orange", "orangered","violet"))(length(unique(expt.obj@meta.data$AgeGroup2)))
 umap_age_group_2 <- DimPlot(expt.obj, reduction = "umap", group.by = "AgeGroup2", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = umap_age_group_2_cols) + 
   theme(plot.title = element_blank()) + scale_color_manual(labels=c("N", "U30", "U50", "U70", "E"), values = umap_age_group_2_cols)
 generate_figs(umap_age_group_2, paste('./plots/', experiment, '_cs_prepare_umap_age_group_2', sep = ''), c(2.9, 2))

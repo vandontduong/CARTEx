@@ -83,6 +83,49 @@ plot_literature_exhaustion_markers <- ggplot(melted_df, aes(x = Days, y = name, 
   scale_fill_manual(values = custom_colors) + theme_classic()
 
 
+expression_canonical_and_noncanonical_exhaustion_markers <- data[c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", "METRNL", "SNX9", "CXCL10"),]
+expression_canonical_and_noncanonical_exhaustion_markers <- expression_canonical_and_noncanonical_exhaustion_markers[,c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
+
+df_expression_canonical_and_noncanonical_exhaustion_markers <- data.frame(t(expression_canonical_and_noncanonical_exhaustion_markers), CAR, Days, Donor)
+
+melted_df_2 <- reshape2::melt(df_expression_canonical_and_noncanonical_exhaustion_markers, id.vars = c("Days", "CAR", "Donor"))
+melted_df_2 <- melted_df_2 %>% group_by(CAR, Days, variable) %>% summarise_at(vars(value), list(name = mean, sd))
+
+custom_colors <- c("CD19" = "dodgerblue", "HA" = "indianred", "Control" = "darkgoldenrod")
+
+plot_expression_canonical_and_noncanonical_exhaustion_markers <- ggplot(melted_df_2, aes(x = Days, y = name, fill = CAR)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~variable, scales = "free_y") +
+  geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
+  scale_fill_manual(values = custom_colors) + theme_classic()
+
+generate_figs(plot_expression_canonical_and_noncanonical_exhaustion_markers, './plots/plot_expression_canonical_and_noncanonical_exhaustion_markers', c(4,3))
+
+
+
+expression_canonical_and_noncanonical_exhaustion_markers_v2 <- data[c("PDCD1", "HAVCR2", "LAG3", "CTLA4", "TIGIT", "ENTPD1", "METRNL", "SNX9", "CXCL10", "XKRX", "ATP9A", "TRIB1"),]
+expression_canonical_and_noncanonical_exhaustion_markers_v2 <- expression_canonical_and_noncanonical_exhaustion_markers_v2[,c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
+
+df_expression_canonical_and_noncanonical_exhaustion_markers_v2 <- data.frame(t(expression_canonical_and_noncanonical_exhaustion_markers_v2), CAR, Days, Donor)
+
+melted_df_3 <- reshape2::melt(df_expression_canonical_and_noncanonical_exhaustion_markers_v2, id.vars = c("Days", "CAR", "Donor"))
+melted_df_3 <- melted_df_3 %>% group_by(CAR, Days, variable) %>% summarise_at(vars(value), list(name = mean, sd))
+
+custom_colors <- c("CD19" = "dodgerblue", "HA" = "indianred", "Control" = "darkgoldenrod")
+
+plot_expression_canonical_and_noncanonical_exhaustion_markers_v2 <- ggplot(melted_df_3, aes(x = Days, y = name, fill = CAR)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~variable, scales = "free_y", ncol = 6) +
+  geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
+  scale_fill_manual(values = custom_colors) + theme_classic()
+
+generate_figs(plot_expression_canonical_and_noncanonical_exhaustion_markers_v2, './plots/plot_expression_canonical_and_noncanonical_exhaustion_markers_v2', c(7,3))
+
+
+
+###
 
 
 
@@ -477,7 +520,7 @@ generate_figs(as.grob(hmap_STAT3_GOF_sig_combined), './plots/plot_heatmap_STAT3_
 
 
 
-
+### follow here
 
 CAR <- split
 Days <- c(0, 0, 0, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21, 11, 15, 21)
@@ -532,6 +575,87 @@ plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = va
   theme_classic() + theme(legend.position = "none")
 
 generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(5,2))
+
+
+# Calculate mean and standard deviation for each group
+df_summary <- df_long_avgbydonor %>%
+  group_by(CAR, Days, measurement) %>%
+  summarise(mean_value = mean(value, na.rm = TRUE),
+            sd_value = sd(value, na.rm = TRUE), 
+            .groups = 'drop')
+
+# Plot with error bars
+plot_mean_zscore_by_signature_v2 <- ggplot(df_summary, aes(x = Days, y = mean_value, group = CAR, color = CAR)) +
+  geom_line() + 
+  geom_point() +
+  geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value), width = 0.2) +  # Error bars
+  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
+  labs(x = "Days", y = "Mean z-score") +
+  scale_y_continuous(limits = c(-1.5, 1.5)) +
+  scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
+  theme_classic() + 
+  theme(legend.position = "none")
+
+
+
+
+
+
+
+
+
+library(rstatix)
+
+
+# Step 1: Modify the Data Summarization
+mean_dataset_avgbydonor <- mean_dataset %>%
+  group_by(CAR, Days, Donor) %>%
+  summarize(across(starts_with("mean"), list(mean = mean, sd = sd)))
+
+# Step 2: Transform the data to long format, considering both mean and sd
+df_long_avgbydonor <- mean_dataset_avgbydonor %>%
+  pivot_longer(
+    cols = starts_with("mean"),
+    names_to = c("measurement", ".value"),
+    names_pattern = "mean_(.*)_(mean|sd)"
+  )
+
+# Filter out unwanted data (same as before)
+df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
+df_long_avgbydonor <- subset(df_long_avgbydonor, !is.na(mean))
+df_long_avgbydonor <- subset(df_long_avgbydonor, !is.na(measurement))
+df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("CARTEx_630", "CARTEx_200", "Wherry", "NKlike", "BBD", "PD1", "activation", "anergy",  "senescence", "stemness"))
+
+measurement_names <- c(activation = "Activation", anergy = "Anergy", senescence = "Senescence", stemness = "Stemness", CARTEx_630 = "C5", CARTEx_200 = "CARTEx",  Wherry = "LCMV",  NKlike = "NK-like", BBD = "BBD",  PD1 = "PD1")
+
+# Step 3: Plot with Error Bars
+plot_mean_zscore_by_signature_v2 <- ggplot(df_long_avgbydonor, aes(x = Days, y = mean, group = CAR, color = CAR)) +
+  geom_line() +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.2) +  # Error bars
+  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
+  labs(x = "Days", y = "Mean z-score") +
+  scale_y_continuous(limits = c(-1.5, 1.5)) +
+  scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
+  theme_classic() + 
+  theme(legend.position = "none")
+
+generate_figs(plot_mean_zscore_by_signature_v2, './plots/plot_mean_zscore_by_signature_v2', c(5,3))
+
+
+
+
+####
+
+
+
+
+
+
+
+
+
+
 
 
 intersect(rownames(mat), c('HNF1A', 'HNF1B'))

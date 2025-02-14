@@ -102,7 +102,8 @@ pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_
 add_text(0.15, 2.75, 14, 'D')
 pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_heatmap_legend_alt.png", left = Inches(0.5), top = Inches(7.75), height = Inches(0.75))
 
-pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_all_clusters.png", left = Inches(3.75), top = Inches(2.75), height = Inches(2.75))
+# pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_all_clusters.png", left = Inches(3.75), top = Inches(2.75), height = Inches(2.75))
+pic = slide.shapes.add_picture("../construction/plots/" + "bespoke_plot_all_clusters_v2.png", left = Inches(3.75), top = Inches(2.75), height = Inches(2.75))
 add_text(3.6, 2.75, 14, 'E')
 # pic = slide.shapes.add_picture("../construction/plots/" + "cluster1.png", left = Inches(3.75), top = Inches(2.75), height = Inches(1.5))
 # pic = slide.shapes.add_picture("../construction/plots/" + "cluster2.png", left = Inches(3.75), top = Inches(4), height = Inches(1.5))
@@ -122,7 +123,7 @@ add_text(7, 5.75, 14, 'G')
 
 # pic = slide.shapes.add_picture("../construction/plots/" + "plot_weights.png", left = Inches(1.5), top = Inches(8.5), height = Inches(2.5))
 # pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca_variance_84version.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
+# pic = slide.shapes.add_picture("../construction/plots/" + "plot_gene_pca_variance_84version.png", left = Inches(3.75), top = Inches(8.5), height = Inches(2.5))
 
 
 
@@ -212,19 +213,18 @@ pic = slide.shapes.add_picture("../construction/plots/" + "plot_signature_cluste
 add_text(8, 2.5, 14, 'B')
 
 # pic = slide.shapes.add_picture("../construction/plots/" + "plot_mean_zscore_by_signature.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.75))
-pic = slide.shapes.add_picture("../construction/plots/" + "plot_mean_zscore_by_signature_v2.png", top = Inches(5.5), left = Inches(0.25), height = Inches(1.75))
+pic = slide.shapes.add_picture("../construction/plots/" + "plot_mean_zscore_by_signature_v2.png", top = Inches(5.5), left = Inches(0.25), height = Inches(3))
 add_text(0.15, 5.5, 14, 'C')
 
 pic = slide.shapes.add_picture("../construction/plots/" + "plot_pathways_analysis.png", top = Inches(5.5), left = Inches(5.25), height = Inches(4.25))
-add_text(5.4, 5.5, 14, 'E')
+add_text(5.4, 5.5, 14, 'D')
 
-pic = slide.shapes.add_picture("../construction/plots/" + "upset_exhaustion_state_sigs.png", top = Inches(7.5), left = Inches(0), height = Inches(1.8))
-add_text(0.15, 7.5, 14, 'D')
+# pic = slide.shapes.add_picture("../construction/plots/" + "upset_exhaustion_state_sigs.png", top = Inches(7.5), left = Inches(0), height = Inches(1.8))
 
 # pic = slide.shapes.add_picture("../construction/plots/" + "CARTEx_reactome_coverage.png", top = Inches(8.5), left = Inches(0.25), height = Inches(2.5))
 
-pic = slide.shapes.add_picture("../construction/plots/" + "barplot_significant_pathways.png", top = Inches(9.5), left = Inches(0), height = Inches(1.8))
-add_text(0.15, 9.5, 14, 'F')
+pic = slide.shapes.add_picture("../construction/plots/" + "barplot_significant_pathways.png", top = Inches(9), left = Inches(0), height = Inches(1.8))
+add_text(0.15, 9, 14, 'E')
 
 
 
@@ -304,8 +304,8 @@ add_text(3.75, 8.25, 14, 'J')
 # pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_vlnplot_CARTEx_200_extract_ident.png", top = Inches(8.25), left = Inches(5.25), height = Inches(1.5))
 
 # pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_630.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
-pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_200.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
-add_text(5.05, 8.25, 14, 'K')
+# pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_200.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
+# add_text(5.05, 8.25, 14, 'K')
 
 
 

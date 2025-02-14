@@ -244,6 +244,13 @@ generate_figs(initial_pca_2, './plots/plot_initial_pca_2', c(3.5,2.5))
 pca_gene_data <- read.csv("./data/2025-01-27-pca-loading-data.csv", header = TRUE, row.names = 1)
 # high_var_genes <- names(sort(var_genes, decreasing = TRUE)[1:200]) 
 
+
+# add in cartex 84
+cartex_84_weights <- read.csv(paste(PATH_WEIGHTS, "cartex-84-weights.csv", sep = ''), header = TRUE, row.names = 1)
+
+
+pca_gene_data$cartex_84gene <- ifelse(rownames(pca_gene_data) %in% rownames(cartex_84_weights), "yes", "no")
+
 pca_gene_data <- pca_gene_data %>% arrange(cartex_200gene)
 
 
@@ -255,6 +262,8 @@ pca_gene_data$variance <- var_genes[rownames(pca_gene_data)]
 
 
 pca_gene_data_select <- subset(pca_gene_data, cartex_200gene == "yes")
+
+pca_gene_data_select_84version <- subset(pca_gene_data, cartex_84gene == "yes")
 
 
 plot_gene_pca <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = pc2_loadings)) +
@@ -309,6 +318,27 @@ plot_gene_pca_variance <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = varian
 generate_figs(plot_gene_pca_variance, './plots/plot_gene_pca_variance', c(3.5,3))
 
 
+
+
+
+# check 84 version
+
+pca_gene_data <- pca_gene_data %>% arrange(cartex_84gene)
+
+
+plot_gene_pca_variance_84version <- ggplot(pca_gene_data, aes(x = pc1_loadings, y = variance)) +
+  geom_point(aes(color = cartex_84gene)) +
+  scale_color_manual(values = c("no" = "grey", "yes" = "indianred")) +
+  geom_text(data = pca_gene_data_select_84version, 
+            aes(label = rownames(pca_gene_data_select_84version)), 
+            nudge_y = 0.15, 
+            size = 1.5, 
+            check_overlap = TRUE) +
+  labs(x = "PC1 Loadings", y = "Variance", color = "Cartex_200gene") +
+  # xlim(0.015, 0.05) + ylim(-0.1, 0.1) +
+  theme_classic() + theme(legend.position = "none", axis.title.x = element_text(size=10), axis.title.y = element_text(size=10))
+
+generate_figs(plot_gene_pca_variance_84version, './plots/plot_gene_pca_variance_84version', c(3.5,3))
 
 
 
