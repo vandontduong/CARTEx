@@ -172,6 +172,44 @@ add_text(0.15, 8.5, 14, 'E')
 
 
 
+# new slide
+slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 1. Signature representation")
+
+
+# Jaccard index of signatures
+pic = slide.shapes.add_picture("../construction/plots/" + "JIheatmap.png", top = Inches(1.1), left = Inches(0.25), height = Inches(2.5))
+add_text(0.15, 0.75, 14, 'A')
+add_text(0.35, 0.75, 14, 'Jaccard index of signatures')
+
+
+# Fraction of signature genes represented in experiments
+pic = slide.shapes.add_picture("../construction/plots/" + "all_genes_repmap.png", top = Inches(1.1), left = Inches(5), height = Inches(2.5))
+add_text(5, 0.75, 14, 'B')
+add_text(5.2, 0.75, 14, 'Fraction of signature genes represented in experiments')
+
+
+# CARTEx (200) representation in scRNAseq experiments
+pic = slide.shapes.add_picture("../construction/plots/" + "upset_expt_CARTEx200.png", top = Inches(3.75), left = Inches(0), height = Inches(2.5))
+add_text(0.25, 3.75, 14, 'C')
+
+
+# Fraction of CARTEx (200) genes represented in each signature
+pic = slide.shapes.add_picture("../construction/plots/" + "fraction_CARTEx_repchart.png", top = Inches(3.75), left = Inches(6), height = Inches(1.5))
+add_text(5.75, 3.75, 14, 'D')
+
+# Fraction of signature genes represented in CARTEx (200)
+pic = slide.shapes.add_picture("../construction/plots/" + "fraction_sig_repchart_CARTEx.png", top = Inches(5.3), left = Inches(6), height = Inches(1.5))
+
+# comparison with Daniel et al. - late differentiation subsets of exhausted T cells
+pic = slide.shapes.add_picture("../construction/plots/" + "ggvenn_compare_exhaustion_sigs.png", top = Inches(7), left = Inches(0.5), height = Inches(2))
+pic = slide.shapes.add_picture("../construction/plots/" + "upset_exhaustion_differentiation.png", top = Inches(7), left = Inches(2.5), height = Inches(2))
+add_text(0.15, 7, 14, 'E')
+
+
+# insert Reactome map
+pic = slide.shapes.add_picture("../miscellaneous/plots/CARTEx_reactome_coverage.png", top = Inches(9.1), left = Inches(0.25), height = Inches(4))
+add_text(0.15, 9.1, 14, 'F')
+
 
 
 # new slide
@@ -233,44 +271,6 @@ add_text(3.75, 8.25, 14, 'K')
 # pic = slide.shapes.add_picture("../experiments/" + experiment + "/plots/" + experiment + "_transition_volcano_OTvYN_CARTEx_200.png", top = Inches(8.25), left = Inches(5.25), height = Inches(2))
 # add_text(5.05, 8.25, 14, 'K')
 
-
-# new slide
-slide = add_slide(prs, blank_slide_layout, "Supplementary Figure 1. Signature representation")
-
-
-# Jaccard index of signatures
-pic = slide.shapes.add_picture("../construction/plots/" + "JIheatmap.png", top = Inches(1.1), left = Inches(0.25), height = Inches(2.5))
-add_text(0.15, 0.75, 14, 'A')
-add_text(0.35, 0.75, 14, 'Jaccard index of signatures')
-
-
-# Fraction of signature genes represented in experiments
-pic = slide.shapes.add_picture("../construction/plots/" + "all_genes_repmap.png", top = Inches(1.1), left = Inches(5), height = Inches(2.5))
-add_text(5, 0.75, 14, 'B')
-add_text(5.2, 0.75, 14, 'Fraction of signature genes represented in experiments')
-
-
-# CARTEx (200) representation in scRNAseq experiments
-pic = slide.shapes.add_picture("../construction/plots/" + "upset_expt_CARTEx200.png", top = Inches(3.75), left = Inches(0), height = Inches(2.5))
-add_text(0.25, 3.75, 14, 'C')
-
-
-# Fraction of CARTEx (200) genes represented in each signature
-pic = slide.shapes.add_picture("../construction/plots/" + "fraction_CARTEx_repchart.png", top = Inches(3.75), left = Inches(6), height = Inches(1.5))
-add_text(5.75, 3.75, 14, 'D')
-
-# Fraction of signature genes represented in CARTEx (200)
-pic = slide.shapes.add_picture("../construction/plots/" + "fraction_sig_repchart_CARTEx.png", top = Inches(5.3), left = Inches(6), height = Inches(1.5))
-
-# comparison with Daniel et al. - late differentiation subsets of exhausted T cells
-pic = slide.shapes.add_picture("../construction/plots/" + "ggvenn_compare_exhaustion_sigs.png", top = Inches(7), left = Inches(0.5), height = Inches(2))
-pic = slide.shapes.add_picture("../construction/plots/" + "upset_exhaustion_differentiation.png", top = Inches(7), left = Inches(2.5), height = Inches(2))
-add_text(0.15, 7, 14, 'E')
-
-
-# insert Reactome map
-pic = slide.shapes.add_picture("../miscellaneous/plots/CARTEx_reactome_coverage.png", top = Inches(9.1), left = Inches(0.25), height = Inches(4))
-add_text(0.15, 9.1, 14, 'F')
 
 
 # new slide
