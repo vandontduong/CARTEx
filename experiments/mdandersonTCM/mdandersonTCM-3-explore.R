@@ -45,6 +45,7 @@ featplot_CARTEx_84_tissue_type <- FeatureScatter(expt.obj, feature1 = 'PFSD.CART
 featplot_CARTEx_combined_tissue_type <- (featplot_CARTEx_630_tissue_type | featplot_CARTEx_200_tissue_type | featplot_CARTEx_84_tissue_type)
 generate_figs(featplot_CARTEx_combined_tissue_type, paste('./plots/', experiment, '_featplot_CARTEx_combined_tissue_type', sep = ''), c(10,4))
 
+featplot_CARTEx_200_tissue_type <- featplot_CARTEx_200_tissue_type + theme(legend.position = 'none', plot.title = element_blank()) + ylab('CARTEx') + xlab('% detected')
 generate_figs(featplot_CARTEx_200_tissue_type, paste('./plots/', experiment, '_featplot_CARTEx_200_tissue_type', sep = ''), c(1.5,2))
 
 

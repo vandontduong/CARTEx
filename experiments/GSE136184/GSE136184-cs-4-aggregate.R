@@ -194,15 +194,40 @@ glimpse(md)
 
 
 umap_age_group_2_cols <- colorRampPalette(c("lightblue","orange", "orangered","violet"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+
+
 aggplot_CARTEx_200 <- md %>% ggplot(aes(AgeGroup2, CARTEx_200)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = AgeGroup2), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(labels=c("N", "U30", "U50", "U70", "E"),values=umap_age_group_2_cols) + 
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 30')), label = "p.signif", label.y = 1) +
-  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 50')), label = "p.signif", label.y = 1) +
-  # stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','OldTerminal')), label = "p.signif", label.y = 1.7) +
-  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 30')), label = "p.signif", label.y = 0.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 50')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 70')), label = "p.signif", label.y = 1.9) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Elderly')), label = "p.signif", label.y = 2.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 70','Under 50')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 30','Under 50')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 30','Under 70')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Elderly','Under 70')), label = "p.signif", label.y = 1.5) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2.5) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("N", "U30", "U50", "U70", "E"))
 generate_figs(aggplot_CARTEx_200, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_200', sep = ''), c(3,3))
+
+
+aggplot_CARTEx_84 <- md %>% ggplot(aes(AgeGroup2, CARTEx_84)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = AgeGroup2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(labels=c("N", "U30", "U50", "U70", "E"),values=umap_age_group_2_cols) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 30')), label = "p.signif", label.y = 0.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 50')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 70')), label = "p.signif", label.y = 1.9) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Elderly')), label = "p.signif", label.y = 2.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 70','Under 50')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 30','Under 50')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 30','Under 70')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Elderly','Under 70')), label = "p.signif", label.y = 1.5) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2.5) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("N", "U30", "U50", "U70", "E"))
+generate_figs(aggplot_CARTEx_84, paste('./plots/', experiment, '_query_agg_aggplot_CARTEx_84', sep = ''), c(3,3))
+
+
 
 
 
