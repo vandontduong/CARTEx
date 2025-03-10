@@ -95,8 +95,9 @@ cp ../experiments/GSE125881/plots/GSE125881_prepare_barplot_phase_group.png ./pl
 cp ../experiments/GSE125881/plots/GSE125881_prepare_barplot_monaco_group.png ./plots
 
 
-
-
+cp ../experiments/GSE125881/plots/GSE125881_agg_barplot_CARTEx_200.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_prepare_vlnplot_CARTEx_group2_monaco.png ./plots
+cp ../experiments/GSE125881/plots/GSE125881_aggplot_CARTEx_200_group2_monaco_split_countsized.png ./plots
 
 
 
@@ -153,6 +154,7 @@ cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_LCMV_Tex.png ./plo
 cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_BBD_Tex.png ./plots
 cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_PD1_Tex.png ./plots
 
+cp ../experiments/GSE136874/plots/GSE136874_agg_barplot_CARTEx_200.png ./plots
 
 
 
@@ -199,6 +201,8 @@ cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_NKlike_Tex.png ./p
 cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_LCMV_Tex.png ./plots
 cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_BBD_Tex.png ./plots
 cp ../experiments/GSE160160/plots/GSE160160_query_agg_aggplot_PD1_Tex.png ./plots
+
+cp ../experiments/GSE160160/plots/GSE160160_agg_barplot_CARTEx_200.png ./plots
 
 
 
@@ -247,6 +251,7 @@ cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_LCMV_Tex_baseline.
 cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_BBD_Tex_baseline.png ./plots
 cp ../experiments/GSE120575/plots/GSE120575_query_agg_aggplot_PD1_Tex_baseline.png ./plots
 
+cp ../experiments/GSE120575/plots/GSE120575_agg_barplot_CARTEx_200_baseline.png ./plots
 
 
 
@@ -296,9 +301,17 @@ cp ../experiments/GSE151511/plots/GSE151511_query_agg_aggplot_PD1_Tex.png ./plot
 
 
 
+cp ../experiments/GSE151511/plots/GSE151511_agg_barplot_CARTEx_200.png ./plots
+cp ../experiments/GSE151511/plots/GSE151511_aggplot_CARTEx_200_response_monaco_split_countsized.png ./plots
 
 
 
+
+
+echo "GSE153931"
+
+
+cp ../experiments/GSE153931/plots/GSE153931_agg_barplot_CARTEx_200.png ./plots
 
 
 
@@ -320,7 +333,9 @@ cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_LCMV_Tex.png ./plo
 cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_BBD_Tex.png ./plots
 cp ../experiments/GSE207935/plots/GSE207935_query_agg_aggplot_PD1_Tex.png ./plots
 
+cp ../experiments/GSE207935/plots/GSE207935_agg_barplot_CARTEx_200.png ./plots
 
+cp ../experiments/GSE207935/plots/GSE207935_aggplot_CARTEx_200_affstatstim_monaco_split.png ./plots
 
 
 
