@@ -116,6 +116,33 @@ generate_figs(plot_volcano_baseline_response_200, paste('./plots/', experiment, 
 
 
 
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('Responder', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$Responder <- factor(expt.obj.agg$Responder, levels = c("NR", "R", "NE"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(Responder, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = Responder), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("firebrick", "seagreen")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('NR','R')), label = "p.signif", label.y = 1.3) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("NR", "R"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(2.6,3))
+
+
+
+
+
+
 
 
 # examine differentiation
@@ -181,7 +208,7 @@ aggplot_CARTEx_200_response_monaco_split_countsized <- md %>% ggplot(aes(x = Res
   geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
-  scale_x_discrete(labels = c('NR', 'R')) + 
+  ylab("CARTEx") + xlab(NULL) + scale_x_discrete(labels = c('NR', 'R')) + 
   scale_color_manual(labels=c("N", "CM", "EM", "TE"), values = c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_response_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_response_monaco_split_countsized', sep = ''), c(3,3)) 
 

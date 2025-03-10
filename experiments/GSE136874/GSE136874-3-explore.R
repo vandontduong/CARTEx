@@ -62,6 +62,41 @@ featplot_CARTEx_200_CAR <- FeatureScatter(expt.obj, feature1 = 'PFSD.CARTEx_200'
 generate_figs(featplot_CARTEx_200_CAR, paste('./plots/', experiment, '_featplot_CARTEx_200_CAR', sep = ''), c(1.5,2))
 
 
+
+
+
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj@meta.data$CAR <- expt.obj.agg$orig.ident
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('CAR', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+# expt.obj.agg$CAR <- expt.obj.agg$orig.ident 
+# expt.obj.agg$orig.ident <- factor(expt.obj.agg$orig.ident, levels = c("CD19", "GD2"))
+expt.obj.agg$CAR <- factor(expt.obj.agg$CAR, levels = c("CD19", "GD2"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+table(md$orig.ident)
+table(md$CAR)
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(CAR, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = CAR), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values=c("dodgerblue", "indianred")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('CD19','GD2')), label = "p.signif", label.y = 1.5) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + 
+  scale_x_discrete(labels = c("CD19", "GD2"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(2.6,3))
+
+
+
+
+
+
+
 # examine differentiation
 
 vlnplot_CARTEx_CAR_monaco_split <- VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'CAR', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)

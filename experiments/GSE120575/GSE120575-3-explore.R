@@ -330,6 +330,38 @@ generate_figs(featplot_CARTEx_200_baseline_response, paste('./plots/', experimen
 
 
 
+
+
+
+
+
+
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('Timepoint_Response', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$Timepoint_Response <- factor(expt.obj.agg$Timepoint_Response, levels = c("Pre-NR", "Post-NR", "Pre-R", "Post-R"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+
+
+agg_barplot_CARTEx_200_baseline <- md %>% ggplot(aes(Timepoint_Response, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = Timepoint_Response), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values=c("firebrick", "seagreen")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Pre-NR','Pre-R')), label = "p.signif", label.y = 1.3) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("NR", "R"))
+generate_figs(agg_barplot_CARTEx_200_baseline, paste('./plots/', experiment, '_agg_barplot_CARTEx_200_baseline', sep = ''), c(2.6,3))
+
+
+
+
+
 # examine differentiation
 
 vlnplot_CARTEx_response_monaco_split_baseline_response <- VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'characteristics_response', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)

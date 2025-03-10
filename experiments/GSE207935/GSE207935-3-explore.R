@@ -326,6 +326,38 @@ generate_figs(featplot_CARTEx_200_affstatstim, paste('./plots/', experiment, '_p
 
 
 
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('AffstatStim', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$AffstatStim <- factor(expt.obj.agg$AffstatStim, levels = c("Control-Rested", "Control-Stimulated", "STAT3-GOF-Rested", "STAT3-GOF-Stimulated"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+custom_labels <- c('CTRL\n(R)', 'CTRL\n(S)', 'GOF\n(R)', 'GOF\n(S)')
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(AffstatStim, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = AffstatStim), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("lightsteelblue", "steelblue", "palevioletred", "violetred")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control-Rested','Control-Stimulated')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control-Rested','STAT3-GOF-Rested')), label = "p.signif", label.y = 1.4) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control-Stimulated','STAT3-GOF-Rested')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Control-Stimulated','STAT3-GOF-Stimulated')), label = "p.signif", label.y = 1.8) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) + scale_x_discrete(labels = custom_labels)
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(3.2,3))
+
+
+
+
+
+
+
+
+
 
 # examine differentiation
 
@@ -630,7 +662,7 @@ expt.obj@meta.data$custom_anno <- factor(expt.obj@meta.data$custom_anno, levels 
 
 umap_custom_anno <- DimPlot(expt.obj, reduction = "umap", group.by = "custom_anno", shuffle = TRUE, seed = 123, pt.size = 0.1, cols = c("lightgrey", "indianred", "orchid", "cadetblue")) + 
   theme(plot.title = element_blank()) + scale_color_manual(labels=c("normal", "exhausted (CARTEx)", "exhausted (differentiation)", "stressed"), values = c("lightgrey", "indianred", "orchid", "cadetblue"))
-generate_figs(umap_custom_anno, paste('./plots/', experiment, '_prepare_umap_custom_anno', sep = ''), c(4.6, 2))
+generate_figs(umap_custom_anno, paste('./plots/', experiment, '_prepare_umap_custom_anno', sep = ''), c(4.3, 2))
 # generate_figs(umap_custom_anno, paste('./plots/', experiment, '_prepare_umap_custom_anno', sep = ''), c(8, 4))
 
 # check how the custom annotations bin against AffstatStim

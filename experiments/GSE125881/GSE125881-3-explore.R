@@ -76,6 +76,38 @@ generate_figs(featplot_CARTEx_200_group2, paste('./plots/', experiment, '_prepar
 
 
 
+
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('Group2', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$Group2 <- factor(expt.obj.agg$Group2, levels = c("IP", "Early", "Late", "Very Late"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(Group2, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = Group2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c(colorRampPalette(c("cadetblue", "violet", "darkorchid"))(4))) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Very Late')), label = "p.signif", label.y = 1.8) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Early')), label = "p.signif", label.y = 0.9) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('IP','Late')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Early','Late')), label = "p.signif", label.y = 1.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Late','Very Late')), label = "p.signif", label.y = 0.9) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("IP", "E", "L", "VL"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(3,3))
+
+
+
+
+
+
+
 # examine differentiation
 
 vlnplot_CARTEx_group_monaco_split <- VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'Group', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)
@@ -169,6 +201,17 @@ aggplot_CARTEx_200_group2_monaco_split_countsized <- md %>% ggplot(aes(x = Group
   scale_x_discrete(labels = c('IP', 'E', 'L', 'VL')) + 
   scale_color_manual(labels=c("CM", "EM", "TE"), values = c('seagreen', 'darkgoldenrod', 'plum3'))
 generate_figs(aggplot_CARTEx_200_group2_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_group2_monaco_split_countsized', sep = ''), c(4,3)) 
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -66,6 +66,43 @@ generate_figs(featplot_CARTEx_combined_group, paste('./plots/', experiment, '_ex
 
 
 
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('AgeGroup2', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$AgeGroup2 <- factor(expt.obj.agg$AgeGroup2, levels = c("Newborn", "Under 30", "Under 50", "Under 70", "Elderly"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+
+umap_age_group_2_cols <- colorRampPalette(c("lightblue","orange", "orangered","violet"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(AgeGroup2, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = AgeGroup2), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(labels=c("N", "U30", "U50", "U70", "E"),values=umap_age_group_2_cols) + 
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 30')), label = "p.signif", label.y = 0.2) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 50')), label = "p.signif", label.y = 1.5) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Under 70')), label = "p.signif", label.y = 1.9) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Newborn','Elderly')), label = "p.signif", label.y = 2.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 70','Under 50')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 30','Under 50')), label = "p.signif", label.y = 0.6) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Under 30','Under 70')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Elderly','Under 70')), label = "p.signif", label.y = 1.5) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2.5) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("N", "U30", "U50", "U70", "E"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(3,3))
+
+
+
+
+
+
+
+
 
 # examine differentiation
 
