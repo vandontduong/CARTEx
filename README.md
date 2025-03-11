@@ -24,7 +24,7 @@ Publication: coming soon...
 
 **Graphical Abstract**
 
-<img alt="Graphical Abstract" src="miscellaneous/graphical_abstract.png" width="600" />
+<img alt="Graphical Abstract" src="miscellaneous/graphical_abstract_3.png" width="600" />
 
 # Experiments <a name = "experiments"></a>
 
@@ -134,6 +134,14 @@ We established path variables to enable ease of general use, in which files can 
 ## Analyses <a name = "analyses"></a>
 
 We share some summarized analyses resulting from our custom pipelines. Select figures from [`experiments`](experiments) were reorganized and archived to [`miscellaneous`](miscellaneous) using bash script [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
+
+### GSE136891 <a name = "GSE136891"></a>
+
+<img alt="GSE136891 deriving CARTEx signature" src="miscellaneous/plots/main_figure_1.png" width="800" />
+
+<img alt="GSE136891 applying CARTEx signature" src="miscellaneous/plots/main_figure_2.png" width="800" />
+
+
 
 ### GSE136184 <a name = "GSE136184"></a>
 
