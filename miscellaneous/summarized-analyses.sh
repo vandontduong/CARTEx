@@ -352,16 +352,16 @@ cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_barplot_monaco
 cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_umap_phase.png ./plots
 cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_prepare_barplot_phase_disease_slim.png ./plots
 
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_blood_agg_barplot_CARTEx_200.png ./plots
 
 
 
+cp ../experiments/Zenodo3993994/plots/Zenodo3993994_agg_barplot_CARTEx_200.png ./plots
 
 
 
-
-
-
-
+echo "mdandersonTCM"
+cp ../experiments/mdandersonTCM/plots/mdandersonTCM_agg_barplot_CARTEx_200.png ./plots
 
 
 
