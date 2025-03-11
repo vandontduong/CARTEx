@@ -137,9 +137,9 @@ We share some summarized analyses resulting from our custom pipelines. Select fi
 
 ### GSE136891 <a name = "GSE136891"></a>
 
-<img alt="GSE136891 deriving CARTEx signature" src="miscellaneous/plots/main_figure_1.png" width="800" />
+<img alt="GSE136891 deriving CARTEx signature" src="miscellaneous/plots/main_figure_1.png" width="600" />
 
-<img alt="GSE136891 applying CARTEx signature" src="miscellaneous/plots/main_figure_2.png" width="800" />
+<img alt="GSE136891 applying CARTEx signature" src="miscellaneous/plots/main_figure_2.png" width="600" />
 
 
 
