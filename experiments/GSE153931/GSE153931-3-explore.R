@@ -106,6 +106,10 @@ generate_figs(featplot_CARTEx_200_severity_mod, paste('./plots/', experiment, '_
 
 
 
+
+
+
+
 # examine differentiation
 
 vlnplot_CARTEx_severity_x_monaco_split <- VlnPlot(expt.obj.subset, features = 'CARTEx_200', group.by = 'orig.severity_x', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)
@@ -164,6 +168,41 @@ aggplot_CARTEx_200_severity_x_monaco_split_countsized <- md %>% ggplot(aes(x = o
   scale_color_manual(values = c('Naive CD8 T cells' = 'deepskyblue', 'Central memory CD8 T cells' = 'seagreen', 'Effector memory CD8 T cells' = 'darkgoldenrod', 'Terminal effector CD8 T cells' = 'plum3')) +
   theme_bw() + theme(axis.title.x = element_blank()) + ylab('CARTEx')
 generate_figs(aggplot_CARTEx_200_severity_x_monaco_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_severity_x_monaco_split_countsized', sep = ''), c(6,5)) 
+
+
+
+
+# REPEAT BUT WITH SEVERITY_MOD
+
+
+
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('severity_mod', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$severity_mod <- factor(expt.obj.agg$severity_mod, levels = c("Mild", "Severe"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+md <- md[ severity_mod == "Mild" | severity_mod == "Severe"] 
+glimpse(md)
+table(md$severity_mod)
+
+
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(severity_mod, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = severity_mod), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c('cadetblue', 'indianred')) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Mild','Severe')), label = "p.signif", label.y = 1.5) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("M", "S"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(2.6,3))
+
+
+
+
 
 
 

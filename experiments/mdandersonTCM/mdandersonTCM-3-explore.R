@@ -64,6 +64,43 @@ generate_figs(barplot_tissue_type_seurat_clusters, paste('./plots/', experiment,
 
 
 
+
+
+
+
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('TissueType', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$TissueType <- factor(expt.obj.agg$TissueType, levels = c("Healthy donor", "Primary tumor tissue", "Metastatic tumor tissue", "Uninvolved normal tissue"))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(TissueType, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = TissueType), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("seagreen", "pink", "salmon", "skyblue")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Healthy donor','Primary tumor tissue')), label = "p.signif", label.y = 0.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Metastatic tumor tissue','Primary tumor tissue')), label = "p.signif", label.y = 1) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Metastatic tumor tissue','Uninvolved normal tissue')), label = "p.signif", label.y = 0.7) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Primary tumor tissue','Uninvolved normal tissue')), label = "p.signif", label.y = 1.3) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Healthy donor','Uninvolved normal tissue')), label = "p.signif", label.y = 1.6) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2,2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("H", "P", "M", "U"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(3,3))
+
+
+
+
+
+
+
+
 # examine differentiation
 
 

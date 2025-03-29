@@ -74,6 +74,7 @@ glimpse(md)
 
 
 
+
 agg_barplot_CARTEx_200 <- md %>% ggplot(aes(exposure, CARTEx_200)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = exposure), color = "black") + geom_hline(yintercept=0) +
   scale_fill_manual(values = c("skyblue", "cadetblue")) +
@@ -81,10 +82,6 @@ agg_barplot_CARTEx_200 <- md %>% ggplot(aes(exposure, CARTEx_200)) +
   ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2,2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
   scale_x_discrete(labels = c("D0", "D20"))
 generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_agg_barplot_CARTEx_200', sep = ''), c(2.6,3))
-
-
-
-
 
 
 

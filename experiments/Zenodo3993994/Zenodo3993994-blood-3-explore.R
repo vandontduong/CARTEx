@@ -61,6 +61,42 @@ generate_figs(featplot_CARTEx_200_sample_type, paste('./plots/', experiment, '_b
 
 
 
+
+
+
+
+
+# aggregate for CARTEx scores (BAR CHART)
+
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('sampleType', 'pblabels'), return.seurat = TRUE)
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+expt.obj.agg$sampleType <- factor(expt.obj.agg$sampleType, levels = c('Parkinson(Blood)', 'Control(Blood)'))
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+glimpse(md)
+
+
+
+agg_barplot_CARTEx_200 <- md %>% ggplot(aes(sampleType, CARTEx_200)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = sampleType), color = "black") + geom_hline(yintercept=0) +
+  scale_fill_manual(values=c("violet", "cadetblue")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('Parkinson(Blood)','Control(Blood)')), label = "p.signif", label.y = 1.5) +
+  ylab("CARTEx") + xlab(NULL) + geom_point() + ylim(-2, 2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("P", "C"))
+generate_figs(agg_barplot_CARTEx_200, paste('./plots/', experiment, '_blood_agg_barplot_CARTEx_200', sep = ''), c(2.6,3))
+
+
+
+
+
+
+
+
+
+
 # examine differentiation
 
 vlnplot_CARTEx_disease_monaco_split <- VlnPlot(expt.obj, features = 'CARTEx_200', group.by = 'Disease', split.by = 'monaco', pt.size = 0, cols = c('deepskyblue','seagreen','darkgoldenrod','plum3')) +theme(axis.text.x = element_text(angle = 0, hjust = 0.5), axis.title.x = element_blank(), legend.position = "none") + ylab("CARTEx 200") + ylim(-2,4)
