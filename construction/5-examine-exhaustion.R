@@ -164,6 +164,12 @@ stemness.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "GSE23321_CD8_STEM_CELL
 senescence.sig <- rownames(read.csv(paste(PATH_SIGNATURES, "M9143_FRIDMAN_SENESCENCE_UP.csv", sep = ''), header = TRUE, row.names = 1))
 
 
+Daniel_Tex_Term <- rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexTerm.csv", sep = ''), header = FALSE, row.names = 1))
+Daniel_Tex_KLR <- rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_Nat_Imm_TexKLR.csv", sep = ''), header = FALSE, row.names = 1))
+
+
+
+
 STAT3_GOF_sig_stim <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_stim.csv"), header = TRUE, row.names = 1))
 STAT3_GOF_sig_rest <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_rest.csv"), header = TRUE, row.names = 1))
 STAT3_GOF_sig_combined <- rownames(read.csv(paste0(PATH_EXPERIMENTS, "GSE207935/data/GSE207935_STAT3_GOF_combined.csv"), header = TRUE, row.names = 1))
@@ -182,6 +188,8 @@ index_NKlike <- rownames(mat) %in% NK_like
 index_Wherry <- rownames(mat) %in% Wherry_Tex
 index_BBD <- rownames(mat) %in% BBD_Tex
 index_PD1 <- rownames(mat) %in% PD1_Tex
+index_Tex_Term <- toupper(rownames(mat)) %in% toupper(Daniel_Tex_Term)
+index_Tex_KLR <- toupper(rownames(mat)) %in% toupper(Daniel_Tex_KLR)
 index_activation <- rownames(mat) %in% activation.sig
 index_anergy <- rownames(mat) %in% anergy.sig
 index_stemness <- rownames(mat) %in% stemness.sig
@@ -197,6 +205,8 @@ intersect_NKlike <- rownames(mat)[index_NKlike]
 intersect_Wherry <- rownames(mat)[index_Wherry]
 intersect_BBD <- rownames(mat)[index_BBD]
 intersect_PD1 <- rownames(mat)[index_PD1]
+intersect_Tex_Term <- rownames(mat)[index_Tex_Term]
+intersect_Tex_KLR <- rownames(mat)[index_Tex_KLR]
 intersect_activation <- rownames(mat)[index_activation]
 intersect_anergy <- rownames(mat)[index_anergy]
 intersect_stemness <- rownames(mat)[index_stemness]
@@ -218,6 +228,8 @@ mat_NKlike <- mat[index_NKlike,]
 mat_Wherry <- mat[intersect_Wherry,]
 mat_BBD <- mat[intersect_BBD,]
 mat_PD1 <- mat[intersect_PD1,]
+mat_Tex_Term <- mat[intersect_Tex_Term,]
+mat_Tex_KLR <- mat[intersect_Tex_KLR,]
 mat_activation <- mat[intersect_activation,]
 mat_anergy <- mat[intersect_anergy,]
 mat_senescence <- mat[intersect_senescence,]
@@ -451,6 +463,23 @@ hmap_PD1 <- Heatmap(mat_PD1, name = 'Zscore', column_split = factor(split, level
                     top_annotation = colAnn, use_raster=FALSE)
 generate_figs(as.grob(hmap_PD1), './plots/plot_heatmap_PD1', c(6,6))
 
+
+hmap_Tex_Term <- Heatmap(mat_Tex_Term, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                    row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_Tex_Term], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
+                    cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                    top_annotation = colAnn, use_raster=FALSE)
+generate_figs(as.grob(hmap_Tex_Term), './plots/plot_heatmap_Tex_Term', c(6,6))
+
+
+hmap_Tex_KLR <- Heatmap(mat_Tex_KLR, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                    row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_Tex_KLR], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
+                    cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                    top_annotation = colAnn, use_raster=FALSE)
+generate_figs(as.grob(hmap_Tex_KLR), './plots/plot_heatmap_Tex_KLR', c(6,6))
+
+
 hmap_activation <- Heatmap(mat_activation, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
                     row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_activation], cluster_row_slices = FALSE, row_dend_reorder = TRUE, 
                     cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
@@ -534,12 +563,14 @@ mean_NKlike <- colMeans(mat_NKlike)
 mean_Wherry <- colMeans(mat_Wherry)
 mean_BBD <- colMeans(mat_BBD)
 mean_PD1 <- colMeans(mat_PD1)
+mean_Tex_Term <- colMeans(mat_Tex_Term)
+mean_Tex_KLR <- colMeans(mat_Tex_KLR)
 mean_activation <- colMeans(mat_activation)
 mean_anergy <- colMeans(mat_anergy)
 mean_senescence <- colMeans(mat_senescence)
 mean_stemness <- colMeans(mat_stemness)
 
-mean_dataset <- data.frame(mean_CARTEx_630, mean_CARTEx_200, mean_CARTEx_84, mean_NKlike, mean_Wherry, mean_BBD, mean_PD1,
+mean_dataset <- data.frame(mean_CARTEx_630, mean_CARTEx_200, mean_CARTEx_84, mean_NKlike, mean_Wherry, mean_BBD, mean_PD1, mean_Tex_Term, mean_Tex_KLR,
                            mean_activation, mean_anergy, mean_senescence, mean_stemness, CAR, Days, Donor)
 
 
@@ -562,19 +593,19 @@ mean_dataset_avgbydonor <- mean_dataset %>%
 df_long_avgbydonor <- gather(mean_dataset_avgbydonor, key = "measurement", value = "value", -CAR, -Days, -Donor)
 df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
 df_long_avgbydonor <- subset(df_long_avgbydonor, measurement != "mean_CARTEx_84")
-df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("mean_CARTEx_630", "mean_CARTEx_200", "mean_Wherry", "mean_NKlike", "mean_BBD", "mean_PD1", "mean_activation", "mean_anergy",  "mean_senescence", "mean_stemness"))
+df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("mean_CARTEx_630", "mean_CARTEx_200", "mean_Wherry", "mean_NKlike", "mean_BBD", "mean_PD1", "mean_Tex_Term", "mean_Tex_KLR", "mean_activation", "mean_anergy",  "mean_senescence", "mean_stemness"))
 
-measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "C5", mean_CARTEx_200 = "CARTEx",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1")
+measurement_names <- c(mean_activation = "Activation", mean_anergy = "Anergy", mean_senescence = "Senescence", mean_stemness = "Stemness", mean_CARTEx_630 = "C5", mean_CARTEx_200 = "CARTEx",  mean_Wherry = "LCMV",  mean_NKlike = "NK-like", mean_BBD = "BBD",  mean_PD1 = "PD1", mean_Tex_Term = "Tex-Term", mean_Tex_KLR = "Tex-KLR")
 
 plot_mean_zscore_by_signature <- ggplot(df_long_avgbydonor, aes(x = Days, y = value, group = CAR, color = CAR)) +
   geom_line() + geom_point() +
-  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
+  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 6) +
   labs(x = "Days", y = "Mean z-score") +
   scale_y_continuous(limits = c(-1.5, 1.5)) +
   scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
   theme_classic() + theme(legend.position = "none")
 
-generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(5,2))
+generate_figs(plot_mean_zscore_by_signature, './plots/plot_mean_zscore_by_signature', c(6,2))
 
 
 # Calculate mean and standard deviation for each group
@@ -589,7 +620,7 @@ plot_mean_zscore_by_signature_v2 <- ggplot(df_summary, aes(x = Days, y = mean_va
   geom_line() + 
   geom_point() +
   geom_errorbar(aes(ymin = mean_value - sd_value, ymax = mean_value + sd_value), width = 0.2) +  # Error bars
-  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
+  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 6) +
   labs(x = "Days", y = "Mean z-score") +
   scale_y_continuous(limits = c(-1.5, 1.5)) +
   scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
@@ -624,23 +655,23 @@ df_long_avgbydonor <- mean_dataset_avgbydonor %>%
 df_long_avgbydonor <- subset(df_long_avgbydonor, CAR != "Control")
 df_long_avgbydonor <- subset(df_long_avgbydonor, !is.na(mean))
 df_long_avgbydonor <- subset(df_long_avgbydonor, !is.na(measurement))
-df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("CARTEx_630", "CARTEx_200", "Wherry", "NKlike", "BBD", "PD1", "activation", "anergy",  "senescence", "stemness"))
+df_long_avgbydonor$measurement <- factor(df_long_avgbydonor$measurement, levels = c("CARTEx_630", "CARTEx_200", "Wherry", "NKlike", "BBD", "PD1", "Tex_Term", "Tex_KLR", "activation", "anergy",  "senescence", "stemness"))
 
-measurement_names <- c(activation = "Activation", anergy = "Anergy", senescence = "Senescence", stemness = "Stemness", CARTEx_630 = "C5", CARTEx_200 = "CARTEx",  Wherry = "LCMV",  NKlike = "NK-like", BBD = "BBD",  PD1 = "PD1")
+measurement_names <- c(activation = "Activation", anergy = "Anergy", senescence = "Senescence", stemness = "Stemness", CARTEx_630 = "C5", CARTEx_200 = "CARTEx",  Wherry = "LCMV",  NKlike = "NK-like", BBD = "BBD",  PD1 = "PD1", Tex_Term = "Tex-Term", Tex_KLR = "Tex-KLR")
 
 # Step 3: Plot with Error Bars
 plot_mean_zscore_by_signature_v2 <- ggplot(df_long_avgbydonor, aes(x = Days, y = mean, group = CAR, color = CAR)) +
   geom_line() +
   geom_point() +
   geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.2) +  # Error bars
-  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 5) +
+  facet_wrap(~measurement, scales = "free_y", labeller = labeller(measurement = measurement_names), ncol = 6) +
   labs(x = "Days", y = "Mean z-score") +
   scale_y_continuous(limits = c(-1.5, 1.5)) +
   scale_color_manual(values = c("CD19" = "dodgerblue", "HA" = "indianred")) +
   theme_classic() + 
   theme(legend.position = "none")
 
-generate_figs(plot_mean_zscore_by_signature_v2, './plots/plot_mean_zscore_by_signature_v2', c(5,3))
+generate_figs(plot_mean_zscore_by_signature_v2, './plots/plot_mean_zscore_by_signature_v2', c(6,3))
 
 
 
@@ -678,7 +709,7 @@ colorRampPalette(c("lightgrey","lightblue","mediumblue"))(4)
 
 
 
-
+# GENERATE HEATMAP SUBSETS WITH ANNOTATION
 
 
 #### 
@@ -763,6 +794,27 @@ hmap_PD1 <- Heatmap(mat_PD1, name = 'Zscore', column_split = factor(split, level
                     top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
 hmap_PD1
 
+
+rownames(mat_Tex_Term)
+right_anno <- qk_anno(mat_Tex_Term, c('RGS1', 'CD38', 'RUNX3', 'KLF6', 'GZMK', 'FOSB', 'JUNB', 'FOS', 'DUSP1', 'DUSP6', 'RGS3', 'DUSP2', 'RGS2', 'CISH', 'ADAM19', 'JUN', 'CD72', 'ADGRG1', 'IRF1', 'CXCR6', 'CD226', 'ABCB9', 'IRAK2', 'EIF4A2', 'DAPK2', 'SLC16A10', 'GZMA', 'ITK', 'NMB'))
+hmap_Tex_Term <- Heatmap(mat_Tex_Term, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                    row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_Tex_Term], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                    cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                    top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_Tex_Term
+
+
+rownames(mat_Tex_KLR)
+right_anno <- qk_anno(mat_Tex_KLR, c('KLF2', 'KLF3', 'BIN2', 'LAIR1', 'CX3CR1', 'BIN1', 'LAMB3', 'KLRK1', 'THY1', 'TBX21', 'SNX10', 'PPM1J', 'LFNG', 'IER2', 'CAPN2', 'RAP1GAP2', 'ZEB2', 'MATK', 'RASA3', 'KLRC1', 'DUSP5', 'PXYLP1', 'IL18RAP', 'FBXO31', 'ZMIZ1', 'ARHGEF3', 'SELPLG', 'PLEC', 'SLC2A3'))
+hmap_Tex_KLR <- Heatmap(mat_Tex_KLR, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
+                    row_gap = unit(1.5, "mm"), row_split = pamClusters$clustering[index_Tex_KLR], cluster_row_slices = FALSE, row_dend_reorder = TRUE,
+                    cluster_rows = TRUE, show_row_dend = TRUE,show_row_names = FALSE, row_names_gp = gpar(fontsize = 10, fontface = 'bold'), row_names_side = 'right',
+                    row_dend_width = unit(5,'mm'), column_dend_reorder = FALSE, column_names_gp = gpar(fontsize = 8, fontface = 'bold'), show_column_names = FALSE,
+                    top_annotation = colAnn_noAnno, right_annotation = right_anno, use_raster=FALSE)
+hmap_Tex_KLR
+
+
 rownames(mat_activation)
 right_anno <- qk_anno(mat_activation, c('CD80', 'JUN', 'FOS', 'PIK3CG', 'PIK3CB', 'PIK3R1', 'ITPR1', 'MAPK8', 'NFKBIA', 'SOS1'))
 hmap_activation <- Heatmap(mat_activation, name = 'Zscore', column_split = factor(split, levels=c("Control", "CD19", "HA")), column_order = col_order,
@@ -816,6 +868,8 @@ cluster_representation <- list(
   NK_like = pamClusters$clustering[index_NKlike],
   BBD = pamClusters$clustering[index_BBD],
   PD1 = pamClusters$clustering[index_PD1],
+  Tex_Term = pamClusters$clustering[index_Tex_Term],
+  Tex_KLR = pamClusters$clustering[index_Tex_KLR],
   Activation = pamClusters$clustering[index_activation],
   Anergy = pamClusters$clustering[index_anergy],
   Senescence = pamClusters$clustering[index_senescence],
@@ -830,7 +884,7 @@ df_cluster_representation <- cluster_representation %>% enframe(name = "Signatur
 df_cluster_representation$Cluster <- fct_rev(factor(df_cluster_representation$Cluster))
 
 # Set the custom order for the vectors 
-df_cluster_representation$Signature <- factor(df_cluster_representation$Signature, levels = rev(c('C5', 'CARTEx', 'LCMV', 'NK_like', 'BBD', 'PD1', 'Activation', 'Anergy', 'Senescence', 'Stemness')))
+df_cluster_representation$Signature <- factor(df_cluster_representation$Signature, levels = rev(c('C5', 'CARTEx', 'LCMV', 'NK_like', 'BBD', 'PD1', 'Tex_Term', 'Tex_KLR', 'Activation', 'Anergy', 'Senescence', 'Stemness')))
 
 # Plot the relative distribution of the elements across clusters for each vector 
 plot_signature_cluster_representation <- ggplot(df_cluster_representation, aes(x = factor(Signature), fill = factor(Cluster))) +

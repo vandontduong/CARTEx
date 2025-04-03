@@ -39,8 +39,47 @@ Daniel_Tex_KLR <- toupper(rownames(read.csv(paste(PATH_SIGNATURES, "Daniel_2022_
 
 # check overlap with Tex subsets from Daniel et al. 2022
 intersect(Daniel_Tex_Term, Daniel_Tex_KLR)
-intersect(toupper(rownames(cartex_200_weights)),Daniel_Tex_Term)
+intersect(toupper(rownames(cartex_200_weights)), Daniel_Tex_Term)
 intersect(toupper(rownames(cartex_200_weights)), Daniel_Tex_KLR)
+
+
+# count proportions
+mean(toupper(rownames(cartex_630_weights)) %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% toupper(rownames(cartex_630_weights))) * 100
+
+mean(Wherry_Tex %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% Wherry_Tex) * 100
+
+mean(NK_like %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% NK_like) * 100
+
+mean(BBD_Tex %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% BBD_Tex) * 100
+
+mean(PD1_Tex %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% PD1_Tex) * 100
+
+mean(Daniel_Tex_Term %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% Daniel_Tex_Term) * 100
+
+mean(Daniel_Tex_KLR %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% Daniel_Tex_KLR) * 100
+
+mean(activation.sig %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% activation.sig) * 100
+
+mean(anergy.sig %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% anergy.sig) * 100
+
+mean(senescence.sig %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% senescence.sig) * 100
+
+mean(stemness.sig %in% toupper(rownames(cartex_200_weights))) * 100
+mean(toupper(rownames(cartex_200_weights)) %in% stemness.sig) * 100
+
+
+
+#
 
 
 
