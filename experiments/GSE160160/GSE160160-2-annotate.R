@@ -219,6 +219,34 @@ generate_figs(barplot_phase_exposure_slim, paste('./plots/', experiment, '_prepa
 ###
 ###
 
+
+# Exhaustion as linear differentiation from progenitors to terminal
+expt.obj <- annotate_Tex_linear_diff(expt.obj)
+
+table(expt.obj$Tex_linear_diff)
+
+umap_predicted_tex_linear_diff <- DimPlot(expt.obj, reduction = "umap", group.by = "Tex_linear_diff", shuffle = TRUE, seed = 123, cols =  c('royalblue', 'maroon', 'lightgrey'), pt.size = 0.1) + 
+  theme(plot.title = element_blank()) + scale_color_manual(labels=c("P", "T", "U"), values = c('royalblue', 'maroon', 'lightgrey'))
+generate_figs(umap_predicted_tex_linear_diff, paste('./plots/', experiment, '_prepare_umap_predicted_tex_linear_diff', sep = ''), c(2.9, 2))
+
+umap_features_TCF7_HAVCR2 <- FeaturePlot(expt.obj, features = c("TCF7", "HAVCR2"), pt.size = 0.1)
+generate_figs(umap_features_TCF7_HAVCR2, paste('./plots/', experiment, '_prepare_umap_features_TCF7_HAVCR2', sep = ''), c(5, 2))
+
+umap_features_TCF7_HAVCR2_gradient <- FeaturePlot(expt.obj, features = c("TCF7", "HAVCR2"), pt.size = 0.1, blend = TRUE, cols = c('lightgrey', 'royalblue', 'maroon'))
+generate_figs(umap_features_TCF7_HAVCR2_gradient, paste('./plots/', experiment, '_prepare_umap_features_TCF7_HAVCR2_gradient', sep = ''), c(7, 2))
+
+
+barplot_tex_linear_diff_exposure <- BarPlotStackSplit(expt.obj, 'Tex_linear_diff', 'exposure', color_set =  c('royalblue', 'maroon', 'lightgrey')) + scale_x_discrete(labels = c('D0', 'D20'))
+barplot_tex_linear_diff_exposure_slim <- barplot_tex_linear_diff_exposure + theme(legend.position = "none")
+generate_figs(barplot_tex_linear_diff_exposure_slim, paste('./plots/', experiment, '_prepare_barplot_tex_linear_diff_exposure_slim', sep = ''), c(1.25,1.75))
+
+
+barplot_monaco_tex_linear_diff <- BarPlotStackSplit(expt.obj, 'monaco', 'Tex_linear_diff', color_set =  c('deepskyblue', 'seagreen', 'darkgoldenrod', 'plum3')) + scale_x_discrete(labels = c('P', 'T', 'U'))
+barplot_monaco_tex_linear_diff_slim <- barplot_monaco_tex_linear_diff + theme(legend.position = "none")
+generate_figs(barplot_monaco_tex_linear_diff_slim, paste('./plots/', experiment, '_prepare_barplot_monaco_tex_linear_diff_slim', sep = ''), c(1.25,1.75))
+
+
+
 saveRDS(expt.obj, file = paste('./data/', experiment, '_annotated.rds', sep = ''))
 
 # expt.obj <- readRDS(paste('./data/', experiment, '_annotated.rds', sep = ''))
