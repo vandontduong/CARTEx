@@ -445,6 +445,76 @@ generate_figs(aggplot_TSR_affstatstim_monaco_split_countsized, paste('./plots/',
 
 
 
+
+
+
+
+# aggregate without controls || exhaustion as linear differentiation
+
+table(expt.obj$Tex_linear_diff)
+
+expt.obj@meta.data$pblabels <- PseudoBulkLabels(expt.obj, 5)
+expt.obj.agg <- AggregateExpression(expt.obj, group.by = c('AffstatStim', 'Tex_linear_diff', 'pblabels'), return.seurat = TRUE)
+
+
+expt.obj.agg <- ScoreSubroutine(expt.obj.agg)
+
+# for some reason, "_" changed to "-"
+expt.obj.agg$AffstatStim <- factor(expt.obj.agg$AffstatStim, levels = c("Control-Rested", "Control-Stimulated", "STAT3-GOF-Rested", "STAT3-GOF-Stimulated"))
+expt.obj.agg$Tex_linear_diff <- factor(expt.obj.agg$Tex_linear_diff, levels = c("Tex-prog", "Tex-term", "Unclassified"))
+
+
+md <- expt.obj.agg@meta.data %>% as.data.table
+
+table(md$Tex_linear_diff)
+table(md$AffstatStim)
+
+aggplot_CARTEx_200_affstatstim_Tex_linear_diff_split <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = Tex_linear_diff)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Tex-prog' = 'royalblue', 'Tex-term' = 'maroon', 'Unclassified' = 'lightgrey')) +
+  theme_classic() + theme(axis.title.x = element_blank())
+generate_figs(aggplot_CARTEx_200_affstatstim_Tex_linear_diff_split, paste('./plots/', experiment, '_aggplot_CARTEx_200_affstatstim_Tex_linear_diff_split', sep = ''), c(6,5)) 
+
+
+
+# incorporate size
+md_count <- expt.obj@meta.data %>% group_by(Tex_linear_diff, AffstatStim, pblabels) %>% summarize(count = n(), .groups = 'drop')
+md_count$pblabels <- as.character(md_count$pblabels)
+
+# fix element naming scheme to match
+md_count <- md_count %>% mutate(Tex_linear_diff = recode(Tex_linear_diff, "Tex_prog" = "Tex-prog", "Tex_term" = "Tex-term"))
+
+md <- md %>% left_join(md_count, by = c("Tex_linear_diff", "AffstatStim", "pblabels"))
+md$count <- md_count$count # some issue where the fix is to re-import
+head(md)
+
+custom_labels <- c('CTRL\n(R)', 'CTRL\n(S)', 'GOF\n(R)', 'GOF\n(S)')
+
+aggplot_CARTEx_200_Tex_linear_diff_affstatstim_split_countsized <- md %>% ggplot(aes(x = AffstatStim, y = CARTEx_200, color = Tex_linear_diff, size = count)) +
+  geom_quasirandom(groupOnX = FALSE) + ylim(-2,2) +
+  scale_color_manual(values = c('Tex-prog' = 'royalblue', 'Tex-term' = 'maroon', 'Unclassified' = 'lightgrey')) +
+  theme_classic() + theme(text = element_text(size = 18), axis.title.x = element_blank()) + 
+  scale_x_discrete(labels = custom_labels) + ylab('CARTEx') +
+  scale_color_manual(labels=c("P", "T", "U"), values = c('royalblue', 'maroon', 'lightgrey'), name = 'Tex')
+generate_figs(aggplot_CARTEx_200_Tex_linear_diff_affstatstim_split_countsized, paste('./plots/', experiment, '_aggplot_CARTEx_200_Tex_linear_diff_affstatstim_split_countsized', sep = ''), c(4.5,3)) 
+
+
+### 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ####################################################################################################
 #################################### UMAP score split by metadata ##################################
 ####################################################################################################

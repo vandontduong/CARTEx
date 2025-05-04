@@ -663,6 +663,47 @@ FeaturePlotSplitBy <- function(atlas, features, split_identity, split_ids, color
 
 
 
+# annotate progenitor exhaustion and terminal exhaustion T cells
+
+annotate_Tex_linear_diff <- function(seurat_obj) {
+  # Extract expression data from the "data" slot
+  expr_data <- GetAssayData(seurat_obj, slot = "data")
+  
+  # Define the required genes
+  required_genes <- c("TCF7","HAVCR2")
+  
+  # Check if all required genes are present in the Seurat object
+  if (!all(required_genes %in% rownames(expr_data))) {
+    stop("Not all required genes (TCF7, HAVCR2) are present in the Seurat object.")
+  }
+  
+  # Create logical vectors for gene expression (> 0 means expressed)
+  tcf7_expr <- expr_data["TCF7", ] > 0
+  havcr2_expr <- expr_data["HAVCR2", ] > 0
+  
+  # Initialize annotation vector with "Unclassified"
+  annotations <- rep("Unclassified", ncol(seurat_obj))
+  
+  # Assign annotations based on the specified conditions
+  annotations[tcf7_expr & !havcr2_expr] <- "Tex_prog"
+  annotations[!tcf7_expr & havcr2_expr] <- "Tex_term"
+  
+  # Add the annotations to the Seurat object's metadata
+  seurat_obj$Tex_linear_diff <- annotations
+  
+  # Return the modified Seurat object
+  return(seurat_obj)
+}
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################################################################
