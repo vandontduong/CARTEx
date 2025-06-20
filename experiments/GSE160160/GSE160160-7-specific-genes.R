@@ -59,8 +59,14 @@ md$PDCD1 <- expt.obj.agg@assays$RNA$data['PDCD1',] # PD-1
 md$HAVCR2 <- expt.obj.agg@assays$RNA$data['HAVCR2',] # TIM3
 md$LAG3 <- expt.obj.agg@assays$RNA$data['LAG3',]
 md$CTLA4 <- expt.obj.agg@assays$RNA$data['CTLA4',]
+md$TIGIT <- expt.obj.agg@assays$RNA$data['TIGIT',]
 md$NT5E <- expt.obj.agg@assays$RNA$data['NT5E',] # CD73
 md$ENTPD1 <- expt.obj.agg@assays$RNA$data['ENTPD1',] # CD39
+# md$TNFSRF9 <- expt.obj.agg@assays$RNA$data['TNFSRF9',]
+md$TOX <- expt.obj.agg@assays$RNA$data['TOX',]
+md$EOMES <- expt.obj.agg@assays$RNA$data['EOMES',]
+md$CD244 <- expt.obj.agg@assays$RNA$data['CD244',] # 2B4 or SLAMF4
+
 
 # other genes
 md$METRNL <- expt.obj.agg@assays$RNA$data['METRNL',]
@@ -123,6 +129,15 @@ aggplot_CTLA4 <- md %>% ggplot(aes(exposure, CTLA4)) +
   scale_x_discrete(labels = c("D0", "D20"))
 generate_figs(aggplot_CTLA4, paste('./plots/', experiment, '_explore_agg_aggplot_CTLA4', sep = ''), c(2,2))
 
+
+aggplot_TIGIT <- md %>% ggplot(aes(exposure, TIGIT)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = exposure), color = "black") + # geom_hline(yintercept=0) +
+  scale_fill_manual(values = c("skyblue", "cadetblue")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.8) +
+  ylab("TIGIT") + xlab(NULL) + geom_point() + ylim(0,2) + theme_classic() + theme(legend.position="none", text=element_text(size=16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20"))
+generate_figs(aggplot_TIGIT, paste('./plots/', experiment, '_explore_agg_aggplot_TIGIT', sep = ''), c(2,2))
+
 aggplot_NT5E <- md %>% ggplot(aes(exposure, NT5E)) +
   geom_bar(stat = "summary", fun = "mean", aes(fill = exposure), color = "black") + # geom_hline(yintercept=0) +
   scale_fill_manual(values = c("skyblue", "cadetblue")) +
@@ -141,11 +156,41 @@ generate_figs(aggplot_ENTPD1, paste('./plots/', experiment, '_explore_agg_aggplo
 
 
 
+aggplot_TOX <- md %>% ggplot(aes(exposure, TOX)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = exposure), color = "black") +
+  scale_fill_manual(values = c("skyblue", "cadetblue")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.8) +
+  ylab("TOX") + xlab(NULL) + geom_point() + ylim(0, 2) + theme_classic() +
+  theme(legend.position = "none", text = element_text(size = 16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20"))
+generate_figs(aggplot_TOX, paste('./plots/', experiment, '_explore_agg_aggplot_TOX', sep = ''), c(2, 2))
 
-aggplot_all_canonicals <- (aggplot_PDCD1 | aggplot_HAVCR2 | aggplot_LAG3 | aggplot_CTLA4 | aggplot_NT5E | aggplot_ENTPD1) +
-  plot_layout(ncol = 3, nrow = 2, guides = "collect")
 
-generate_figs(aggplot_all_canonicals, paste('./plots/', experiment, '_explore_agg_aggplot_all_canonicals', sep = ''), c(6,4))
+aggplot_EOMES <- md %>% ggplot(aes(exposure, EOMES)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = exposure), color = "black") +
+  scale_fill_manual(values = c("skyblue", "cadetblue")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.8) +
+  ylab("EOMES") + xlab(NULL) + geom_point() + ylim(0, 2) + theme_classic() +
+  theme(legend.position = "none", text = element_text(size = 16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20"))
+generate_figs(aggplot_EOMES, paste('./plots/', experiment, '_explore_agg_aggplot_EOMES', sep = ''), c(2, 2))
+
+
+aggplot_CD244 <- md %>% ggplot(aes(exposure, CD244)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = exposure), color = "black") +
+  scale_fill_manual(values = c("skyblue", "cadetblue")) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c('day0','day20')), label = "p.signif", label.y = 1.8) +
+  ylab("CD244") + xlab(NULL) + geom_point() + ylim(0, 2) + theme_classic() +
+  theme(legend.position = "none", text = element_text(size = 16, color = "black")) +
+  scale_x_discrete(labels = c("D0", "D20"))
+generate_figs(aggplot_CD244, paste('./plots/', experiment, '_explore_agg_aggplot_CD244', sep = ''), c(2, 2))
+
+
+
+aggplot_all_canonicals <- (aggplot_PDCD1 | aggplot_HAVCR2 | aggplot_LAG3 | aggplot_CTLA4 | aggplot_TIGIT | aggplot_TOX | aggplot_CD244 | aggplot_NT5E | aggplot_ENTPD1) +
+  plot_layout(ncol = 5, nrow = 2, guides = "collect")
+
+generate_figs(aggplot_all_canonicals, paste('./plots/', experiment, '_explore_agg_aggplot_all_canonicals', sep = ''), c(10,4))
 
 
 

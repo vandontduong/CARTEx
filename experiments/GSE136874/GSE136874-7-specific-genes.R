@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
-### Script name: GSE160160-7-specific-genes.R
-### Description: explore seurat object for GSE160160
+### Script name: GSE136874-7-specific-genes.R
+### Description: explore seurat object for GSE136874
 ### Author: Vandon Duong
 
 # track time
@@ -60,8 +60,12 @@ md$PDCD1 <- expt.obj.agg@assays$RNA$data['PDCD1',] # PD-1
 md$HAVCR2 <- expt.obj.agg@assays$RNA$data['HAVCR2',] # TIM3
 md$LAG3 <- expt.obj.agg@assays$RNA$data['LAG3',]
 md$CTLA4 <- expt.obj.agg@assays$RNA$data['CTLA4',]
+md$TIGIT <- expt.obj.agg@assays$RNA$data['TIGIT',]
 md$NT5E <- expt.obj.agg@assays$RNA$data['NT5E',] # CD73
 md$ENTPD1 <- expt.obj.agg@assays$RNA$data['ENTPD1',] # CD39
+# md$TNFSRF9 <- expt.obj.agg@assays$RNA$data['TNFSRF9',]
+
+
 
 # other genes
 md$METRNL <- expt.obj.agg@assays$RNA$data['METRNL',]
@@ -347,10 +351,25 @@ generate_figs(aggplot_RNF19B, paste('./plots/', experiment, '_explore_agg_aggplo
 
 
 
-aggplot_all_canonicals <- (aggplot_PDCD1 | aggplot_HAVCR2 | aggplot_LAG3 | aggplot_CTLA4 | aggplot_NT5E | aggplot_ENTPD1) +
-  plot_layout(ncol = 3, nrow = 2, guides = "collect")
+# Plot for TIGIT
+aggplot_TIGIT <- md %>% ggplot(aes(CAR, TIGIT)) +
+  geom_bar(stat = "summary", fun = "mean", aes(fill = CAR), color = "black") +
+  scale_fill_manual(values = c('dodgerblue', 'indianred')) +
+  stat_compare_means(method = "wilcox.test", comparisons = list(c("CD19", "GD2")), label = "p.signif", label.y = 1.8) +
+  ylab("TIGIT") + xlab(NULL) + geom_point() + ylim(0, 2) + theme_classic() +
+  theme(legend.position = "none", text = element_text(size = 16, color = "black")) +
+  scale_x_discrete(labels = c("CD19", "GD2"))
+generate_figs(aggplot_TIGIT, paste('./plots/', experiment, '_explore_agg_aggplot_TIGIT', sep = ''), c(2, 2))
 
-generate_figs(aggplot_all_canonicals, paste('./plots/', experiment, '_explore_agg_aggplot_all_canonicals', sep = ''), c(6,4))
+
+
+
+
+
+aggplot_all_canonicals <- (aggplot_PDCD1 | aggplot_HAVCR2 | aggplot_LAG3 | aggplot_CTLA4 | aggplot_TIGIT | aggplot_NT5E | aggplot_ENTPD1) +
+  plot_layout(ncol = 4, nrow = 2, guides = "collect")
+
+generate_figs(aggplot_all_canonicals, paste('./plots/', experiment, '_explore_agg_aggplot_all_canonicals', sep = ''), c(8,4))
 
 
 

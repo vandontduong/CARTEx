@@ -404,6 +404,49 @@ generate_figs(vlnplot_BBD_Tex_age_group_monaco, paste('./plots/', experiment, '_
 generate_figs(vlnplot_PD1_Tex_age_group_monaco, paste('./plots/', experiment, '_cs_prepare_vlnplot_PD1_Tex_age_group_monaco', sep = ''), c(12,5))
 
 
+
+# histogram of CARTEx scores
+# https://ggplot2.tidyverse.org/reference/geom_histogram.html
+
+hist(expt.obj@meta.data$CARTEx_200, freq=FALSE, ylim=c(0,0.6), xlim=c(-4,4), main=NULL, xlab="CARTEx")
+
+histplot_CARTEx_200 <- ggplot(as.data.frame(expt.obj@meta.data), aes(x = CARTEx_200)) +
+  geom_histogram(binwidth = 0.5, color = "white") + ggtitle(NULL) + xlab("CARTEx") + xlim(-4,4) + 
+  theme_classic() + theme(text = element_text(color = "black"), axis.text = element_text(color = "black"), axis.title = element_text(color = "black"))
+
+generate_figs(histplot_CARTEx_200, paste('./plots/', experiment, '_cs_prepare_histplot_CARTEx_200', sep = ''), c(1.75,1.5))
+
+
+
+histplot_CARTEx_200_split_monaco <- ggplot(as.data.frame(expt.obj@meta.data), aes(x = CARTEx_200, fill = monaco)) +
+  geom_histogram(binwidth = 0.5, color = "white") + ggtitle(NULL) + xlab("CARTEx") + xlim(-4,4) + 
+  scale_fill_manual(values = c("deepskyblue", "seagreen", "darkgoldenrod", "plum3"), labels = c("N", "CM", "EM", "TE")) + 
+  theme_classic() + theme(text = element_text(color = "black"), axis.text = element_text(color = "black"), axis.title = element_text(color = "black"))
+
+generate_figs(histplot_CARTEx_200_split_monaco, paste('./plots/', experiment, '_cs_prepare_histplot_CARTEx_200_split_monaco', sep = ''), c(2.6,1.5))
+
+
+umap_age_group_2_cols <- colorRampPalette(c("lightblue","orange", "orangered","violet"))(length(unique(expt.obj@meta.data$AgeGroup2)))
+histplot_CARTEx_200_split_age_group_2 <- ggplot(as.data.frame(expt.obj@meta.data), aes(x = CARTEx_200, fill = AgeGroup2)) +
+  geom_histogram(binwidth = 0.5, color = "white") + ggtitle(NULL) + xlab("CARTEx") + xlim(-4,4) + 
+  scale_fill_manual(values = umap_age_group_2_cols, labels = c("N", "U30", "U50", "U70", "E")) + 
+  theme_classic() + theme(text = element_text(color = "black"), axis.text = element_text(color = "black"), axis.title = element_text(color = "black"))
+
+generate_figs(histplot_CARTEx_200_split_age_group_2, paste('./plots/', experiment, '_cs_prepare_histplot_CARTEx_200_split_age_group_2', sep = ''), c(2.8,1.5))
+
+
+table(expt.obj@meta.data$AgeGroup3)
+
+histplot_CARTEx_200_split_age_group_3 <- ggplot(as.data.frame(expt.obj@meta.data), aes(x = CARTEx_200, fill = AgeGroup3)) +
+  geom_histogram(binwidth = 0.5, color = "white") + ggtitle(NULL) + xlab("CARTEx") + xlim(-4,4) + 
+  scale_fill_manual(values = c('royalblue', 'orchid'), labels = c("Newborn", "Adult")) + 
+  theme_classic() + theme(text = element_text(color = "black"), axis.text = element_text(color = "black"), axis.title = element_text(color = "black"))
+
+generate_figs(histplot_CARTEx_200_split_age_group_3, paste('./plots/', experiment, '_cs_prepare_histplot_CARTEx_200_split_age_group_3', sep = ''), c(2.8,1.5))
+
+
+
+
 ###
 
 saveRDS(expt.obj, file = paste('./data/', experiment, '_cs_scored.rds', sep = ''))

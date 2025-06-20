@@ -125,6 +125,33 @@ generate_figs(plot_expression_canonical_and_noncanonical_exhaustion_markers_v2, 
 
 
 
+
+
+# specific genes: 
+
+
+# check literature-identified markers
+expression_specific_genes <- data[c("PDCD1", "LAG3", "TIGIT", "METRNL", "CXCL10", "TNFRSF9"),]
+expression_specific_genes <- expression_specific_genes[,c("Control_Donor76_Day0", "Control_Donor86_Day0", "Control_Donor90_Day0", "CD19_Donor76_Day11", "CD19_Donor86_Day11", "CD19_Donor90_Day11",  "CD19_Donor76_Day15", "CD19_Donor86_Day15", "CD19_Donor90_Day15",  "CD19_Donor76_Day21", "CD19_Donor86_Day21", "CD19_Donor90_Day21", "HA_Donor76_Day11", "HA_Donor86_Day11", "HA_Donor90_Day11", "HA_Donor76_Day15", "HA_Donor86_Day15", "HA_Donor90_Day15", "HA_Donor76_Day21", "HA_Donor86_Day21", "HA_Donor90_Day21")]
+
+df_specific_genes <- data.frame(t(expression_specific_genes), CAR, Days, Donor)
+
+melted_df <- reshape2::melt(df_specific_genes, id.vars = c("Days", "CAR", "Donor"))
+melted_df <- melted_df %>% group_by(CAR, Days, variable) %>% summarise_at(vars(value), list(name = mean, sd))
+
+custom_colors <- c("CD19" = "dodgerblue", "HA" = "indianred", "Control" = "darkgoldenrod")
+
+plot_df_specific_genes <- ggplot(melted_df, aes(x = Days, y = name, fill = CAR)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~variable, scales = "free_y") +
+  geom_errorbar(aes(ymin = name - fn1, ymax = name + fn1), width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Days", y = "Gene Expression", fill = "CAR") + ylim(0,10) + 
+  scale_fill_manual(values = custom_colors) + theme_classic()
+
+
+plot_df_specific_genes
+
+
 ###
 
 
@@ -322,6 +349,13 @@ gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "FOXP1"] # none
 gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "IL31RA"] # C3
 
 
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "HAVCR2"] # none
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "ENTPD1"] # C5
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "TIGIT"] # C5
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "CTLA4"] # C5
+gene_cluster_pairs$cluster[gene_cluster_pairs$gene == "LAG3"] # C5
+
+dim(gene_cluster_pairs)
 
 
 # list genes in a specific cluster

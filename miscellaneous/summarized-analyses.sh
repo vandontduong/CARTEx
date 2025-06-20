@@ -156,6 +156,11 @@ cp ../experiments/GSE136874/plots/GSE136874_query_agg_aggplot_PD1_Tex.png ./plot
 
 cp ../experiments/GSE136874/plots/GSE136874_agg_barplot_CARTEx_200.png ./plots
 
+cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_predicted_tex_linear_diff.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_features_TCF7_HAVCR2.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_umap_features_TCF7_HAVCR2_gradient.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_barplot_tex_linear_diff_CAR_slim.png ./plots
+cp ../experiments/GSE136874/plots/GSE136874_prepare_barplot_monaco_tex_linear_diff_slim.png ./plots
 
 
 

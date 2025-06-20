@@ -245,6 +245,7 @@ custom_labels <- c('Ctrl\n(R)', 'Ctrl\n(S)', 'GOF\n(R)', 'GOF\n(S)')
 expt.obj <- annotate_Tex_linear_diff(expt.obj)
 
 table(expt.obj$Tex_linear_diff)
+table(expt.obj$Tex_linear_diff, expt.obj$AffstatStim)
 
 umap_predicted_tex_linear_diff <- DimPlot(expt.obj, reduction = "umap", group.by = "Tex_linear_diff", shuffle = TRUE, seed = 123, cols =  c('royalblue', 'maroon', 'lightgrey'), pt.size = 0.1) + 
   theme(plot.title = element_blank()) + scale_color_manual(labels=c("P", "T", "U"), values = c('royalblue', 'maroon', 'lightgrey'))
