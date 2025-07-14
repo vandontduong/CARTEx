@@ -481,3 +481,23 @@ sessionInfo()
 
 
 
+
+
+
+# Chi-Square test
+
+test_data <- table(expt.obj@meta.data$AgeGroup2, expt.obj@meta.data$monaco)
+
+chisq.test(test_data)
+
+
+
+# Compare scores across groups using Kruskal-Wallis test
+
+kruskal.test(CARTEx_200 ~ monaco, data = expt.obj@meta.data)
+
+
+
+
+
+
