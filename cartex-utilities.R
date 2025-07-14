@@ -754,3 +754,12 @@ euler_fitting = function(nested_list){
 
 
 
+# Function for hypergeometric test
+hyper_test <- function(query, target, universe_size = 20000) {
+  overlap <- length(intersect(query, target))
+  pval <- phyper(overlap - 1, length(target), universe_size - length(target), length(query), lower.tail = FALSE)
+  return(list(overlap = overlap, pvalue = pval))
+}
+
+
+

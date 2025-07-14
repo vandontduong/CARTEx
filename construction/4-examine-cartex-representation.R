@@ -204,6 +204,44 @@ write.csv(expt.matrix.counts, paste0(PATH_CONSTRUCTION, "data/expt_matrix_counts
 
 
 
+# hypergeometric tests
+
+background_genes <- read.csv("./data/background_genes.csv", header = TRUE)$x
+
+hgt_CARTEx_lcmv <- hyper_test(rownames(cartex_200_weights), Wherry_Tex, length(background_genes))
+hgt_CARTEx_nklike <- hyper_test(rownames(cartex_200_weights), NK_like, length(background_genes))
+hgt_CARTEx_bbd <- hyper_test(rownames(cartex_200_weights), BBD_Tex, length(background_genes))
+hgt_CARTEx_pd1 <- hyper_test(rownames(cartex_200_weights), PD1_Tex, length(background_genes))
+hgt_CARTEx_tex_klr <- hyper_test(rownames(cartex_200_weights), Daniel_Tex_KLR, length(background_genes))
+hgt_CARTEx_tex_term <- hyper_test(rownames(cartex_200_weights), Daniel_Tex_Term, length(background_genes))
+
+hgt_CARTEx_activation <- hyper_test(rownames(cartex_200_weights), activation.sig, length(background_genes))
+hgt_CARTEx_anergy <- hyper_test(rownames(cartex_200_weights), anergy.sig, length(background_genes))
+hgt_CARTEx_senescence <- hyper_test(rownames(cartex_200_weights), senescence.sig, length(background_genes))
+hgt_CARTEx_stemness <- hyper_test(rownames(cartex_200_weights), stemness.sig, length(background_genes))
+
+hgt_CARTEx_lcmv
+hgt_CARTEx_nklike
+hgt_CARTEx_bbd
+hgt_CARTEx_pd1
+hgt_CARTEx_tex_klr
+hgt_CARTEx_tex_term
+hgt_CARTEx_activation
+hgt_CARTEx_anergy
+hgt_CARTEx_senescence
+hgt_CARTEx_stemness
+
+
+
+
+# focus on the 3317 differentially expressed genes
+differential_background_genes <- read.csv("./data/2021-04-26-cartex-gene-signature-3317-genes.csv", header = TRUE)$x
+
+hgt_CARTEx_lcmv_differential <- hyper_test(intersect(rownames(cartex_200_weights), differential_background_genes), intersect(Wherry_Tex, differential_background_genes), length(background_genes))
+
+
+
+
 
 ####################################################################################################
 ################################## Generate gene representation maps ###############################
