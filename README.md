@@ -135,51 +135,6 @@ We established path variables to enable ease of general use, in which files can 
 
 We share some summarized analyses resulting from our custom pipelines. Select figures from [`experiments`](experiments) were reorganized and archived to [`miscellaneous`](miscellaneous) using bash script [`summarized-analyses.sh`](miscellaneous/summarized-analyses.sh).
 
-### GSE136891 <a name = "GSE136891"></a>
-
-<img alt="GSE136891 deriving CARTEx signature" src="miscellaneous/plots/main_figure_1.png" width="600" />
-
-<img alt="GSE136891 applying CARTEx signature" src="miscellaneous/plots/main_figure_2.png" width="600" />
-
-
-
-### GSE136184 <a name = "GSE136184"></a>
-
-The [GSE136184](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136184) experiment was the cross-sectional and longitudinal studies of CD8 T cells in humans spanning 9 decades of life. This dataset had 120,418 total cells, of which 39,937 were CD8+ T cells. After quality control, we analyzed 39,937 CD8+ T cells. The single-cell transcriptomes had 10,098 genes.
-
-Working directory: [`GSE136184`](experiments/GSE136184)
-- [`GSE136184-1-prepare.R`](experiments/GSE136184/GSE136184-1-prepare.R)
-- [`GSE136184-2-integrate.R`](experiments/GSE136184/GSE136184-2-integrate.R)
-
-<img alt="GSE136184 UMAP age" src="miscellaneous/plots/GSE136184_cs_prepare_umap_age.jpeg" width="300" />
-
-<img alt="GSE136184 UMAP monaco" src="miscellaneous/plots/GSE136184_cs_prepare_umap_predicted_monaco.jpeg" width="300" />
-
-### GSE125881 <a name = "GSE125881"></a>
-
-The [GSE125881](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125881) experiment was the kinetic monitoring of CAR T cells in cancer patients across 16 weeks. This dataset had 62,167 total cells, of which 47,754 were CD8+ T cells. After quality control, we analyzed 47,045 CD8+ T cells. The single-cell transcriptomes had 20,107 genes.
-
-Working directory: [`GSE125881`](experiments/GSE125881)
-- [`GSE125881-1-prepare.R`](experiments/GSE125881/GSE125881-1-prepare.R)
-- [`GSE125881-2-integrate.R`](experiments/GSE125881/GSE125881-2-integrate.R)
-
-<img alt="GSE125881 UMAP group" src="miscellaneous/plots/GSE125881_prepare_umap_group.jpeg" width="300" />
-
-<img alt="GSE125881 UMAP phase" src="miscellaneous/plots/GSE125881_prepare_umap_phase.jpeg" width="300" />
-
-
-### GSE136874 <a name = "GSE136874"></a>
-
-The [GSE136874](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136874) experiment was comparing highly functional CD19 and exhaustion-prone GD2 CAR T cells on day 10 of cell culture. This dataset had 1,530 total cells, all of which were CD8+ T cells. After quality control, we analyzed 1,397 CD8+ T cells. The single-cell transcriptomes had 14,563 genes.
-
-Working directory: [`GSE136874`](experiments/GSE136874)
-- [`GSE136874-1-prepare.R`](experiments/GSE136874/GSE136874-1-prepare.R)
-- [`GSE136874-2-integrate.R`](experiments/GSE136874/GSE136874-2-integrate.R)
-
-<img alt="GSE136874 UMAP CAR" src="miscellaneous/plots/GSE136874_prepare_umap_CAR.jpeg" width="300" />
-
-<img alt="GSE136874 UMAP phase" src="miscellaneous/plots/GSE136874_prepare_umap_phase.jpeg" width="300" />
-
 
 
 
